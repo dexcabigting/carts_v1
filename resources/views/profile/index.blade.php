@@ -12,34 +12,36 @@
 
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
-                    {{ __('Credentials') }}
-                </h2>
+                    <div>
+                        <h2 class="font-semibold text-xl text-gray-800 leading-tight mb-4">
+                            {{ __('Credentials') }}
+                        </h2>
 
-                    <x-success-message class="mb-4" />
-                    <x-validation-errors class="mb-4" :errors="$errors" />
+                        <x-success-message class="mb-4" />
+                        <x-validation-errors class="mb-4" :errors="$errors" />
 
-                    <form method="POST" action="{{ route('profile.update') }}">
-                        @method('PUT')
-                        @csrf
+                        <form method="POST" action="{{ route('profile.update-credentials') }}">
+                            @method('PUT')
+                            @csrf
 
-                        <div>
-                            <x-label for="name" :value="__('Name')"/>
-                            <x-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{ Auth::user()->name }}" autofocus required />
-                        </div>
+                            <div>
+                                <x-label for="name" :value="__('Name')"/>
+                                <x-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{ Auth::user()->name }}" autofocus required />
+                            </div>
 
-                        <div class="mt-4">
-                            <x-label for="email" :value="__('Email')" />
-                            <x-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ Auth::user()->email }}" required />
-                        </div>
+                            <div class="mt-4">
+                                <x-label for="email" :value="__('Email')" />
+                                <x-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ Auth::user()->email }}" required />
+                            </div>
 
-                        <div class="flex items-center justify-end mt-4">
-                            <x-button>
-                                {{ __('Update Credentials') }}
-                            </x-button>
-                        </div>
+                            <div class="flex items-center justify-end mt-4">
+                                <x-button>
+                                    {{ __('Update Credentials') }}
+                                </x-button>
+                            </div>
 
-                    </form>
+                        </form>
+                    </div>
 
                 </div>
 
