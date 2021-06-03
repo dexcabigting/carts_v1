@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Http\Requests\UpdateCredentialsRequest;
+use App\Http\Requests\UpdatePasswordRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
@@ -13,16 +15,25 @@ class ProfileController extends Controller
         return view('profile.index');
     }
 
-    public function update_credentials(ProfileUpdateRequest $request)
+    public function update_credentials(UpdateCredentialsRequest $request)
     {
         auth()->user()->update($request->only('name', 'email'));
 
-        if ($request->input('password')) {
-            auth()->user()->update([
-                'password' => Hash::make($request->password),
-            ]);
+        return redirect()->route('profile.index')->with('success', 'Credentials updated successfully!');
+    } 
+
+    public function update_password(UpdatePasswordRequest $request)
+    {
+        $user = Auth::user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->with('fail', 'Your current password does not match our records!');
         }
 
-        return redirect()->route('profile.index')->with('message', 'Profile updated successfully!');
-    } 
+        $user->update([
+            'password' => Hash::make($request->new_password)
+            ]);
+
+        return redirect()->route('profile.index')->with('success', 'Password updated successfully!');
+    }
 }

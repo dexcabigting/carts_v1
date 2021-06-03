@@ -13,12 +13,13 @@
                 <div class="p-6 bg-white border-b border-gray-200 divide-y divide-gray-300">
 
                     <div class="pb-4">
+                        <x-success-message class="mb-4" />
+                        <x-fail-message class="mb-4" />
+                        <x-validation-errors class="mb-4" :errors="$errors" />
+
                         <h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
                             {{ __('Credentials') }}
                         </h2>
-
-                        <x-success-message class="mb-4" />
-                        <x-validation-errors class="mb-4" :errors="$errors" />
 
                         <form method="POST" action="{{ route('profile.update-credentials') }}">
                             @method('PUT')
@@ -48,15 +49,15 @@
                             {{ __('Password') }}
                         </h2>
 
-                        <form method="POST" action="{{ route('profile.update-credentials') }}">
+                        <form method="POST" action="{{ route('profile.update-password') }}">
                             @method('PUT')
                             @csrf
 
                             <div class="mt-4">
-                                <x-label for="password" :value="__('Current Password')" />
-                                <x-input id="password" class="block mt-1 w-full"
+                                <x-label for="current_password" :value="__('Current Password')" />
+                                <x-input id="current_password" class="block mt-1 w-full"
                                                 type="password"
-                                                name="password"
+                                                name="current_password"
                                                 required />
                             </div>
 

@@ -22,7 +22,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::put('profile', [ProfileController::class, 'update_credentials'])->name('profile.update-credentials');
+    Route::put('profile/credentials', [ProfileController::class, 'update_credentials'])->name('profile.update-credentials');
+    Route::put('profile/password', [ProfileController::class, 'update_password'])->name('profile.update-password');
 });
 
 require __DIR__.'/auth.php';
