@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class CustomerController extends Controller
 {
@@ -13,7 +14,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('customers.index');
+        $customers = User::where('role', 'customer')->paginate();
+
+        return view('customers.index', compact('customers'));
     }
 
     /**
