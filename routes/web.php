@@ -19,8 +19,10 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    // Dashboard
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
+    // Profile
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('profile/credentials', [ProfileController::class, 'update_credentials'])->name('profile.update-credentials');
     Route::put('profile/password', [ProfileController::class, 'update_password'])->name('profile.update-password');
