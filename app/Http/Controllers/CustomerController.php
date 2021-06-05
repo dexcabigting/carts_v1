@@ -49,7 +49,7 @@ class CustomerController extends Controller
 
         event(new Registered($user));
 
-        return redirect()->route('customers.index');
+        return redirect()->route('customers.index')->with('success', 'Customer has been created!');
     }
 
     /**
@@ -89,7 +89,7 @@ class CustomerController extends Controller
 
         $customer->update($request->validated());
 
-        return back();
+        return back()->with('success', 'Customer has been updated!');;
     }
 
     /**
@@ -104,6 +104,6 @@ class CustomerController extends Controller
         
         $customer->delete();
 
-        return redirect()->route('customers.index');
+        return redirect()->route('customers.index')->with('success', 'Customer has been deleted!');
     }
 }

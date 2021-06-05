@@ -10,7 +10,6 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="pb-4">
-                        <x-success-fail-message class="mb-4" />
                         <x-validation-errors class="mb-4" :errors="$errors" />
 
                         <h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
