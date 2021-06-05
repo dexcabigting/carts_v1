@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Requests\UpdateCredentialsRequest;
 
 class CustomerController extends Controller
 {
@@ -71,9 +72,13 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCredentialsRequest $request, $id)
     {
-        //
+        $customer = User::find($id);
+
+        $customer->update($request->validated());
+
+        return back();
     }
 
     /**

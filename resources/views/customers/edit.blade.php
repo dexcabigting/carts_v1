@@ -17,7 +17,7 @@
                             {{ __('Customer Credentials') }}
                         </h2>
 
-                        <form method="POST" action="">
+                        <form method="POST" action="{{ route('customers.update', [$customer->id]) }}">
                             @method('PUT')
                             @csrf
 
