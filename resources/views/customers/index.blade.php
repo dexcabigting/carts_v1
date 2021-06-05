@@ -94,7 +94,17 @@
                         </div>
                     </div>
 
+                    <div class="flex items-center justify-start mt-4">
+                        <a href="{{ route('customers.create') }}">
+                            <x-button>
+                                {{ __('Create Customer') }}
+                            </x-button>
+                        </a>
+                    </div>
+
                 </div>
+
+                
             </div>
         </div>
     </div>
