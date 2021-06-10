@@ -18,7 +18,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = User::where('role', 'customer')->paginate();
+        $customers = User::where('role', 'customer')->paginate(5);
 
         return view('customers.index', compact('customers'));
     }

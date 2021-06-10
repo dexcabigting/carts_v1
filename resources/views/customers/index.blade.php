@@ -103,11 +103,16 @@
                                         @endforeach
 
                                     </tbody>
-
+                                    
                                     </table>
+                                    
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="mt-4">
+                    {{ $customers->onEachSide(5)->links() }}
                     </div>
 
                     <div class="flex items-center justify-start mt-4">
