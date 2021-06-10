@@ -24,6 +24,9 @@
                                                 Select All
                                             </th>
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                No.
+                                            </th>
+                                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Name
                                             </th>
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -38,12 +41,16 @@
                                     </thead>
 
                                     <tbody class="bg-white divide-y divide-gray-200">
-
-                                        @foreach ($customers as $customer)
+                                        @foreach ($customers as $key => $customer)
                                         <tr>
                                             <td class="px-6 py-4 whitespace-nowrap"> 
                                                 <div>
                                                     <input type="checkbox" name="" id="" class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4 whitespace-nowrap"> 
+                                                <div class="text-sm font-medium text-gray-900">
+                                                    {{ $customers->firstItem() + $key }}
                                                 </div>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
