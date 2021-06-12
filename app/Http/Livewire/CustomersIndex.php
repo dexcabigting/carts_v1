@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Models\User;
 use Livewire\WithPagination;
 
-class Customers extends Component
+class CustomersIndex extends Component
 {
     use WithPagination;
 
@@ -18,7 +18,7 @@ class Customers extends Component
     {
         $customers = User::whereRole('customer')->paginate(5);
 
-        return view('livewire.customers', compact('customers'));
+        return view('livewire.customers-index', compact('customers'));
     }
 
     public function deleteChecked()

@@ -45,4 +45,13 @@ class UserFactory extends Factory
             ];
         });
     }
+
+    public function isAdmin()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => 'admin',
+            ];
+        });
+    }
 }

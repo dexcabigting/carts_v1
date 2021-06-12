@@ -4,5 +4,5 @@
             {{ __('Customers') }}
         </h2>
     </x-slot>
-    @livewire('customers')
+    @livewire('customers-index')
 </x-app-layout>

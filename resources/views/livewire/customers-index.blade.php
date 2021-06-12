@@ -5,19 +5,14 @@
                 <x-success-fail-message />
                 
                 <div class="flex items-center justify-start mb-4">
-                    <x-button wire:click.prevent="deleteChecked()" class="bg-red-700 hover:bg-red-600">
+                    <button wire:click.prevent="deleteChecked()" {{ (!$checkedCustomers) ?  'disabled' : '' }} 
+                        type="button" class="inline-flex items-center px-4 py-2 bg-red-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCustomers) cursor-not-allowed @endif">
                         {{ __('Delete Selected') }} 
                         @if ($checkedCustomers)
                             ({{ count($checkedCustomers) }})
                         @endif
-                    </x-button>
+                    </button>
                 </div>
-
-                @foreach ($checkedCustomers as $checkedCustomer)
-                    <div> 
-                        {{ $checkedCustomer }}
-                    </div>
-                @endforeach
                 
                 <!-- This example requires Tailwind CSS v2.0+ -->
                 <div class="flex flex-col">
