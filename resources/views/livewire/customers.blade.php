@@ -4,13 +4,20 @@
             <div class="p-6 bg-white border-b border-gray-200">
                 <x-success-fail-message />
                 
-                @if ($checkedCustomers)
-                    <div class="flex items-center justify-start mb-4">
-                        <x-button wire:click.prevent="deleteChecked()" class="bg-red-700 hover:bg-red-600 cursor-not-allowed">
-                            {{ __('Delete Selected') }} ({{ count($checkedCustomers) }})
-                        </x-button>
+                <div class="flex items-center justify-start mb-4">
+                    <x-button wire:click.prevent="deleteChecked()" class="bg-red-700 hover:bg-red-600">
+                        {{ __('Delete Selected') }} 
+                        @if ($checkedCustomers)
+                            ({{ count($checkedCustomers) }})
+                        @endif
+                    </x-button>
+                </div>
+
+                @foreach ($checkedCustomers as $checkedCustomer)
+                    <div> 
+                        {{ $checkedCustomer }}
                     </div>
-                @endif
+                @endforeach
                 
                 <!-- This example requires Tailwind CSS v2.0+ -->
                 <div class="flex flex-col">
@@ -20,9 +27,10 @@
                                 <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-100">
                                     <tr>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            <input type="checkbox" wire:model="selectAll" class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                            Select All
+                                        <th scope="col" class="px-6 py-3 float-left">
+                                            <div>
+                                                <input type="checkbox" name="" wire:model="selectAll" class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                            </div>
                                         </th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             No.
@@ -46,7 +54,7 @@
                                     <tr>
                                         <td class="px-6 py-4 whitespace-nowrap"> 
                                             <div>
-                                                <input type="checkbox" name="" id="" value="{{ $customer->id }}" wire:model="checkedCustomers" class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                                <input type="checkbox" value="{{ $customer->id }}" wire:model="checkedCustomers" class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap"> 
