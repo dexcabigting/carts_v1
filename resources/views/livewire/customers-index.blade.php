@@ -5,6 +5,7 @@
                 <x-success-fail-message />
                 
                 <div class="flex items-center justify-start mb-4">
+                    <!-- Delete Button -->
                     <button wire:click.prevent="deleteChecked()" {{ (!$checkedCustomers) ?  'disabled' : '' }} 
                         type="button" class="inline-flex items-center px-4 py-2 bg-red-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCustomers) cursor-not-allowed @endif">
                         {{ __('Delete Selected') }} 
@@ -12,6 +13,10 @@
                             ({{ count($checkedCustomers) }})
                         @endif
                     </button>
+
+                    <!-- Search Bar -->
+                    <x-label for="email" :value="__('Search')" />
+                    <x-input class="block mt-1 w-md" type="text" wire:model="search" autofocus />
                 </div>
                 
                 <!-- This example requires Tailwind CSS v2.0+ -->
@@ -46,8 +51,8 @@
 
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     @foreach ($customers as $key => $customer)
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap"> 
+                                    <tr> 
+                                        <td class="px-6 py-4">
                                             <div>
                                                 <input type="checkbox" value="{{ $customer->id }}" wire:model="checkedCustomers" class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                             </div>

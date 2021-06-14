@@ -14,9 +14,13 @@ class CustomersIndex extends Component
 
     public $selectAll = false;
 
+    public $search;
+
     public function render()
     {
-        $customers = User::whereRole('customer')->paginate(5);
+        $search = '%' . $this->search . '%';
+
+        $customers = User::whereRole('customer')->where('name', 'like', $search)->paginate(5);
 
         return view('livewire.customers-index', compact('customers'));
     }
@@ -37,7 +41,7 @@ class CustomersIndex extends Component
     public function updatedSelectAll($value)
     {
         if ($value) {
-            $this->checkedCustomers = User::whereRole('customer')->pluck('id')->map(fn ($item) => (string) $item);
+            $this->checkedCustomers = User::whereRole('customer')->pluck('id')->map(fn ($item) => (string) $item)->toArray();
         } else {
             $this->checkedCustomers = [];
         }
