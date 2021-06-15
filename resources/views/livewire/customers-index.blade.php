@@ -4,9 +4,9 @@
             <div class="p-6 bg-white border-b border-gray-200">
                 <x-success-fail-message />
                 
-                <div class="grid grid-cols-2 items-center justify-start mb-4">
+                <div class="grid grid-rows-2 grid-cols-2 lg:grid-rows-1 lg:grid-cols-3 justify-end items-start mb-4 gap-4 lg:gap-2">
                     <!-- Delete Button -->
-                    <div class="">
+                    <div class="">                       
                         <button wire:click.prevent="deleteChecked()" {{ (!$checkedCustomers) ?  'disabled' : '' }} 
                             type="button" class="px-4 py-2 bg-red-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCustomers) cursor-not-allowed @endif">
                             {{ __('Delete Selected') }} 
@@ -15,10 +15,22 @@
                             @endif
                         </button>
                     </div>
+
+                    <!-- Sort By -->
+                    <div class="justify-self-end lg:justify-self-auto">
+                        <x-label class="inline-block">
+                            {{ _('Sort By') }}
+                        </x-label>
+                        <select wire:model="sortBy" 
+                        class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                            <option value="Name">Name</option>
+                            <option value="Email">Email</option>
+                        </select>
+                    </div>
                    
                     <!-- Search Bar -->
-                    <div class="flex items-center relative">
-                        <x-input class="pr-10 block w-full focus:outline-none" placeholder="Search by {{ $searchBy }}" type="search" wire:model="search" autofocus />
+                    <div class="col-span-2 lg:col-span-1 grid items-center relative lg:w-full">
+                        <x-input class="pr-10" placeholder="Search by {{ $sortBy }}" type="search" wire:model="search" autofocus />
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-indigo-300 absolute right-0" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                         </svg>

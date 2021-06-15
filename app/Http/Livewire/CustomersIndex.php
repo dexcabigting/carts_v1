@@ -16,15 +16,15 @@ class CustomersIndex extends Component
 
     public $search;
 
-    public $searchBy = 'Name';
+    public $sortBy = 'Name';
 
     public function render()
     {
         $search = '%' . $this->search . '%';
 
-        $searchBy = $this->searchBy;
+        $sortBy = $this->sortBy;
 
-        $customers = User::whereRole('customer')->where($searchBy, 'like', $search)->paginate(5);
+        $customers = User::whereRole('customer')->where($sortBy, 'like', $search)->paginate(5);
 
         return view('livewire.customers-index', compact('customers'));
     }
