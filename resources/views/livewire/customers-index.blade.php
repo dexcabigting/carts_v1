@@ -4,19 +4,25 @@
             <div class="p-6 bg-white border-b border-gray-200">
                 <x-success-fail-message />
                 
-                <div class="flex items-center justify-start mb-4">
+                <div class="grid grid-cols-2 items-center justify-start mb-4">
                     <!-- Delete Button -->
-                    <button wire:click.prevent="deleteChecked()" {{ (!$checkedCustomers) ?  'disabled' : '' }} 
-                        type="button" class="inline-flex items-center px-4 py-2 bg-red-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCustomers) cursor-not-allowed @endif">
-                        {{ __('Delete Selected') }} 
-                        @if ($checkedCustomers)
-                            ({{ count($checkedCustomers) }})
-                        @endif
-                    </button>
-
+                    <div class="">
+                        <button wire:click.prevent="deleteChecked()" {{ (!$checkedCustomers) ?  'disabled' : '' }} 
+                            type="button" class="px-4 py-2 bg-red-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCustomers) cursor-not-allowed @endif">
+                            {{ __('Delete Selected') }} 
+                            @if ($checkedCustomers)
+                                ({{ count($checkedCustomers) }})
+                            @endif
+                        </button>
+                    </div>
+                   
                     <!-- Search Bar -->
-                    <x-label for="email" :value="__('Search')" />
-                    <x-input class="block mt-1 w-md" type="text" wire:model="search" autofocus />
+                    <div class="flex items-center relative">
+                        <x-input class="pr-10 block w-full focus:outline-none" placeholder="Search" type="search" wire:model="search" autofocus />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-indigo-300 absolute right-0" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
                 </div>
                 
                 <!-- This example requires Tailwind CSS v2.0+ -->
@@ -29,7 +35,7 @@
                                     <tr>
                                         <th scope="col" class="px-6 py-3 float-left">
                                             <div>
-                                                <input type="checkbox" name="" wire:model="selectAll" class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                                <input type="checkbox" name="" wire:model="selectAll" class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring-indigo-200 focus:ring-opacity-50">
                                             </div>
                                         </th>
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">

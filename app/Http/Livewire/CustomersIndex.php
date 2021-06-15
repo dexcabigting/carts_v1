@@ -40,8 +40,10 @@ class CustomersIndex extends Component
 
     public function updatedSelectAll($value)
     {
+        $search = '%' . $this->search . '%';
+
         if ($value) {
-            $this->checkedCustomers = User::whereRole('customer')->pluck('id')->map(fn ($item) => (string) $item)->toArray();
+            $this->checkedCustomers = User::whereRole('customer')->where('name', 'like', $search)->pluck('id')->map(fn ($item) => (string) $item)->toArray();
         } else {
             $this->checkedCustomers = [];
         }
@@ -50,5 +52,10 @@ class CustomersIndex extends Component
     public function updatedCheckedCustomers()
     {
         $this->selectAll = false;
+    }
+
+    public function updatedSearch()
+    {
+        
     }
 }
