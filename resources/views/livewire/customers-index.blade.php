@@ -18,7 +18,7 @@
                    
                     <!-- Search Bar -->
                     <div class="flex items-center relative">
-                        <x-input class="pr-10 block w-full focus:outline-none" placeholder="Search" type="search" wire:model="search" autofocus />
+                        <x-input class="pr-10 block w-full focus:outline-none" placeholder="Search by {{ $searchBy }}" type="search" wire:model="search" autofocus />
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-indigo-300 absolute right-0" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                         </svg>
