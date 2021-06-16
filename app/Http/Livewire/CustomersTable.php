@@ -18,13 +18,20 @@ class CustomersTable extends Component
 
     public $sortBy = 'Name';
 
+    public $orderBy = 'desc';
+
     public function render()
     {
         $search = '%' . $this->search . '%';
 
         $sortBy = $this->sortBy;
 
-        $customers = User::whereRole('customer')->where($sortBy, 'like', $search)->paginate(5);
+        $orderBy = $this->orderBy;
+
+        $customers = User::whereRole('customer')
+            ->where($sortBy, 'like', $search)
+            ->orderBy('created_at', $orderBy)
+            ->paginate(5);
 
         return view('livewire.customers-table', compact('customers'));
     }

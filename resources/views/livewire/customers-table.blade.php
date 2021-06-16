@@ -8,7 +8,7 @@
                     <!-- Delete Button -->
                     <div class="">                       
                         <button wire:click.prevent="deleteChecked()" {{ (!$checkedCustomers) ?  'disabled' : '' }} 
-                            type="button" class="px-4 py-2 bg-red-700 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCustomers) cursor-not-allowed @endif">
+                            type="button" class="px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCustomers) cursor-not-allowed @endif">
                             {{ __('Delete Selected') }} 
                             @if ($checkedCustomers)
                                 ({{ count($checkedCustomers) }})
@@ -17,17 +17,32 @@
                     </div>
 
                     <!-- Sort By -->
-                    <div class="justify-self-end lg:justify-self-auto">
-                        <x-label class="inline-block">
-                            {{ _('Sort By') }}
-                        </x-label>
-                        <select wire:model="sortBy" 
-                        class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
-                            <option value="Name">Name</option>
-                            <option value="Email">Email</option>
-                        </select>
+                    <div class="grid grid-cols-2 lg:grid-cols-2">
+                        <div class="text-sm font-medium text-gray-900">
+                            <span class="block">
+                                {{ _('Sort By') }}
+                            </span>
+                            <select wire:model="sortBy" 
+                            class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                <option value="Name">Name</option>
+                                <option value="Email">Email</option>
+                            </select>
+                        </div>
+
+                        <div class="text-sm font-medium text-gray-900">
+                            <span>
+                                {{ _('Order By') }}
+                            </span>
+                            <select wire:model="orderBy" 
+                            class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                <option value="asc">Earliest</option>
+                                <option value="desc">Latest</option>
+                            </select>
+                        </div>
                     </div>
-                   
+                    
+                    
+
                     <!-- Search Bar -->
                     <div class="col-span-2 lg:col-span-1 grid items-center relative lg:w-full">
                         <x-input class="pr-10" placeholder="Search by {{ $sortBy }}" type="search" wire:model="search" autofocus />
@@ -62,7 +77,8 @@
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Actions
                                         </th>
-                                        <th>
+                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Date Created
                                         </th>
                                     </tr>
                                 </thead>
@@ -114,33 +130,34 @@
                                             @endif
                                         </td>
 
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-left font-medium">   
-                                            <a href="{{ route('customers.edit', [$customer->id]) }} ">
-                                                
-                                                <span  class="text-indigo-600 hover:text-indigo-900">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
-                                                        <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-                                                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
-                                                    </svg>
-                                                    {{ __('Edit') }}
-                                                </span>
-                                            </a>                                                                          
-                                        </td>
+                                        <td class="flex px-6 py-4 whitespace-nowrap">
+                                            <div class="p-2 bg-green-500 rounded-l-md border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-400 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                                <a href="{{ route('customers.edit', [$customer->id]) }} ">
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                                            <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                                                        </svg>
+                                                        {{ __('Edit') }}
+                                                    </span>
+                                                </a>    
+                                            </div>
 
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-left font-medium">   
-                                            <form action="{{ route('customers.destroy', [$customer->id]) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <button type="submit">
-                                                    <span  class="text-indigo-600 hover:text-indigo-900">
+                                            <div class="p-2 bg-red-600 rounded-r-md border border-transparent font-semibold text-xs text-white uppercase tracking-normal hover:bg-red-500 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                                <a href="">
+                                                    <span>
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
                                                             <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                                                         </svg>
                                                         {{ __('Delete') }}
                                                     </span>
-                                                </button>
-                                            </form>                             
+                                                </a>
+                                            </div>                                                                         
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm font-medium text-gray-900">
+                                                {{ $customer->created_at->diffForHumans() }}
+                                            </div>
                                         </td>
                                     </tr>
                                     @endforeach
