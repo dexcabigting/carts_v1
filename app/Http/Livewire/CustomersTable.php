@@ -45,8 +45,17 @@ class CustomersTable extends Component
 
         $this->selectAll = false;
 
-        session()->flash('success', 'Customer deleted successfully!');
+        session()->flash('success', 'Records have been deleted successfully!');
         //dd($this->checkedCustomers);
+    }
+
+    public function deleteRow($id)
+    {
+        User::findOrFail($id)->delete();
+
+        $this->checkedCustomers = array_diff($this->checkedCustomers, [$id]);
+
+        session()->flash('success', 'Record has been deleted successfully!');
     }
 
     public function updatedSelectAll($value)
