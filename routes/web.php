@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Users\UsersIndex;
+use App\Http\Livewire\Users\UsersCreate;
 use App\Http\Livewire\Users\UsersEdit;
 
 /*
@@ -32,8 +33,11 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware('admin')->group(function () {
         Route::resource('users', UserController::class);
+
+        // User CRUD
         Route::get('users', UsersIndex::class)->name('users.index');
         Route::get('users/{user}/edit', UsersEdit::class)->name('users.edit');
+        Route::get('users/create', UsersCreate::class)->name('users.create');
     });
 
     
