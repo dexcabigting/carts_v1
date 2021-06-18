@@ -82,4 +82,9 @@ class UsersIndex extends Component
             $this->selectAll = false;
         }
     }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 }
