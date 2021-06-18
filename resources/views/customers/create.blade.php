@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Customer') }}
+            {{ __('Create User') }}
         </h2>
     </x-slot>
 
@@ -14,10 +14,10 @@
                         <x-validation-errors :errors="$errors" />
 
                         <h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
-                            {{ __('Customer Credentials') }}
+                            {{ __('User Credentials') }}
                         </h2>
 
-                        <form method="POST" action="{{ route('customers.store') }}">
+                        <form method="POST" action="{{ route('users.store') }}">
                             @csrf
 
                             <div>
@@ -47,7 +47,7 @@
 
                             <div class="flex items-center justify-end mt-4">
                                 <x-button>
-                                    {{ __('Create Customer') }}
+                                    {{ __('Create User') }}
                                 </x-button>
                             </div>
 

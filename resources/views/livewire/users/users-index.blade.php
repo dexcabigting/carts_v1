@@ -1,19 +1,26 @@
+<x-slot name="header">
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        {{ __('Users') }}
+    </h2>
+</x-slot>
+
 <div class="py-12">
     <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 bg-white border-b border-gray-200">
                 <x-success-fail-message />
-                
+                <x-validation-errors :errors="$errors" />
+     
                 <div class="grid grid-rows-2 grid-cols-2 lg:grid-rows-1 lg:grid-cols-3 justify-end items-start mb-4 gap-4 lg:gap-2">
                     <!-- Delete Button -->
                     <div class="">                       
                         <button wire:click.prevent="deleteChecked()" 
                             onclick="confirm('Are you sure you want to delete these records?') || event.stopImmediatePropagation()" 
-                            type="button" {{ (!$checkedCustomers) ?  'disabled' : '' }}
-                            class="px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCustomers) cursor-not-allowed @endif">
+                            type="button" {{ (!$checkedUsers) ?  'disabled' : '' }}
+                            class="px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedUsers) cursor-not-allowed @endif">
                             {{ __('Delete Selected') }} 
-                            @if ($checkedCustomers)
-                                ({{ count($checkedCustomers) }})
+                            @if ($checkedUsers)
+                                ({{ count($checkedUsers) }})
                             @endif
                         </button>
                     </div>
@@ -43,8 +50,6 @@
                         </div>
                     </div>
                     
-                    
-
                     <!-- Search Bar -->
                     <div class="col-span-2 lg:col-span-1 grid items-center relative lg:w-full">
                         <x-input class="pr-10" placeholder="Search by {{ $sortBy }}" type="search" wire:model="search" autofocus />
@@ -59,7 +64,7 @@
                     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                                <table class="min-w-full divide-y divide-gray-200">
+                                <table class="table-auto min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-100">
                                     <tr>
                                         <th scope="col" class="px-6 py-3 float-left">
@@ -86,16 +91,16 @@
                                 </thead>
 
                                 <tbody class="bg-white divide-y divide-gray-200">
-                                    @foreach ($customers as $key => $customer)
+                                    @forelse ($users as $key => $user)
                                     <tr> 
                                         <td class="px-6 py-4">
                                             <div>
-                                                <input type="checkbox" value="{{ $customer->id }}" wire:model="checkedCustomers" class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                                <input type="checkbox" value="{{ $user->id }}" wire:model="checkedUsers" class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap"> 
                                             <div class="text-sm font-medium text-gray-900">
-                                                {{ $customers->firstItem() + $key }}
+                                                {{ $users->firstItem() + $key }}
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
@@ -105,17 +110,17 @@
                                                 </div>
                                                 <div class="ml-4">
                                                     <div class="text-sm font-medium text-gray-900">
-                                                    {{ $customer->name }}
+                                                    {{ $user->name }}
                                                     </div>
                                                     <div class="text-sm text-gray-500">
-                                                    {{ $customer->email }}
+                                                    {{ $user->email }}
                                                     </div>
                                                 </div>
                                             </div>
                                         </td>
                                         
                                         <td class="px-6 py-4 whitespace-nowrap">
-                                            @if ($customer->email_verified_at == !null)
+                                            @if ($user->email_verified_at == !null)
                                             <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                                     <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -134,7 +139,7 @@
 
                                         <td class="flex px-6 py-4 whitespace-nowrap">
                                             <div>
-                                                <a href="{{ route('customers.edit', [$customer->id]) }} ">
+                                                <a href="{{ route('users.edit', [$user->id]) }} ">
                                                     <button class="p-2 bg-green-500 rounded-l-md border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-400 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                                                         <span>
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
@@ -149,7 +154,7 @@
 
                                             <div>
                                                 <button class="p-2 bg-red-600 rounded-r-md border border-transparent font-semibold text-xs text-white uppercase tracking-normal hover:bg-red-500 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
-                                                    wire:click.prevent="deleteRow({{ $customer->id }})"
+                                                    wire:click.prevent="deleteRow({{ $user->id }})"
                                                     onclick="confirm('Are you sure you want to delete this record?') || event.stopImmediatePropagation()">
                                                     <span>
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
@@ -162,11 +167,21 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm font-medium text-gray-900">
-                                                {{ $customer->created_at->diffForHumans() }}
+                                                {{ $user->created_at->diffForHumans() }}
                                             </div>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                    @empty
+                                    <tr class="flex justify-center">
+                                        <td scope="col" class="px-6 py-4 w-6/6">
+                                            <div>
+                                                <span class="font-semibold text-xl text-gray-800 leading-tight">
+                                                    {{ __('There are no matches!') }}
+                                                </span>
+                                            </div>
+                                        </td>  
+                                    </tr>
+                                    @endforelse
 
                                 </tbody>
                                 
@@ -178,20 +193,16 @@
                 </div>
 
                 <div class="mt-4">
-                {{ $customers->onEachSide(5)->links() }}
+                {{ $users->onEachSide(5)->links() }}
                 </div>
 
                 <div class="flex items-center justify-start mt-4">
-                    <a href="{{ route('customers.create') }}">
-                        <x-button>
-                            {{ __('Create Customer') }}
-                        </x-button>
-                    </a>
+                    <x-button wire:click="showCreateForm()">
+                        {{ __('Create User') }}
+                    </x-button>
                 </div>
-
             </div>
-
-            
+        
         </div>
     </div>
 </div>

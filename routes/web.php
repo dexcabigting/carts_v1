@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\UserController;
+use App\Http\Livewire\Users\UsersIndex;
+use App\Http\Livewire\Users\UsersEdit;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +31,12 @@ Route::middleware(['auth'])->group(function () {
     Route::put('profile/password', [ProfileController::class, 'update_password'])->name('profile.update-password');
 
     Route::middleware('admin')->group(function () {
-        Route::resource('customers', CustomerController::class);
+        Route::resource('users', UserController::class);
+        Route::get('users', UsersIndex::class)->name('users.index');
+        Route::get('users/{user}/edit', UsersEdit::class)->name('users.edit');
     });
+
+    
 });
 
 require __DIR__.'/auth.php';

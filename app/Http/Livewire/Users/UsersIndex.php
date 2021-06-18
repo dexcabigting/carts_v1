@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Users;
 
 use Livewire\Component;
 use App\Models\User;
 use Livewire\WithPagination;
 
-class CustomersTable extends Component
+class UsersIndex extends Component
 {
     use WithPagination;
 
-    public $checkedCustomers = [];
+    public $checkedUsers = [];
 
     public $selectAll = false;
 
@@ -28,32 +28,32 @@ class CustomersTable extends Component
 
         $orderBy = $this->orderBy;
 
-        $customers = User::whereRole('customer')
+        $users = User::whereRole('customer')
             ->where($sortBy, 'like', $search)
             ->orderBy('created_at', $orderBy)
             ->paginate(5);
 
-        return view('livewire.customers-table', compact('customers'));
+        return view('livewire.users.users-index', compact('users'));
     }
 
     public function deleteChecked()
     {
-        User::whereIn('id', $this->checkedCustomers)
+        User::whereIn('id', $this->checkedUsers)
             ->delete();
 
-        $this->checkedCustomers = [];
+        $this->checkedUsers = [];
 
         $this->selectAll = false;
 
         session()->flash('success', 'Records have been deleted successfully!');
-        //dd($this->checkedCustomers);
+        //dd($this->checkedUsers);
     }
 
     public function deleteRow($id)
     {
         User::findOrFail($id)->delete();
 
-        $this->checkedCustomers = array_diff($this->checkedCustomers, [$id]);
+        $this->checkedUsers = array_diff($this->checkedUsers, [$id]);
 
         session()->flash('success', 'Record has been deleted successfully!');
     }
@@ -63,21 +63,21 @@ class CustomersTable extends Component
         $search = '%' . $this->search . '%';
 
         if ($value) {
-            $this->checkedCustomers = User::whereRole('customer')->where('name', 'like', $search)->pluck('id')->map(fn ($item) => (string) $item)->toArray();
+            $this->checkedUsers = User::whereRole('user')->where('name', 'like', $search)->pluck('id')->map(fn ($item) => (string) $item)->toArray();
         } else {
-            $this->checkedCustomers = [];
+            $this->checkedUsers = [];
         }
     }
 
-    public function updatedCheckedCustomers()
+    public function updatedCheckedUsers()
     {
         $this->selectAll = false;
     }
 
     public function updatedSearch()
     {
-        if(is_array($this->checkedCustomers)) {
-            $this->checkedCustomers = [];
+        if(is_array($this->checkedUsers)) {
+            $this->checkedUsers = [];
 
             $this->selectAll = false;
         }

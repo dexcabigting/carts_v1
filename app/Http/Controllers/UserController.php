@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UpdateCredentialsRequest;
-use App\Http\Requests\CreateCustomerRequest;
+use App\Http\Requests\CreateUserRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 
-class CustomerController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +18,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('customers.index');
+        return view('users.index');
     }
 
     /**
@@ -28,7 +28,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customers.create');
+        return view('users.create');
     }
 
     /**
@@ -37,7 +37,7 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateCustomerRequest $request)
+    public function store(CreateUserRequest $request)
     {
         $user = User::create([
             'name' => $request->name,
@@ -47,7 +47,7 @@ class CustomerController extends Controller
 
         event(new Registered($user));
 
-        return redirect()->route('customers.index')->with('success', 'Customer has been created!');
+        return redirect()->route('users.index')->with('success', 'User has been created!');
     }
 
     /**
@@ -69,9 +69,9 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        $customer = User::find($id);
+        $user = User::find($id);
         
-        return view('customers.edit', compact('customer'));
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -83,11 +83,11 @@ class CustomerController extends Controller
      */
     public function update(UpdateCredentialsRequest $request, $id)
     {
-        $customer = User::find($id);
+        $user = User::find($id);
 
-        $customer->update($request->validated());
+        $user->update($request->validated());
 
-        return back()->with('success', 'Customer has been updated!');;
+        return back()->with('success', 'User has been updated!');;
     }
 
     /**
@@ -98,10 +98,10 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        $customer = User::find($id);
+        $user = User::find($id);
         
-        $customer->delete();
+        $user->delete();
 
-        return redirect()->route('customers.index')->with('success', 'Customer has been deleted!');
+        return redirect()->route('users.index')->with('success', 'User has been deleted!');
     }
 }
