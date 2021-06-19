@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Users;
 use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class UsersCreate extends Component
 {
@@ -15,12 +16,15 @@ class UsersCreate extends Component
         'password_confirmation' => '',
     ];
 
-    protected $rules = [
-        'form.name' => 'required|string|max:255',
-        'form.email' => 'required|string|email|max:255|unique:users,email',
-        'form.password' => 'required|confirmed|min:8',
-    ];
-
+    protected function rules()
+    {
+        return [
+            'form.name' => 'required|string|max:255',
+            'form.email' => 'required|string|email|max:255|unique:users,email',
+            'form.password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ];
+    }
+    
     protected $validationAttributes = [
         'form.name' => 'name',
         'form.email' => 'email address',
@@ -33,12 +37,13 @@ class UsersCreate extends Component
         return view('livewire.users.users-create');
     }
 
-    public function updatedFormName()
+    public function updated($propertyName)
     {
-        $this->validateOnly('form.name');
+        $this->validateOnly($propertyName);
+
     }
 
-    public function updatedFormEmail()
+    /*public function updatedFormEmail()
     {
         $this->validateOnly('form.email');
     }
@@ -46,7 +51,7 @@ class UsersCreate extends Component
     public function updatedFormPassword()
     {
         $this->validateOnly('form.password');
-    }
+    } */
 
     public function store()
     {
