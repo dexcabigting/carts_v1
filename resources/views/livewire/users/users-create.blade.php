@@ -39,7 +39,7 @@
 
                         <div class="mt-4">
                             <x-label for="password_confirmation" :value="__('Confirm Password')" />
-                            <x-input id="password_confirmation" class="block mt-1 w-full"
+                            <x-input wire:model="form.password_confirmation" id="password_confirmation" class="block mt-1 w-full"
                                             type="password"
                                             name="password_confirmation" required />
                         </div>
