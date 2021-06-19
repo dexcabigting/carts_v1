@@ -63,7 +63,7 @@ class UsersIndex extends Component
         $search = '%' . $this->search . '%';
 
         if ($value) {
-            $this->checkedUsers = User::whereRole('user')->where('name', 'like', $search)->pluck('id')->map(fn ($item) => (string) $item)->toArray();
+            $this->checkedUsers = User::whereRole('customer')->where('name', 'like', $search)->pluck('id')->map(fn ($item) => (string) $item)->toArray();
         } else {
             $this->checkedUsers = [];
         }
