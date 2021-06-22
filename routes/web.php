@@ -33,11 +33,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware('admin')->group(function () {
         Route::resource('users', UserController::class);
-
-        // User CRUD
-        Route::get('users', UsersIndex::class)->name('users.index');
-        Route::get('users/{user}/edit', UsersEdit::class)->name('users.edit');
-        Route::get('users/create', UsersCreate::class)->name('users.create');
     });
 
     
