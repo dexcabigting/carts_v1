@@ -32,8 +32,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware('admin')->group(function () {
         Route::resource('users', UserController::class);
-        Route::get('users', UsersIndex::class)->name('users.index');
-        Route::get('users/{user}/edit', UsersEdit::class)->name('users.edit');
     });
 
     
