@@ -39,7 +39,7 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-        $user = User::create([
+        /*$user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -47,7 +47,7 @@ class UserController extends Controller
 
         event(new Registered($user));
 
-        return redirect()->route('users.index')->with('success', 'User has been created!');
+        return redirect()->route('users.index')->with('success', 'User has been created!');*/
     }
 
     /**
@@ -67,10 +67,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $user = User::find($id);
-        
+    public function edit($user)
+    {   
         return view('users.edit', compact('user'));
     }
 
@@ -81,14 +79,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCredentialsRequest $request, $id)
+    /*public function update(UpdateCredentialsRequest $request, $id)
     {
         $user = User::find($id);
 
         $user->update($request->validated());
 
         return back()->with('success', 'User has been updated!');;
-    }
+    }*/
 
     /**
      * Remove the specified resource from storage.
