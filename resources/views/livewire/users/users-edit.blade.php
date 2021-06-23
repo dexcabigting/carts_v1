@@ -7,18 +7,20 @@
             {{ __('User Credentials') }}
         </h2>
 
-        <form method="POST" action="">
+        <form method="POST" wire:submit.prevent="update">
             @method('PUT')
             @csrf
 
             <div>
                 <x-label for="name" :value="__('Name')"/>
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{ $user->name }}" autofocus required />
+                <x-input wire:model="form.name"
+                id="name" class="block mt-1 w-full" type="text" name="name" autofocus required />
             </div>
 
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ $user->email }}" required />
+                <x-input wire:model="form.email"
+                id="email" class="block mt-1 w-full" type="email" name="email" required />
             </div>
 
             <div class="flex items-center justify-end mt-4">

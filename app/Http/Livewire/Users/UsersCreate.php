@@ -43,16 +43,6 @@ class UsersCreate extends Component
 
     }
 
-    /*public function updatedFormEmail()
-    {
-        $this->validateOnly('form.email');
-    }
-
-    public function updatedFormPassword()
-    {
-        $this->validateOnly('form.password');
-    } */
-
     public function store()
     {
         $this->validate();
@@ -68,7 +58,6 @@ class UsersCreate extends Component
         $this->form['password'] = '';
         $this->form['password_confirmation'] = '';
 
-        session()->flash('success', 'User has been created successfully!');
-        //dd($user);       
+        session()->flash('success', 'User has been created successfully!'); 
     }
 }
