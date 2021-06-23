@@ -1,7 +1,4 @@
 <div>
-    @foreach (array_keys($checkedUsers) as $item)
-        {{ $item }}
-    @endforeach
     <x-success-fail-message />
     <x-validation-errors :errors="$errors" />
         
@@ -196,8 +193,10 @@
     </div>
 
     <div class="flex items-center justify-start mt-4">
-        <x-button wire:click="showCreateForm()">
-            {{ __('Create User') }}
-        </x-button>
+        <a href="{{ route('users.create') }}">
+            <x-button>
+                {{ __('Create User') }}
+            </x-button>
+        </a>
     </div>                
 </div>
