@@ -22,7 +22,7 @@ class UsersEdit extends Component
         ];
     }
 
-    public function mount(User $user)
+    public function mount($user)
     {
         $this->form = $user;
 
