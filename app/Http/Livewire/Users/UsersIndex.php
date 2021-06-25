@@ -25,7 +25,7 @@ class UsersIndex extends Component
     {
         $users = $this->users->paginate(5);  
 
-        return view('livewire.users.users-index', compact('users'));
+        return view('livewire.users.users-index', compact('users')) ;
     }
 
     public function getUsersProperty()

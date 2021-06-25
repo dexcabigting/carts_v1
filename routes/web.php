@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
+use App\Http\Livewire\Users\UsersIndex;
+use App\Http\Livewire\Users\UsersEdit;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,6 @@ use App\Http\Controllers\UserController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,9 +30,12 @@ Route::middleware(['auth'])->group(function () {
     Route::put('profile/password', [ProfileController::class, 'update_password'])->name('profile.update-password');
 
     Route::middleware('admin')->group(function () {
-        Route::resource('users', UserController::class, [
+        /*Route::resource('users', UserController::class, [
             'only' => ['index', 'create', 'edit']
-        ]);
+        ]);*/
+
+        Route::get('users', UsersIndex::class)->name('users.index');
+        Route::get('users/{id}/edit', UsersEdit::class)->name('users.edit');
     });
 
     
