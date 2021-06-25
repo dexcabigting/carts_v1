@@ -3,9 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use App\Http\Livewire\Users\UsersIndex;
-use App\Http\Livewire\Users\UsersCreate;
-use App\Http\Livewire\Users\UsersEdit;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +15,12 @@ use App\Http\Livewire\Users\UsersEdit;
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->prefix($prefix)->group(function () {
     // Dashboard
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
