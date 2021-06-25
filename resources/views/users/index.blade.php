@@ -192,7 +192,7 @@
 </div>
 
 <div class="flex items-center justify-start mt-4">
-    <a href="">
+    <a href="{{ route('users.create') }}">
         <x-button>
             {{ __('Create User') }}
         </x-button>

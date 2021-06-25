@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Livewire\Users\UsersIndex;
+use App\Http\Livewire\Users\UsersCreate;
 use App\Http\Livewire\Users\UsersEdit;
 
 /*
@@ -30,11 +31,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('profile/password', [ProfileController::class, 'update_password'])->name('profile.update-password');
 
     Route::middleware('admin')->group(function () {
-        /*Route::resource('users', UserController::class, [
-            'only' => ['index', 'create', 'edit']
-        ]);*/
-
+        // Users Livewire Component
         Route::get('users', UsersIndex::class)->name('users.index');
+        Route::get('users/create', UsersCreate::class)->name('users.create');
         Route::get('users/{id}/edit', UsersEdit::class)->name('users.edit');
     });
 
