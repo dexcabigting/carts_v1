@@ -1,5 +1,5 @@
 <div>
-    <div class="pb-4">
+    <div>
         <x-success-fail-message />
         <x-validation-errors :errors="$errors" />
 

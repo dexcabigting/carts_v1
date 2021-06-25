@@ -6,10 +6,8 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-md mx-auto sm:px-6">
-            
+        <div class="max-w-lg mx-auto sm:px-6">   
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-
                 <div class="p-6 bg-white border-b border-gray-200 divide-y divide-gray-300">
 
                     <div class="pb-4">
@@ -85,10 +83,7 @@
                     </div>
 
                 </div>
-
             </div>
-        </div>
-
-        
+        </div>  
     </div>
 </x-app-layout>

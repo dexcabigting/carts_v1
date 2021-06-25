@@ -32,7 +32,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('profile/password', [ProfileController::class, 'update_password'])->name('profile.update-password');
 
     Route::middleware('admin')->group(function () {
-        Route::resource('users', UserController::class);
+        Route::resource('users', UserController::class, [
+            'only' => ['index', 'create', 'edit']
+        ]);
     });
 
     
