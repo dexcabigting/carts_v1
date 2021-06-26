@@ -15,6 +15,7 @@ class UsersIndex extends Component
     public $search;
     public $sortBy = 'Name';
     public $orderBy = 'desc';
+    public $roles = [2, 3];
 
     public function mount()
     {
@@ -36,7 +37,7 @@ class UsersIndex extends Component
 
         $orderBy = $this->orderBy;
 
-        return User::whereRole('customer')
+        return User::whereIn('role_id', $this->roles)
             ->where($sortBy, 'like', $search)
             ->orderBy('created_at', $orderBy);
     }
@@ -77,7 +78,7 @@ class UsersIndex extends Component
         $search = '%' . $this->search . '%';
 
         if ($value) {
-            $this->checkedUsers = User::whereRole('customer')
+            $this->checkedUsers = User::whereIn('role_id', $this->roles)
                 ->where('name', 'like', $search)
                 ->pluck('id')
                 ->map(fn ($item) => (string) $item)

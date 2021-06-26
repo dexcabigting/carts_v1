@@ -1,7 +1,6 @@
 <x-success-fail-message />
-<x-validation-errors :errors="$errors" />
     
-<div class="grid grid-rows-2 grid-cols-2 lg:grid-rows-1 lg:grid-cols-3 justify-end items-start mb-4 gap-4 lg:gap-2">
+<div class="grid grid-rows-2 grid-cols-3 lg:grid-rows-1 lg:grid-cols-4 justify-end items-start mb-4 gap-4 lg:gap-2">
     <!-- Delete Button -->
     <div class="">                       
         <button wire:click.prevent="deleteChecked()"          
@@ -15,7 +14,7 @@
     </div>
 
     <!-- Sort By and Order By -->
-    <div class="flex">
+    <div >
         <div class="text-sm font-medium text-gray-900">
             <span>
                 {{ _('Sort By') }}
@@ -26,7 +25,9 @@
                 <option value="Email">Email</option>
             </select>
         </div>
+    </div>
 
+    <div>
         <div class="text-sm font-medium text-gray-900">
             <span>
                 {{ _('Order By') }}
@@ -40,7 +41,7 @@
     </div>
     
     <!-- Search Bar -->
-    <div class="col-span-2 lg:col-span-1 grid items-center relative lg:w-full">
+    <div class="col-span-3 lg:col-span-1 grid items-center relative lg:w-full">
         <x-input class="pr-10" placeholder="Search by {{ $sortBy }}" type="search" wire:model="search" autofocus />
         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-indigo-300 absolute right-0" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
@@ -71,6 +72,9 @@
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Status
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Role
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Actions
@@ -129,6 +133,12 @@
                                 {{ __('Unverified') }}
                             </span>
                             @endif
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap"> 
+                            <div class="text-sm font-medium text-gray-900">
+                                {{ $user->role->role }}
+                            </div>
                         </td>
 
                         <td class="flex px-6 py-4 whitespace-nowrap">
