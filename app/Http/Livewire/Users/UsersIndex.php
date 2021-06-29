@@ -37,14 +37,18 @@ class UsersIndex extends Component
 
         $orderBy = $this->orderBy;
 
-        return User::whereIn('role_id', $this->roles)
+        return User::with([
+            'role' => function ($query) {
+                $query->whereIn('id', $this->roles);
+            }
+        ])      
+            ->whereIn('role_id', $this->roles)
             ->where($sortBy, 'like', $search)
             ->orderBy('created_at', $orderBy);
     }
 
     public function deleteChecked()
     {
-        /*
         $this->checkedUsers = array_keys($this->checkedUsers);
         
         User::whereIn('id', $this->checkedUsers)->delete();
@@ -54,8 +58,8 @@ class UsersIndex extends Component
         $this->selectAll = false;
 
         session()->flash('success', 'Records have been deleted successfully!');
-        */
-        dd($this->checkedUsers);
+        
+        // dd($this->checkedUsers);
     }
 
     public function deleteRow($id)
