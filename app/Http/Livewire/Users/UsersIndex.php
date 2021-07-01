@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Users;
 use Livewire\Component;
 use App\Models\User;
 use Livewire\WithPagination;
+use Illuminate\Support\Collection;
 
 class UsersIndex extends Component
 {
@@ -16,21 +17,23 @@ class UsersIndex extends Component
     public $sortBy = 'Name';
     public $orderBy = 'desc';
     public $roles = [2, 3];
+    public $couriers;
+    public $customers;
 
     public function mount()
     {
         $this->checkedUsers = [];
+
+        $this->couriers = User::whereRoleId(2)->count();
+        
+        $this->customers = User::whereRoleId(3)->count();
     }
 
     public function render()
     {
         $users = $this->users->paginate(5);
 
-        $couriers = count(User::whereRoleId(2)->get());
-        
-        $customers = count(User::whereRoleId(3)->get());
-
-        return view('livewire.users.users-index', compact(['users', 'couriers', 'customers'])) ;
+        return view('livewire.users.users-index', compact('users')) ;
     }
 
     public function getUsersProperty()
@@ -49,6 +52,16 @@ class UsersIndex extends Component
             ->whereIn('role_id', $this->roles)
             ->where($sortBy, 'like', $search)
             ->orderBy('created_at', $orderBy);
+    }
+
+    public function getCouriersProperty()
+    {
+        return User::withcount();
+    }
+
+    public function getCustomersProperty()
+    {
+        return $this->users->where('role_id', 3)->count();
     }
 
     public function deleteChecked()
@@ -85,9 +98,11 @@ class UsersIndex extends Component
     {
         $search = '%' . $this->search . '%';
 
+        $sortBy = $this->sortBy;
+
         if ($value) {
             $this->checkedUsers = User::whereIn('role_id', $this->roles)
-                ->where('name', 'like', $search)
+                ->where($sortBy, 'like', $search)
                 ->pluck('id')
                 ->map(fn ($item) => (string) $item)
                 ->flip()
