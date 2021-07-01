@@ -24,9 +24,13 @@ class UsersIndex extends Component
 
     public function render()
     {
-        $users = $this->users->paginate(5);  
+        $users = $this->users->paginate(5);
 
-        return view('livewire.users.users-index', compact('users')) ;
+        $couriers = count(User::whereRoleId(2)->get());
+        
+        $customers = count(User::whereRoleId(3)->get());
+
+        return view('livewire.users.users-index', compact(['users', 'couriers', 'customers'])) ;
     }
 
     public function getUsersProperty()

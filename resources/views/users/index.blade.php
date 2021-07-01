@@ -1,19 +1,44 @@
 <x-success-fail-message />
     
-<div class="grid grid-rows-2 grid-cols-3 lg:grid-rows-1 lg:grid-cols-4 justify-end items-start mb-4 gap-4 lg:gap-2">
+<div class="grid grid-rows-3 grid-cols-2 lg:grid-rows-1 lg:grid-cols-6 justify-end items-start mb-4 gap-4 lg:gap-2">
     <!-- Delete Button -->
     <div class="">                       
         <button wire:click.prevent="deleteChecked()"          
             type="button" {{ (!$checkedUsers) ?  'disabled' : null }}
             class="px-4 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-400 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedUsers) cursor-not-allowed @endif">
-            {{ __('Delete Selected') }} 
+
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+            {{ __('Bulk Delete') }} 
             @if ($checkedUsers)
                 ({{ count($checkedUsers) }})
             @endif
         </button>
     </div>
 
-    <!-- Sort By and Order By -->
+    <div class="flex">                       
+        <div>
+            <x-button class="bg-yellow-400 hover:bg-yellow-300 rounded-l-md rounded-r-none">               
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                    <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
+                </svg>
+                {{ $couriers }}
+            </x-button> 
+        </div>  
+
+        <div>
+            <x-button class="bg-indigo-400 hover:bg-indigo-300 rounded-r-md rounded-l-none">               
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                </svg>
+                {{ $customers }}
+            </x-button> 
+        </div>         
+    </div>
+
+    <!-- Sort By -->
     <div >
         <div class="text-sm font-medium text-gray-900">
             <span>
@@ -27,6 +52,7 @@
         </div>
     </div>
 
+    <!-- Order By -->
     <div>
         <div class="text-sm font-medium text-gray-900">
             <span>
@@ -41,7 +67,7 @@
     </div>
     
     <!-- Search Bar -->
-    <div class="col-span-3 lg:col-span-1 grid items-center relative lg:w-full">
+    <div class="col-span-2 lg:col-span-2 grid items-center relative lg:w-full">
         <x-input class="pr-10" placeholder="Search by {{ $sortBy }}" type="search" wire:model="search" autofocus />
         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-indigo-300 absolute right-0" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
@@ -137,7 +163,7 @@
 
                         <td class="px-6 py-4 whitespace-nowrap"> 
                             @if ($user->role_id == 2)
-                            <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                            <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
                                     <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
@@ -145,7 +171,7 @@
                                 {{ $user->role->role }}
                             </span>
                             @elseif ($user->role_id == 3)
-                            <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                            <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                                 </svg>
