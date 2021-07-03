@@ -1,6 +1,6 @@
 <x-success-fail-message />
     
-<div class="grid grid-rows-3 grid-cols-2 lg:grid-rows-1 lg:grid-cols-6 justify-end items-start mb-4 gap-4 lg:gap-2">
+<div class="grid grid-rows-3 grid-cols-2 lg:grid-rows-1 lg:grid-cols-6 justify-end items-start mb-4 gap-2 lg:gap-1">
     <!-- Delete Button -->
     <div class="">                       
         <button wire:click.prevent="deleteChecked()"          
@@ -19,31 +19,41 @@
 
     <div class="flex">                       
         <div>
-            <x-button class="bg-yellow-400 hover:bg-yellow-300 rounded-l-md rounded-r-none">               
+            <x-button wire:click="view('users')"
+            class="pr-1 bg-blue-400 hover:bg-blue-300 rounded-l-md rounded-r-none">               
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+                </svg>
+                {{ $couriers + $customers }} 
+            </x-button> 
+        </div>  
+
+        <div>
+            <x-button wire:click="view('couriers')"
+            class="bg-blue-400 hover:bg-blue-300 rounded-l-none rounded-r-none">               
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
                     <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
                 </svg>
                 {{ $couriers }}
             </x-button> 
-        </div>  
+        </div> 
 
         <div>
-            <x-button class="bg-indigo-400 hover:bg-indigo-300 rounded-r-md rounded-l-none">               
+            <x-button wire:click="view('customers')"
+            class="pl-1 bg-blue-400 hover:bg-blue-300 rounded-r-md rounded-l-none">               
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                 </svg>
                 {{ $customers }}
             </x-button> 
-        </div>         
+        </div>        
     </div>
 
     <!-- Sort By -->
-    <div >
+    <div class="lg:px-2">
         <div class="text-sm font-medium text-gray-900">
-            <span>
-                {{ _('Sort By') }}
-            </span>
+            <x-label :value="__('Sort By')" class="inline-block" />
             <select wire:model="sortBy" 
             class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                 <option value="Name">Name</option>
@@ -53,11 +63,9 @@
     </div>
 
     <!-- Order By -->
-    <div>
+    <div class="">
         <div class="text-sm font-medium text-gray-900">
-            <span>
-                {{ _('Order By') }}
-            </span>
+            <x-label :value="__('Order By')" class="inline-block" />
             <select wire:model="orderBy" 
             class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                 <option value="asc">Earliest</option>
@@ -163,7 +171,7 @@
 
                         <td class="px-6 py-4 whitespace-nowrap"> 
                             @if ($user->role_id == 2)
-                            <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                            <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
                                     <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
@@ -171,7 +179,7 @@
                                 {{ $user->role->role }}
                             </span>
                             @elseif ($user->role_id == 3)
-                            <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-800">
+                            <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                                 </svg>
@@ -183,7 +191,7 @@
                         <td class="flex px-6 py-4 whitespace-nowrap">
                             <div>
                                 <a href="{{ route('users.edit', [$user->id])  }}">
-                                    <button class="p-2 bg-green-500 rounded-l-md border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-400 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                    <button class="p-2 bg-green-400 rounded-l-md border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-300 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                                         <span>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
                                                 <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />

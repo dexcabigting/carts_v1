@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Users;
 use Livewire\Component;
 use App\Models\User;
 use Livewire\WithPagination;
-use Illuminate\Support\Collection;
 
 class UsersIndex extends Component
 {
@@ -54,46 +53,6 @@ class UsersIndex extends Component
             ->orderBy('created_at', $orderBy);
     }
 
-    public function getCouriersProperty()
-    {
-        return User::withcount();
-    }
-
-    public function getCustomersProperty()
-    {
-        return $this->users->where('role_id', 3)->count();
-    }
-
-    public function deleteChecked()
-    {
-        $this->checkedUsers = array_keys($this->checkedUsers);
-        
-        User::whereIn('id', $this->checkedUsers)->delete();
-
-        $this->checkedUsers = [];
-
-        $this->selectAll = false;
-
-        session()->flash('success', 'Records have been deleted successfully!');
-        
-        // dd($this->checkedUsers);
-    }
-
-    public function deleteRow($id)
-    {
-        if (is_array($this->checkedUsers)) {
-            unset($this->checkedUsers[$id]);
-        }
-
-        User::findOrFail($id)->delete();
-
-        $this->checkedUsers = array_diff($this->checkedUsers, [$id]);
-
-        session()->flash('success', 'Record has been deleted successfully!');
-        
-        //dd($this->checkedUsers);
-    }
-
     public function updatedSelectAll($value)
     {
         $search = '%' . $this->search . '%';
@@ -132,5 +91,46 @@ class UsersIndex extends Component
     public function updatingSearch()
     {
         $this->resetPage();
+    }
+
+    public function deleteChecked()
+    {
+        $this->checkedUsers = array_keys($this->checkedUsers);
+        
+        User::whereIn('id', $this->checkedUsers)->delete();
+
+        $this->checkedUsers = [];
+
+        $this->selectAll = false;
+
+        session()->flash('success', 'Records have been deleted successfully!');
+        
+        // dd($this->checkedUsers);
+    }
+
+    public function deleteRow($id)
+    {
+        if (is_array($this->checkedUsers)) {
+            unset($this->checkedUsers[$id]);
+        }
+
+        User::findOrFail($id)->delete();
+
+        $this->checkedUsers = array_diff($this->checkedUsers, [$id]);
+
+        session()->flash('success', 'Record has been deleted successfully!');
+        
+        //dd($this->checkedUsers);
+    }
+
+    public function view($value)
+    {
+        if($value == 'users') {
+            $this->roles = [2, 3];
+        } else if($value == 'couriers') {
+            $this->roles = [2];
+        } else if($value == 'customers') {
+            $this->roles = [3];
+        }
     }
 }
