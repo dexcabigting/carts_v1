@@ -7,7 +7,7 @@
 	"settings": {
 		"files.exclude": {
 			"**/node_modules": true,
-			"**/vendor": true,
+			// "**/vendor": true,
 			// "**/.git*": true,
 			"**/*.json": true,
 			"**/composer.lock": true,
