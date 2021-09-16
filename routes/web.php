@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SMSController;
 use App\Http\Livewire\Users\UsersIndex;
 use App\Http\Livewire\Users\UsersCreate;
 use App\Http\Livewire\Users\UsersEdit;
@@ -21,6 +22,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// SMS
+Route::get('sms', [SMSController::class, 'sms_index'])->name('sms.index');
+Route::post('sms', [SMSController::class, 'sms_send'])->name('sms.send');
+
+// Auth
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
     Route::view('dashboard', 'dashboard')->name('dashboard');
