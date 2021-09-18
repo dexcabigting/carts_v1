@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\PasswordSelectMethodController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/register', [RegisteredUserController::class, 'create'])
@@ -62,3 +63,10 @@ Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store']
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
+
+// Password Reset Method (Custom)
+Route::middleware('guest')->group( function () {
+    // Select Method
+    Route::view('password-reset-method', 'auth.forgot-password-select');
+    Route::post('password-reset-method', [PasswordSelectMethodController::class, 'select_method'])->name('select.method');
+});
