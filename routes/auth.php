@@ -27,7 +27,7 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])
 
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->middleware('guest')
-                ->name('password.request');
+                ->name('password.request-email');
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
                 ->middleware('guest')
@@ -66,7 +66,7 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
 
 // Password Reset Method (Custom)
 Route::middleware('guest')->group( function () {
-    // Select Method
-    Route::view('password-reset-method', 'auth.forgot-password-select');
-    Route::post('password-reset-method', [PasswordSelectMethodController::class, 'select_method'])->name('select.method');
+    // Select Method for Password Reset
+    Route::get('password-reset-method', [PasswordSelectMethodController::class, 'index'])->name('select.method-index');
+    Route::post('password-reset-method', [PasswordSelectMethodController::class, 'store'])->name('select.method-store');
 });

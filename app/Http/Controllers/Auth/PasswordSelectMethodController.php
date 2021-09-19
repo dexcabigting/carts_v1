@@ -8,14 +8,19 @@ use Illuminate\Http\Request;
 class PasswordSelectMethodController extends Controller
 {
     //
-    public function select_method(Request $request)
+    public function index()
+    {
+        return view('auth.forgot-password-select');
+    }
+
+    public function store(Request $request)
     {
         $method = $request->method;
 
         if(empty($method)) {
             return back()->with('fail', 'You must select a password reset method!');
         }   else if ($method == 'email') {
-            return view('auth.forgot-password-email');
+            return redirect()->route('password.request-email');
         }   
     }
 }

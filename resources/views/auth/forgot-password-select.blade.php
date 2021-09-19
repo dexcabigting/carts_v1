@@ -12,7 +12,7 @@
             {{ __('Which method do you want to receive your password reset link with?') }}
         </div>
 
-        <form method="POST" action="{{ route('select.method') }}">
+        <form method="POST" action="{{ route('select.method-store') }}">
             @csrf
 
             <div class="mb-4 text-sm text-gray-600">
