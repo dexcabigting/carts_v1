@@ -6,6 +6,8 @@ use App\Http\Controllers\SMSController;
 use App\Http\Livewire\Users\UsersIndex;
 use App\Http\Livewire\Users\UsersCreate;
 use App\Http\Livewire\Users\UsersEdit;
+use App\Http\Controllers\PhoneNumberController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +23,9 @@ use App\Http\Livewire\Users\UsersEdit;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/validate-phone-number', [PhoneNumberController::class, 'show'])->name('sms.validator');
+
 
 // SMS
 Route::get('sms', [SMSController::class, 'sms_index'])->name('sms.index');

@@ -1,13 +1,11 @@
-<form method="POST" action="{{ route('sms.send') }}" >
+ <!-- Validation Errors -->
+ <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+<form method="POST" action="{{ route('sms.validator') }}" >
     @csrf
     <div>
-        <x-label for="phone" :value="__('Phone')" />
-        <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required autofocus />
-    </div>
-
-    <div>
-        <x-label for="msg" :value="__('Message')" />
-        <x-input id="msg" class="block mt-1 w-full" type="text" name="msg" :value="old('msg')" required autofocus />
+        <x-label :value="__('Phone')" />
+        <x-input class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number')" required autofocus />
     </div>
 
     <x-button class="ml-3">
