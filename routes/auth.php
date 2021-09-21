@@ -25,13 +25,23 @@ Route::get('/login', [AuthenticatedSessionController::class, 'create'])
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
                 ->middleware('guest');
 
-Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
+Route::get('/forgot-password-email', [PasswordResetLinkController::class, 'index_email'])
                 ->middleware('guest')
                 ->name('password.request-email');
 
-Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+Route::post('/forgot-password-email', [PasswordResetLinkController::class, 'store_email'])
                 ->middleware('guest')
                 ->name('password.email');
+
+// Custom Phone Password Reset View
+Route::get('/forgot-password-phone', [PasswordResetLinkController::class, 'index_phone'])
+                ->middleware('guest')
+                ->name('password.request-phone');
+
+// Custom Phone Password Reset Logic
+Route::post('/forgot-password-phone', [PasswordResetLinkController::class, 'store_phone'])
+                ->middleware('guest')
+                ->name('password.phone');
 
 Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
                 ->middleware('guest')

@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 
+// Twilio Phone Lookup
+use App\Service\Twilio\PhoneNumberLookupService;
+use App\Rules\PhoneNumber;
+
 class PasswordResetLinkController extends Controller
 {
     /**
@@ -13,9 +17,14 @@ class PasswordResetLinkController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function index_email()
     {
         return view('auth.forgot-password-email');
+    }
+
+    public function index_phone()
+    {
+        return view('auth.forgot-password-phone');
     }
 
     /**
@@ -26,7 +35,7 @@ class PasswordResetLinkController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store_email(Request $request)
     {
         $request->validate([
             'email' => 'required|email',
@@ -43,5 +52,42 @@ class PasswordResetLinkController extends Controller
                     ? back()->with('status', __($status))
                     : back()->withInput($request->only('email'))
                             ->withErrors(['email' => __($status)]);
+    }
+
+    public function store_phone(Request $request)
+    {
+        $phone = preg_replace( '/^(09)(\d+)/', '639$2', $request->input('phone'));
+
+        $request->offsetSet('phone', $phone);
+
+        $request->validate([
+            'phone' => ['required', 'string', 'exists:users', new PhoneNumber($this->service)],
+        ]);
+
+        // Open connection
+       $to = $request->phone;
+       $from = getenv("TWILIO_FROM");
+       $message = mt_rand(1000, 9999);
+      
+
+       $ch = curl_init();
+
+       // Set the url, number of POST vars, POST data
+       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+       curl_setopt($ch, CURLOPT_USERPWD, getenv("TWILIO_SID").':'.getenv("TWILIO_TOKEN"));
+       curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+       curl_setopt($ch, CURLOPT_URL, sprintf('https://api.twilio.com/2010-04-01/Accounts/'.getenv("TWILIO_SID").'/Messages.json', getenv("TWILIO_SID")));
+       curl_setopt($ch, CURLOPT_POST, 3);
+       curl_setopt($ch, CURLOPT_POSTFIELDS, 'To='.$to.'&From='.$from.'&Body='.$message);
+
+       // Execute post
+       $result = curl_exec($ch);
+       $result = json_decode($result);
+
+       // Close connection
+       curl_close($ch);
+       //Sending message ends here
+
+       return [$result];
     }
 }

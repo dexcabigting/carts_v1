@@ -21,6 +21,8 @@ class PasswordSelectMethodController extends Controller
             return back()->with('fail', 'You must select a password reset method!');
         }   else if ($method == 'email') {
             return redirect()->route('password.request-email');
-        }   
+        }   else if ($method == 'phone') {
+            return redirect()->route('password.request-phone');
+        }
     }
 }
