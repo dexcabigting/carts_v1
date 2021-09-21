@@ -6,8 +6,8 @@ use App\Http\Controllers\SMSController;
 use App\Http\Livewire\Users\UsersIndex;
 use App\Http\Livewire\Users\UsersCreate;
 use App\Http\Livewire\Users\UsersEdit;
-use App\Http\Controllers\PhoneNumberController;
-
+use App\Http\Controllers\Test\PhoneNumberController;
+use App\Http\Controllers\Test\PregReplaceTestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,11 +25,6 @@ Route::get('/', function () {
 });
 
 Route::post('/validate-phone-number', [PhoneNumberController::class, 'show'])->name('sms.validator');
-
-
-// SMS
-Route::get('sms', [SMSController::class, 'sms_index'])->name('sms.index');
-Route::post('sms', [SMSController::class, 'sms_send'])->name('sms.send');
 
 // Auth
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -50,5 +45,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     
 });
+
+// For Testing
+// preg_replace
+Route::get('preg_replace', [PregReplaceTestController::class, 'index'])->name('pr.index');
+Route::post('preg_replace', [PregReplaceTestController::class, 'replace'])->name('pr.replace');
+
+// SMS
+Route::get('sms', [SMSController::class, 'sms_index'])->name('sms.index');
+Route::post('sms', [SMSController::class, 'sms_send'])->name('sms.send');
 
 require __DIR__.'/auth.php';

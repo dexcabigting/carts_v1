@@ -27,6 +27,11 @@ class PhoneNumber implements Rule
 
     public function message()
     {
+        return PhoneNumber::error_message();
+    }
+
+    public static function error_message()
+    {
         return 'The phone number you provided must be in either national or international format.';
     }
 }

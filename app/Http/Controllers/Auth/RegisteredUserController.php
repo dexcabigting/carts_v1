@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+// Twilio Phone Lookup
+use App\Service\Twilio\PhoneNumberLookupService;
+use App\Rules\PhoneNumber;
 
 class RegisteredUserController extends Controller
 {
@@ -18,6 +21,14 @@ class RegisteredUserController extends Controller
      *
      * @return \Illuminate\View\View
      */
+    private $service;
+
+    public function __construct(PhoneNumberLookupService $service)
+    {
+        $this->service = $service;
+    }
+
+
     public function create()
     {
         return view('auth.register');
@@ -33,13 +44,19 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        // preg_replace($request->input('phone'));
+        $phone = preg_replace( '/^(09)(\d+)/', '639$2', $request->input('phone'));
+
+        $request->offsetSet('phone', $phone);
+
+        // dd($request->phone);
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'phone' => 'required|string',
+            'phone' => ['required', 'string', 'unique:users', new PhoneNumber($this->service)],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
