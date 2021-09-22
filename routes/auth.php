@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\Auth\PasswordSelectMethodController;
+use App\Http\Controllers\Auth\OTPController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/register', [RegisteredUserController::class, 'create'])
@@ -50,6 +51,16 @@ Route::get('/reset-password/{token}', [NewPasswordController::class, 'create'])
 Route::post('/reset-password', [NewPasswordController::class, 'store'])
                 ->middleware('guest')
                 ->name('password.update');
+
+// Custom Phone Password Reset View              
+Route::get('/reset-password-phone/{user}/{token}', [OTPController::class, 'create'])
+                ->middleware('guest')
+                ->name('password.reset-phone');
+
+// Custom Phone Password Reset Logic
+Route::post('/reset-password-phone', [OTPController::class, 'store'])
+                ->middleware('guest')
+                ->name('password.update-phone');
 
 Route::get('/verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->middleware('auth')
