@@ -2,10 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SMSController;
+
+// Livewire Users Components
 use App\Http\Livewire\Users\UsersIndex;
 use App\Http\Livewire\Users\UsersCreate;
 use App\Http\Livewire\Users\UsersEdit;
+
+// Livewire Products Components
+use App\Http\Livewire\Products\ProductsIndex;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +43,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('users', UsersIndex::class)->name('users.index');
         Route::get('users/create', UsersCreate::class)->name('users.create');
         Route::get('users/{id}/edit', UsersEdit::class)->name('users.edit');
+
+        // Products Livewire Component
+        Route::get('products', ProductsIndex::class)->name('products.index');
     });
 
     

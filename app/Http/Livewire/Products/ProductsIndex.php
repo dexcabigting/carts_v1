@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Http\Livewire\Products;
+
+use Livewire\Component;
+use App\Models\Product;
+use Livewire\WithPagination;
+
+class ProductsIndex extends Component
+{
+    use WithPagination;
+
+    public function render()
+    {
+        $products = $this->products->paginate(6);
+
+        return view('livewire.products.products-index', compact('products'));
+    }
+
+    public function getProductsProperty()
+    {
+        return Product::orderBy('prd_name');
+    }
+}
