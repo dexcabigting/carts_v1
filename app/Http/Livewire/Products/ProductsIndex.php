@@ -10,6 +10,15 @@ class ProductsIndex extends Component
 {
     use WithPagination;
 
+    public $prompt;
+    
+    public $createModal = 0;
+
+    protected $listeners = [
+        'refreshParent' => '$refresh',
+        'closeCreateModal',
+    ];
+
     public function render()
     {
         $products = $this->products->paginate(6);
@@ -20,5 +29,15 @@ class ProductsIndex extends Component
     public function getProductsProperty()
     {
         return Product::orderBy('prd_name');
+    }
+
+    public function openCreateModal()
+    {
+        $this->createModal = true;
+    }
+
+    public function closeCreateModal()
+    {
+        $this->createModal = false;
     }
 }

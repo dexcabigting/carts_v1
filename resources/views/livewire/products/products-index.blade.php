@@ -5,6 +5,10 @@
         </h2>
     </x-slot>
 
-    @include('products.index', ['products' => $products])
-                
+    @if($createModal)
+        @livewire('products.products-create')
+    @endif
+
+    @include('products.index', ['products' => $products])           
 </div>
+
