@@ -6,9 +6,7 @@
     </x-slot>
 
     @if($createModal)
-        @livewire('products.products-create')
-    @elseif($updateModal)
-        
+        @livewire('products.products-create')        
     @endif
 
     @include('products.index', ['products' => $products])           

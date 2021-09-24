@@ -51,7 +51,7 @@ class ProductsCreate extends Component
 
         $this->clearFormFields();
 
-        $this->emit('refreshParent');
+        $this->emitUp('refreshParent');
 
         session()->flash('success', 'Product has been added successfully!'); 
     }
@@ -65,8 +65,8 @@ class ProductsCreate extends Component
 
     public function closeCreateModal()
     {
-        $this->clearFormFields();
+        $this->emitUp('closeCreateModal');
 
-        $this->emit('closeCreateModal');
+        $this->clearFormFields();
     }
 }
