@@ -7,10 +7,9 @@
         <div class="max-w-lg mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm rounded-lg border-2 border-transparent">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    @include('products.create')
+                    @include('products.edit')
                 </div>
             </div>
         </div>
     </div>
 </div>
-

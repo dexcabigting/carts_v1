@@ -5,12 +5,18 @@ namespace App\Http\Livewire\Products;
 use Livewire\Component;
 use App\Models\Product;
 
-class ProductsCreate extends Component
+class ProductsEdit extends Component
 {
+    public $product;
+
     public $form = [
         'prd_name' => '',
         'prd_description' => '',
         'prd_price' => '',
+    ];
+
+    protected $listeners = [
+        'getProductId',
     ];
 
     protected function rules()
@@ -28,43 +34,42 @@ class ProductsCreate extends Component
         'form.prd_price' => 'product price',
     ];
 
+    public function mount(Product $id)
+    {
+        $this->form['prd_name'] = $id->prd_name;
+        $this->form['prd_description'] = $id->prd_description;
+        $this->form['prd_price'] = $id->prd_price;
+
+        $this->product = $id;
+    }
+        
     public function render()
     {
-        return view('livewire.products.products-create');
+        return view('livewire.products.products-edit');
     }
 
-    // public function updated($propertyName)
-    // {
-    //     $this->validateOnly($propertyName);
+    public function getProductId(Product $id)
+    {
+        $this->mount($id);
+    }
 
-    // }
-
-    public function store()
+    public function update()
     {
         $this->validate();
-        
-        Product::create([
+
+        $this->product->update([
             'prd_name' => $this->form['prd_name'],
             'prd_description' => $this->form['prd_description'],
             'prd_price' => $this->form['prd_price'],
         ]);
 
-        $this->clearFormFields();
-
         $this->emitUp('refreshParent');
 
-        session()->flash('success', 'Product has been added successfully!'); 
+        session()->flash('success', 'Product has been updated successfully!');
     }
 
-    public function clearFormFields()
+    public function closeEditModal()
     {
-        $this->form['prd_name'] = '';
-        $this->form['prd_description'] = '';
-        $this->form['prd_price'] = '';
-    }
-
-    public function closeCreateModal()
-    {
-        $this->emitUp('closeCreateModal');
+        $this->emitUp('closeEditModal');
     }
 }

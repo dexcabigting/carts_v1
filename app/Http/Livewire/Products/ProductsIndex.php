@@ -9,15 +9,14 @@ use Livewire\WithPagination;
 class ProductsIndex extends Component
 {
     use WithPagination;
-
-    public $prompt;
     
     public $createModal = 0;
+    public $editModal = 0;
 
     protected $listeners = [
         'refreshParent' => '$refresh',
         'closeCreateModal',
-        'closeUpdateModal'
+        'closeEditModal',
     ];
 
     public function render()
@@ -40,5 +39,17 @@ class ProductsIndex extends Component
     public function closeCreateModal()
     {
         $this->createModal = false;
+    }
+
+    public function openEditModal($id)
+    {
+        $this->emit('getProductId', $id);
+
+        $this->editModal = true;
+    }
+
+    public function closeEditModal()
+    {
+        $this->editModal = false;
     }
 }
