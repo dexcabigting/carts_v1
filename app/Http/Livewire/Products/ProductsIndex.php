@@ -12,11 +12,12 @@ class ProductsIndex extends Component
 
     public $prompt;
     
-    public $createModal = 0;
+    public $createModal = 1;
 
     protected $listeners = [
         'refreshParent' => '$refresh',
         'closeCreateModal',
+        'closeUpdateModal'
     ];
 
     public function render()

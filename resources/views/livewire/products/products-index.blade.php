@@ -7,6 +7,8 @@
 
     @if($createModal)
         @livewire('products.products-create')
+    @elseif($updateModal)
+        
     @endif
 
     @include('products.index', ['products' => $products])           

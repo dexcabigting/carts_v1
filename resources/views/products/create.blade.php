@@ -1,4 +1,4 @@
-<div>
+<div class="">
     <x-success-fail-message />
     <x-validation-errors :errors="$errors" />
 
