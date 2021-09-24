@@ -66,6 +66,8 @@ class ProductsEdit extends Component
         $this->emitUp('refreshParent');
 
         session()->flash('success', 'Product has been updated successfully!');
+        
+        // $this->closeEditModal();
     }
 
     public function closeEditModal()

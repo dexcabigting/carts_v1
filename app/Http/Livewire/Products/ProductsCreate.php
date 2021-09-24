@@ -33,12 +33,6 @@ class ProductsCreate extends Component
         return view('livewire.products.products-create');
     }
 
-    // public function updated($propertyName)
-    // {
-    //     $this->validateOnly($propertyName);
-
-    // }
-
     public function store()
     {
         $this->validate();
