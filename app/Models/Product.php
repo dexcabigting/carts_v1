@@ -14,4 +14,9 @@ class Product extends Model
         'prd_description',
         'prd_price',
     ];
+
+    public function product_stock()
+    {
+        return $this->hasOne(ProductStock::class);
+    }
 }
