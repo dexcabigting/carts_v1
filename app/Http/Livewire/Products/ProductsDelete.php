@@ -40,8 +40,7 @@ class ProductsDelete extends Component
 
     public function closeDeleteModal()
     {
-        $this->dispatchBrowserEvent('editModalDisplayNone');
-        
+        $this->dispatchBrowserEvent('deleteModalDisplayNone');
         $this->emitUp('closeDeleteModal');
     }
 }
