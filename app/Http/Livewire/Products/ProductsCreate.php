@@ -59,6 +59,7 @@ class ProductsCreate extends Component
 
     public function closeCreateModal()
     {
+        $this->dispatchBrowserEvent('createModalDisplayNone');
         $this->emitUp('closeCreateModal');
     }
 }

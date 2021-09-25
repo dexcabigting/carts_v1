@@ -16,7 +16,8 @@ class ProductsEdit extends Component
     ];
 
     protected $listeners = [
-        'getProductId',
+        'editProductId' => 'getProductId',
+        'closeEdit',
     ];
 
     protected function rules()
@@ -33,15 +34,6 @@ class ProductsEdit extends Component
         'form.prd_description' => 'product description',
         'form.prd_price' => 'product price',
     ];
-
-    public function mount(Product $id)
-    {
-        $this->form['prd_name'] = $id->prd_name;
-        $this->form['prd_description'] = $id->prd_description;
-        $this->form['prd_price'] = $id->prd_price;
-
-        $this->product = $id;
-    }
         
     public function render()
     {
@@ -50,7 +42,11 @@ class ProductsEdit extends Component
 
     public function getProductId(Product $id)
     {
-        $this->mount($id);
+        $this->form['prd_name'] = $id->prd_name;
+        $this->form['prd_description'] = $id->prd_description;
+        $this->form['prd_price'] = $id->prd_price;
+
+        $this->product = $id;
     }
 
     public function update()
@@ -66,12 +62,12 @@ class ProductsEdit extends Component
         $this->emitUp('refreshParent');
 
         session()->flash('success', 'Product has been updated successfully!');
-        
-        // $this->closeEditModal();
     }
 
     public function closeEditModal()
     {
+        $this->dispatchBrowserEvent('editModalDisplayNone');
+        
         $this->emitUp('closeEditModal');
     }
 }

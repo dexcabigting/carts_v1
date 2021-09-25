@@ -1,4 +1,4 @@
-<div id="edit-modal" class="flex flex-wrap flex-row justify-items-center align-items-center fixed top-0 left-0 w-full h-full">
+<div id="delete-modal" class="flex flex-wrap flex-row justify-items-center align-items-center fixed top-0 left-0 w-full h-full">
     <div class="py-12 fixed top-0 left-0 w-full h-full bg-gray-500 opacity-75 z-10">
 
     </div>
@@ -7,7 +7,7 @@
         <div class="max-w-lg mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm rounded-lg border-2 border-transparent">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    @include('products.edit')
+                    @include('products.delete')
                 </div>
             </div>
         </div>
@@ -15,7 +15,7 @@
 </div>
 
 <script>
-    window.addEventListener('editModalDisplayNone', event => {
-        document.getElementById("edit-modal").style.display = "none";
+    window.addEventListener('deleteModalDisplayNone', event => {
+        document.getElementById("delete-modal").style.display = "none";
     });
 </script>

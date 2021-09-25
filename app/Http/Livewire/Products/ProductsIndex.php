@@ -12,11 +12,13 @@ class ProductsIndex extends Component
     
     public $createModal = 0;
     public $editModal = 0;
+    public $deleteModal = 0;
 
     protected $listeners = [
         'refreshParent' => '$refresh',
         'closeCreateModal',
         'closeEditModal',
+        'closeDeleteModal',
     ];
 
     public function render()
@@ -43,7 +45,7 @@ class ProductsIndex extends Component
 
     public function openEditModal($id)
     {
-        $this->emit('getProductId', $id);
+        $this->emit('editProductId', $id);
 
         $this->editModal = true;
     }
@@ -51,5 +53,17 @@ class ProductsIndex extends Component
     public function closeEditModal()
     {
         $this->editModal = false;
+    }
+
+    public function openDeleteModal($id)
+    {
+        $this->emit('deleteProductId', $id);
+
+        $this->deleteModal = true;
+    }
+
+    public function closeDeleteModal()
+    {
+        $this->deleteModal = false;
     }
 }

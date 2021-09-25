@@ -8,9 +8,13 @@
     @if($createModal)
         @livewire('products.products-create')        
     @elseif($editModal)
-        @livewire('products.products-edit')   
+        @livewire('products.products-edit')  
+    @elseif($deleteModal)
+        @livewire('products.products-delete')   
     @endif
 
     @include('products.index', ['products' => $products])           
 </div>
+
+
 
