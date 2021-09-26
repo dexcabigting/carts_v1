@@ -13,6 +13,7 @@ class Product extends Model
         'prd_name',
         'prd_description',
         'prd_price',
+        'prd_image',
     ];
 
     public function product_stock()

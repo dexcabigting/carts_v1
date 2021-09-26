@@ -18,8 +18,8 @@
         <div class="mx-auto sm:px-5 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-5 bg-white border-b border-gray-200">
-                    <div class="bg-gray-400 w-auto h-60 sm:rounded-lg mb-5 text-7xl">
-                        {{ $products->firstItem() + $index }}
+                    <div class="bg-gray-400 w-auto h-auto sm:rounded-lg mb-5 p-5">
+                        <img src="{{ asset("storage/$product->prd_image") }}" />
                     </div>
 
                     <div>
