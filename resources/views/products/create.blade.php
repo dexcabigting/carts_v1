@@ -31,12 +31,6 @@
                 </div>
 
                 <div class="mt-4">
-                    <!-- <x-label for="prd_image" :value="__('Image')" />
-                    <label
-                        class="mt-1 flex flex-col font-semibold text-xs uppercase tracking-widest items-center bg-white rounded-md shadow-md border border-blue cursor-pointer hover:bg-gray-800 hover:text-white text-gray-800 ease-linear transition-all duration-150">
-                        <span class="px-4 py-2">Select a file</span>
-                        <input type='file' class="hidden" id="prd_image" wire:model.defer="form.prd_image" />
-                    </label> -->
                     <x-label for="prd_image" :value="__('Image')" />
                     <input type="file" wire:model.defer="form.prd_image" />
                     <div wire:loading wire:target="form.prd_image">Uploading...</div>

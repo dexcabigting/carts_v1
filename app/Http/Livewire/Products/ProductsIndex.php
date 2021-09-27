@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Products;
 use Livewire\Component;
 use App\Models\Product;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Storage;
 
 class ProductsIndex extends Component
 {

@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Products;
 use Livewire\Component;
 use App\Models\Product;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Storage;
 
 class ProductsCreate extends Component
 {
@@ -70,12 +69,9 @@ class ProductsCreate extends Component
 
         $prdImage = $this->form['prd_image'];
 
-        $newPrdImageName = $this->form['prd_name'] .  '.' . $prdImage->extension();
+        $newProductImageName = $this->form['prd_name'] . '.' . $prdImage->extension();
 
-        $prdImagePath = $prdImage->storeAs('/images/products', $newPrdImageName,'public');
-
-        // dd($newPrdImageName);
-
+        $prdImagePath = $prdImage->storeAs('/images/products', $newProductImageName,'public');
         
         $product = Product::create([
             'prd_name' => $this->form['prd_name'],

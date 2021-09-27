@@ -19,7 +19,7 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-5 bg-white border-b border-gray-200">
                     <div class="bg-gray-400 w-auto h-auto sm:rounded-lg mb-5 p-5">
-                        <img src="{{ asset("storage/$product->prd_image") }}" />
+                        <img src="{{ Storage::url('public/' . $product->prd_image) }}?{{ rand() }}" />
                     </div>
 
                     <div>
