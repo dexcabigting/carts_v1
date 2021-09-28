@@ -14,9 +14,7 @@ class ProductsEdit extends Component
     use WithFileUploads;
 
     public $product;
-
-    public $prd_image;
-
+    
      /**
      * @var ['prd_image'] mixed
      */
@@ -35,7 +33,6 @@ class ProductsEdit extends Component
     ];
 
     protected $listeners = [
-        'editProductId' => 'getProductId',
         'closeEdit',
     ];
 
@@ -70,15 +67,15 @@ class ProductsEdit extends Component
         'form.xxlarge'  => 'xxlarge size',
     ];
     
-    public function mount(Product $uid)
+    public function mount(Product $id)
     {
-        $this->product = $uid;
+        $this->product = $id;
 
-        $this->form['prd_name'] = $uid->prd_name;
-        $this->form['prd_description'] = $uid->prd_description;
-        $this->form['prd_price'] = $uid->prd_price;
+        $this->form['prd_name'] = $id->prd_name;
+        $this->form['prd_description'] = $id->prd_description;
+        $this->form['prd_price'] = $id->prd_price;
 
-        $productStock = $uid->product_stock;
+        $productStock = $id->product_stock;
         
         $this->form['xxsmall'] = $productStock->xxsmall;
         $this->form['xsmall'] = $productStock->xsmall;
@@ -87,35 +84,12 @@ class ProductsEdit extends Component
         $this->form['large'] = $productStock->large;
         $this->form['xlarge'] = $productStock->xlarge;
         $this->form['xxlarge'] = $productStock->xxlarge;
-
-        $this->prd_image = $uid->prd_image;
     }
 
     public function render()
     {
         return view('livewire.products.products-edit');
     }
-
-    // public function getProductId(Product $id)
-    // {
-    //     $this->form['prd_name'] = $id->prd_name;
-    //     $this->form['prd_description'] = $id->prd_description;
-    //     $this->form['prd_price'] = $id->prd_price;
-
-    //     $productStock = $id->product_stock;
-        
-    //     $this->form['xxsmall'] = $productStock->xxsmall;
-    //     $this->form['xsmall'] = $productStock->xsmall;
-    //     $this->form['small'] = $productStock->small;
-    //     $this->form['medium'] = $productStock->medium;
-    //     $this->form['large'] = $productStock->large;
-    //     $this->form['xlarge'] = $productStock->xlarge;
-    //     $this->form['xxlarge'] = $productStock->xxlarge;
-
-    //     $this->mount($id);
-
-    //     $this->prd_image = $id->prd_image;
-    // }
 
     public function update()
     {

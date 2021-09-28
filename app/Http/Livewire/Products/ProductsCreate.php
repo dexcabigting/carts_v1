@@ -74,26 +74,30 @@ class ProductsCreate extends Component
 
         $prdImagePath = $prdImage->storeAs('/images/products', $newProductImageName,'public');
         
-        $product = Product::create([
-            'prd_name' => $this->form['prd_name'],
-            'prd_description' => $this->form['prd_description'],
-            'prd_price' => $this->form['prd_price'],
-            'prd_image' => $prdImagePath,
-        ]);
+        $i = 5;
+        while ($i-- > 0) {
 
-        $productStocks = [
-            'xxsmall' => $this->form['xxsmall'],
-            'xsmall' => $this->form['xsmall'],
-            'small' => $this->form['small'],
-            'medium' => $this->form['medium'],
-            'large' => $this->form['large'],
-            'xlarge' => $this->form['xlarge'],
-            'xxlarge' => $this->form['xxlarge'],
-        ];
-
-        $productStocks = array_filter($productStocks);
-
-        $product->product_stock()->create($productStocks);
+            $product = Product::create([
+                'prd_name' => $this->form['prd_name'] . Str::random(5),
+                'prd_description' => $this->form['prd_description'],
+                'prd_price' => $this->form['prd_price'],
+                'prd_image' => $prdImagePath,
+            ]);
+    
+            $productStocks = [
+                'xxsmall' => $this->form['xxsmall'],
+                'xsmall' => $this->form['xsmall'],
+                'small' => $this->form['small'],
+                'medium' => $this->form['medium'],
+                'large' => $this->form['large'],
+                'xlarge' => $this->form['xlarge'],
+                'xxlarge' => $this->form['xxlarge'],
+            ];
+    
+            $productStocks = array_filter($productStocks);
+    
+            $product->product_stock()->create($productStocks);
+        }
         
         $this->clearFormFields();
 

@@ -16,7 +16,7 @@ class ProductsIndex extends Component
     public $editModal = 0;
     public $deleteModal = 0;
     public $imageId;
-    public $uid;
+    public $productId;
 
     protected $listeners = [
         'refreshParent' => '$refresh',
@@ -24,6 +24,9 @@ class ProductsIndex extends Component
         'closeCreateModal',
         'closeEditModal',
         'closeDeleteModal',
+        'cleanse',
+        'unsetCheckedProducts',
+        'arrayDiffCheckedProducts',
     ];
 
     public function mount()
@@ -51,7 +54,7 @@ class ProductsIndex extends Component
                 ->map(fn ($item) => (string) $item)
                 ->flip()
                 ->map(fn ($item) => true)
-                ->toArray();
+                ->toArray(); 
         } else {
             $this->checkedProducts = [];
         }
@@ -76,9 +79,7 @@ class ProductsIndex extends Component
 
     public function openEditModal($id)
     {
-        $this->uid = $id;
-        
-        // $this->emit('editProductId');
+        $this->productId = $id;
 
         $this->editModal = true;
     }
@@ -90,7 +91,7 @@ class ProductsIndex extends Component
 
     public function openDeleteModal($id)
     {
-        $this->emit('deleteProductId', $id);
+        $this->productId = $id;
 
         $this->deleteModal = true;
     }
@@ -99,4 +100,20 @@ class ProductsIndex extends Component
     {
         $this->deleteModal = false;
     }
+
+    public function cleanse()
+    {
+        $this->checkedProducts = [];
+
+        $this->selectAll = false;
+    }
+
+    // public function unsetCheckedProducts($ids)
+    // {
+    //     if (is_array($this->checkedProducts)) {
+    //         foreach ($ids as $id) { 
+    //             unset($this->checkedProducts["$id"]);
+    //         }
+    //     }
+    // }
 }

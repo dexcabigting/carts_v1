@@ -8,9 +8,9 @@
     @if($createModal)
         @livewire('products.products-create')        
     @elseif($editModal)
-        @livewire('products.products-edit', ['uid' => $uid])  
+        @livewire('products.products-edit', ['id' => $productId])  
     @elseif($deleteModal)
-        @livewire('products.products-delete')   
+        @livewire('products.products-delete', ['id' => $productId])   
     @endif
 
     @include('products.index', ['products' => $products])      

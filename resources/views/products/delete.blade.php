@@ -8,7 +8,7 @@
     
         <div class="flex mt-4 gap-5 ">
             <div>
-                <x-button type="button" wire:click.prevent="deleteProduct()">
+                <x-button type="button" wire:click.prevent="deleteProducts()">
                     {{ __('Yes') }}
                 </x-button>
             </div>
