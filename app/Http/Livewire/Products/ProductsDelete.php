@@ -24,14 +24,21 @@ class ProductsDelete extends Component
 
     public function deleteProducts()
     {
-        // dd($this->products);
+        if (count($this->products) == 1) {
+            $flash = 'Are you sure you want to delete this product?';
+        } else {
+            $flash = 'Are you sure you want to delete these products?';
+        }
+            
         Product::whereIn('id', $this->products)->delete();
 
         $this->emitUp('unsetCheckedProducts', $this->products);
 
+        $this->emitUp('cleanse');
+
         $this->emitUp('refreshParent');
 
-        session()->flash('success', 'Product has been deleted successfully!');
+        session()->flash('success', $flash);
 
         $this->products = [];
 

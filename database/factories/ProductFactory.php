@@ -30,7 +30,7 @@ class ProductFactory extends Factory
         Storage::copy('public/images/dummies/plain_jersey.jpg', 'public/' . $imagePath);
 
         return [
-            'prd_name' => $this->faker->word(),
+            'prd_name' => $this->faker->unique()->word(),
             'prd_description' => $this->faker->text(50),
             'prd_price' => $this->faker->randomFloat($nbMaxDecimals = NULL, $min = 750.00, $max = 1000.00),
             'prd_image' => $imagePath,

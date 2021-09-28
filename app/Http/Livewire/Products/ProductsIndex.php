@@ -112,6 +112,8 @@ class ProductsIndex extends Component
     {
         $this->checkedProducts = [];
 
+        $this->checkedKeys = array_keys($this->checkedProducts);
+
         $this->selectAll = false;
     }
 

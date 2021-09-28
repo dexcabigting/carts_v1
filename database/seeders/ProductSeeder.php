@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Product;
+use App\Models\ProductStock;
 
 class ProductSeeder extends Seeder
 {
@@ -15,6 +15,6 @@ class ProductSeeder extends Seeder
     public function run()
     {
         //
-        Product::factory()->count(1)->create();
+        ProductStock::factory()->count(10)->create();
     }
 }

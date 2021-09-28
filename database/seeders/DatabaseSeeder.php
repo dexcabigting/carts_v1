@@ -14,14 +14,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-            RoleSeeder::class,
-            UserSeeder::class,
-            // ProductSeeder::class,
-        ]);
-
         $product_images = Storage::allFiles('public/images/products');
 
         Storage::delete($product_images);
+
+        $this->call([
+            RoleSeeder::class,
+            UserSeeder::class,
+            ProductSeeder::class,
+        ]);
     }
 }
