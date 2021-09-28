@@ -1,15 +1,20 @@
 <x-success-fail-message />
     
-<div class="grid grid-rows-3 grid-cols-2 lg:grid-rows-1 lg:grid-cols-6 justify-end items-start mb-4 gap-2 lg:gap-1">
+<div class="grid grid-rows-3 grid-cols-2 lg:grid-rows-1 lg:grid-cols-6 lg:justify-items-stretch mb-4 gap-2 lg:gap-1">
+    <!-- Create Button -->
+    <div class="">
+        <a href="{{ route('users.create') }}">
+            <x-button>
+                {{ __('Create User') }}
+            </x-button>
+        </a>
+    </div>     
+
     <!-- Delete Button -->
     <div class="">                       
         <button wire:click.prevent="deleteChecked()"          
             type="button" {{ (!$checkedUsers) ?  'disabled' : null }}
             class="px-4 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-400 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedUsers) cursor-not-allowed @endif">
-
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-            </svg>
             {{ __('Bulk Delete') }} 
             @if ($checkedUsers)
                 ({{ count($checkedUsers) }})
@@ -50,18 +55,6 @@
         </div>        
     </div>
 
-    <!-- Sort By -->
-    <div class="lg:px-2">
-        <div class="text-sm font-medium text-gray-900">
-            <x-label :value="__('Sort By')" class="inline-block" />
-            <select wire:model="sortBy" 
-            class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
-                <option value="Name">Name</option>
-                <option value="Email">Email</option>
-            </select>
-        </div>
-    </div>
-
     <!-- Order By -->
     <div class="">
         <div class="text-sm font-medium text-gray-900">
@@ -75,7 +68,7 @@
     </div>
     
     <!-- Search Bar -->
-    <div class="col-span-2 lg:col-span-2 grid items-center relative lg:w-full">
+    <div class="col-span-2 lg:col-span-2 grid items-center align-center relative lg:w-64">
         <x-input class="pr-10" placeholder="Search by {{ $sortBy }}" type="search" wire:model="search" autofocus />
         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-indigo-300 absolute right-0" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
@@ -85,7 +78,7 @@
 
 <!-- This example requires Tailwind CSS v2.0+ -->
 <div class="flex flex-col">
-    <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                 <table class="table-auto min-w-full divide-y divide-gray-200">
@@ -234,7 +227,6 @@
                         </td>
                     </tr>
                     @endforelse
-
                 </tbody>
                 
                 </table>
@@ -248,10 +240,4 @@
     {{ $users->onEachSide(5)->links() }}
 </div>
 
-<div class="flex items-center justify-start mt-4">
-    <a href="{{ route('users.create') }}">
-        <x-button>
-            {{ __('Create User') }}
-        </x-button>
-    </a>
-</div>   
+  

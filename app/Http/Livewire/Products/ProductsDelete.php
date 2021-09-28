@@ -38,6 +38,18 @@ class ProductsDelete extends Component
         $this->promptDeleted = 1;
     }
 
+    public function deleteChecked()
+    {
+        Product::where('id', $this->product)->delete();
+
+        $this->emitUp('refreshParent');
+
+        session()->flash('success', 'Product has been deleted successfully!');
+
+        $this->promptDelete = 0;
+        $this->promptDeleted = 1;
+    }
+
     public function closeDeleteModal()
     {
         $this->dispatchBrowserEvent('deleteModalDisplayNone');

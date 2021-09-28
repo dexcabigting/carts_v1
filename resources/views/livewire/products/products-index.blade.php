@@ -13,7 +13,7 @@
         @livewire('products.products-delete')   
     @endif
 
-    @include('products.index', ['products' => $products])           
+    @include('products.index', ['products' => $products])      
 </div>
 
 

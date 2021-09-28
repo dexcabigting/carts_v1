@@ -5,18 +5,17 @@ namespace App\Http\Livewire\Products;
 use Livewire\Component;
 use App\Models\Product;
 use Livewire\WithPagination;
-use Illuminate\Support\Facades\Storage;
 
 class ProductsIndex extends Component
 {
     use WithPagination;
     
+    public $checkedProducts;
+    public $selectAll = false;
     public $createModal = 0;
     public $editModal = 0;
     public $deleteModal = 0;
-
     public $imageId;
-
     public $uid;
 
     protected $listeners = [
@@ -26,6 +25,11 @@ class ProductsIndex extends Component
         'closeEditModal',
         'closeDeleteModal',
     ];
+
+    public function mount()
+    {
+        $this->checkedProducts = [];
+    }
 
     public function render()
     {
@@ -37,6 +41,27 @@ class ProductsIndex extends Component
     public function getProductsProperty()
     {
         return Product::orderBy('prd_name');
+    }
+
+    public function updatedSelectAll($value)
+    {
+        if ($value) {
+            $this->checkedProducts = Product::select('id')
+                ->pluck('id')
+                ->map(fn ($item) => (string) $item)
+                ->flip()
+                ->map(fn ($item) => true)
+                ->toArray();
+        } else {
+            $this->checkedProducts = [];
+        }
+    }
+
+    public function updatedCheckedProducts()
+    {
+        $this->selectAll = false;
+
+        $this->checkedProducts = array_filter($this->checkedProducts); 
     }
 
     public function openCreateModal()

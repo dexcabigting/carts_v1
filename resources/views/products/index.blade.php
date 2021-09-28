@@ -1,72 +1,152 @@
 <div>
     <div class="pt-12 pb-5">
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <div class="flex items-center justify-start">
+                <div class="flex flex-row gap-5 p-6 bg-white border-b border-gray-200">
+                    <div class="">
                         <x-button wire:click="openCreateModal()">
                             {{ __('Add Product') }}
                         </x-button>
                     </div>  
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div class="max-w-6xl mx-auto grid grid-cols-3">
-        @forelse ($products as $index => $product)
-        <div class="mb-5 p-auto">
-            <div class="mx-auto sm:px-5 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-5 bg-white border-b border-gray-200">
-                        <div>               
-                            <img class="object-scale-down h-48 w-full" src="{{ Storage::url('public/' . $product->prd_image) }}" />
-                        </div>
+                    <div class="">
+                        <button wire:click.prevent="openDeleteModal()"          
+                            type="button" {{ (!$checkedProducts) ?  'disabled' : null }}
+                            class="px-4 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-400 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedProducts) cursor-not-allowed @endif">
+                            {{ __('Bulk Delete') }} 
+                            @if ($checkedProducts)
+                                ({{ count($checkedProducts) }})
+                            @endif
+                        </button>
+                    </div>  
 
-                        <div>
-                            Name: {{ $product->prd_name }}
-                        </div>
-
-                        <div>
-                            Product description: {{ $product->prd_description }}
-                        </div>
-
-                        <div>
-                            Product price: {{ $product->prd_price }}
-                        </div>    
-
-                        <div class="mt-5 flex gap-5">
-                            <div>
-                                <button wire:click="openEditModal( {{ $product->id }} )" type="button" class="p-2 bg-green-400 rounded-md border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-300 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
-                                            <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-                                            <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
-                                        </svg>
-                                        {{ __('Edit') }}
-                                    </span>
-                                </button>
-                            </div>
-
-                            <div>
-                                <button wire:click="openDeleteModal( {{ $product->id }} )" type="button" class="p-2 bg-red-500 rounded-md border border-transparent font-semibold text-xs text-white uppercase tracking-normal hover:bg-red-400 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                        </svg>
-                                        {{ __('Delete') }}
-                                    </span>
-                                </button>
-                            </div>    
-                        </div>
+                    <div>
+                        @json($checkedProducts)
                     </div>
                 </div>
             </div>
         </div>
-        @empty
-
-        @endforelse
     </div>
+
+    <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col">
+            <div class="my-2 overflow-x-auto">
+                <div class="py-2 align-middle inline-block min-w-full">
+                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        <table class="table-auto min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 float-left">
+                                    <div>
+                                        <input type="checkbox" wire:model="selectAll" 
+                                        class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring-indigo-200 focus:ring-opacity-50">
+                                    </div>
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    No.
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Name
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Description
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Actions
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Date Created
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @forelse ($products as $index => $product)
+                            <tr> 
+                                <td class="px-6 py-4" wire:key="product-{{ $loop->index }}">
+                                    <div>
+                                        <input type="checkbox" wire:model="checkedProducts.{{ $product->id }}" 
+                                        class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    </div>
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap"> 
+                                    <div class="text-sm font-medium text-gray-900">
+                                        {{ $products->firstItem() + $index }}
+                                    </div>
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-10 w-10">
+                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
+                                        </div>
+                                        <div class="ml-4">
+                                            <div class="text-sm font-medium text-gray-900">
+                                            {{ $product->prd_name }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap"> 
+                                    <div class="text-sm font-medium text-gray-900">
+                                        {{ $product->prd_description }}
+                                    </div>
+                                </td>
+
+
+                                <td class="flex px-6 py-4 whitespace-nowrap">
+                                    <div>
+                                        <button wire:click.prevent="openEditModal({{ $product->id }})" type="button" class="p-2 bg-green-400 rounded-l-md border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-300 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                                    <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                                                </svg>
+                                                {{ __('Edit') }}
+                                            </span>
+                                        </button>
+                                    </div>
+
+                                    <div>
+                                        <button wire:click.prevent="openDeleteModal({{ $product->id }})" type="button" class="p-2 bg-red-500 rounded-r-md border border-transparent font-semibold text-xs text-white uppercase tracking-normal hover:bg-red-400 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                                </svg>
+                                                {{ __('Delete') }}
+                                            </span>
+                                        </button>
+                                    </div>                                                                         
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">
+                                        {{ $product->created_at->diffForHumans() }}
+                                    </div>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td class="px-6 py-4 text-center">
+                                    <div>
+                                        <span class="font-semibold text-xl text-gray-800 leading-tight">
+                                            {{ __('There are no matches!') }}
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                        
+                        </table>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="pb-12">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="mt-4">
