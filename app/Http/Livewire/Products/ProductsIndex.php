@@ -11,6 +11,7 @@ class ProductsIndex extends Component
     use WithPagination;
     
     public $checkedProducts;
+    public $checkedKeys;
     public $selectAll = false;
     public $createModal = 0;
     public $editModal = 0;
@@ -32,6 +33,8 @@ class ProductsIndex extends Component
     public function mount()
     {
         $this->checkedProducts = [];
+        $this->checkedKeys = [];
+        $this->productId = [];
     }
 
     public function render()
@@ -58,6 +61,8 @@ class ProductsIndex extends Component
         } else {
             $this->checkedProducts = [];
         }
+        
+        $this->checkedKeys = array_keys($this->checkedProducts);
     }
 
     public function updatedCheckedProducts()
@@ -65,6 +70,8 @@ class ProductsIndex extends Component
         $this->selectAll = false;
 
         $this->checkedProducts = array_filter($this->checkedProducts); 
+
+        $this->checkedKeys = array_keys($this->checkedProducts);
     }
 
     public function openCreateModal()
@@ -108,12 +115,12 @@ class ProductsIndex extends Component
         $this->selectAll = false;
     }
 
-    // public function unsetCheckedProducts($ids)
-    // {
-    //     if (is_array($this->checkedProducts)) {
-    //         foreach ($ids as $id) { 
-    //             unset($this->checkedProducts["$id"]);
-    //         }
-    //     }
-    // }
+    public function unsetCheckedProducts($ids)
+    {
+        if (is_array($this->checkedProducts)) {
+            foreach ($ids as $id) { 
+                unset($this->checkedProducts["$id"]);
+            }
+        }
+    }
 }

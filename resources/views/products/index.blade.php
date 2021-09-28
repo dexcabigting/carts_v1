@@ -10,7 +10,7 @@
                     </div>  
 
                     <div class="">
-                        <button wire:click.prevent="openDeleteModal(@json_encode($checkedProducts))"          
+                        <button wire:click.prevent="openDeleteModal(@json($checkedKeys))"          
                             type="button" {{ (!$checkedProducts) ?  'disabled' : null }}
                             class="px-4 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-400 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedProducts) cursor-not-allowed @endif">
                             {{ __('Bulk Delete') }} 
@@ -22,6 +22,10 @@
 
                     <div>
                         @json($checkedProducts)
+                    </div>
+
+                    <div>
+                        @json($checkedKeys)
                     </div>
                 </div>
             </div>

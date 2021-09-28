@@ -12,9 +12,9 @@ class ProductsDelete extends Component
     public $promptDelete = 1;
     public $promptDeleted = 0;
 
-    public function mount(Product $id)
+    public function mount(...$id)
     {
-        $this->products = $id;
+        $this->products = collect($id)->flatten()->toArray();
     }
 
     public function render()
@@ -24,16 +24,16 @@ class ProductsDelete extends Component
 
     public function deleteProducts()
     {
-
+        // dd($this->products);
         Product::whereIn('id', $this->products)->delete();
 
-        // $this->emitUp('unsetCheckedProducts', $this->products);
+        $this->emitUp('unsetCheckedProducts', $this->products);
 
         $this->emitUp('refreshParent');
 
         session()->flash('success', 'Product has been deleted successfully!');
 
-        $this->products = null;
+        $this->products = [];
 
         $this->promptDelete = 0;
         $this->promptDeleted = 1;
