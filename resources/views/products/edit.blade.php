@@ -11,11 +11,15 @@
         @csrf
 
         <div class="flex flex-row divide-gray-200 gap-5">
-            <div  wire:loading.remove  class="w-48">
+            <div wire:loading.remove class="w-48">
                 <x-label :value="__('Image Preview')"/>
                 <div class="bg-gray-400 w-auto h-auto sm:rounded-lg mt-1 p-5">
                     <div>
-                        <img src="{{ Storage::url('public/' . $product->prd_image) }}?{{ rand() }}"  />
+                        @if ($form['prd_image'])
+                            <img src="{{ $form['prd_image']->temporaryUrl() }}" class="img d-block mt-2 w-100 rounded">
+                        @else
+                            <img src="{{ Storage::url('public/' . $product->prd_image) }}?{{ rand() }}"  />
+                        @endif
                     </div>
                 </div>
             </div>

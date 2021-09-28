@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,5 +19,9 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             // ProductSeeder::class,
         ]);
+
+        $product_images = Storage::allFiles('public/images/products');
+
+        Storage::delete($product_images);
     }
 }

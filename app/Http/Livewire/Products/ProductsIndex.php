@@ -15,8 +15,13 @@ class ProductsIndex extends Component
     public $editModal = 0;
     public $deleteModal = 0;
 
+    public $imageId;
+
+    public $uid;
+
     protected $listeners = [
         'refreshParent' => '$refresh',
+        'refreshImage',
         'closeCreateModal',
         'closeEditModal',
         'closeDeleteModal',
@@ -46,7 +51,9 @@ class ProductsIndex extends Component
 
     public function openEditModal($id)
     {
-        $this->emit('editProductId', $id);
+        $this->uid = $id;
+        
+        // $this->emit('editProductId');
 
         $this->editModal = true;
     }

@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Models\Product;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
-use Livewire\TemporaryUploadedFile;
+use Illuminate\Support\Str;
 
 class ProductsEdit extends Component
 {
@@ -70,23 +70,15 @@ class ProductsEdit extends Component
         'form.xxlarge'  => 'xxlarge size',
     ];
     
-    public function mount(Product $id)
+    public function mount(Product $uid)
     {
-        $this->product = $id;
-    }
+        $this->product = $uid;
 
-    public function render()
-    {
-        return view('livewire.products.products-edit');
-    }
+        $this->form['prd_name'] = $uid->prd_name;
+        $this->form['prd_description'] = $uid->prd_description;
+        $this->form['prd_price'] = $uid->prd_price;
 
-    public function getProductId(Product $id)
-    {
-        $this->form['prd_name'] = $id->prd_name;
-        $this->form['prd_description'] = $id->prd_description;
-        $this->form['prd_price'] = $id->prd_price;
-
-        $productStock = $id->product_stock;
+        $productStock = $uid->product_stock;
         
         $this->form['xxsmall'] = $productStock->xxsmall;
         $this->form['xsmall'] = $productStock->xsmall;
@@ -96,10 +88,34 @@ class ProductsEdit extends Component
         $this->form['xlarge'] = $productStock->xlarge;
         $this->form['xxlarge'] = $productStock->xxlarge;
 
-        $this->mount($id);
-
-        $this->prd_image = $id->prd_image;
+        $this->prd_image = $uid->prd_image;
     }
+
+    public function render()
+    {
+        return view('livewire.products.products-edit');
+    }
+
+    // public function getProductId(Product $id)
+    // {
+    //     $this->form['prd_name'] = $id->prd_name;
+    //     $this->form['prd_description'] = $id->prd_description;
+    //     $this->form['prd_price'] = $id->prd_price;
+
+    //     $productStock = $id->product_stock;
+        
+    //     $this->form['xxsmall'] = $productStock->xxsmall;
+    //     $this->form['xsmall'] = $productStock->xsmall;
+    //     $this->form['small'] = $productStock->small;
+    //     $this->form['medium'] = $productStock->medium;
+    //     $this->form['large'] = $productStock->large;
+    //     $this->form['xlarge'] = $productStock->xlarge;
+    //     $this->form['xxlarge'] = $productStock->xxlarge;
+
+    //     $this->mount($id);
+
+    //     $this->prd_image = $id->prd_image;
+    // }
 
     public function update()
     {
@@ -107,11 +123,8 @@ class ProductsEdit extends Component
 
         $path = pathinfo($this->product->prd_image);
 
-
-        $newProductImagePath = $path['dirname'] . '/' . $this->form['prd_name'] . '.' . $path['extension'];
-
-        // dd($pathUnique, $newProductImagePath, $this->product->prd_image, $this->form['prd_image']);
-
+        $newProductImagePath = $path['dirname'] . '/' . $this->form['prd_name'] . Str::random(30) . '.' . $path['extension'];
+        
         if($this->form['prd_name'] != $this->product->prd_name) {
             // If admin changes the product name, product image name should be updated
 
@@ -122,14 +135,11 @@ class ProductsEdit extends Component
 
             $prdImage = $this->form['prd_image'];
 
-            $newProductImageName = $this->form['prd_name'] . '.' . $prdImage->extension();
+            $newProductImageName = $this->form['prd_name'] . Str::random(30) . '.' . $prdImage->extension();
 
             $newProductImagePath = $prdImage->storeAs('/images/products', $newProductImageName,'public');
 
-            $this->emitUp('refreshParent');
         }
-
-        // $this->prd_image = $newProductImagePath;
 
         $this->product->update([
             'prd_name' => $this->form['prd_name'],

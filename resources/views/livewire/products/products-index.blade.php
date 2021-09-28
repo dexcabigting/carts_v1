@@ -8,7 +8,7 @@
     @if($createModal)
         @livewire('products.products-create')        
     @elseif($editModal)
-        @livewire('products.products-edit')  
+        @livewire('products.products-edit', ['uid' => $uid])  
     @elseif($deleteModal)
         @livewire('products.products-delete')   
     @endif

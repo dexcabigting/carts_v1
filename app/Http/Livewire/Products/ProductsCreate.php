@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Products;
 use Livewire\Component;
 use App\Models\Product;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
 
 class ProductsCreate extends Component
 {
@@ -69,7 +70,7 @@ class ProductsCreate extends Component
 
         $prdImage = $this->form['prd_image'];
 
-        $newProductImageName = $this->form['prd_name'] . '.' . $prdImage->extension();
+        $newProductImageName = $this->form['prd_name'] . Str::random(30) . '.' . $prdImage->extension();
 
         $prdImagePath = $prdImage->storeAs('/images/products', $newProductImageName,'public');
         
