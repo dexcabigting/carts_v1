@@ -19,6 +19,8 @@ class ProductsIndex extends Component
     public $imageId;
     public $productId;
     public $search;
+    public $sortColumn = 'prd_name';
+    public $sortDirection = 'asc';
 
     protected $listeners = [
         'refreshParent' => '$refresh',
@@ -49,12 +51,21 @@ class ProductsIndex extends Component
     {
         $search = '%' . $this->search . '%';
 
-        return Product::where('prd_name', 'like', $search);
+        $sortColumn = $this->sortColumn; 
+
+        $sortDirection = $this->sortDirection;
+
+        return Product::where('prd_name', 'like', $search)
+            ->orderBy($sortColumn, $sortDirection);
     }
 
     public function updatedSelectAll($value)
     {
         $search = '%' . $this->search . '%';
+
+        $sortColumn = $this->sortColumn; 
+
+        $sortDirection = $this->sortDirection;
 
         if ($value) {
             $this->checkedProducts = Product::where('prd_name', 'like', $search)

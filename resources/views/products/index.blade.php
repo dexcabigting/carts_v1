@@ -2,7 +2,7 @@
     <div class="pt-12 pb-5">
         <div class="max-w-6xl mx-auto">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex flex-row gap-5 p-6 bg-white border-b border-gray-200">
+                <div class="flex flex-row gap-5 p-6 bg-white border-b border-gray-200 overflow-x-auto">
                     <div class="">
                         <x-button wire:click="openCreateModal()">
                             {{ __('Add Product') }}
@@ -30,9 +30,10 @@
 
                    <!-- Order By -->
                     <div class="">
+                        
                         <div class="text-sm font-medium text-gray-900">
                             <x-label :value="__('Order by')" class="inline-block" />
-                            <select class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                             <select wire:model="sortColumn" class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                 <option value="asc">
                                         <x-label :value="__('Name')" class="inline-block" />
                                 </option>
@@ -41,7 +42,8 @@
                                     <x-label :value="__('Date Created')" class="inline-block" />
                                 </option>
                             </select>
-                            <select class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+
+                            <select wire:model="sortDirection" class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                 <option value="asc">
                                     <x-label :value="__('Ascending')" class="inline-block" />
                                 </option>
@@ -52,6 +54,7 @@
                             </select>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -78,7 +81,25 @@
                                     Name
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Description
+                                    XS
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    XSS
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    S
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    M
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    L
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    XL
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    XXL
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Actions
@@ -118,12 +139,47 @@
                                     </div>
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap"> 
+                                <td class="px-6 py-4 whitespace-nowrap">                                     
                                     <div class="text-sm font-medium text-gray-900">
-                                        {{ $product->prd_description }}
-                                    </div>
+                                        {{ $product->product_stock->xxsmall }}
+                                    </div>                                      
                                 </td>
 
+                                <td class="px-6 py-4 whitespace-nowrap">                                     
+                                    <div class="text-sm font-medium text-gray-900">
+                                        {{ $product->product_stock->xsmall }}
+                                    </div>                                      
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">                                     
+                                    <div class="text-sm font-medium text-gray-900">
+                                        {{ $product->product_stock->small }}
+                                    </div>                                      
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">                                     
+                                    <div class="text-sm font-medium text-gray-900">
+                                        {{ $product->product_stock->medium }}
+                                    </div>                                      
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">                                     
+                                    <div class="text-sm font-medium text-gray-900">
+                                        {{ $product->product_stock->large }}
+                                    </div>                                      
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">                                     
+                                    <div class="text-sm font-medium text-gray-900">
+                                        {{ $product->product_stock->xlarge }}
+                                    </div>                                      
+                                </td>
+
+                                <td class="px-6 py-4 whitespace-nowrap">                                     
+                                    <div class="text-sm font-medium text-gray-900">
+                                        {{ $product->product_stock->xxlarge }}
+                                    </div>                                      
+                                </td>
 
                                 <td class="flex px-6 py-4 whitespace-nowrap">
                                     <div>

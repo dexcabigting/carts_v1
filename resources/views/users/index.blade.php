@@ -2,7 +2,7 @@
     <div class="pt-12 pb-5">
         <div class="max-w-6xl mx-auto">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex flex-row gap-5 p-6 bg-white border-b border-gray-200">
+                <div class="flex flex-row gap-5 p-6 bg-white border-b border-gray-200 overflow-x-auto">
                     <div>
                         <a href="{{ route('users.create') }}">
                             <x-button>
@@ -34,16 +34,16 @@
                     <div class="">
                         <div class="text-sm font-medium text-gray-900">
                             <x-label :value="__('Order by')" class="inline-block" />
-                            <select class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
-                                <option value="asc">
+                            <select wire:model="sortBy" class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                <option value="name">
                                         <x-label :value="__('Name')" class="inline-block" />
                                 </option>
 
-                                <option value="desc">
+                                <option value="created_at">
                                     <x-label :value="__('Date Created')" class="inline-block" />
                                 </option>
                             </select>
-                            <select class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                            <select wire:model="orderBy" class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                 <option value="asc">
                                     <x-label :value="__('Ascending')" class="inline-block" />
                                 </option>

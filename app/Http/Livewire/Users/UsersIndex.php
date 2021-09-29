@@ -14,7 +14,7 @@ class UsersIndex extends Component
     public $selectAll = false;
     public $search;
     public $sortBy = 'Name';
-    public $orderBy = 'desc';
+    public $orderBy = 'asc';
     public $roles = [2, 3];
     public $couriers;
     public $customers;
@@ -49,8 +49,8 @@ class UsersIndex extends Component
             }
         ])      
             ->whereIn('role_id', $this->roles)
-            ->where($sortBy, 'like', $search)
-            ->orderBy('created_at', $orderBy);
+            ->where('email', 'like', $search)
+            ->orderBy($sortBy, $orderBy);
     }
 
     public function updatedSelectAll($value)
