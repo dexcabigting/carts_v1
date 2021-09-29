@@ -18,6 +18,7 @@ class ProductsIndex extends Component
     public $deleteModal = 0;
     public $imageId;
     public $productId;
+    public $search;
 
     protected $listeners = [
         'refreshParent' => '$refresh',
@@ -46,13 +47,17 @@ class ProductsIndex extends Component
 
     public function getProductsProperty()
     {
-        return Product::orderBy('prd_name');
+        $search = '%' . $this->search . '%';
+
+        return Product::where('prd_name', 'like', $search);
     }
 
     public function updatedSelectAll($value)
     {
+        $search = '%' . $this->search . '%';
+
         if ($value) {
-            $this->checkedProducts = Product::select('id')
+            $this->checkedProducts = Product::where('prd_name', 'like', $search)
                 ->pluck('id')
                 ->map(fn ($item) => (string) $item)
                 ->flip()
@@ -72,6 +77,16 @@ class ProductsIndex extends Component
         $this->checkedProducts = array_filter($this->checkedProducts); 
 
         $this->checkedKeys = array_keys($this->checkedProducts);
+    }
+
+    public function updatedSearch()
+    {
+        if(is_array($this->checkedProducts)) {
+            $this->checkedProducts = [];
+            $this->checkedKeys = [];
+
+            $this->selectAll = false;
+        }
     }
 
     public function openCreateModal()

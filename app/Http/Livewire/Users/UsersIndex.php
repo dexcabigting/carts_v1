@@ -97,6 +97,7 @@ class UsersIndex extends Component
     {
         $this->checkedUsers = array_keys($this->checkedUsers);
         
+        
         User::whereIn('id', $this->checkedUsers)->delete();
 
         $this->checkedUsers = [];
