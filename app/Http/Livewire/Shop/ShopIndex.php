@@ -10,7 +10,13 @@ class ShopIndex extends Component
 {
     use WithPagination;
 
-    public $search;
+    public $search; 
+    public $cartId;
+    public $cartModal = false;
+
+    protected $listeners = [
+        'openCartModal',
+    ];
 
     public function render()
     {
@@ -24,6 +30,13 @@ class ShopIndex extends Component
         $search = '%' . $this->search . '%';
 
         return Product::where('prd_name', 'like', $search);
+    }
+
+    public function openCartModal($id)
+    {
+        $this->cartId = $id;
+
+        $this->cartModal = true;
     }
 
     

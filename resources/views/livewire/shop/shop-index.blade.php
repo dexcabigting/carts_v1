@@ -5,5 +5,9 @@
         </h2>
     </x-slot>
 
+    @if ($cartModal)
+        
+    @endif    
+
     @include('shop.index', ['products' => $products])      
 </div>
