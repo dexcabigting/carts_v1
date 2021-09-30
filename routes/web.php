@@ -11,6 +11,9 @@ use App\Http\Livewire\Users\UsersEdit;
 // Livewire Products Components
 use App\Http\Livewire\Products\ProductsIndex;
 
+// Livewire Shop Component
+use App\Http\Livewire\Shop\ShopIndex;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,6 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('profile/credentials', [ProfileController::class, 'update_credentials'])->name('profile.update-credentials');
     Route::put('profile/password', [ProfileController::class, 'update_password'])->name('profile.update-password');
 
+    // Admin
     Route::middleware('admin')->group(function () {
         // Users Livewire Component
         Route::get('users', UsersIndex::class)->name('users.index');
@@ -48,6 +52,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('products', ProductsIndex::class)->name('products.index');
     });
 
+    // Users
+    Route::middleware('user')->group(function () {
+        // Shop Livewire Component
+        Route::get('shop', ShopIndex::class)->name('shop.index');
+    });
     
 });
 
