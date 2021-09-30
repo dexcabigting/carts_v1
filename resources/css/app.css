@@ -1,3 +1,10 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+
+@layer base {
+    h1, h2, button, p, label{
+        font-family: 'Raleway', serif;
+    }
+}
