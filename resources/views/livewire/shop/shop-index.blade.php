@@ -5,8 +5,8 @@
         </h2>
     </x-slot>
 
-    @if ($cartModal)
-        
+    @if($cartModal)
+        @livewire('shop.carts.carts-create', ['id' => $cartId])
     @endif    
 
     @include('shop.index', ['products' => $products])      

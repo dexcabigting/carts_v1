@@ -16,6 +16,7 @@ class ShopIndex extends Component
 
     protected $listeners = [
         'openCartModal',
+        'closeCartModal'
     ];
 
     public function render()
@@ -39,5 +40,8 @@ class ShopIndex extends Component
         $this->cartModal = true;
     }
 
-    
+    public function closeCartModal()
+    {
+        $this->cartModal = false;
+    }    
 }
