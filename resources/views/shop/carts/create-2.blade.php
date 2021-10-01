@@ -1,7 +1,4 @@
 <div class="">
-    <x-success-fail-message />
-    <x-validation-errors :errors="$errors" />
-
     <div class="font-bold text-2xl p-3 border-gray-200">    
         {{ $product->prd_name }}
     </div>
@@ -29,20 +26,4 @@
                 @endforeach
             </div>
     </div>
-
-    <div class="flex justify-center mt-4 gap-5">
-        <div>
-            <x-button type="button" wire:click="closeCartModal()">
-                {{ __('Close') }}
-            </x-button>
-        </div>
-        
-        <div>
-            <x-button>
-                {{ __('Add to Cart') }}
-            </x-button>
-        </div>  
-    </div>
-    
-    
 </div>
