@@ -10,26 +10,26 @@
         </div>
     </div>
 
-    <div class="flex flex-row gap-6 text-center">
-        <div class="flex-grow">
+    <div class="grid grid-cols-4 justify-items-center gap-3 text-center">
+        <div class="">
             <h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
                 {{ __('Size') }}
             </h2>
         </div>
 
-        <div class="flex-grow">
+        <div class="">
             <h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
                 {{ __('Surname') }}
             </h2>
         </div>
 
-        <div class="flex-grow">
+        <div class="">
             <h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
                 {{ __('Number') }}
             </h2>
         </div>
 
-        <div class="flex-grow">
+        <div class="">
             <h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
                 {{ __('Remove') }}
             </h2>
@@ -38,12 +38,12 @@
 
     <form action="POST" wire:submit.prevent="store">
         @foreach($addItems as $index => $addItem)
-            <div class="flex flex-row flex-wrap gap-6 pb-3">
+            <div class="grid grid-cols-4 justify-items-center gap-3 pb-3">
                 <div class="">    
-                    <select wire:model="addItems.{{$index}}.size" class="border-gray-300 rounded-lg">
+                    <select wire:model="addItems.{{ $index }}.size" class="border-gray-300 rounded-lg w-full">
                         @foreach($product->product_stock->sizes->toArray() as $column => $value)
                             @if($value > 10)
-                                <option>
+                                <option value="{{ $column }}">
                                 {{ $column }}
                                 </option>
                             @endif    
@@ -52,11 +52,11 @@
                 </div>
 
                 <div class="">    
-                    <x-input wire:model="addItems.{{$index}}.surname" class="block w-10" type="text" autofocus />
+                    <x-input wire:model.defer="addItems.{{ $index }}.surname" class="block w-full" type="text" autofocus />
                 </div>
 
                 <div class="">    
-                    <x-input wire:model="addItems.{{$index}}.jersey_num" class="block w-10" type="text" autofocus />
+                    <x-input wire:model.defer="addItems.{{ $index }}.jersey_num" class="block w-full" type="text" autofocus />
                 </div>
 
                 <div>

@@ -28,10 +28,9 @@ class CartsCreate extends Component
         return view('livewire.shop.carts.carts-create');
     }
 
-    public function closeCartModal()
+    public function store()
     {
-        $this->dispatchBrowserEvent('cartModalDisplayNone');
-        $this->emitUp('closeCartModal');
+        dd($this->addItems);
     }
 
     public function addMore()
@@ -49,4 +48,21 @@ class CartsCreate extends Component
 
         $this->addItems = array_values($this->addItems);
     }
+
+    public function closeCartModal()
+    {
+        $this->addItems = [
+            [
+                'size' => '',
+                'surname' => '',
+                'jersey_num' => '',
+            ]
+        ];
+
+        $this->dispatchBrowserEvent('cartModalDisplayNone');
+        
+        $this->emitUp('closeCartModal');
+    }
+
+    
 }
