@@ -29,6 +29,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::view('3d', 'three-js');
+
 Route::post('/validate-phone-number', [PhoneNumberController::class, 'show'])->name('sms.validator');
 
 // Auth
