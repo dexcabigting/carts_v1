@@ -38,6 +38,14 @@ class CartsCreate extends Component
 
         $cart->cart_items()->createMany($this->addItems);
 
+        $this->addItems = [
+            [
+                'size' => '',
+                'surname' => '',
+                'jersey_num' => '',
+            ]
+        ];
+
         session()->flash('success', 'Cart has been created successfully!'); 
     }
 
