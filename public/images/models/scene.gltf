@@ -1,0 +1,278 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 3415,
+      "max": [
+        1.1809090375900269,
+        0.5969840288162231,
+        1.0788040161132813
+      ],
+      "min": [
+        -1.1809090375900269,
+        -0.7102370262145996,
+        -1.2320890426635742
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 40980,
+      "componentType": 5126,
+      "count": 3415,
+      "max": [
+        0.9999198913574219,
+        0.9999790191650391,
+        0.9909252524375916
+      ],
+      "min": [
+        -0.9999198913574219,
+        -0.999878466129303,
+        -0.4447820484638214
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 3415,
+      "max": [
+        0.29499268531799316,
+        0.9616163372993469,
+        0.999995231628418,
+        1.0
+      ],
+      "min": [
+        -0.29498541355133057,
+        -0.9881166219711304,
+        0.010658285580575466,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 3415,
+      "max": [
+        0.9620580077171326,
+        0.9925990104675293
+      ],
+      "min": [
+        0.0075690001249313354,
+        0.007400999777019024
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 19200,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "Yaad Toons (https://sketchfab.com/yaadtoons)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/clippers-jersey-e7657780438d427e9da97af672c88d4a",
+      "title": "Clippers Jersey"
+    },
+    "generator": "Sketchfab-10.69.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 76800,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 27320,
+      "byteOffset": 76800,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 81960,
+      "byteOffset": 104120,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 54640,
+      "byteOffset": 186080,
+      "byteStride": 16,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 240720,
+      "uri": "scene.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "textures/clippers_baseColor.jpeg"
+    },
+    {
+      "uri": "textures/clippers_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/clippers_normal.png"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "clippers",
+      "normalTexture": {
+        "index": 2
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "defaultMaterial",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
+          },
+          "indices": 4,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        0.01213152427226305,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.693739514173077e-18,
+        -0.01213152427226305,
+        0.0,
+        0.0,
+        0.01213152427226305,
+        2.693739514173077e-18,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -4.371139006309477e-08,
+        0.999999999999999,
+        0.0,
+        0.0,
+        -0.999999999999999,
+        -4.371139006309477e-08,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Collada visual scene group"
+    },
+    {
+      "children": [
+        3
+      ],
+      "matrix": [
+        18.456945,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -5e-06,
+        -29.716036,
+        0.0,
+        0.0,
+        28.63307,
+        -5e-06,
+        0.0,
+        0.0,
+        37.149586,
+        0.0,
+        1.0
+      ],
+      "name": "clippers"
+    },
+    {
+      "mesh": 0,
+      "name": "defaultMaterial"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    }
+  ]
+}

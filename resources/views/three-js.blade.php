@@ -36,7 +36,7 @@
 
             const loader = new GLTFLoader();
 
-            loader.load("{{ Storage::url('public/models/LAKERS/scene.gltf') }}", gltf => {
+            loader.load("{{ Storage::url('public/images/models/les/lakers.gltf') }}", gltf => {
                 importedScene = gltf.scene;
                 scene.add(importedScene);
             }, undefined, console.error);
