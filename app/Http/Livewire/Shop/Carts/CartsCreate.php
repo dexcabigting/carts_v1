@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Shop\Carts;
 
 use Livewire\Component;
 use App\Models\Product;
+use App\Models\Cart; 
 
 class CartsCreate extends Component
 {
@@ -30,7 +31,15 @@ class CartsCreate extends Component
 
     public function store()
     {
-        dd($this->addItems);
+        // dd($this->addItems);
+        $cart = Cart::create([
+            'user_id' => auth()->user,
+            'product_id' => this->product->id,
+        ]);
+
+        $cart->cart_items->create($this->addItems);
+
+        session()->flash('success', 'Cart has been created successfully!'); 
     }
 
     public function addMore()
@@ -60,7 +69,7 @@ class CartsCreate extends Component
         ];
 
         $this->dispatchBrowserEvent('cartModalDisplayNone');
-        
+
         $this->emitUp('closeCartModal');
     }
 

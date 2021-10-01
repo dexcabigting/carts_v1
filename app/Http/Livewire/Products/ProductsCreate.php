@@ -103,7 +103,7 @@ class ProductsCreate extends Component
 
         $this->emitUp('refreshParent');
 
-        session()->flash('success', 'Product has been added successfully!'); 
+        session()->flash('success', 'Product has been created successfully!'); 
     }
 
     public function clearFormFields()
