@@ -19,7 +19,7 @@ class CartsCreate extends Component
             [
                 'size' => '',
                 'surname' => '',
-                'jersey_num' => '',
+                'jersey_number' => '',
             ]
         ];
     }
@@ -31,13 +31,12 @@ class CartsCreate extends Component
 
     public function store()
     {
-        // dd($this->addItems);
         $cart = Cart::create([
-            'user_id' => auth()->user,
-            'product_id' => this->product->id,
+            'user_id' => auth()->user()->id,
+            'product_id' => $this->product->id,
         ]);
 
-        $cart->cart_items->create($this->addItems);
+        $cart->cart_items()->createMany($this->addItems);
 
         session()->flash('success', 'Cart has been created successfully!'); 
     }
@@ -47,7 +46,7 @@ class CartsCreate extends Component
         $this->addItems[] = [
             'size' => '',
             'surname' => '',
-            'jersey_num' => '',
+            'jersey_number' => '',
         ];
     }
 

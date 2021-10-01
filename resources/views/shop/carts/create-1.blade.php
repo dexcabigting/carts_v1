@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="">    
-                    <x-input wire:model.defer="addItems.{{ $index }}.jersey_num" class="block w-full" type="text" autofocus />
+                    <x-input wire:model.defer="addItems.{{ $index }}.jersey_number" class="block w-full" type="text" autofocus />
                 </div>
 
                 <div>
