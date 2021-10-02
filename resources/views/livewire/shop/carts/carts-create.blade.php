@@ -24,6 +24,6 @@
 
 <script>
     window.addEventListener('cartModalDisplayNone', event => {
-        document.getElementById("create-modal").style.display = "none";
+        document.getElementById("cart-modal").style.display = "none";
     });
 </script>

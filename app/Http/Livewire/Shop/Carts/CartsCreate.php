@@ -10,6 +10,8 @@ class CartsCreate extends Component
 {
     public $product;
     public $addItems;
+    public $totalAmount;
+    public $productPrice;
 
     public function mount(Product $id)
     {
@@ -22,6 +24,10 @@ class CartsCreate extends Component
                 'jersey_number' => '',
             ]
         ];
+
+        $this->productPrice =  $this->product->prd_price;
+
+        $this->totalAmount  = $this->productPrice;
     }
 
     public function render()
@@ -46,6 +52,10 @@ class CartsCreate extends Component
             ]
         ];
 
+        $this->totalAmount  = $this->productPrice;
+
+        $this->totalAmount  = $this->productPrice;
+
         session()->flash('success', 'Cart has been created successfully!'); 
     }
 
@@ -56,6 +66,8 @@ class CartsCreate extends Component
             'surname' => '',
             'jersey_number' => '',
         ];
+
+        $this->totalAmount = $this->totalAmount + $this->productPrice;
     }
 
     public function removeItem($index)
@@ -63,6 +75,8 @@ class CartsCreate extends Component
         unset($this->addItems[$index]);
 
         $this->addItems = array_values($this->addItems);
+
+        $this->totalAmount = $this->totalAmount - $this->productPrice;
     }
 
     public function closeCartModal()

@@ -69,7 +69,7 @@
             </div>
         @endforeach
 
-        <div class="mt-4 gap-5">       
+        <div class="flex justify-between mt-4 gap-5 text-center">       
             <div>
                 <x-button type="button" wire:click.prevent="addMore">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -77,11 +77,15 @@
                     </svg>
                 </x-button>
             </div>  
+
+            <div class="pr-5 self-center">
+                Total: {{ $totalAmount }}
+            </div>
         </div> 
 
         <div class="flex justify-center mt-4 gap-5">
             <div>
-                <x-button type="button" wire:click="closeCartModal()">
+                <x-button type="button" wire:click.prevent="closeCartModal()">
                     {{ __('Close') }}
                 </x-button>
             </div>
