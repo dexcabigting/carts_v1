@@ -13,6 +13,18 @@ class CartsCreate extends Component
     public $totalAmount;
     public $productPrice;
 
+    protected $rules = [
+        'addItems.*.size' => 'required|string',
+        'addItems.*.surname' => 'required|string',
+        'addItems.*.jersey_number' => 'required|numeric|min:1|max:99',
+    ];
+
+    protected $validationAttributes = [
+        'addItems.*.size' => '*Jersey Size',
+        'addItems.*.surname' => 'Jersey Surname',
+        'addItems.*.jersey_number' => 'Jersey Number',
+    ];
+
     public function mount(Product $id)
     {
         $this->product = $id;
@@ -37,6 +49,8 @@ class CartsCreate extends Component
 
     public function store()
     {
+        $this->validate();
+
         $cart = Cart::create([
             'user_id' => auth()->user()->id,
             'product_id' => $this->product->id,

@@ -4,7 +4,7 @@
 
     <div class="m-auto z-20">
         <div class="flex flex-row gap-6">
-            <div class="max-w-md mx-auto">
+            <div class="max-w-md mx-auto overflow-y-auto">
                 <div class="bg-white shadow-sm rounded-lg border-2">
                     <div class="p-5 bg-white border-b border-gray-200">
                         @include('shop.carts.create-1')
