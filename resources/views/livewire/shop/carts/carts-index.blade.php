@@ -5,5 +5,9 @@
         </h2>
     </x-slot>
 
+    @if($cartModal)
+        @livewire('shop.carts.carts-edit', ['id' => $cartId])   
+    @endif
+
     @include('shop.carts.index')
 </div>

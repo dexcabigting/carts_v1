@@ -37,30 +37,28 @@
     </div>
 
     <form action="POST" wire:submit.prevent="store">
-        @foreach($addItems as $index => $addItem)
+        @foreach($cartItems as $index => $cartItem)
             <div class="grid grid-cols-4 justify-items-center gap-3 pb-3">
                 <div class="">    
-                    <select wire:model="addItems.{{ $index }}.size" class="border-gray-300 rounded-lg w-full">
-                        @foreach($product->product_stock->sizes->toArray() as $column => $value)
-                            @if($value > 10)
-                                <option value="{{ $column }}">
-                                {{ $column }}
+                    <select wire:model="cartItems.{{ $index }}.size" class="border-gray-300 rounded-lg w-full">
+                       
+                                <option value="{{ $cartItem->size }}">
+                                {{ $cartItem->size }}
                                 </option>
-                            @endif    
-                        @endforeach
+
                     </select>
                 </div>
 
                 <div class="">    
-                    <x-input wire:model.defer="addItems.{{ $index }}.surname" class="block w-full" type="text" autofocus />
+                    <x-input wire:model.defer="cartItems.{{ $index }}.surname" class="block w-full" type="text" autofocus />
                 </div>
 
                 <div class="">    
-                    <x-input wire:model.defer="addItems.{{ $index }}.jersey_number" class="block w-full" type="text" autofocus />
+                    <x-input wire:model.defer="cartItems.{{ $index }}.jersey_number" class="block w-full" type="text" autofocus />
                 </div>
 
                 <div>
-                    <x-button type="button" wire:click.prevent="removeItem({{ $index }})">
+                    <x-button type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -71,7 +69,7 @@
 
         <div class="flex justify-between mt-4 gap-5 text-center">       
             <div>
-                <x-button type="button" wire:click.prevent="addMore">
+                <x-button type="button">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -79,7 +77,7 @@
             </div>  
 
             <div class="pr-5 self-center">
-                Total: {{ $totalAmount }}
+                Total: totalAmount here
             </div>
         </div> 
 
