@@ -51,9 +51,13 @@ class CartsCreate extends Component
     {
         $this->validate();
 
+        $quantity = count($this->addItems);
+
         $cart = Cart::create([
             'user_id' => auth()->user()->id,
             'product_id' => $this->product->id,
+            'quantity' => $quantity,
+            'subtotal' => $quantity * $this->product->prd_price,
         ]);
 
         $cart->cart_items()->createMany($this->addItems);
