@@ -13,6 +13,7 @@ use App\Http\Livewire\Products\ProductsIndex;
 
 // Livewire Shop Component
 use App\Http\Livewire\Shop\ShopIndex;
+use App\Http\Livewire\Shop\Carts\CartsIndex;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('user')->group(function () {
         // Shop Livewire Component
         Route::get('shop', ShopIndex::class)->name('shop.index');
+        Route::get('carts', CartsIndex::class)->name('carts.index');
     });
     
 });

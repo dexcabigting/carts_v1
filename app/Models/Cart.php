@@ -11,6 +11,8 @@ class Cart extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $with = ['cart_items'];
+
     protected $fillable = [
         'user_id',
         'product_id',
