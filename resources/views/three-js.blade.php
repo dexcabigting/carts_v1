@@ -44,7 +44,7 @@
             let importedScene = null;
             const loader = new GLTFLoader();
 
-            loader.load("{{ asset('images/models/les/lakers.gltf') }}", gltf => {
+            loader.load("{{ asset('images/models/cleveland.gltf') }}", gltf => {
                 importedScene = gltf.scene.children[0];
                 //importedScene.scale.set(50,50,50);
 		        //importedScene.position.set(0, -500, -800);
