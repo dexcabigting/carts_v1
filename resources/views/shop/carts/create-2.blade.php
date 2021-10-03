@@ -3,8 +3,14 @@
         {{ $product->prd_name }}
     </div>
 
-    <div class="p-3 border-gray-200 shadow-2xl rounded-lg">    
-        <img class="h-40 w-40" src="{{ Storage::url('public/' . $product->prd_image) }}" />
+    <div class="p-3 border-gray-200 shadow-2xl rounded-lg"> 
+        <div id="model-{{ sha1($product->prd_name) }}" class="h-80 w-80">
+            
+        </div>     
+
+        <script type="module">
+            render3d("model-{{ sha1($product->prd_name) }}", "{{ Storage::url('public/' . $product->prd_3d) }}");
+        </script>
     </div>
 
     <div class="truncate p-3 border-gray-200">    

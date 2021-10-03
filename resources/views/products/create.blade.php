@@ -35,6 +35,12 @@
                     <input type="file" wire:model.defer="form.prd_image" />
                     <div wire:loading wire:target="form.prd_image">Uploading...</div>
                 </div>
+
+                <div class="mt-4">
+                    <x-label for="prd_3d" :value="__('Model')" />
+                    <input type="file" wire:model.defer="form.prd_3d" />
+                    <div wire:loading wire:target="form.prd_3d">Uploading...</div>
+                </div>
             </div>
             
             <div class="flex flex-row gap-5">

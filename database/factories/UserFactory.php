@@ -64,4 +64,20 @@ class UserFactory extends Factory
                 ];
         });
     }
+
+    public function isUser()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'name' => 'User',
+                'email' => 'user@user.com',
+                'email_verified_at' => now(),
+                'phone' => '639392862206',
+                'otp' => null,
+                'password' => Hash::make('Capstone2'), // password
+                'remember_token' => null, //Str::random(10),
+                'role_id' => 3,
+                ];
+        });
+    }
 }

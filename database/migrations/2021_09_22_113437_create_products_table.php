@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('prd_description');
             $table->float('prd_price');
             $table->string('prd_image');
+            $table->string('prd_3d');
             $table->timestamps();
         });
     }
