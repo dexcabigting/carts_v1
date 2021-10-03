@@ -41,11 +41,13 @@
             <div class="grid grid-cols-4 justify-items-center gap-3 pb-3">
                 <div class="">    
                     <select wire:model="cartItems.{{ $index }}.size" class="border-gray-300 rounded-lg w-full">
-                       
-                                <option value="{{ $cartItem->size }}">
-                                {{ $cartItem->size }}
+                        @foreach($product_sizes as $column => $value)
+                            @if($value > 10)
+                                <option value="{{ $column }}">
+                                {{ $column }}
                                 </option>
-
+                            @endif    
+                        @endforeach
                     </select>
                 </div>
 
