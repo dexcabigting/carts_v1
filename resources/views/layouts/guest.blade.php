@@ -6,6 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
+        
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,7 +21,24 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body class="bg-custom-black">
-        <div class="font-sans text-black-200  antialiased">
+    <header class="py-8 text-white font-light text-base flex justify-center items-center w-full">
+      <h1 class="py-4 px-10"><a href="index.html">HOME</a></h1>
+      <h1 class="py-4 px-10">ABOUT</h1>
+      <h1 class="py-4 px-10">FAQ</h1>
+      <img class="py-2 px-12" src="img/Group 12.svg" />
+      <h1 class="py-4 px-12">CUSTOMIZE</h1>
+      @if (Route::has('login'))
+      @auth
+                        <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
+      <h1 class="py-4 px-12">@else<a href="{{ route('login') }}">LOGIN</a></h1>
+      <h1 class="py-4 px-12"> @if (Route::has('register'))<a href="{{ route('register') }}">REGISTER</a></h1>
+      @endif
+                    @endauth
+                    @endif
+      
+    </header>
+  
+    </section>
             {{ $slot }}
         </div>
     </body>
