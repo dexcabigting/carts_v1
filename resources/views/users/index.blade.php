@@ -1,5 +1,5 @@
-<div>
-    <div class="pt-12 pb-5">
+<div class = "h-screen">
+    <div class="pt-12 pb-5 ">
         <div class="max-w-6xl mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="flex flex-row gap-5 p-6 bg-custom-blacki overflow-x-auto">
@@ -31,8 +31,8 @@
                     </div>
 
                    <!-- Order By -->
-                    <div class="">
-                        <div class="text-xl font-medium text-gray-900 py-4 ">
+                    <div>
+                        <div class="text-xl font-medium text-gray-100 py-4 ">
                             <x-label :value="__('Order by')" class="font-bold text-gray-50 inline-block text-2xl" />
                             <select wire:model="sortBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                 <option value="name">
@@ -64,9 +64,9 @@
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">
-                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                        <table class="table-auto min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-100">
+                    <div class="shadow overflow-hidden  border-gray-200 sm:rounded-lg">
+                        <table class="table-auto min-w-full divide-y divide-gray-200 border-4 border-gray-500">
+                        <thead class="bg-custom-blacki">
                             <tr>
                                 <th scope="col" class="px-6 py-3 float-left">
                                     <div>
@@ -75,28 +75,28 @@
                                         class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring-indigo-200 focus:ring-opacity-50 @if (count($users) == 0) cursor-not-allowed @endif">
                                     </div>
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     No.
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Name
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Status
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Role
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Actions
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Date Created
                                 </th>
                             </tr>
                         </thead>
 
-                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tbody class="bg-custom-blacki divide-y divide-gray-200">
                             @forelse ($users as $index => $user)
                             <tr> 
                                 <td class="px-6 py-4" wire:key="user-{{ $loop->index }}">
@@ -107,7 +107,7 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap"> 
-                                    <div class="text-sm font-medium text-gray-900">
+                                    <div class="text-sm font-medium text-gray-100">
                                         {{ $users->firstItem() + $index }}
                                     </div>
                                 </td>
@@ -118,10 +118,10 @@
                                             <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
                                         </div>
                                         <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">
+                                            <div class="text-xl font-medium text-gray-100">
                                             {{ $user->name }}
                                             </div>
-                                            <div class="text-sm text-gray-500">
+                                            <div class="text-sm text-gray-100">
                                             {{ $user->email }}
                                             </div>
                                         </div>
@@ -195,7 +195,7 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-gray-900">
+                                    <div class="text-sm font-medium text-gray-100">
                                         {{ $user->created_at->diffForHumans() }}
                                     </div>
                                 </td>

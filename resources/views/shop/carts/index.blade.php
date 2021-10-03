@@ -1,9 +1,9 @@
-<div>
+<div class="h-screen">
     <div class="pt-12 pb-6">
         <div class="max-w-2xl mx-auto">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200 overflow-x-auto">
-                    Hello
+            <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-custom-blacki shadow-2xl text-6xl font-extrabold text-center text-gray-300 font-extraboldoverflow-x-auto">
+                    My Carts
                 </div>
             </div>
         </div>
@@ -13,9 +13,9 @@
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">
-                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                    <div class="shadow overflow-hidden  border-gray-200 sm:rounded-lg">
                         <table class="table-auto min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-100">
+                        <thead class="bg-custom-blacki">
                             <tr>
                                 <th scope="col" class="px-6 py-3 float-left">
                                     <div>
@@ -109,7 +109,7 @@
                             <tr>
                                 <td class="px-6 py-4 text-center" colspan="6">
                                     <div>
-                                        <span class="font-semibold text-xl text-gray-800 leading-tight">
+                                        <span class=" text-2xl font-bold text-gray-400 leading-tight">
                                             {{ __('You have no carts!') }}
                                         </span>
                                     </div>

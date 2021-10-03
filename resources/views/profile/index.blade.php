@@ -1,20 +1,20 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight h-full">
             {{ __('My Profile') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-12 h-screen">
         <div class="max-w-lg mx-auto sm:px-6">   
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200 divide-y divide-gray-300">
+            <div class="bg-black overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-custom-blacki border-gray-500 divide-y divide-gray-300">
 
                     <div class="pb-4">
                         <x-success-fail-message class="mb-4" />
                         <x-validation-errors class="mb-4" :errors="$errors" />
 
-                        <h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
+                        <h2 class="font-semibold text-xl text-gray-100 leading-tight mb-4">
                             {{ __('Credentials') }}
                         </h2>
 
@@ -22,9 +22,9 @@
                             @method('PUT')
                             @csrf
 
-                            <div>
+                            <div class>
                                 <x-label for="name" :value="__('Name')"/>
-                                <x-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{ Auth::user()->name }}" autofocus required />
+                                <x-input id="name" class="block mt-1 w-full text-black" type="text" name="name" value="{{ Auth::user()->name }}" autofocus required />
                             </div>
 
                             <div class="mt-4">
@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="pt-4">
-                        <h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
+                        <h2 class="font-semibold text-xl text-gray-100 leading-tight mb-4">
                             {{ __('Password') }}
                         </h2>
 
