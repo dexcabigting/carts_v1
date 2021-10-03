@@ -1,10 +1,10 @@
 <div>
     <div class="pt-12 pb-5">
         <div class="max-w-6xl mx-auto">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex flex-row gap-5 p-6 bg-white border-b border-gray-200 overflow-x-auto">
+            <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="flex flex-row gap-5 p-6 bg-custom-blacki border-b border-gray-200 overflow-x-auto">
                     <div class="">
-                        <x-button wire:click="openCreateModal()">
+                        <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-bold text-white px-4 py-2 bg-custom-violet my-3" wire:click="openCreateModal()">
                             {{ __('Add Product') }}
                         </x-button>
                     </div>  
@@ -12,7 +12,7 @@
                     <div class="">
                         <button wire:click.prevent="openDeleteModal(@json($checkedKeys))"          
                             type="button" {{ (!$checkedProducts) ?  'disabled' : null }}
-                            class="px-4 py-2 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-400 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedProducts) cursor-not-allowed @endif">
+                            class="hover:bg-red-900 hover:text-purple-100 text-xl font-bold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedProducts) cursor-not-allowed @endif">
                             {{ __('Bulk Delete') }} 
                             @if ($checkedProducts)
                                 ({{ count($checkedProducts) }})
@@ -31,9 +31,9 @@
                    <!-- Order By -->
                     <div class="">
                         
-                        <div class="text-sm font-medium text-gray-900">
-                            <x-label :value="__('Order by')" class="inline-block" />
-                             <select wire:model="sortColumn" class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                        <div class="text-xl font-medium text-gray-900 py-4">
+                            <x-label :value="__('Order by')" class="font-bold text-gray-50 inline-block text-2xl" />
+                             <select wire:model="sortColumn" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 <option value="asc">
                                         <x-label :value="__('Name')" class="inline-block" />
                                 </option>
@@ -43,7 +43,7 @@
                                 </option>
                             </select>
 
-                            <select wire:model="sortDirection" class="text-sm font-medium text-gray-900 rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                            <select wire:model="sortDirection" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                 <option value="asc">
                                     <x-label :value="__('Ascending')" class="inline-block" />
                                 </option>

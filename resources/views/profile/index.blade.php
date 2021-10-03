@@ -33,7 +33,7 @@
                             </div>
 
                             <div class="flex items-center justify-end mt-4">
-                                <x-button>
+                                <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-bold text-white w-full px-4 py-2 bg-custom-violet my-3">
                                     {{ __('Update Credentials') }}
                                 </x-button>
                             </div>
@@ -74,7 +74,7 @@
                             </div>
 
                             <div class="flex items-center justify-end mt-4">
-                                <x-button>
+                                <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-bold text-white w-full px-4 py-2 bg-custom-violet my-3">
                                     {{ __('Update Password') }}
                                 </x-button>
                             </div>

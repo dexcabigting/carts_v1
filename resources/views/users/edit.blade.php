@@ -21,8 +21,8 @@
         id="email" class="block mt-1 w-full" type="email" name="email" required />
     </div>
 
-    <div class="flex items-center justify-end mt-4">
-        <x-button>
+    <div class="flex items-center justify-center mt-4">
+        <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-bold text-white w-full px-12 py-4 bg-custom-violet my-3">
             {{ __('Update Credentials') }}
         </x-button>
     </div>

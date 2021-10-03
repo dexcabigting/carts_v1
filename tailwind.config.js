@@ -5,19 +5,24 @@ module.exports = {
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        
     ],
 
     theme: {
         extend: {
-            fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
-            },
+            colors: {
+                'custom-black': '#171717',
+                'custom-blacki': '#242424',
+                'custom-violet': '#470CAF',
+                'custom-text': '#292929',
+                'custom-gray': '#262626',
+              },
         },
     },
 
     variants: {
         extend: {
-            opacity: ['disabled'],
+           
         },
     },
 
