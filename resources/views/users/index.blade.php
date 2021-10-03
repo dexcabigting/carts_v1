@@ -202,7 +202,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td class="px-6 py-4 text-center" colspan="6">
+                                <td class="px-6 py-4 text-center" colspan="7">
                                     <div>
                                         <span class="font-semibold text-xl text-gray-800 leading-tight">
                                             {{ __('There are no matches!') }}

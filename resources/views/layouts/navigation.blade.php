@@ -20,6 +20,10 @@
                     <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                         {{ __('Users') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
+                        {{ __('Products') }}
+                    </x-nav-link>
                     @else
                     <x-nav-link :href="route('shop.index')" :active="request()->routeIs('shop.index')">
                         {{ __('Shop') }}

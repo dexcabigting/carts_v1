@@ -49,7 +49,7 @@ class UsersIndex extends Component
             }
         ])      
             ->whereIn('role_id', $this->roles)
-            ->where('email', 'like', $search)
+            ->where('name', 'like', $search)
             ->orderBy($sortBy, $orderBy);
     }
 
