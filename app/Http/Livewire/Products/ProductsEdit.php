@@ -23,6 +23,7 @@ class ProductsEdit extends Component
         'prd_description' => '',
         'prd_price' => '',
         'prd_image' => null,
+        'prd_3d' => null,
         'xxsmall'  => '',
         'xsmall'  => '',
         'small'  => '',
@@ -43,6 +44,7 @@ class ProductsEdit extends Component
             'form.prd_description' => 'required|string|max:255',
             'form.prd_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
             'form.prd_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'form.prd_3d' => 'nullable|file',
             'form.xxsmall'  => 'required_without_all:form.xsmall,form.small,form.medium,form.large,form.xlarge,form.xxlarge|integer|max:100',
             'form.xsmall'  => 'required_without_all:form.xxsmall,form.small,form.medium,form.large,form.xlarge,form.xxlarge|integer|max:100',
             'form.small'  => 'required_without_all:form.xxsmall,form.xsmall,form.medium,form.large,form.xlarge,form.xxlarge|integer|max:100',
@@ -58,6 +60,7 @@ class ProductsEdit extends Component
         'form.prd_description' => 'product description',
         'form.prd_price' => 'product price',
         'form.prd_image' => 'product image',
+        'form.prd_3d' => 'product model',
         'form.xxsmall'  => 'xxsmall size',
         'form.xsmall'  => 'xsmall size',
         'form.small'  => 'small size',
@@ -95,9 +98,9 @@ class ProductsEdit extends Component
     {
         $this->validate();
 
-        $path = pathinfo($this->product->prd_image);
+        $imagePath = pathinfo($this->product->prd_image);
 
-        $newProductImagePath = $path['dirname'] . '/' . $this->form['prd_name'] . Str::random(30) . '.' . $path['extension'];
+        $newProductImagePath = $imagePath['dirname'] . '/' . $this->form['prd_name'] . Str::random(30) . '.' . $imagePath['extension'];
         
         if($this->form['prd_name'] != $this->product->prd_name) {
             // If admin changes the product name, product image name should be updated
@@ -114,12 +117,34 @@ class ProductsEdit extends Component
             $newProductImagePath = $prdImage->storeAs('/images/products', $newProductImageName,'public');
 
         }
+        
+        // 3D
+        $modelPath = pathinfo($this->product->prd_3d);
+
+        $newProductModelPath = $modelPath['dirname'] . '/' . $this->form['prd_name'] . Str::random(30) . '.' . $modelPath['extension'];
+        
+        if($this->form['prd_name'] != $this->product->prd_name) {
+            // If admin changes the product name, product image name should be updated
+
+            Storage::move('public/' . $this->product->prd_3d, 'public/' . $newProductModelPath);
+        } elseif($this->form['prd_3d']) {
+            // If admin changes the product image, old image must be removed and replaced with a renamed image according to product name
+            Storage::delete('public/' . $this->product->prd_3d);
+
+            $prdModel = $this->form['prd_3d'];
+
+            $newProductModelName = $this->form['prd_name'] . Str::random(30) . '.' . $prdModel->extension();
+
+            $newProductModelPath = $prdModel->storeAs('/images/products', $newProductModelName,'public');
+
+        }
 
         $this->product->update([
             'prd_name' => $this->form['prd_name'],
             'prd_description' => $this->form['prd_description'],
             'prd_price' => $this->form['prd_price'],
             'prd_image' => $newProductImagePath,
+            'prd_3d' => $newProductModelPath,
         ]);
 
         $productStocks = [

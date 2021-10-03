@@ -30,6 +30,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::view('3d', 'three-js');
+
 // Auth
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
