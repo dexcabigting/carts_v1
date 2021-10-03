@@ -79,18 +79,19 @@
             </div>
         </div>
 
-        <div class="flex justify-center mt-4 gap-5">
-            <div>
-                <x-button type="button" wire:click="closeCreateModal()">
-                    {{ __('Close') }}
-                </x-button>
-            </div>
+        <div class="flex justify-center mt-4 gap-5 flex-col items-center">
+            
             
             <div>
-                <x-button>
+                <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-bold text-white px-4 py-2 bg-custom-violet my-3">
                     {{ __('Add Product') }}
                 </x-button>
             </div>  
+            <div>
+                <x-button class="font-bold text-custom-text" type="button" wire:click="closeCreateModal()">
+                    {{ __('Close') }}
+                </x-button>
+            </div>
         </div>
     </form>
 </div>

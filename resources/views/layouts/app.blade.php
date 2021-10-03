@@ -8,31 +8,33 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;0,900;1,700&display=swap"
+        rel="stylesheet">
+</head>
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-
+        
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        
         @livewireStyles
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-200">
+    <body class="bg-custom-black font-Raleway antialiased">
+        <div class="min-h-screen">
             @include('layouts.navigation')
 
             <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
+           
 
             <!-- Page Content -->
-            <main>
+            <main class="bg-custom-black">
                 {{ $slot }}
             </main>
         </div>
         @livewireScripts
     </body>
+    
 </html>
