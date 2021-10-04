@@ -22,8 +22,8 @@
         
         @livewireStyles
     </head>
-    <body class="bg-custom-black font-Raleway antialiased">
-        <div class="min-h-screen">
+    <body class="font-Raleway antialiased">
+        <div>
             @include('layouts.navigation')
 
             <!-- Page Heading -->

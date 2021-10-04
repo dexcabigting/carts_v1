@@ -24,4 +24,9 @@ class ProductStock extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function getSizesAttribute()
+    {
+        return $this->makeHidden(['id', 'product_id', 'created_at', 'updated_at']);
+    }
 }

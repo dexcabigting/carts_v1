@@ -1,10 +1,10 @@
-<div>
+<div class="h-screen">
     <div class="pt-12 pb-5">
         <div class="max-w-6xl mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex flex-row gap-5 p-6 bg-custom-blacki border-b border-gray-200 overflow-x-auto">
+                <div class="flex flex-row gap-5 p-6 bg-custom-blacki shadow-2xl overflow-x-auto">
                     <div class="">
-                        <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-bold text-white px-4 py-2 bg-custom-violet my-3" wire:click="openCreateModal()">
+                        <x-button class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-xl font-bold text-white px-4 py-2 bg-custom-violet my-3" wire:click="openCreateModal()">
                             {{ __('Add Product') }}
                         </x-button>
                     </div>  
@@ -12,7 +12,7 @@
                     <div class="">
                         <button wire:click.prevent="openDeleteModal(@json($checkedKeys))"          
                             type="button" {{ (!$checkedProducts) ?  'disabled' : null }}
-                            class="hover:bg-red-900 hover:text-purple-100 text-xl font-bold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedProducts) cursor-not-allowed @endif">
+                            class="rounded-sm hover:bg-red-900 hover:text-purple-100 text-xl font-bold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedProducts) cursor-not-allowed @endif">
                             {{ __('Bulk Delete') }} 
                             @if ($checkedProducts)
                                 ({{ count($checkedProducts) }})
@@ -23,7 +23,7 @@
                     <!-- Search Bar -->
                     <div class="col-span-2 lg:col-span-2 grid items-center align-center relative lg:w-64">
                         <x-input class="h-9 pr-10" type="search" wire:model="search" autofocus />
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-indigo-300 absolute right-0" viewBox="0 0 20 20">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-custom-violet absolute right-0" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                         </svg>
                     </div>
@@ -31,8 +31,8 @@
                    <!-- Order By -->
                     <div class="">
                         
-                        <div class="text-xl font-medium text-gray-900 py-4">
-                            <x-label :value="__('Order by')" class="font-bold text-gray-50 inline-block text-2xl" />
+                        <div class="text-base font-medium text-gray-100 py-4">
+                            <x-label :value="__('Order by')" class="font-bold text-gray-50 inline-block text-xl" />
                              <select wire:model="sortColumn" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 <option value="asc">
                                         <x-label :value="__('Name')" class="inline-block" />
@@ -64,53 +64,53 @@
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">
-                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                        <table class="table-auto min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-100">
+                    <div class="shadow overflow-hidden sm:rounded-lg">
+                        <table class="table-auto min-w-full divide-y divide-gray-200 border-4 border-gray-500">
+                        <thead class="bg-custom-blacki ">
                             <tr>
                                 <th scope="col" class="px-6 py-3 float-left">
                                     <div>
                                         <input type="checkbox" wire:model="selectAll" 
-                                        class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring-indigo-200 focus:ring-opacity-50">
+                                        class="rounded border-gray-100 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring-indigo-200 focus:ring-opacity-50">
                                     </div>
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     No.
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Name
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     XS
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     XSS
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     S
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     M
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     L
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     XL
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     XXL
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Actions
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Date Created
                                 </th>
                             </tr>
                         </thead>
 
-                        <tbody class="bg-white divide-y divide-gray-200">
+                        <tbody class="bg-custom-text divide-y divide-gray-200">
                             @forelse ($products as $index => $product)
                             <tr> 
                                 <td class="px-6 py-4" wire:key="product-{{ $loop->index }}">
@@ -121,7 +121,7 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap"> 
-                                    <div class="text-sm font-medium text-gray-900">
+                                    <div class="text-sm font-medium text-gray-100">
                                         {{ $products->firstItem() + $index }}
                                     </div>
                                 </td>
@@ -132,7 +132,7 @@
                                             <img class="h-10 w-10 rounded-full" src="{{ Storage::url('public/' . $product->prd_image) }}" alt="">
                                         </div>
                                         <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">
+                                            <div class="text-sm font-medium text-gray-100">
                                             {{ $product->prd_name }}
                                             </div>
                                         </div>
@@ -140,43 +140,43 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">                                     
-                                    <div class="text-sm font-medium text-gray-900">
+                                    <div class="text-sm font-medium text-gray-100">
                                         {{ $product->product_stock->xxsmall }}
                                     </div>                                      
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">                                     
-                                    <div class="text-sm font-medium text-gray-900">
+                                    <div class="text-sm font-medium text-gray-100">
                                         {{ $product->product_stock->xsmall }}
                                     </div>                                      
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">                                     
-                                    <div class="text-sm font-medium text-gray-900">
+                                    <div class="text-sm font-medium text-gray-100">
                                         {{ $product->product_stock->small }}
                                     </div>                                      
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">                                     
-                                    <div class="text-sm font-medium text-gray-900">
+                                    <div class="text-sm font-medium text-gray-100">
                                         {{ $product->product_stock->medium }}
                                     </div>                                      
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">                                     
-                                    <div class="text-sm font-medium text-gray-900">
+                                    <div class="text-sm font-medium text-gray-100">
                                         {{ $product->product_stock->large }}
                                     </div>                                      
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">                                     
-                                    <div class="text-sm font-medium text-gray-900">
+                                    <div class="text-sm font-medium text-gray-100">
                                         {{ $product->product_stock->xlarge }}
                                     </div>                                      
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">                                     
-                                    <div class="text-sm font-medium text-gray-900">
+                                    <div class="text-sm font-medium text-gray-100">
                                         {{ $product->product_stock->xxlarge }}
                                     </div>                                      
                                 </td>
@@ -206,17 +206,17 @@
                                     </div>                                                                         
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-gray-900">
+                                <td class="px-6 py-4 whitespace-nowrap w-full">
+                                    <div class="text-sm font-medium text-gray-100">
                                         {{ $product->created_at->diffForHumans() }}
                                     </div>
                                 </td>
                             </tr>
                             @empty
                             <tr>
-                                <td class="px-6 py-4 text-center" colspan="6">
+                                <td class="px-6 py-4 text-center w-full items-center" colspan="6">
                                     <div>
-                                        <span class="font-semibold text-xl text-gray-800 leading-tight">
+                                        <span class="font-semibold text-xl text-gray-100  leading-tight">
                                             {{ __('There are no matches!') }}
                                         </span>
                                     </div>
