@@ -25,6 +25,7 @@
             //import threeJs from 'https://cdn.skypack.dev/three.js';
 
             function render3d(id, fileName, three = THREE) {
+  
                 const container3d =  document.getElementById(id);
                 const scene = new three.Scene();
                 const camera = new three.PerspectiveCamera(
@@ -33,9 +34,11 @@
                     0.001,
                     1000);
 
+                
                 const renderer = new three.WebGLRenderer();
                 renderer.setSize(container3d.offsetWidth, container3d.offsetHeight);
                 container3d.appendChild(renderer.domElement);
+                
                 renderer.setClearColor('rgb(255,255,255)');
 
                 camera.position.x = 0;

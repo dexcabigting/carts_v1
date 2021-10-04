@@ -16,7 +16,11 @@ class DatabaseSeeder extends Seeder
     {
         $product_images = Storage::allFiles('public/images/products');
 
+        $product_models = Storage::allFiles('public/images/models');
+
         Storage::delete($product_images);
+
+        Storage::delete($product_models);
 
         $this->call([
             RoleSeeder::class,

@@ -13,7 +13,7 @@
             </div>
             <div class="mx-auto">
                 <div class="bg-white shadow-sm rounded-lg border-2">
-                    <div class="p-5 bg-white border-b border-gray-200 overflow-y-auto overflow-x-auto">
+                    <div class="p-5 bg-white border-b border-gray-200 overflow-y-auto overflow-x-auto z-0">
                         @include('shop.carts.create-2')
                     </div>
                 </div>
