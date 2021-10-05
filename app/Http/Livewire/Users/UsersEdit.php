@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\App;
 
 class UsersEdit extends Component
 {
-    private $service;
     public $user;
 
     public $form = [
@@ -21,6 +20,7 @@ class UsersEdit extends Component
     protected function rules()
     {   
         $service = app()->make(PhoneNumberLookupService::class);
+        
         return [
             'form.name' => 'required|string|max:255',
             'form.email' => 'required|string|email|max:255|unique:users,email,' . $this->user->id,
@@ -50,8 +50,6 @@ class UsersEdit extends Component
 
     public function update()
     {
- 
-
         $phone = preg_replace( '/^(09)(\d+)/', '639$2', $this->form['phone']);
 
         $this->form['phone'] = $phone;
@@ -65,10 +63,5 @@ class UsersEdit extends Component
         ]);
 
         session()->flash('success', 'User has been updated successfully!');
-    }
-
-    public function setPhone()
-    {
-        $this->service = App::make(PhoneNumberLookupService::class);
     }
 }

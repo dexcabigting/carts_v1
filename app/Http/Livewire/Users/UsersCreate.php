@@ -11,8 +11,6 @@ use App\Rules\PhoneNumber;
 
 class UsersCreate extends Component
 {
-    private $service;
-
     public $form = [
         'name' => '',
         'email' => '',
@@ -23,10 +21,12 @@ class UsersCreate extends Component
 
     protected function rules()
     {
+        $service = app()->make(PhoneNumberLookupService::class);
+        
         return [
             'form.name' => 'required|string|max:255',
             'form.email' => 'required|string|email|max:255|unique:users,email',
-            'form.phone' => ['required', 'string', 'unique:users,phone', new PhoneNumber($this->service)],
+            'form.phone' => ['required', 'string', 'unique:users,phone', new PhoneNumber($service)],
             'form.password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
     }
@@ -46,10 +46,8 @@ class UsersCreate extends Component
         return view('livewire.users.users-create');
     }
 
-    public function store(PhoneNumberLookupService $service)
+    public function store()
     {
-        $this->service = $service;
-
         $phone = preg_replace( '/^(09)(\d+)/', '639$2', $this->form['phone']);
 
         $this->form['phone'] = $phone;
