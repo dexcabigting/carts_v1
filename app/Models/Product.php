@@ -12,7 +12,7 @@ class Product extends Model
 
     protected $table = 'products';
 
-    protected $with = ['product_stock'];
+    protected $with = ['product_stock', 'product_variants'];
 
     protected $fillable = [
         'prd_name',
@@ -25,6 +25,11 @@ class Product extends Model
     public function product_stock()
     {
         return $this->hasOne(ProductStock::class);
+    }
+
+    public function product_variants()
+    {
+        return $this->hasMany(ProductVariant::class);
     }
 
     public function getProductImageUrlAttribute()
