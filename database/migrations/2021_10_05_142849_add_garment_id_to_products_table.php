@@ -15,9 +15,9 @@ class AddGarmentIdToProductsTable extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             //
-            $table->unsignedBigInteger('garment_id');
+            $table->unsignedBigInteger('fabric_id');
 
-            $table->foreign('garment_id')->references('id')->on('garments')->onDelete('cascade');
+            $table->foreign('fabric_id')->references('id')->on('fabrics')->onDelete('cascade');
         });
     }
 

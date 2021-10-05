@@ -16,7 +16,7 @@ class Product extends Model
 
     protected $fillable = [
         'category_id',
-        'garment_id',
+        'fabric_id',
         'prd_name',
         'prd_description',
         'prd_price',
@@ -39,9 +39,9 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function garment()
+    public function fabric()
     {
-        return $this->belongsTo(Garment::class);
+        return $this->belongsTo(Fabric::class);
     }
 
     public function getProductImageUrlAttribute()

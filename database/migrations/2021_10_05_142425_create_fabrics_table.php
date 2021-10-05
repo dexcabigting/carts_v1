@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGarmentsTable extends Migration
+class CreateFabricsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateGarmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('garments', function (Blueprint $table) {
+        Schema::create('fabrics', function (Blueprint $table) {
             $table->id();
-            $table->string('grm_name');
-            $table->string('grm_description');
+            $table->string('fab_name');
+            $table->string('fab_description');
             $table->timestamps();
         });
     }
