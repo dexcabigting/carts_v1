@@ -14,9 +14,7 @@ class PhoneNumber implements Rule
      */
     private $service;
 
-    public function __construct(
-        PhoneNumberLookupService $phoneNumberLookupService
-    ) {
+    public function __construct(PhoneNumberLookupService $phoneNumberLookupService) {
         $this->service = $phoneNumberLookupService;
     }
 
