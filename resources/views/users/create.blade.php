@@ -19,6 +19,11 @@
     </div>
 
     <div class="mt-4">
+        <x-label for="phone" :value="__('Phone')" />
+        <x-input wire:model="form.phone" id="phone" class="block mt-1 w-full" type="text" name="phone" value="{{ old('phone') }}" required />
+    </div>
+
+    <div class="mt-4">
         <x-label for="password" :value="__('Password')" />
         <x-input wire:model="form.password" id="password" class="block mt-1 w-full"
                         type="password"
