@@ -15,6 +15,7 @@ class Product extends Model
     protected $with = ['product_stock', 'product_variants'];
 
     protected $fillable = [
+        'category_id',
         'prd_name',
         'prd_description',
         'prd_price',
@@ -30,6 +31,11 @@ class Product extends Model
     public function product_variants()
     {
         return $this->hasMany(ProductVariant::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function getProductImageUrlAttribute()
