@@ -17,7 +17,11 @@ class ProfileController extends Controller
 
     public function update_credentials(UpdateCredentialsRequest $request)
     {
-        auth()->user()->update($request->only('name', 'email'));
+        $phone = preg_replace( '/^(09)(\d+)/', '639$2', $request->input('phone'));
+
+        $request->offsetSet('phone', $phone);
+
+        auth()->user()->update($request->only('name', 'email', 'phone'));
 
         return redirect()->route('profile.index')->with('success', 'Credentials updated successfully!');
     } 
