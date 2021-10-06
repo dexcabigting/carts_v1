@@ -16,13 +16,13 @@ class CreateProductStocksTable extends Migration
         Schema::create('product_stocks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
-            $table->unsignedInteger('xxsmall')->nullable()->default(0);
-            $table->unsignedInteger('xsmall')->nullable()->default(0);
-            $table->unsignedInteger('small')->nullable()->default(0);
-            $table->unsignedInteger('medium')->nullable()->default(0);
-            $table->unsignedInteger('large')->nullable()->default(0);
-            $table->unsignedInteger('xlarge')->nullable()->default(0);
-            $table->unsignedInteger('xxlarge')->nullable()->default(0);
+            $table->unsignedInteger('2XS')->nullable()->default(0);
+            $table->unsignedInteger('XS')->nullable()->default(0);
+            $table->unsignedInteger('S')->nullable()->default(0);
+            $table->unsignedInteger('M')->nullable()->default(0);
+            $table->unsignedInteger('L')->nullable()->default(0);
+            $table->unsignedInteger('XL')->nullable()->default(0);
+            $table->unsignedInteger('2XL')->nullable()->default(0);
             $table->timestamps();
           
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
