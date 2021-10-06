@@ -5,6 +5,10 @@
         </h2>
     </x-slot>
 
+    @if($deleteModal)
+        @livewire('users.users-delete', ['id' => $userId])   
+    @endif
+
     @include('users.index', ['users' => $users])
 </div>
             
