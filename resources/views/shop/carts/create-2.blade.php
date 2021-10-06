@@ -1,5 +1,5 @@
 <div class="">
-    <div class="font-bold text-2xl p-3 border-gray-200">    
+    <div class="font-semibold text-2xl p-3 border-gray-200">    
         {{ $product->prd_name }}
     </div>
 
