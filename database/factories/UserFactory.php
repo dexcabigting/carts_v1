@@ -31,7 +31,6 @@ class UserFactory extends Factory
             'otp' => null,
             'password' => Hash::make('Capstone2'), // password
             'remember_token' => null, //Str::random(10),
-            'role_id' => rand(2, 3),
         ];
     }
 
@@ -76,7 +75,7 @@ class UserFactory extends Factory
                 'otp' => null,
                 'password' => Hash::make('Capstone2'), // password
                 'remember_token' => null, //Str::random(10),
-                'role_id' => 3,
+                'role_id' => 2,
                 ];
         });
     }
