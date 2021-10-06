@@ -5,7 +5,7 @@
                 <div class="flex flex-row gap-5 p-6 bg-custom-blacki overflow-x-auto">
                     <div>
                         <a href="{{ route('users.create') }}">
-                            <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-bold text-white px-4 py-2 bg-custom-violet my-3">
+                            <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
                                 {{ __('Create User') }}
                             </x-button>
                         </a>
@@ -14,7 +14,7 @@
                     <div class="">
                         <button wire:click.prevent="openDeleteModal(@json($checkedKeys))"         
                             type="button" {{ (!$checkedUsers) ?  'disabled' : null }}
-                            class="hover:bg-red-900 hover:text-purple-100 text-xl font-bold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedUsers) cursor-not-allowed @endif">
+                            class="hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedUsers) cursor-not-allowed @endif">
                             {{ __('Bulk Delete') }} 
                             @if ($checkedUsers)
                                 ({{ count($checkedUsers) }})
@@ -33,7 +33,7 @@
                    <!-- Order By -->
                     <div>
                         <div class="text-xl font-medium text-gray-100 py-4 ">
-                            <x-label :value="__('Order by')" class="font-bold text-gray-50 inline-block text-2xl" />
+                            <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-2xl" />
                             <select wire:model="sortBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                 <option value="name">
                                         <x-label :value="__('Name')" class="inline-block" />
@@ -157,7 +157,7 @@
                                 <td class="flex px-6 py-4 whitespace-nowrap">
                                     <div>
                                         <a href="{{ route('users.edit', [$user->id])  }}">
-                                            <button class="p-2 bg-green-400 rounded-l-md border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-300 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                            <button class="p-2 bg-green-600 border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                                                 <span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
                                                         <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
@@ -170,7 +170,7 @@
                                     </div>
 
                                     <div>
-                                        <button wire:click.prevent="openDeleteModal({{ $user->id }})" class="p-2 bg-custom-grayrounded-r-md border border-transparent font-semibold text-xs bg-red-400 text-white uppercase tracking-normal hover:bg-red-400 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                        <button wire:click.prevent="openDeleteModal({{ $user->id }})" class="p-2 bg-custom-grayrounded-r-md border border-transparent font-semibold text-xs bg-red-600 text-white uppercase tracking-normal hover:bg-red-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                                             <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
                                                     <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -191,7 +191,7 @@
                             <tr>
                                 <td class="px-6 py-4 text-center" colspan="7">
                                     <div>
-                                        <span class="font-semibold text-xl text-gray-800 leading-tight">
+                                        <span class="font-semibold text-xl text-white leading-tight">
                                             {{ __('There are no matches!') }}
                                         </span>
                                     </div>
