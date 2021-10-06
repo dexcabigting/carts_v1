@@ -20,8 +20,6 @@ class Product extends Model
         'prd_name',
         'prd_description',
         'prd_price',
-        'prd_image',
-        'prd_3d',
     ];
 
     public function product_stock()
@@ -44,17 +42,17 @@ class Product extends Model
         return $this->belongsTo(Fabric::class);
     }
 
-    public function getProductImageUrlAttribute()
-    {
-        if($this->prd_image && Storage::exists('public/' . $this->prd_image)) {
-            return Storage::url('public/' . $this->prd_image);
-        }
-    }
+    // public function getProductImageUrlAttribute()
+    // {
+    //     if($this->prd_image && Storage::exists('public/' . $this->prd_image)) {
+    //         return Storage::url('public/' . $this->prd_image);
+    //     }
+    // }
 
-    public function getProductModelUrlAttribute()
-    {
-        if($this->prd_3d && Storage::exists('public/' . $this->prd_3d)) {
-            return Storage::url('public/' . $this->prd_3d);
-        }
-    }
+    // public function getProductModelUrlAttribute()
+    // {
+    //     if($this->prd_3d && Storage::exists('public/' . $this->prd_3d)) {
+    //         return Storage::url('public/' . $this->prd_3d);
+    //     }
+    // }
 }
