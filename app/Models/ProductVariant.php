@@ -10,6 +10,7 @@ class ProductVariant extends Model
     use HasFactory;
 
     protected $fillable = [
+        'prd_var_name',
         'front_view',
         'back_view',
         'left_view',

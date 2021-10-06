@@ -16,6 +16,7 @@ class CreateProductVariantsTable extends Migration
         Schema::create('product_variants', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
+            $table->string('prd_var_name');
             $table->string('front_view');
             $table->string('back_view');
             $table->string('left_view');
