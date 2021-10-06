@@ -11,13 +11,13 @@ class ProductStock extends Model
 
     protected $fillable = [
         'product_id',
-        'xxsmall',
-        'xsmall',
-        'small',
-        'medium',
-        'large',
-        'xlarge',
-        'xxlarge',
+        '2XS',
+        'XS',
+        'S',
+        'M',
+        'L',
+        'XL',
+        '2XL',
     ];
 
     public function product()
