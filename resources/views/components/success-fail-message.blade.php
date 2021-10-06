@@ -7,11 +7,11 @@
         </div>
 
         <div>
-            <div class="font-semibold text-xl">
+            <div class="font-bold text-xl">
                 {{ __('Success!') }}
             </div>
 
-            <div class="mt-3 list-disc list-inside text-sm font-semibold">
+            <div class="mt-3 list-disc list-inside text-sm font-bold">
                 {{ session('success') }}
             </div>
         </div>
@@ -25,11 +25,11 @@
         </div>
 
         <div>
-            <div class="font-semibold text-xl">
+            <div class="font-bold text-xl">
                 {{ __('Whoops! Something went wrong.') }}
             </div>
 
-            <div class="mt-3 list-disc list-inside text-sm font-semibold">
+            <div class="mt-3 list-disc list-inside text-sm font-bold">
                 {{ session('fail') }}
             </div>
         </div>

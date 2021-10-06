@@ -23115,7 +23115,7 @@ h1, h2, button, p, label{
   font-weight: 600;
 }
 
-.font-semibold {
+.font-bold {
   font-weight: 700;
 }
 
@@ -55234,7 +55234,7 @@ h1, h2, button, p, label{
     font-weight: 600;
   }
 
-  .sm\:font-semibold {
+  .sm\:font-bold {
     font-weight: 700;
   }
 
@@ -87341,7 +87341,7 @@ h1, h2, button, p, label{
     font-weight: 600;
   }
 
-  .md\:font-semibold {
+  .md\:font-bold {
     font-weight: 700;
   }
 
@@ -119448,7 +119448,7 @@ h1, h2, button, p, label{
     font-weight: 600;
   }
 
-  .lg\:font-semibold {
+  .lg\:font-bold {
     font-weight: 700;
   }
 
@@ -151555,7 +151555,7 @@ h1, h2, button, p, label{
     font-weight: 600;
   }
 
-  .xl\:font-semibold {
+  .xl\:font-bold {
     font-weight: 700;
   }
 
@@ -183662,7 +183662,7 @@ h1, h2, button, p, label{
     font-weight: 600;
   }
 
-  .\32xl\:font-semibold {
+  .\32xl\:font-bold {
     font-weight: 700;
   }
 

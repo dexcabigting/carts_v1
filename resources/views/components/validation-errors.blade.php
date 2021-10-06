@@ -9,12 +9,12 @@
         </div>
         
         <div>
-            <div class="font-semibold text-xl">
+            <div class="font-bold text-xl">
                 {{ __('Whoops! Something went wrong.') }}
             </div>
 
             <div >
-                <ul class="mt-3 list-disc list-inside text-sm font-semibold">
+                <ul class="mt-3 list-disc list-inside text-sm font-bold">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach

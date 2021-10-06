@@ -22,7 +22,7 @@
             <!-- Email Address -->
             <div  class="md:flex md:items-center mb-6">
             <div  class="md:w-1/3">
-                <x-label class="block text-gray-500 font-semibold md:text-right mb-1 md:mb-0 pr-4"
+                <x-label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                                     for="inline-full-name" for="email" :value="__('Email')" />
 </div>
 <div class="md:w-2/3">
@@ -33,7 +33,7 @@
             <!-- Password -->
             <div  class="md:flex md:items-center mb-6">
             <div class="md:w-1/3">
-                <x-label  class="block text-gray-500 font-semibold md:text-right mb-1 md:mb-0 pr-4"
+                <x-label  class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
                                     for="inline-password" :value="__('Password')" />
 </div>
 <div class="md:w-2/3">
@@ -48,7 +48,7 @@
             <!-- Remember Me -->
             <div class="md:flex md:items-center mb-6">
                  <div class="md:w-1/3"></div>
-                <label for="remember_me" class="md:w-2/3 block text-gray-500 font-semibold">
+                <label for="remember_me" class="md:w-2/3 block text-gray-500 font-bold">
                     <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
                     <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
@@ -59,7 +59,7 @@
                 <div class="md:flex md:items-center justify-center">
                 <div class="md:w-1/3"></div>
                 <div class="md:w-2/3">
-                <x-button class="hover:bg-purple-900 hover:text-purple-100 text-3xl font-semibold text-center text-white px-12 py-6 w-96 bg-custom-violet my-3">
+                <x-button class="hover:bg-purple-900 hover:text-purple-100 text-3xl font-bold text-center text-white px-12 py-6 w-96 bg-custom-violet my-3">
                     {{ __('Log in') }}
                 </x-button>
 </div>

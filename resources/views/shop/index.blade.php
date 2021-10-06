@@ -3,7 +3,7 @@
         <div class="max-w-6xl mx-auto">
             <div class=" shadow-2xl overflow-hidden sm:rounded-lg">
                 <div class="flex flex-row items-center gap-5 p-6 bg-custom-blacki  overflow-x-auto"> 
-                    <div class="text-white font-semibold text-xl ml-12">
+                    <div class="text-white font-bold text-xl ml-12">
                         Browse our products!
                     </div>
 
@@ -25,7 +25,7 @@
                 @forelse ($products as $product)
                 <!-- Loop Content -->
                 <div class="flex flex-col bg-custom-blacki h-auto overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="flex-none font-semibold text-white uppercase text-2xl p-6  ">    
+                    <div class="flex-none font-bold text-white uppercase text-2xl p-6  ">    
                         {{ $product->prd_name }}
                     </div>
 

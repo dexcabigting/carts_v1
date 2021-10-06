@@ -4,7 +4,7 @@
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="flex flex-row gap-5 p-6 bg-custom-blacki shadow-2xl overflow-x-auto">
                     <div class="">
-                        <x-button class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3" wire:click="openCreateModal()">
+                        <x-button class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-xl font-bold text-white px-4 py-2 bg-custom-violet my-3" wire:click="openCreateModal()">
                             {{ __('Add Product') }}
                         </x-button>
                     </div>  
@@ -12,7 +12,7 @@
                     <div class="">
                         <button wire:click.prevent="openDeleteModal(@json($checkedKeys))"          
                             type="button" {{ (!$checkedProducts) ?  'disabled' : null }}
-                            class="rounded-sm hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedProducts) cursor-not-allowed @endif">
+                            class="rounded-sm hover:bg-red-900 hover:text-purple-100 text-xl font-bold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedProducts) cursor-not-allowed @endif">
                             {{ __('Bulk Delete') }} 
                             @if ($checkedProducts)
                                 ({{ count($checkedProducts) }})
@@ -32,7 +32,7 @@
                     <div class="">
                         
                         <div class="text-base font-medium text-gray-100 py-4">
-                            <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-xl" />
+                            <x-label :value="__('Order by')" class="font-bold text-gray-50 inline-block text-xl" />
                              <select wire:model="sortColumn" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 <option value="asc">
                                         <x-label :value="__('Name')" class="inline-block" />
@@ -81,10 +81,10 @@
                                     Name
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    2XS
+                                    XS
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    XS
+                                    XSS
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     S
@@ -99,7 +99,7 @@
                                     XL
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    2XL
+                                    XXL
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Actions
@@ -214,7 +214,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td class="px-6 py-4 text-center w-full items-center" colspan="12">
+                                <td class="px-6 py-4 text-center w-full items-center" colspan="6">
                                     <div>
                                         <span class="font-semibold text-xl text-gray-100  leading-tight">
                                             {{ __('There are no matches!') }}

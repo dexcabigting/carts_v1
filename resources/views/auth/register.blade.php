@@ -2,7 +2,7 @@
     <x-auth-card>
         
         <section class="md:w-full flex justify-center items-center my-24 flex-col">
-        <h1 class="font-semibold text-2xl md:text-8xl text-custom-blacki my-4">REGISTER</h1>
+        <h1 class="font-bold text-2xl md:text-8xl text-custom-blacki my-4">REGISTER</h1>
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -51,7 +51,7 @@
 
             <div class="flex items-center flex-col justify-center mt-4">
                 <div>
-                <x-button class="uppercase hover:bg-purple-900 hover:text-purple-100 text-3xl font-semibold text-white px-44 py-6 my-6 w-full bg-custom-violet">
+                <x-button class="uppercase hover:bg-purple-900 hover:text-purple-100 text-3xl font-bold text-white px-44 py-6 my-6 w-full bg-custom-violet">
                     {{ __('Register') }}
                 </x-button>
                 </div>
