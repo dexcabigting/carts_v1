@@ -12,13 +12,14 @@ class Product extends Model
 
     protected $table = 'products';
 
-    protected $with = ['product_stock'];
+    protected $with = ['product_stock', 'product_variants'];
 
     protected $fillable = [
+        'category_id',
+        'fabric_id',
         'prd_name',
         'prd_description',
         'prd_price',
-        'prd_image',
     ];
 
     public function product_stock()
@@ -26,10 +27,32 @@ class Product extends Model
         return $this->hasOne(ProductStock::class);
     }
 
-    public function getProductImageUrlAttribute()
+    public function product_variants()
     {
-        if($this->prd_image && Storage::exists('public/' . $this->prd_image)) {
-            return Storage::url('public/' . $this->prd_image);
-        }
+        return $this->hasMany(ProductVariant::class);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function fabric()
+    {
+        return $this->belongsTo(Fabric::class);
+    }
+
+    // public function getProductImageUrlAttribute()
+    // {
+    //     if($this->prd_image && Storage::exists('public/' . $this->prd_image)) {
+    //         return Storage::url('public/' . $this->prd_image);
+    //     }
+    // }
+
+    // public function getProductModelUrlAttribute()
+    // {
+    //     if($this->prd_3d && Storage::exists('public/' . $this->prd_3d)) {
+    //         return Storage::url('public/' . $this->prd_3d);
+    //     }
+    // }
 }

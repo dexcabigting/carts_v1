@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Service\Twilio\PhoneNumberLookupService;
+use App\Rules\PhoneNumber;
 
 class UpdateCredentialsRequest extends FormRequest
 {
@@ -11,6 +13,13 @@ class UpdateCredentialsRequest extends FormRequest
      *
      * @return bool
      */
+    private $service;
+
+    public function __construct(PhoneNumberLookupService $service)
+    {
+        $this->service = $service;
+    }
+
     public function authorize()
     {
         return true;
@@ -26,6 +35,7 @@ class UpdateCredentialsRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
+            'phone' => ['required', 'string', 'unique:users', new PhoneNumber($this->service)],
         ];
     }
 }

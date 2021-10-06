@@ -24,13 +24,13 @@ class ProductStockFactory extends Factory
     {
         return [
             'product_id' => Product::factory()->create()->id,
-            'xxsmall' => $this->faker->numberBetween(10, 100),
-            'xsmall' => $this->faker->numberBetween(10, 100),
-            'small' => $this->faker->numberBetween(10, 100),
-            'medium' => $this->faker->numberBetween(10, 100),
-            'large' => $this->faker->numberBetween(10, 100),
-            'xlarge' => $this->faker->numberBetween(10, 100),
-            'xxlarge' => $this->faker->numberBetween(10, 100),
+            '2XS' => $this->faker->numberBetween(10, 100),
+            'XS' => $this->faker->numberBetween(10, 100),
+            'S' => $this->faker->numberBetween(10, 100),
+            'M' => $this->faker->numberBetween(10, 100),
+            'L' => $this->faker->numberBetween(10, 100),
+            'XL' => $this->faker->numberBetween(10, 100),
+            'XL' => $this->faker->numberBetween(10, 100),
         ];
     }
 }

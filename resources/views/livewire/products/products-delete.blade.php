@@ -1,5 +1,5 @@
-<div id="delete-modal" class="flex flex-wrap flex-row justify-items-center align-items-center fixed top-0 left-0 w-full h-full">
-    <div class="py-12 fixed top-0 left-0 w-full h-full bg-gray-500 opacity-75 z-10">
+<div id="delete-modal" class="z-10 flex flex-wrap flex-row justify-items-center align-items-center fixed top-0 left-0 w-full h-full">
+    <div class="py-12 fixed top-0 left-0 w-full h-full bg-gray-500 opacity-75 ">
 
     </div>
 

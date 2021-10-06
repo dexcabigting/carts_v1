@@ -11,21 +11,26 @@ class UsersIndex extends Component
     use WithPagination;
 
     public $checkedUsers;
-    public $selectAll = false;
+    public $checkedKeys;
+    public $userId;
+    public $selectAll = 0;
     public $search;
     public $sortBy = 'Name';
     public $orderBy = 'asc';
-    public $roles = [2, 3];
-    public $couriers;
-    public $customers;
+    public $deleteModal = 0;
+    
+    protected $listeners = [
+        'refreshParent' => '$refresh',
+        'closeDeleteModal',
+        'cleanse',
+        'unsetCheckedProducts',
+    ];
 
     public function mount()
     {
         $this->checkedUsers = [];
-
-        $this->couriers = User::whereRoleId(2)->count();
-        
-        $this->customers = User::whereRoleId(3)->count();
+        $this->checkedKeys = [];
+        $this->userId = [];
     }
 
     public function render()
@@ -43,13 +48,9 @@ class UsersIndex extends Component
 
         $orderBy = $this->orderBy;
 
-        return User::with([
-            'role' => function ($query) {
-                $query->whereIn('id', $this->roles);
-            }
-        ])      
-            ->whereIn('role_id', $this->roles)
-            ->where('email', 'like', $search)
+        return User::with('role')
+            ->where('role_id', 2)
+            ->where('name', 'like', $search)
             ->orderBy($sortBy, $orderBy);
     }
 
@@ -60,7 +61,8 @@ class UsersIndex extends Component
         $sortBy = $this->sortBy;
 
         if ($value) {
-            $this->checkedUsers = User::whereIn('role_id', $this->roles)
+            $this->checkedUsers = User::with('role')
+                ->where('role_id', 2)
                 ->where($sortBy, 'like', $search)
                 ->pluck('id')
                 ->map(fn ($item) => (string) $item)
@@ -77,6 +79,8 @@ class UsersIndex extends Component
         $this->selectAll = false;
 
         $this->checkedUsers = array_filter($this->checkedUsers); 
+
+        $this->checkedKeys = array_keys($this->checkedUsers);
     }
 
     public function updatedSearch()
@@ -93,45 +97,33 @@ class UsersIndex extends Component
         $this->resetPage();
     }
 
-    public function deleteChecked()
+    public function openDeleteModal($id)
     {
-        $this->checkedUsers = array_keys($this->checkedUsers);
-        
-        
-        User::whereIn('id', $this->checkedUsers)->delete();
+        $this->userId = $id;
 
+        $this->deleteModal = true;
+    }
+
+    public function closeDeleteModal()
+    {
+        $this->deleteModal = false;
+    }
+
+    public function cleanse()
+    {
         $this->checkedUsers = [];
 
-        $this->selectAll = false;
+        $this->checkedKeys = array_keys($this->checkedUsers);
 
-        session()->flash('success', 'Records have been deleted successfully!');
-        
-        // dd($this->checkedUsers);
+        $this->selectAll = false;
     }
 
-    public function deleteRow($id)
+    public function unsetCheckedUsers($ids)
     {
         if (is_array($this->checkedUsers)) {
-            unset($this->checkedUsers[$id]);
-        }
-
-        User::findOrFail($id)->delete();
-
-        $this->checkedUsers = array_diff($this->checkedUsers, [$id]);
-
-        session()->flash('success', 'Record has been deleted successfully!');
-        
-        //dd($this->checkedUsers);
-    }
-
-    public function view($value)
-    {
-        if($value == 'users') {
-            $this->roles = [2, 3];
-        } else if($value == 'couriers') {
-            $this->roles = [2];
-        } else if($value == 'customers') {
-            $this->roles = [3];
+            foreach ($ids as $id) { 
+                unset($this->checkedUsers["$id"]);
+            }
         }
     }
 }

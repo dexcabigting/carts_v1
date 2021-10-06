@@ -12,7 +12,7 @@
                     </div>    
 
                     <div class="">
-                        <button wire:click.prevent="deleteChecked()"          
+                        <button wire:click.prevent="openDeleteModal(@json($checkedKeys))"         
                             type="button" {{ (!$checkedUsers) ?  'disabled' : null }}
                             class="hover:bg-red-900 hover:text-purple-100 text-xl font-bold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedUsers) cursor-not-allowed @endif">
                             {{ __('Bulk Delete') }} 
@@ -149,17 +149,6 @@
                                 <td class="px-6 py-4 whitespace-nowrap"> 
                                     @if ($user->role_id == 2)
                                     <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                            <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-                                            <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
-                                        </svg>
-                                        {{ $user->role->role }}
-                                    </span>
-                                    @elseif ($user->role_id == 3)
-                                    <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                                        </svg>
                                         {{ $user->role->role }}
                                     </span>
                                     @endif
@@ -181,9 +170,7 @@
                                     </div>
 
                                     <div>
-                                        <button class="p-2 bg-custom-grayrounded-r-md border border-transparent font-semibold text-xs bg-red-400 text-white uppercase tracking-normal hover:bg-red-400 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
-                                            wire:click.prevent="deleteRow({{ $user->id }})"
-                                            onclick="confirm('Are you sure you want to delete this record?') || event.stopImmediatePropagation()">
+                                        <button wire:click.prevent="openDeleteModal({{ $user->id }})" class="p-2 bg-custom-grayrounded-r-md border border-transparent font-semibold text-xs bg-red-400 text-white uppercase tracking-normal hover:bg-red-400 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                                             <span>
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
                                                     <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -202,7 +189,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td class="px-6 py-4 text-center" colspan="6">
+                                <td class="px-6 py-4 text-center" colspan="7">
                                     <div>
                                         <span class="font-semibold text-xl text-gray-800 leading-tight">
                                             {{ __('There are no matches!') }}

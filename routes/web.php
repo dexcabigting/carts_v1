@@ -30,7 +30,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/validate-phone-number', [PhoneNumberController::class, 'show'])->name('sms.validator');
+Route::view('3d', 'three-js');
 
 // Auth
 Route::middleware(['auth', 'verified'])->group(function () {

@@ -19,6 +19,11 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+
+        <!-- three.js -->
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+        <!-- <script src=""></script> -->
     </head>
     <body class="bg-custom-black">
     <header class="py-8 text-white font-light text-base flex justify-center items-center w-full">
