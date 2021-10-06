@@ -109,7 +109,7 @@
                             <tr>
                                 <td class="px-6 py-4 text-center" colspan="6">
                                     <div>
-                                        <span class=" text-2xl font-bold text-gray-400 leading-tight">
+                                        <span class=" text-2xl font-semibold text-gray-400 leading-tight">
                                             {{ __('You have no carts!') }}
                                         </span>
                                     </div>
