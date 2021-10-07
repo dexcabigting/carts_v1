@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Models\Product;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use App\Models\Category;
+use App\Models\Fabric;
 
 class ProductsCreate extends Component
 {
@@ -29,6 +31,8 @@ class ProductsCreate extends Component
         '2XL'  => '',
     ];
     public $addVariants;
+    public $categories = [];
+    public $fabrics = [];
 
     protected function rules()
     {
@@ -36,6 +40,7 @@ class ProductsCreate extends Component
             'form.prd_name' => 'required|string|max:255|unique:products,prd_name',
             'form.prd_description' => 'required|string|max:255',
             'form.prd_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
+            'form.prd_name' => 'required|string|max:255|exists,',
             'form.2XS'  => 'required_without_all:form.XS,form.S,form.M,form.L,form.XL,form.2XL|integer|min:10|max:100',
             'form.XS'  => 'required_without_all:form.2XS,form.S,form.M,form.L,form.XL,form.2XL|integer|min:10|max:100',
             'form.S'  => 'required_without_all:form.2XS,form.XS,form.M,form.L,form.XL,form.2XL|integer|min:10|max:100',
@@ -53,6 +58,8 @@ class ProductsCreate extends Component
         'form.prd_name' => 'product name',
         'form.prd_description' => 'product description',
         'form.prd_price' => 'product price',
+        'form.prd_category' => 'product category',
+        'form.prd_fabric' => 'product fabric',
         'form.2XS'  => '2XS',
         'form.XS'  => 'XS',
         'form.S'  => 'S',
@@ -74,6 +81,10 @@ class ProductsCreate extends Component
                 'back_view' => null,
             ]
         ];
+
+        $this->categories = Category::all();
+
+        $this->fabrics = Fabric::all();
     }
 
     public function render()
@@ -149,6 +160,8 @@ class ProductsCreate extends Component
         $this->form['prd_name'] = '';
         $this->form['prd_description'] = '';
         $this->form['prd_price'] = '';
+        $this->form['prd_category'] = '';
+        $this->form['prd_fabric'] = '';
         $this->form['2XS'] = '';
         $this->form['XS'] = '';
         $this->form['S'] = '';

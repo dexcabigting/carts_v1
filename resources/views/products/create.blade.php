@@ -23,12 +23,24 @@
 
                     <div class="mt-4">
                         <x-label for="prd_category" :value="__('Category')" />
-                        <x-input wire:model.defer="form.prd_category" id="prd_category" class="block mt-1 w-full text-black" type="text" value="{{ old('prd_category') }}" required />
+                        <select wire:model="form.prd_category" class="border-gray-300 mt-1 text-black rounded-lg w-full">
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}">
+                                {{ $category->ctgr_name }}
+                                </option>  
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="mt-4">
                         <x-label for="prd_fabric" :value="__('Fabric')" />
-                        <x-input wire:model.defer="form.prd_fabric" id="prd_fabric" class="block mt-1 w-full text-black" type="text" value="{{ old('prd_fabric') }}" required />
+                        <select wire:model="form.prd_fabric" class="border-gray-300 mt-1 text-black rounded-lg w-full">
+                            @foreach($fabrics as $fabric)
+                                <option value="{{ $fabric->id }}">
+                                {{ $fabric->fab_name }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="mt-4">
