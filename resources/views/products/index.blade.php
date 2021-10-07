@@ -84,7 +84,7 @@
                                     XS
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    XSS
+                                    2XS
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     S
@@ -99,7 +99,7 @@
                                     XL
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    XXL
+                                    2XL
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Actions
@@ -214,7 +214,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td class="px-6 py-4 text-center w-full items-center" colspan="6">
+                                <td class="px-6 py-4 text-center w-full items-center" colspan="12">
                                     <div>
                                         <span class="font-semibold text-xl text-gray-100  leading-tight">
                                             {{ __('There are no matches!') }}
