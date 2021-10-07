@@ -68,9 +68,9 @@ class ProductsCreate extends Component
         'form.L'  => 'L',
         'form.XL'  => 'XL',
         'form.2XL'  => '2XL',
-        'addVariants.*.size' => '*Jersey Size',
-        'addVariants.*.surname' => 'Jersey Surname',
-        'addVariants.*.jersey_number' => 'Jersey Number',
+        'addVariants.*.prd_var_name' => 'variant name',
+        'addVariants.*.front_view' => 'front view image',
+        'addVariants.*.back_view' => 'back view image',
     ];
 
     public function mount()
