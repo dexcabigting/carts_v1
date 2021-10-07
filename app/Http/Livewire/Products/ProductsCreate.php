@@ -16,6 +16,8 @@ class ProductsCreate extends Component
 
     public $form = [
         'prd_name' => '',
+        'prd_category' => '',
+        'prd_fabric' => '',
         'prd_description' => '',
         'prd_price' => '',
         '2XS'  => '',
@@ -88,19 +90,12 @@ class ProductsCreate extends Component
         $newProductImageName = $this->form['prd_name'] . Str::random(30) . '.' . $prdImage->extension();
 
         $prdImagePath = $prdImage->storeAs('/images/products', $newProductImageName,'public');
-
-        $prdModel = $this->form['prd_3d'];
-
-        $newProductModelName = $this->form['prd_name'] . Str::random(30) . '.' . $prdModel->extension();
-
-        $prdModelPath = $prdModel->storeAs('/images/models', $newProductModelName,'public');
         
         $product = Product::create([
             'prd_name' => $this->form['prd_name'],
             'prd_description' => $this->form['prd_description'],
             'prd_price' => $this->form['prd_price'],
             'prd_image' => $prdImagePath,
-            'prd_3d' => $prdModelPath,
         ]);
 
         $productStocks = [
@@ -116,7 +111,6 @@ class ProductsCreate extends Component
         $productStocks = array_filter($productStocks);
 
         $product->product_stock()->create($productStocks);
-    
         
         $this->clearFormFields();
 
