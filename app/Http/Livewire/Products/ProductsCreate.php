@@ -18,15 +18,13 @@ class ProductsCreate extends Component
         'prd_name' => '',
         'prd_description' => '',
         'prd_price' => '',
-        'prd_image' => null,
-        'prd_3d' => null,
-        'xxsmall'  => '',
-        'xsmall'  => '',
-        'small'  => '',
-        'medium'  => '',
-        'large'  => '',
-        'xlarge'  => '',
-        'xxlarge'  => '',
+        '2XS'  => '',
+        'XS'  => '',
+        'S'  => '',
+        'M'  => '',
+        'L'  => '',
+        'XL'  => '',
+        '2XL'  => '',
     ];
     public $addVariants;
 
@@ -36,15 +34,13 @@ class ProductsCreate extends Component
             'form.prd_name' => 'required|string|max:255|unique:products,prd_name',
             'form.prd_description' => 'required|string|max:255',
             'form.prd_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
-            'form.prd_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'form.prd_3d' => 'required|file',
-            'form.xxsmall'  => 'required_without_all:form.xsmall,form.small,form.medium,form.large,form.xlarge,form.xxlarge|integer|min:10|max:100',
-            'form.xsmall'  => 'required_without_all:form.xxsmall,form.small,form.medium,form.large,form.xlarge,form.xxlarge|integer|min:10|max:100',
-            'form.small'  => 'required_without_all:form.xxsmall,form.xsmall,form.medium,form.large,form.xlarge,form.xxlarge|integer|min:10|max:100',
-            'form.medium'  => 'required_without_all:form.xxsmall,form.xsmall,form.small,form.large,form.xlarge,form.xxlarge|integer|min:10|max:100',
-            'form.large'  => 'required_without_all:form.xxsmall,form.xsmall,form.small,form.medium,form.xlarge,form.xxlarge|integer|min:10|max:100',
-            'form.xlarge'  => 'required_without_all:form.xxsmall,form.xsmall,form.small,form.medium,form.large,form.xxlarge|integer|min:10|max:100',
-            'form.xxlarge'  => 'required_without_all:form.xxsmall,form.xsmall,form.small,form.medium,form.large,form.xlarge|integer|min:10|max:100',
+            'form.2XS'  => 'required_without_all:form.XS,form.S,form.M,form.L,form.XL,form.2XL|integer|min:10|max:100',
+            'form.XS'  => 'required_without_all:form.2XS,form.S,form.M,form.L,form.XL,form.2XL|integer|min:10|max:100',
+            'form.S'  => 'required_without_all:form.2XS,form.XS,form.M,form.L,form.XL,form.2XL|integer|min:10|max:100',
+            'form.M'  => 'required_without_all:form.2XS,form.XS,form.S,form.L,form.XL,form.2XL|integer|min:10|max:100',
+            'form.L'  => 'required_without_all:form.2XS,form.XS,form.S,form.M,form.XL,form.2XL|integer|min:10|max:100',
+            'form.XL'  => 'required_without_all:form.2XS,form.XS,form.S,form.M,form.L,form.2XL|integer|min:10|max:100',
+            'form.2XL'  => 'required_without_all:form.2XS,form.XS,form.S,form.M,form.L,form.XL|integer|min:10|max:100',
             'addVariants.*.prd_var_name' => 'required|string|max:255|unique:product_variants,prd_var_name',
             'addVariants.*.front_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'addVariants.*.back_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -55,15 +51,13 @@ class ProductsCreate extends Component
         'form.prd_name' => 'product name',
         'form.prd_description' => 'product description',
         'form.prd_price' => 'product price',
-        'form.prd_image' => 'product image',
-        'form.prd_3d' => 'product model',
-        'form.xxsmall'  => 'xxsmall',
-        'form.xsmall'  => 'xsmall',
-        'form.small'  => 'small',
-        'form.medium'  => 'medium',
-        'form.large'  => 'large',
-        'form.xlarge'  => 'xlarge',
-        'form.xxlarge'  => 'xxlarge',
+        'form.2XS'  => '2XS',
+        'form.XS'  => 'XS',
+        'form.S'  => 'S',
+        'form.M'  => 'M',
+        'form.L'  => 'L',
+        'form.XL'  => 'XL',
+        'form.2XL'  => '2XL',
         'addVariants.*.size' => '*Jersey Size',
         'addVariants.*.surname' => 'Jersey Surname',
         'addVariants.*.jersey_number' => 'Jersey Number',
@@ -74,8 +68,8 @@ class ProductsCreate extends Component
         $this->addVariants = [
             [
                 'prd_var_name' => '',
-                'front_view' => '',
-                'back_view' => '',
+                'front_view' => null,
+                'back_view' => null,
             ]
         ];
     }
@@ -110,13 +104,13 @@ class ProductsCreate extends Component
         ]);
 
         $productStocks = [
-            'xxsmall' => $this->form['xxsmall'],
-            'xsmall' => $this->form['xsmall'],
-            'small' => $this->form['small'],
-            'medium' => $this->form['medium'],
-            'large' => $this->form['large'],
-            'xlarge' => $this->form['xlarge'],
-            'xxlarge' => $this->form['xxlarge'],
+            '2XS' => $this->form['2XS'],
+            'XS' => $this->form['XS'],
+            'S' => $this->form['S'],
+            'M' => $this->form['M'],
+            'L' => $this->form['L'],
+            'XL' => $this->form['XL'],
+            '2XL' => $this->form['2XL'],
         ];
 
         $productStocks = array_filter($productStocks);
@@ -136,21 +130,19 @@ class ProductsCreate extends Component
         $this->form['prd_name'] = '';
         $this->form['prd_description'] = '';
         $this->form['prd_price'] = '';
-        $this->form['prd_image'] = null;
-        $this->form['prd_3d'] = null;
-        $this->form['xxsmall'] = '';
-        $this->form['xsmall'] = '';
-        $this->form['small'] = '';
-        $this->form['medium'] = '';
-        $this->form['large'] = '';
-        $this->form['xlarge'] = '';
-        $this->form['xxlarge'] = '';
+        $this->form['2XS'] = '';
+        $this->form['XS'] = '';
+        $this->form['S'] = '';
+        $this->form['M'] = '';
+        $this->form['L'] = '';
+        $this->form['XL'] = '';
+        $this->form['2XL'] = '';
 
         $this->addVariants = [
             [
                 'prd_var_name' => '',
-                'front_view' => '',
-                'back_view' => '',
+                'front_view' => null,
+                'back_view' => null,
             ]
         ];
     }
@@ -159,8 +151,8 @@ class ProductsCreate extends Component
     {
         $this->addVariants[] = [
             'prd_var_name' => '',
-            'front_view' => '',
-            'back_view' => '',
+            'front_view' => null,
+            'back_view' => null,
         ];
     }
 

@@ -45,40 +45,40 @@
                 <div class="flex flex-row gap-5">
                     <div class="w-16">
                         <div>
-                            <x-label for="xxsmall" :value="__('XXSmall')"/>
-                            <x-input id="xxsmall" wire:model.defer="form.xxsmall" class="block mt-1 w-full" type="text" value="{{ old('xxsmall') }}" autofocus />
+                            <x-label for="2XS" :value="__('2XS')"/>
+                            <x-input id="2XS" wire:model.defer="form.2XS" class="block mt-1 w-full" type="text" value="{{ old('2XS') }}" autofocus />
                         </div>
                         
                         <div class="mt-4">
-                            <x-label for="xsmall" :value="__('XSmall')"/>
-                            <x-input id="xsmall" wire:model.defer="form.xsmall" class="block mt-1 w-full text-black" type="text" value="{{ old('xsmall') }}" autofocus />
+                            <x-label for="XS" :value="__('XS')"/>
+                            <x-input id="XS" wire:model.defer="form.XS" class="block mt-1 w-full text-black" type="text" value="{{ old('XS') }}" autofocus />
                         </div>
 
                         <div class="mt-4">
-                            <x-label for="small" :value="__('Small')"/>
-                            <x-input id="small" wire:model.defer="form.small" class="block mt-1 w-full text-black" type="text" value="{{ old('small') }}" autofocus />
+                            <x-label for="S" :value="__('S')"/>
+                            <x-input id="S" wire:model.defer="form.S" class="block mt-1 w-full text-black" type="text" value="{{ old('S') }}" autofocus />
                         </div>
 
                         <div class="mt-4">
-                            <x-label for="medium" :value="__('Medium')"/>
-                            <x-input id="medium" wire:model.defer="form.medium" class="block mt-1 w-full text-black" type="text" value="{{ old('medium') }}" autofocus />
+                            <x-label for="M" :value="__('M')"/>
+                            <x-input id="M" wire:model.defer="form.M" class="block mt-1 w-full text-black" type="text" value="{{ old('M') }}" autofocus />
                         </div>
                     </div>
 
                     <div class="w-16">
                         <div>
-                            <x-label for="large" :value="__('Large')"/>
-                            <x-input id="large" wire:model.defer="form.large" class="block mt-1 w-full text-black" type="text" value="{{ old('large') }}" autofocus />
+                            <x-label for="L" :value="__('L')"/>
+                            <x-input id="L" wire:model.defer="form.L" class="block mt-1 w-full text-black" type="text" value="{{ old('L') }}" autofocus />
                         </div>
 
                         <div class="mt-4">
-                            <x-label for="xlarge" :value="__('XLarge')"/>
-                            <x-input id="xlarge" wire:model.defer="form.xlarge" class="block mt-1 w-full text-black" type="text" value="{{ old('xlarge') }}" autofocus />
+                            <x-label for="XL" :value="__('XL')"/>
+                            <x-input id="XL" wire:model.defer="form.XL" class="block mt-1 w-full text-black" type="text" value="{{ old('XL') }}" autofocus />
                         </div>
 
                         <div class="mt-4">
-                            <x-label for="xxlarge" :value="__('XXLarge')"/>
-                            <x-input id="xxlarge" wire:model.defer="form.xxlarge" class="block mt-1 w-full text-black" type="text" value="{{ old('xxlarge') }}" autofocus />
+                            <x-label for="2XL" :value="__('2XL')"/>
+                            <x-input id="2XL" wire:model.defer="form.2XL" class="block mt-1 w-full text-black" type="text" value="{{ old('2XL') }}" autofocus />
                         </div>
                     </div>
                 </div>
@@ -150,12 +150,12 @@
 
         <div class="flex justify-center px-5 mt-4 gap-5 items-center">
             <div>
-                <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
+                <x-button class="hover:bg-purple-900 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-custom-violet my-3">
                     {{ __('Add Product') }}
                 </x-button>
             </div>  
             <div>
-                <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3" type="button" wire:click="closeCreateModal()">
+                <x-button class="hover:bg-purple-900 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-custom-violet my-3" type="button" wire:click="closeCreateModal()">
                     {{ __('Close') }}
                 </x-button>
             </div>
