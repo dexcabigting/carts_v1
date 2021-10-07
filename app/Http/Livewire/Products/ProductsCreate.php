@@ -85,17 +85,40 @@ class ProductsCreate extends Component
     {
         $this->validate();
 
-        $prdImage = $this->form['prd_image'];
+        $count = count($this->addVariants);
 
-        $newProductImageName = $this->form['prd_name'] . Str::random(30) . '.' . $prdImage->extension();
+        $productVariants = [];
 
-        $prdImagePath = $prdImage->storeAs('/images/products', $newProductImageName,'public');
+        for($i = 0; i < $count; $i++) {
+            $variantFront = $this->addVariants[$i['front_view']];
+            $variantBack = $this->addVariants[$i['back_view']];
+
+            $newFrontName = $this->form['prd_name'] . '-' . $this->addVariants.[$i['front_view']] . Str::random(10) . '.' . $variantFront->extension();
+            $newBackName = $this->form['prd_name'] . '-' . $this->addVariants.[$i['back_view']] . Str::random(10) . '.' . $variantBack->extension();
+        
+            $frontImagePath = $variantFront->storeAs('/images/products', $newFrontName,'public');
+            $backImagePath = $variantBack->storeAs('/images/products', $newBackName,'public');
+
+            $productVariants[] = [
+                'prd_var_name' => $this->addVariants.[$i['prd_var_name']],
+                'front_view' => $frontImagePath,
+                'back_view' => $backImagePath,
+            ];
+        }
+
+        // $prdImage = $this->form['prd_image'];
+
+        // $newProductImageName = $this->form['prd_name'] . Str::random(30) . '.' . $prdImage->extension();
+
+        // $prdImagePath = $prdImage->storeAs('/images/products', $newProductImageName,'public');
         
         $product = Product::create([
             'prd_name' => $this->form['prd_name'],
+            'category_id' => $this->form['prd_category'],
+            'fabric_id' => $this->form['prd_fabric'],
             'prd_description' => $this->form['prd_description'],
             'prd_price' => $this->form['prd_price'],
-            'prd_image' => $prdImagePath,
+            // 'prd_image' => $prdImagePath,
         ]);
 
         $productStocks = [
@@ -111,6 +134,8 @@ class ProductsCreate extends Component
         $productStocks = array_filter($productStocks);
 
         $product->product_stock()->create($productStocks);
+
+        $product->variants()->create($productVariants);
         
         $this->clearFormFields();
 
