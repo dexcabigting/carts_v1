@@ -12,6 +12,7 @@ class ProductsIndex extends Component
     
     public $checkedProducts;
     public $checkedKeys;
+    public $categories = [];
     public $selectAll = false;
     public $createModal = 0;
     public $editModal = 0;
@@ -55,7 +56,8 @@ class ProductsIndex extends Component
 
         $sortDirection = $this->sortDirection;
 
-        return Product::where('prd_name', 'like', $search)
+        return Product::with(['category', 'fabric', 'product_stock', 'product_variants'])
+            ->where('prd_name', 'like', $search)
             ->orderBy($sortColumn, $sortDirection);
     }
 

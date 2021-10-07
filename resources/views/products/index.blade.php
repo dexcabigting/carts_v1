@@ -20,25 +20,16 @@
                         </button>
                     </div>  
 
-                    <!-- Search Bar -->
-                    <div class="col-span-2 lg:col-span-2 grid items-center align-center relative lg:w-64">
-                        <x-input class="h-9 pr-10" type="search" wire:model="search" autofocus />
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-custom-violet absolute right-0" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-
-                   <!-- Order By -->
+                    <!-- Order By -->
                     <div class="">
-                        
                         <div class="text-base font-medium text-gray-100 py-4">
                             <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-xl" />
                              <select wire:model="sortColumn" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                <option value="asc">
+                                <option value="prd_name">
                                         <x-label :value="__('Name')" class="inline-block" />
                                 </option>
 
-                                <option value="desc">
+                                <option value="created_at">
                                     <x-label :value="__('Date Created')" class="inline-block" />
                                 </option>
                             </select>
@@ -53,6 +44,16 @@
                                 </option>
                             </select>
                         </div>
+
+                        
+                    </div>
+
+                    <!-- Search Bar -->
+                    <div class="col-span-2 lg:col-span-2 grid items-center align-center relative lg:w-64">
+                        <x-input class="h-9 pr-10" type="search" wire:model="search" autofocus />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-custom-violet absolute right-0" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                        </svg>
                     </div>
 
                 </div>
@@ -81,25 +82,13 @@
                                     Name
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    XS
+                                    Category
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    2XS
+                                    Fabric
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    S
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    M
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    L
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    XL
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    2XL
+                                    Quantity
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Actions
@@ -129,7 +118,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
-                                            <img class="h-10 w-10 rounded-full" src="{{ Storage::url('public/' . $product->prd_image) }}" alt="">
+                                            <img class="h-10 w-10 rounded-full" src="{{ Storage::url('public/' . $product->product_variants->first()->front_view) }}" alt="">
                                         </div>
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-100">
@@ -141,43 +130,19 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap">                                     
                                     <div class="text-sm font-medium text-gray-100">
-                                        {{ $product->product_stock->xxsmall }}
+                                        {{ $product->category->ctgr_name }}
                                     </div>                                      
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">                                     
                                     <div class="text-sm font-medium text-gray-100">
-                                        {{ $product->product_stock->xsmall }}
+                                        {{ $product->fabric->fab_name }}
                                     </div>                                      
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">                                     
                                     <div class="text-sm font-medium text-gray-100">
-                                        {{ $product->product_stock->small }}
-                                    </div>                                      
-                                </td>
-
-                                <td class="px-6 py-4 whitespace-nowrap">                                     
-                                    <div class="text-sm font-medium text-gray-100">
-                                        {{ $product->product_stock->medium }}
-                                    </div>                                      
-                                </td>
-
-                                <td class="px-6 py-4 whitespace-nowrap">                                     
-                                    <div class="text-sm font-medium text-gray-100">
-                                        {{ $product->product_stock->large }}
-                                    </div>                                      
-                                </td>
-
-                                <td class="px-6 py-4 whitespace-nowrap">                                     
-                                    <div class="text-sm font-medium text-gray-100">
-                                        {{ $product->product_stock->xlarge }}
-                                    </div>                                      
-                                </td>
-
-                                <td class="px-6 py-4 whitespace-nowrap">                                     
-                                    <div class="text-sm font-medium text-gray-100">
-                                        {{ $product->product_stock->xxlarge }}
+                                        {{ $product->product_stock->quantity }}
                                     </div>                                      
                                 </td>
 
@@ -214,7 +179,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td class="px-6 py-4 text-center w-full items-center" colspan="12">
+                                <td class="px-6 py-4 text-center w-full items-center" colspan="8">
                                     <div>
                                         <span class="font-semibold text-xl text-gray-100  leading-tight">
                                             {{ __('There are no matches!') }}
