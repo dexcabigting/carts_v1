@@ -13,8 +13,6 @@ class ProductVariant extends Model
         'prd_var_name',
         'front_view',
         'back_view',
-        'left_view',
-        'right_view',
     ];
 
     public function product()

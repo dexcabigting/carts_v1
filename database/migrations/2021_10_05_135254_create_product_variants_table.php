@@ -19,8 +19,6 @@ class CreateProductVariantsTable extends Migration
             $table->string('prd_var_name');
             $table->string('front_view');
             $table->string('back_view');
-            $table->string('left_view');
-            $table->string('right_view');
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
