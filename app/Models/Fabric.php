@@ -9,8 +9,6 @@ class Fabric extends Model
 {
     use HasFactory;
 
-    protected $with = ['product'];
-
     protected $fillable = [
         'fab_name',
         'fab_description',
