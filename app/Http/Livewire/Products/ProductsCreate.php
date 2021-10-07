@@ -90,17 +90,17 @@ class ProductsCreate extends Component
         $productVariants = [];
 
         for($i = 0; i < $count; $i++) {
-            $variantFront = $this->addVariants[$i['front_view']];
-            $variantBack = $this->addVariants[$i['back_view']];
+            $variantFront = $this->addVariants[$i]['front_view'];
+            $variantBack = $this->addVariants[$i]['back_view'];
 
-            $newFrontName = $this->form['prd_name'] . '-' . $this->addVariants.[$i['front_view']] . Str::random(10) . '.' . $variantFront->extension();
-            $newBackName = $this->form['prd_name'] . '-' . $this->addVariants.[$i['back_view']] . Str::random(10) . '.' . $variantBack->extension();
+            $newFrontName = $this->form['prd_name'] . '-' . $this->addVariants.[$i]['front_view'] . Str::random(10) . '.' . $variantFront->extension();
+            $newBackName = $this->form['prd_name'] . '-' . $this->addVariants.[$i]['back_view'] . Str::random(10) . '.' . $variantBack->extension();
         
             $frontImagePath = $variantFront->storeAs('/images/products', $newFrontName,'public');
             $backImagePath = $variantBack->storeAs('/images/products', $newBackName,'public');
 
             $productVariants[] = [
-                'prd_var_name' => $this->addVariants.[$i['prd_var_name']],
+                'prd_var_name' => $this->addVariants.[$i]['prd_var_name'],
                 'front_view' => $frontImagePath,
                 'back_view' => $backImagePath,
             ];
