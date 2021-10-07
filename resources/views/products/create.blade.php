@@ -1,4 +1,4 @@
-<div class="py-5">
+<div class="py-5 overflow-y-auto">
     <x-success-fail-message />
     <x-validation-errors :errors="$errors" />
 
@@ -58,7 +58,7 @@
                     <div class="w-16">
                         <div>
                             <x-label for="2XS" :value="__('2XS')"/>
-                            <x-input id="2XS" wire:model.defer="form.2XS" class="block mt-1 w-full" type="text" value="{{ old('2XS') }}" autofocus />
+                            <x-input id="2XS" wire:model.defer="form.2XS" class="block mt-1 w-full text-black" type="text" value="{{ old('2XS') }}" autofocus />
                         </div>
                         
                         <div class="mt-4">
