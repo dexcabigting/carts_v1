@@ -95,6 +95,8 @@ class ProductsCreate extends Component
 
     public function store()
     {
+        
+
         $this->validate();
 
         $count = count($this->addVariants);
@@ -106,8 +108,8 @@ class ProductsCreate extends Component
             $variantFront = $this->addVariants[$i]['front_view'];
             $variantBack = $this->addVariants[$i]['back_view'];
 
-            $newFrontName = $this->form['prd_name'] . Str::random(10) . '.' . $variantFront->extension();
-            $newBackName = $this->form['prd_name'] . Str::random(10) . '.' . $variantBack->extension();
+            $newFrontName = $this->addVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantFront->extension();
+            $newBackName = $this->addVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantBack->extension();
         
             $frontImagePath = $variantFront->storeAs('/images/products', $newFrontName,'public');
             $backImagePath = $variantBack->storeAs('/images/products', $newBackName,'public');
