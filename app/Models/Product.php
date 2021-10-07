@@ -4,15 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
     use HasFactory;
 
     protected $table = 'products';
-
-    protected $with = ['product_stock', 'product_variants'];
 
     protected $fillable = [
         'category_id',
