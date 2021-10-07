@@ -28,6 +28,7 @@ class ProductsCreate extends Component
         'xlarge'  => '',
         'xxlarge'  => '',
     ];
+    public $addVariants;
 
     protected function rules()
     {
@@ -44,6 +45,9 @@ class ProductsCreate extends Component
             'form.large'  => 'required_without_all:form.xxsmall,form.xsmall,form.small,form.medium,form.xlarge,form.xxlarge|integer|min:10|max:100',
             'form.xlarge'  => 'required_without_all:form.xxsmall,form.xsmall,form.small,form.medium,form.large,form.xxlarge|integer|min:10|max:100',
             'form.xxlarge'  => 'required_without_all:form.xxsmall,form.xsmall,form.small,form.medium,form.large,form.xlarge|integer|min:10|max:100',
+            'addVariants.*.prd_var_name' => 'required|string|max:255|unique:product_variants,prd_var_name',
+            'addVariants.*.front_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'addVariants.*.back_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
 
@@ -60,7 +64,21 @@ class ProductsCreate extends Component
         'form.large'  => 'large',
         'form.xlarge'  => 'xlarge',
         'form.xxlarge'  => 'xxlarge',
+        'addVariants.*.size' => '*Jersey Size',
+        'addVariants.*.surname' => 'Jersey Surname',
+        'addVariants.*.jersey_number' => 'Jersey Number',
     ];
+
+    public function mount()
+    {
+        $this->addVariants = [
+            [
+                'prd_var_name' => '',
+                'front_view' => '',
+                'back_view' => '',
+            ]
+        ];
+    }
 
     public function render()
     {
@@ -127,6 +145,30 @@ class ProductsCreate extends Component
         $this->form['large'] = '';
         $this->form['xlarge'] = '';
         $this->form['xxlarge'] = '';
+
+        $this->addVariants = [
+            [
+                'prd_var_name' => '',
+                'front_view' => '',
+                'back_view' => '',
+            ]
+        ];
+    }
+
+    public function addMore()
+    {
+        $this->addVariants[] = [
+            'prd_var_name' => '',
+            'front_view' => '',
+            'back_view' => '',
+        ];
+    }
+
+    public function removeVariant($index)
+    {
+        unset($this->addVariants[$index]);
+
+        $this->addVariants = array_values($this->addVariants);
     }
 
     public function closeCreateModal()
