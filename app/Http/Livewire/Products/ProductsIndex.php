@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Products;
 
 use Livewire\Component;
 use App\Models\Product;
+use App\Models\Category;
 use Livewire\WithPagination;
 
 class ProductsIndex extends Component
@@ -39,10 +40,13 @@ class ProductsIndex extends Component
         $this->checkedProducts = [];
         $this->checkedKeys = [];
         $this->productId = [];
+        $this->categories = Category::all();
+        $this->category = Category::pluck('id')->toArray();
     }
 
     public function render()
     {
+        // dd($this->category);
         $products = $this->products->paginate(6);
 
         return view('livewire.products.products-index', compact('products'));
@@ -56,8 +60,11 @@ class ProductsIndex extends Component
 
         $sortDirection = $this->sortDirection;
 
+        $category = $this->category;
+
         return Product::with(['category', 'fabric', 'product_stock', 'product_variants'])
             ->where('prd_name', 'like', $search)
+            ->whereIn('category_id', (is_array($category)) ? $category : [$category])
             ->orderBy($sortColumn, $sortDirection);
     }
 
@@ -68,6 +75,8 @@ class ProductsIndex extends Component
         $sortColumn = $this->sortColumn; 
 
         $sortDirection = $this->sortDirection;
+
+        $category = $this->category;
 
         if ($value) {
             $this->checkedProducts = Product::where('prd_name', 'like', $search)

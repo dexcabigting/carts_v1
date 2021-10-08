@@ -43,6 +43,14 @@
                                     <x-label :value="__('Descending')" class="inline-block" />
                                 </option>
                             </select>
+
+                            <select wire:model="category" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">
+                                        <x-label value="{{ $category->ctgr_name }}" class="inline-block" />
+                                    </option>  
+                                @endforeach
+                            </select>
                         </div>
 
                         

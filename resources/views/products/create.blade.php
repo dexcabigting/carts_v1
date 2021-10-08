@@ -17,12 +17,12 @@
             <div class="flex flex-row divide-gray-200 gap-5">
                 <div class="w-48">                
                     <div>
-                        <x-label for="prd_name" :value="__('Name')"/>
-                        <x-input  wire:model.defer="form.prd_name" id="prd_name" class="block mt-1 w-full text-black" type="text" value="{{ old('prd_name') }}" autofocus required />
+                        <x-label :value="__('Name')"/>
+                        <x-input  wire:model.defer="form.prd_name" class="block mt-1 w-full text-black" type="text" value="{{ old('prd_name') }}" autofocus required />
                     </div>
 
                     <div class="mt-4">
-                        <x-label for="prd_category" :value="__('Category')" />
+                        <x-label :value="__('Category')" />
                         <select wire:model="form.prd_category" class="border-gray-300 mt-1 text-black rounded-lg w-full">
                             @foreach($categories as $category)
                                 <option value="{{ $category->id }}">
@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="mt-4">
-                        <x-label for="prd_fabric" :value="__('Fabric')" />
+                        <x-label :value="__('Fabric')" />
                         <select wire:model="form.prd_fabric" class="border-gray-300 mt-1 text-black rounded-lg w-full">
                             @foreach($fabrics as $fabric)
                                 <option value="{{ $fabric->id }}">
