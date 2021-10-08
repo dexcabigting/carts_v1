@@ -72,6 +72,7 @@
                                 <th scope="col" class="px-6 py-3 float-left">
                                     <div>
                                         <input type="checkbox" wire:model="selectAll" 
+                                        {{ (count($products) == 0) ?  'disabled' : null }}
                                         class="rounded border-gray-100 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring-indigo-200 focus:ring-opacity-50">
                                     </div>
                                 </th>
