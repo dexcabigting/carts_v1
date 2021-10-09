@@ -71,7 +71,7 @@ class ProductsIndex extends Component
 
         $category = is_string($category) && $category != 'All' ? [$category] : $categories;
 
-        return Product::with(['category', 'fabric', 'product_variants'])
+        return Product::with(['category', 'fabric', 'product_variants', 'product_stocks'])
             ->where('prd_name', 'like', $search)
             ->whereIn('category_id', $category)
             ->orderBy($sortColumn, $sortDirection);

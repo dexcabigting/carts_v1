@@ -154,7 +154,11 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap">                                     
                                     <div class="text-sm font-medium text-gray-100">
-                                        {{ $product->prd_name}}
+                                        @php($quantity = 0)
+                                        @foreach($product->product_stocks as $product_stock)
+                                           @php($quantity += $product_stock->quantity)
+                                        @endforeach
+                                        x{{ $quantity }}
                                     </div>                                      
                                 </td>
 
