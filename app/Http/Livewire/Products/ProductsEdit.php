@@ -20,17 +20,10 @@ class ProductsEdit extends Component
      */
     public $form = [
         'prd_name' => '',
+        'prd_category' => '',
+        'prd_fabric' => '',
         'prd_description' => '',
         'prd_price' => '',
-        'prd_image' => null,
-        'prd_3d' => null,
-        'xxsmall'  => '',
-        'xsmall'  => '',
-        'small'  => '',
-        'medium'  => '',
-        'large'  => '',
-        'xlarge'  => '',
-        'xxlarge'  => '',
     ];
 
     protected $listeners = [
@@ -40,18 +33,21 @@ class ProductsEdit extends Component
     protected function rules()
     {
         return [
-            'form.prd_name' => 'required|string|max:255|unique:products,prd_name,' . $this->product->id,
+            'form.prd_name' => 'required|string|max:255|unique:products,prd_name' . $this->product->id,
+            'form.prd_category' => 'required|string|max:255|exists:categories,id',
+            'form.prd_fabric' => 'required|string|max:255|exists:fabrics,id',
             'form.prd_description' => 'required|string|max:255',
             'form.prd_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
-            'form.prd_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'form.prd_3d' => 'nullable|file',
-            'form.xxsmall'  => 'required_without_all:form.xsmall,form.small,form.medium,form.large,form.xlarge,form.xxlarge|integer|max:100',
-            'form.xsmall'  => 'required_without_all:form.xxsmall,form.small,form.medium,form.large,form.xlarge,form.xxlarge|integer|max:100',
-            'form.small'  => 'required_without_all:form.xxsmall,form.xsmall,form.medium,form.large,form.xlarge,form.xxlarge|integer|max:100',
-            'form.medium'  => 'required_without_all:form.xxsmall,form.xsmall,form.small,form.large,form.xlarge,form.xxlarge|integer|max:100',
-            'form.large'  => 'required_without_all:form.xxsmall,form.xsmall,form.small,form.medium,form.xlarge,form.xxlarge|integer|max:100',
-            'form.xlarge'  => 'required_without_all:form.xxsmall,form.xsmall,form.small,form.medium,form.large,form.xxlarge|integer|max:100',
-            'form.xxlarge'  => 'required_without_all:form.xxsmall,form.xsmall,form.small,form.medium,form.large,form.xlarge|integer|max:100',
+            'addVariants.*.prd_var_name' => 'required|string|max:255|unique:product_variants,prd_var_name',
+            'addVariants.*.front_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'addVariants.*.back_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'addVariants.*.2XS'  => 'required_without_all:addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
+            'addVariants.*.XS'  => 'required_without_all:addVariants.*.2XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
+            'addVariants.*.S'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
+            'addVariants.*.M'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
+            'addVariants.*.L'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
+            'addVariants.*.XL'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.2XL|integer|min:10|max:100',
+            'addVariants.*.2XL'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL|integer|min:10|max:100',
         ];
     }
 
@@ -59,15 +55,18 @@ class ProductsEdit extends Component
         'form.prd_name' => 'product name',
         'form.prd_description' => 'product description',
         'form.prd_price' => 'product price',
-        'form.prd_image' => 'product image',
-        'form.prd_3d' => 'product model',
-        'form.xxsmall'  => 'xxsmall size',
-        'form.xsmall'  => 'xsmall size',
-        'form.small'  => 'small size',
-        'form.medium'  => 'medium size',
-        'form.large'  => 'large size',
-        'form.xlarge'  => 'xlarge size',
-        'form.xxlarge'  => 'xxlarge size',
+        'form.prd_category' => 'product category',
+        'form.prd_fabric' => 'product fabric',
+        'addVariants.*.prd_var_name' => 'variant name',
+        'addVariants.*.front_view' => 'front view image',
+        'addVariants.*.back_view' => 'back view image',
+        'addVariants.*.2XS'  => '2XS',
+        'addVariants.*.XS'  => 'XS',
+        'addVariants.*.S'  => 'S',
+        'addVariants.*.M'  => 'M',
+        'addVariants.*.L'  => 'L',
+        'addVariants.*.XL'  => 'XL',
+        'addVariants.*.2XL'  => '2XL',
     ];
     
     public function mount(Product $id)
@@ -118,33 +117,11 @@ class ProductsEdit extends Component
 
         }
         
-        // 3D
-        $modelPath = pathinfo($this->product->prd_3d);
-
-        $newProductModelPath = $modelPath['dirname'] . '/' . $this->form['prd_name'] . Str::random(30) . '.' . $modelPath['extension'];
-        
-        if($this->form['prd_name'] != $this->product->prd_name) {
-            // If admin changes the product name, product image name should be updated
-
-            Storage::move('public/' . $this->product->prd_3d, 'public/' . $newProductModelPath);
-        } elseif($this->form['prd_3d']) {
-            // If admin changes the product image, old image must be removed and replaced with a renamed image according to product name
-            Storage::delete('public/' . $this->product->prd_3d);
-
-            $prdModel = $this->form['prd_3d'];
-
-            $newProductModelName = $this->form['prd_name'] . Str::random(30) . '.' . $prdModel->extension();
-
-            $newProductModelPath = $prdModel->storeAs('/images/products', $newProductModelName,'public');
-
-        }
-
+    
         $this->product->update([
             'prd_name' => $this->form['prd_name'],
             'prd_description' => $this->form['prd_description'],
             'prd_price' => $this->form['prd_price'],
-            'prd_image' => $newProductImagePath,
-            'prd_3d' => $newProductModelPath,
         ]);
 
         $productStocks = [
