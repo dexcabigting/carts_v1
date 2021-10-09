@@ -10,7 +10,7 @@ class ProductStock extends Model
     use HasFactory;
 
     protected $fillable = [
-        'product_id',
+        'variant_id',
         '2XS',
         'XS',
         'S',
@@ -20,9 +20,9 @@ class ProductStock extends Model
         '2XL',
     ];
 
-    public function product()
+    public function product_variant()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(ProductVariant::class);
     }
 
     public function getSizesAttribute()

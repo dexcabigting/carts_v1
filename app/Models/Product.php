@@ -19,11 +19,6 @@ class Product extends Model
         'prd_price',
     ];
 
-    public function product_stock()
-    {
-        return $this->hasOne(ProductStock::class);
-    }
-
     public function product_variants()
     {
         return $this->hasMany(ProductVariant::class);
