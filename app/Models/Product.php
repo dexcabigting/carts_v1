@@ -34,6 +34,11 @@ class Product extends Model
         return $this->belongsTo(Fabric::class);
     }
 
+    public function product_stocks()
+    {
+        return $this->hasManyThrough(ProductStock::class, ProductVariant::class);
+    }
+
     // public function getProductImageUrlAttribute()
     // {
     //     if($this->prd_image && Storage::exists('public/' . $this->prd_image)) {
