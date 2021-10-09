@@ -13,6 +13,7 @@ class ProductsIndex extends Component
     
     public $checkedProducts;
     public $checkedKeys;
+    public $category;
     public $categories = [];
     public $selectAll = false;
     public $createModal = 0;
@@ -41,7 +42,6 @@ class ProductsIndex extends Component
         $this->checkedKeys = [];
         $this->productId = [];
         $this->categories = Category::all();
-        $this->category = Category::pluck('id')->toArray();
     }
 
     public function render()
@@ -62,21 +62,25 @@ class ProductsIndex extends Component
 
         $category = $this->category;
 
+        /**
+         * @var Category
+         */
+        $categories = $this->categories;
+
+        $categories = $categories->pluck('id')->toArray();
+
+        $category = is_string($category) && $category != 'All' ? [$category] : $categories;
+
         return Product::with(['category', 'fabric', 'product_stock', 'product_variants'])
             ->where('prd_name', 'like', $search)
-            ->whereIn('category_id', (is_array($category)) ? $category : [$category])
+            ->whereIn('category_id', $category)
             ->orderBy($sortColumn, $sortDirection);
     }
+
 
     public function updatedSelectAll($value)
     {
         $search = '%' . $this->search . '%';
-
-        $sortColumn = $this->sortColumn; 
-
-        $sortDirection = $this->sortDirection;
-
-        $category = $this->category;
 
         if ($value) {
             $this->checkedProducts = Product::where('prd_name', 'like', $search)
@@ -109,6 +113,11 @@ class ProductsIndex extends Component
 
             $this->selectAll = false;
         }
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 
     public function openCreateModal()
