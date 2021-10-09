@@ -18,7 +18,7 @@ class UsersIndex extends Component
     public $sortBy = 'Name';
     public $orderBy = 'asc';
     public $deleteModal = 0;
-    
+
     protected $listeners = [
         'refreshParent' => '$refresh',
         'closeDeleteModal',
@@ -62,9 +62,10 @@ class UsersIndex extends Component
 
         if ($value) {
             $this->checkedUsers = User::with('role')
-                ->where('role_id', 2)
+                ->join('roles', 'roles.id', '=', 'role_id')
+                ->where('roles.role', '=', 'Customer')
                 ->where($sortBy, 'like', $search)
-                ->pluck('id')
+                ->pluck('users.id')
                 ->map(fn ($item) => (string) $item)
                 ->flip()
                 ->map(fn ($item) => true)
@@ -78,7 +79,7 @@ class UsersIndex extends Component
     {
         $this->selectAll = false;
 
-        $this->checkedUsers = array_filter($this->checkedUsers); 
+        $this->checkedUsers = array_filter($this->checkedUsers);
 
         $this->checkedKeys = array_keys($this->checkedUsers);
     }
@@ -121,7 +122,7 @@ class UsersIndex extends Component
     public function unsetCheckedUsers($ids)
     {
         if (is_array($this->checkedUsers)) {
-            foreach ($ids as $id) { 
+            foreach ($ids as $id) {
                 unset($this->checkedUsers["$id"]);
             }
         }
