@@ -182,18 +182,22 @@ class ProductsCreate extends Component
 
     public function addMore()
     {
-        $this->addVariants[] = [
-            'prd_var_name' => '',
-            'front_view' => null,
-            'back_view' => null,
-            '2XS'  => '',
-            'XS'  => '',
-            'S'  => '',
-            'M'  => '',
-            'L'  => '',
-            'XL'  => '',
-            '2XL'  => '',
-        ];
+        if(count($this->addVariants) == 5) {
+            session()->flash('fail', 'Only 5 variants are allowed!'); 
+        } else {
+            $this->addVariants[] = [
+                'prd_var_name' => '',
+                'front_view' => null,
+                'back_view' => null,
+                '2XS'  => '',
+                'XS'  => '',
+                'S'  => '',
+                'M'  => '',
+                'L'  => '',
+                'XL'  => '',
+                '2XL'  => '',
+            ];
+        }
     }
 
     public function removeVariant($index)

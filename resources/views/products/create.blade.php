@@ -1,6 +1,8 @@
 <div class="py-5 w-auto overflow-y-auto">
-    <x-success-fail-message />
-    <x-validation-errors :errors="$errors" />
+    <div class="px-5">
+        <x-success-fail-message/>
+        <x-validation-errors :errors="$errors" />
+    </div>
     
     <form method="POST" wire:submit.prevent="store" enctype="multipart/form-data">
         @csrf
