@@ -15,9 +15,9 @@ class AddVariantIdToProductStocksTable extends Migration
     {
         Schema::table('product_stocks', function (Blueprint $table) {
             //
-            $table->unsignedBigInteger('variant_id');
+            $table->unsignedBigInteger('product_variant_id');
             
-            $table->foreign('variant_id')->references('id')->on('product_variants')->onDelete('cascade');
+            $table->foreign('product_variant_id')->references('id')->on('product_variants')->onDelete('cascade');
         });
     }
 

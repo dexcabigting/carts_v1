@@ -154,7 +154,7 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap">                                     
                                     <div class="text-sm font-medium text-gray-100">
-                                        {{ $product->product_stock->quantity }}
+                                        {{ $product->prd_name}}
                                     </div>                                      
                                 </td>
 

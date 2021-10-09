@@ -101,6 +101,8 @@ class ProductsCreate extends Component
 
         $productVariants = [];
 
+        $productStocks = [];
+
         for($i = 0; $i < $count; $i++) {
             $variantFront = $this->addVariants[$i]['front_view'];
             $variantBack = $this->addVariants[$i]['back_view'];
@@ -117,7 +119,7 @@ class ProductsCreate extends Component
                 'back_view' => $backImagePath,
             ];
 
-            $productStocks = [
+            $productVariantsStocks = [
                 '2XS' => $this->addVariants[$i]['2XS'],
                 'XS' => $this->addVariants[$i]['XS'],
                 'S' => $this->addVariants[$i]['S'],
@@ -127,7 +129,9 @@ class ProductsCreate extends Component
                 '2XL' => $this->addVariants[$i]['2XL'],
             ];
 
-            $productStocks = array_filter($productStocks);
+            $productVariantsStocks = array_filter($productVariantsStocks);
+
+            array_push($productStocks, $productVariantsStocks);
         }
         
         $product = Product::create([
@@ -139,12 +143,10 @@ class ProductsCreate extends Component
             // 'prd_image' => $prdImagePath,
         ]);
 
-        $product->product_stock()->create($productStocks);
-
         $productVariants = $product->product_variants()->createMany($productVariants);
 
         for($i = 0; $i < $count; $i++) {
-            $productVariants[$i]->create($productStocks[$i]);
+            $productVariants->get($i)->product_stock()->create($productStocks[$i]);
         }
         
         $this->clearFormFields();

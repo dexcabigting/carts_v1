@@ -10,7 +10,7 @@ class ProductStock extends Model
     use HasFactory;
 
     protected $fillable = [
-        'variant_id',
+        'product_variant_id',
         '2XS',
         'XS',
         'S',
