@@ -30,21 +30,21 @@ class ProductsCreate extends Component
     protected function rules()
     {
         return [
-            'form.prd_name' => 'required|string|max:255|unique:products,prd_name',
-            'form.prd_category' => 'required|string|max:255|exists:categories,id',
-            'form.prd_fabric' => 'required|string|max:255|exists:fabrics,id',
-            'form.prd_description' => 'required|string|max:255',
+            'form.prd_name' => 'required|string|max:100|unique:products,prd_name',
+            'form.prd_category' => 'required|string|max:100|exists:categories,id',
+            'form.prd_fabric' => 'required|string|max:100|exists:fabrics,id',
+            'form.prd_description' => 'required|string|max:100',
             'form.prd_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
-            'addVariants.*.prd_var_name' => 'required|string|max:255',
+            'addVariants.*.prd_var_name' => 'required|string|max:100',
             'addVariants.*.front_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'addVariants.*.back_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'addVariants.*.2XS'  => 'required_without_all:addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
-            'addVariants.*.XS'  => 'required_without_all:addVariants.*.2XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
-            'addVariants.*.S'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
-            'addVariants.*.M'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
-            'addVariants.*.L'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
-            'addVariants.*.XL'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.2XL|integer|min:10|max:100',
-            'addVariants.*.2XL'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL|integer|min:10|max:100',
+            'addVariants.*.2XS'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.XS'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.S'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.M'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.L'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.XL'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.2XL'  => 'nullable|integer|min:10|max:100',
         ];
     }
 
