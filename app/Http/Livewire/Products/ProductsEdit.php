@@ -4,6 +4,9 @@ namespace App\Http\Livewire\Products;
 
 use Livewire\Component;
 use App\Models\Product;
+use App\Models\ProductVariant;
+use App\Models\Category;
+use App\Models\Fabric;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -26,6 +29,10 @@ class ProductsEdit extends Component
         'prd_price' => '',
     ];
 
+    public $addVariants;
+    public $categories = [];
+    public $fabrics = [];
+
     protected $listeners = [
         'closeEdit',
     ];
@@ -33,21 +40,21 @@ class ProductsEdit extends Component
     protected function rules()
     {
         return [
-            'form.prd_name' => 'required|string|max:255|unique:products,prd_name' . $this->product->id,
-            'form.prd_category' => 'required|string|max:255|exists:categories,id',
-            'form.prd_fabric' => 'required|string|max:255|exists:fabrics,id',
-            'form.prd_description' => 'required|string|max:255',
+            'form.prd_name' => 'required|string|max:100|unique:products,prd_name',
+            'form.prd_category' => 'required|string|max:100|exists:categories,id',
+            'form.prd_fabric' => 'required|string|max:100|exists:fabrics,id',
+            'form.prd_description' => 'required|string|max:100',
             'form.prd_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
-            'addVariants.*.prd_var_name' => 'required|string|max:255|unique:product_variants,prd_var_name',
+            'addVariants.*.prd_var_name' => 'required|string|max:100',
             'addVariants.*.front_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'addVariants.*.back_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'addVariants.*.2XS'  => 'required_without_all:addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
-            'addVariants.*.XS'  => 'required_without_all:addVariants.*.2XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
-            'addVariants.*.S'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
-            'addVariants.*.M'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
-            'addVariants.*.L'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
-            'addVariants.*.XL'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.2XL|integer|min:10|max:100',
-            'addVariants.*.2XL'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL|integer|min:10|max:100',
+            'addVariants.*.2XS'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.XS'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.S'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.M'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.L'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.XL'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.2XL'  => 'nullable|integer|min:10|max:100',
         ];
     }
 
@@ -74,18 +81,36 @@ class ProductsEdit extends Component
         $this->product = $id;
 
         $this->form['prd_name'] = $id->prd_name;
+        $this->form['prd_category'] = $id->category_id;
+        $this->form['prd_fabric'] = $id->fabric_id;
         $this->form['prd_description'] = $id->prd_description;
         $this->form['prd_price'] = $id->prd_price;
 
-        $productStock = $id->product_stock;
+        $productVariants = ProductVariant::with('product_stock')
+            ->where('product_id', $this->product->id)->get();
+
+        $this->addVariants = [];
+
+        foreach($productVariants as $productVariant) {
+            $array = [
+                'prd_var_name' => $productVariant->prd_var_name,
+                'front_view' => null,
+                'back_view' => null,
+                '2XS' => $productVariant->product_stock->{'2XS'},
+                'XS' => $productVariant->product_stock->XS,
+                'S' => $productVariant->product_stock->S,
+                'M' => $productVariant->product_stock->M,
+                'L' => $productVariant->product_stock->L,
+                'XL' => $productVariant->product_stock->XL,
+                '2XL' => $productVariant->product_stock->{'2XL'},
+            ];
+
+            array_push($this->addVariants, $array);
+        }
         
-        $this->form['xxsmall'] = $productStock->xxsmall;
-        $this->form['xsmall'] = $productStock->xsmall;
-        $this->form['small'] = $productStock->small;
-        $this->form['medium'] = $productStock->medium;
-        $this->form['large'] = $productStock->large;
-        $this->form['xlarge'] = $productStock->xlarge;
-        $this->form['xxlarge'] = $productStock->xxlarge;
+        $this->categories = Category::all();
+
+        $this->fabrics = Fabric::all();
     }
 
     public function render()
