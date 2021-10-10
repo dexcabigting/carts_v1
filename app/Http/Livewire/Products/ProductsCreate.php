@@ -35,7 +35,7 @@ class ProductsCreate extends Component
             'form.prd_fabric' => 'required|string|max:255|exists:fabrics,id',
             'form.prd_description' => 'required|string|max:255',
             'form.prd_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
-            'addVariants.*.prd_var_name' => 'required|string|max:255|unique:product_variants,prd_var_name',
+            'addVariants.*.prd_var_name' => 'required|string|max:255',
             'addVariants.*.front_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'addVariants.*.back_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'addVariants.*.2XS'  => 'required_without_all:addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
