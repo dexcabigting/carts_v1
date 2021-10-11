@@ -20,17 +20,17 @@
 
                     <div>
                         <x-label :value="__('Name')"/>
-                        <x-input  wire:model.lazy="form.prd_name" class="block mt-1 w-full text-black" type="text" value="{{ old('prd_name') }}" autofocus required />
+                        <x-input  wire:model.defer="form.prd_name" class="block mt-1 w-full text-black" type="text" value="{{ old('prd_name') }}" autofocus required />
                     </div>
 
                     <div class="mt-4">
                         <x-label :value="__('Category')" />
-                        <select wire:model="form.prd_category" class="border-gray-300 mt-1 text-black rounded-lg w-full">
-                            <option value="" selected>
+                        <select wire:model="form.category_id" class="border-gray-300 mt-1 text-black rounded-lg w-full">
+                            <option value="">
                                 Category
                             </option>  
                             @foreach($categories as $category)
-                                <option value="{{ $category->id }}">
+                                <option value="{{ $category->id }}" selected>
                                 {{ $category->ctgr_name }}
                                 </option>  
                             @endforeach
@@ -39,12 +39,12 @@
 
                     <div class="mt-4">
                         <x-label :value="__('Fabric')" />
-                        <select wire:model="form.prd_fabric" class="border-gray-300 mt-1 text-black rounded-lg w-full">
-                            <option value="" selected>
+                        <select wire:model="form.fabric_id" class="border-gray-300 mt-1 text-black rounded-lg w-full">
+                            <option value="">
                                 Fabric
                             </option>    
                             @foreach($fabrics as $fabric)
-                                <option value="{{ $fabric->id }}">
+                                <option value="{{ $fabric->id }}" selected>
                                     {{ $fabric->fab_name }}
                                 </option>
                             @endforeach
@@ -53,12 +53,12 @@
 
                     <div class="mt-4">
                         <x-label for="prd_description" :value="__('Description')" />
-                        <x-input wire:model.lazy="form.prd_description" id="prd_description" class="block mt-1 w-full text-black" type="text" value="{{ old('prd_description') }}" required />
+                        <x-input wire:model.defer="form.prd_description" id="prd_description" class="block mt-1 w-full text-black" type="text" value="{{ old('prd_description') }}" required />
                     </div>
 
                     <div class="mt-4">
                         <x-label for="prd_price" :value="__('Price')" />
-                        <x-input  id="prd_price" wire:model.lazy="form.prd_price" type="text" class="block mt-1 w-full text-black"/>
+                        <x-input  id="prd_price" wire:model.defer="form.prd_price" type="text" class="block mt-1 w-full text-black"/>
                     </div>
                 </div>
                 
@@ -76,7 +76,7 @@
                             <div class="flex gap-5 pb-3">
                                 <div >    
                                     <x-label :value="__('Variant')"/>
-                                    <x-input wire:model.lazy="addVariants.{{ $index }}.prd_var_name" class="block mt-1 w-full text-black" type="text" autofocus />
+                                    <x-input wire:model.defer="addVariants.{{ $index }}.prd_var_name" class="block mt-1 w-full text-black" type="text" autofocus />
                                 </div>
 
                                 <div class="w-2/4">
@@ -96,37 +96,37 @@
                                 <div class="flex flex-row gap-5">
                                         <div>
                                             <x-label for="2XS" :value="__('2XS')"/>
-                                            <x-input wire:model.lazy="addVariants.{{ $index }}.2XS" class="block mt-1 w-16 text-black" type="text" value="{{ old('2XS') }}" autofocus />
+                                            <x-input wire:model.defer="addVariants.{{ $index }}.2XS" class="block mt-1 w-16 text-black" type="text" value="{{ old('2XS') }}" autofocus />
                                         </div>
                                         
                                         <div>
                                             <x-label for="XS" :value="__('XS')"/>
-                                            <x-input wire:model.lazy="addVariants.{{ $index }}.XS" class="block mt-1 w-16 text-black" type="text" value="{{ old('XS') }}" autofocus />
+                                            <x-input wire:model.defer="addVariants.{{ $index }}.XS" class="block mt-1 w-16 text-black" type="text" value="{{ old('XS') }}" autofocus />
                                         </div>
 
                                         <div>
                                             <x-label for="S" :value="__('S')"/>
-                                            <x-input wire:model.lazy="addVariants.{{ $index }}.S" class="block mt-1 w-16 text-black" type="text" value="{{ old('S') }}" autofocus />
+                                            <x-input wire:model.defer="addVariants.{{ $index }}.S" class="block mt-1 w-16 text-black" type="text" value="{{ old('S') }}" autofocus />
                                         </div>
 
                                         <div>
                                             <x-label for="M" :value="__('M')"/>
-                                            <x-input wire:model.lazy="addVariants.{{ $index }}.M" class="block mt-1 w-16 text-black" type="text" value="{{ old('M') }}" autofocus />
+                                            <x-input wire:model.defer="addVariants.{{ $index }}.M" class="block mt-1 w-16 text-black" type="text" value="{{ old('M') }}" autofocus />
                                         </div>
                                     
                                         <div>
                                             <x-label for="L" :value="__('L')"/>
-                                            <x-input wire:model.lazy="addVariants.{{ $index }}.L" class="block mt-1 w-16 text-black" type="text" value="{{ old('L') }}" autofocus />
+                                            <x-input wire:model.defer="addVariants.{{ $index }}.L" class="block mt-1 w-16 text-black" type="text" value="{{ old('L') }}" autofocus />
                                         </div>
 
                                         <div>
                                             <x-label for="XL" :value="__('XL')"/>
-                                            <x-input wire:model.lazy="addVariants.{{ $index }}.XL" class="block mt-1 w-16 text-black" type="text" value="{{ old('XL') }}" autofocus />
+                                            <x-input wire:model.defer="addVariants.{{ $index }}.XL" class="block mt-1 w-16 text-black" type="text" value="{{ old('XL') }}" autofocus />
                                         </div>
 
                                         <div>
                                             <x-label for="2XL" :value="__('2XL')"/>
-                                            <x-input wire:model.lazy="addVariants.{{ $index }}.2XL" class="block mt-1 w-16 text-black" type="text" value="{{ old('2XL') }}" autofocus />
+                                            <x-input wire:model.defer="addVariants.{{ $index }}.2XL" class="block mt-1 w-16 text-black" type="text" value="{{ old('2XL') }}" autofocus />
                                         </div>
                                     
                                 </div>

@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Products;
 use Livewire\Component;
 use App\Models\Product;
 use App\Models\ProductVariant;
+use App\Models\ProductStock;
 use App\Models\Category;
 use App\Models\Fabric;
 use Livewire\WithFileUploads;
@@ -23,8 +24,8 @@ class ProductsEdit extends Component
      */
     public $form = [
         'prd_name' => '',
-        'prd_category' => '',
-        'prd_fabric' => '',
+        'category_id' => '',
+        'fabric_id' => '',
         'prd_description' => '',
         'prd_price' => '',
     ];
@@ -41,14 +42,14 @@ class ProductsEdit extends Component
     protected function rules()
     {
         return [
-            'form.prd_name' => 'required|string|max:100|unique:products,prd_name',
-            'form.prd_category' => 'required|string|max:100|exists:categories,id',
-            'form.prd_fabric' => 'required|string|max:100|exists:fabrics,id',
+            'form.prd_name' => 'required|string|max:100|unique:products,prd_name,' . $this->product->id,
+            'form.prd_category' => 'nullable|string|max:100|exists:categories,id',
+            'form.prd_fabric' => 'nullable|string|max:100|exists:fabrics,id',
             'form.prd_description' => 'required|string|max:100',
             'form.prd_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
             'addVariants.*.prd_var_name' => 'required|string|max:100',
-            'addVariants.*.front_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'addVariants.*.back_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'addVariants.*.front_view' => 'required',
+            'addVariants.*.back_view' => 'required',
             'addVariants.*.2XS'  => 'nullable|integer|min:10|max:100',
             'addVariants.*.XS'  => 'nullable|integer|min:10|max:100',
             'addVariants.*.S'  => 'nullable|integer|min:10|max:100',
@@ -81,29 +82,26 @@ class ProductsEdit extends Component
     {
         $this->product = $id;
 
-        $this->form['prd_name'] = $id->prd_name;
-        $this->form['prd_category'] = $id->category_id;
-        $this->form['prd_fabric'] = $id->fabric_id;
-        $this->form['prd_description'] = $id->prd_description;
-        $this->form['prd_price'] = $id->prd_price;
-
         $this->productVariants = ProductVariant::with('product_stock')
-            ->where('product_id', $this->product->id)->get();
+        ->where('product_id', $this->product->id)->get();
+
+        $this->form = $this->product->toArray();
 
         $this->addVariants = [];
 
         foreach($this->productVariants as $productVariant) {
             $array = [
+                'id' => $productVariant->id,
                 'prd_var_name' => $productVariant->prd_var_name,
-                'front_view' => null,
-                'back_view' => null,
-                '2XS' => $productVariant->product_stock->{'2XS'},
-                'XS' => $productVariant->product_stock->XS,
-                'S' => $productVariant->product_stock->S,
-                'M' => $productVariant->product_stock->M,
-                'L' => $productVariant->product_stock->L,
-                'XL' => $productVariant->product_stock->XL,
-                '2XL' => $productVariant->product_stock->{'2XL'},
+                'front_view' => Str::random(5),
+                'back_view' =>  Str::random(5),
+                '2XS' => $productVariant->product_stock->xxsmall,
+                'XS' => $productVariant->product_stock->xsmall,
+                'S' => $productVariant->product_stock->small,
+                'M' => $productVariant->product_stock->medium,
+                'L' => $productVariant->product_stock->large,
+                'XL' => $productVariant->product_stock->xlarge,
+                '2XL' => $productVariant->product_stock->xxlarge,
             ];
 
             array_push($this->addVariants, $array);
@@ -122,59 +120,106 @@ class ProductsEdit extends Component
     public function update()
     {
         $this->validate();
-
-        $count = count($this->addVariants);
     
         $this->product->update([
             'prd_name' => $this->form['prd_name'],
-            'category_id' => $this->form['prd_category'],
-            'fabric_id' => $this->form['prd_fabric'],
+            'category_id' => $this->form['category_id'],
+            'fabric_id' => $this->form['fabric_id'],
             'prd_description' => $this->form['prd_description'],
             'prd_price' => $this->form['prd_price'],
         ]);
 
-        // $productVariants = $this->product->product_variants()->createMany($productVariants);
+        $product = $this->product;
 
-        for($i = 0; $i < $count; $i++) {
-            $variant = ProductVariant::where('prd_var_name', $this->addVariants[$i]['prd_var_name'])->find();
+        $oldVariants = array_filter($this->addVariants, function ($var) {
+            return ($var['id'] != null);
+        });
 
-            $productVariantsStocks = [
-                '2XS' => $this->addVariants[$i]['2XS'],
-                'XS' => $this->addVariants[$i]['XS'],
-                'S' => $this->addVariants[$i]['S'],
-                'M' => $this->addVariants[$i]['M'],
-                'L' => $this->addVariants[$i]['L'],
-                'XL' => $this->addVariants[$i]['XL'],
-                '2XL' => $this->addVariants[$i]['2XL'],
+        $oldCount = count($oldVariants);
+
+        for($i = 0; $i < $oldCount; $i++) {
+            $oldProductVariant = ProductVariant::where('id', $oldVariants[$i]['id'])->first();
+
+            $oldVariant = [
+                'prd_var_name' => $oldVariants[$i]['prd_var_name'],
+                'front_view' => $oldVariants[$i]['front_view'],
+                'back_view' => $oldVariants[$i]['back_view'],
             ];
 
-            // If variant does not exist
-            if(!$variant) {
+            $oldSizes = [
+                '2XS' => $oldVariants[$i]['2XS'],
+                'XS' => $oldVariants[$i]['XS'],
+                'S' => $oldVariants[$i]['S'],
+                'M' => $oldVariants[$i]['M'],
+                'L' => $oldVariants[$i]['L'],
+                'XL' => $oldVariants[$i]['XL'],
+                '2XL' => $oldVariants[$i]['2XL'],
+            ];
 
-                $variantFront = $this->addVariants[$i]['front_view'];
-                $variantBack = $this->addVariants[$i]['back_view'];
+            $oldSizes = array_filter($oldSizes);   
+            
+            $oldProductVariant->update($oldVariant);
 
-                $newFrontName = $this->addVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantFront->extension();
-                $newBackName = $this->addVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantBack->extension();
-        
-                $frontImagePath = $variantFront->storeAs('/images/products', $newFrontName,'public');
-                $backImagePath = $variantBack->storeAs('/images/products', $newBackName,'public');
+            $oldProductVariant->product_stock()->update($oldSizes);
+        }
 
-                $newVariant = ProductVariant::create([
-                    'prd_var_name' => $this->addVariants[$i]['prd_var_name'],
-                    'front_view' => $frontImagePath,
-                    'back_view' => $backImagePath,
-                ]);
+        if(count($this->addVariants) > count($oldVariants)) {
+            // For new variants 
+            $newVariants = array_filter($this->addVariants, function ($var) {
+                return ($var['id'] == null);
+            });
 
-                $newVariant->product_stock()->create($productVariantsStocks);
+            $newCount = count($newVariants);
 
-            } else {
-                // If variant exists
-                foreach($this->productVariants as $productVariant) {
-              
-                }
+            $newVariants = array_values($newVariants);
+
+            $newSizes = [];
+
+            for($i = 0; $i < $newCount; $i++) {
+                $variants[] = [
+                    'prd_var_name' => $newVariants[$i]['prd_var_name'],
+                    'front_view' => $newVariants[$i]['front_view'],
+                    'back_view' => $newVariants[$i]['back_view'],
+                ];
+
+                $sizes = [
+                    '2XS' => $newVariants[$i]['2XS'],
+                    'XS' => $newVariants[$i]['XS'],
+                    'S' => $newVariants[$i]['S'],
+                    'M' => $newVariants[$i]['M'],
+                    'L' => $newVariants[$i]['L'],
+                    'XL' => $newVariants[$i]['XL'],
+                    '2XL' => $newVariants[$i]['2XL'],
+                ];
+
+                $sizes = array_filter($sizes);   
+                
+                array_push($newSizes, $sizes);
+            }
+
+            $productVariants = $product->product_variants()->createMany($variants);
+
+            for($i = 0; $i < $newCount; $i++) {
+                $productVariants->get($i)->product_stock()->create($newSizes[$i]);
             }
         }
+        // dd($variants, $sizes);
+
+        // Working Update
+        // [$existingVariants, $newVariants] = collect($this->addVariants)->partition(function ($variant) {
+        //     return $variant['id'];
+        // });
+
+        // $existingVariants->each(function ($item) use ($product) {
+        //     $variantInfoColumns = ['id', 'prd_var_name', 'front_view', 'back_view'];
+        //     $item = collect($item);
+        //     $variant_info = $item->only($variantInfoColumns)->toArray();
+        //     $variant_stock_info = $item->except($variantInfoColumns)->toArray();
+        //     $productVariantId = $product->product_variants()->update($variant_info);
+        //     ProductStock::where('product_variant_id', $productVariantId)->update($variant_stock_info);
+        // });
+
+        // $newVariants = $newVariants->toArray();
 
         $this->emitUp('refreshParent');
 
@@ -187,9 +232,10 @@ class ProductsEdit extends Component
             session()->flash('fail', 'Only 5 variants are allowed!'); 
         } else {
             $this->addVariants[] = [
+                'id' => null,
                 'prd_var_name' => '',
-                'front_view' => null,
-                'back_view' => null,
+                'front_view' => Str::random(5),
+                'back_view' => Str::random(5),
                 '2XS'  => '',
                 'XS'  => '',
                 'S'  => '',
