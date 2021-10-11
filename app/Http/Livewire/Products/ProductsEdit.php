@@ -32,6 +32,7 @@ class ProductsEdit extends Component
     public $addVariants;
     public $categories = [];
     public $fabrics = [];
+    public $productVariants = [];
 
     protected $listeners = [
         'closeEdit',
@@ -86,12 +87,12 @@ class ProductsEdit extends Component
         $this->form['prd_description'] = $id->prd_description;
         $this->form['prd_price'] = $id->prd_price;
 
-        $productVariants = ProductVariant::with('product_stock')
+        $this->productVariants = ProductVariant::with('product_stock')
             ->where('product_id', $this->product->id)->get();
 
         $this->addVariants = [];
 
-        foreach($productVariants as $productVariant) {
+        foreach($this->productVariants as $productVariant) {
             $array = [
                 'prd_var_name' => $productVariant->prd_var_name,
                 'front_view' => null,
@@ -122,48 +123,89 @@ class ProductsEdit extends Component
     {
         $this->validate();
 
-        $imagePath = pathinfo($this->product->prd_image);
-
-        $newProductImagePath = $imagePath['dirname'] . '/' . $this->form['prd_name'] . Str::random(30) . '.' . $imagePath['extension'];
-        
-        if($this->form['prd_name'] != $this->product->prd_name) {
-            // If admin changes the product name, product image name should be updated
-
-            Storage::move('public/' . $this->product->prd_image, 'public/' . $newProductImagePath);
-        } elseif($this->form['prd_image']) {
-            // If admin changes the product image, old image must be removed and replaced with a renamed image according to product name
-            Storage::delete('public/' . $this->product->prd_image);
-
-            $prdImage = $this->form['prd_image'];
-
-            $newProductImageName = $this->form['prd_name'] . Str::random(30) . '.' . $prdImage->extension();
-
-            $newProductImagePath = $prdImage->storeAs('/images/products', $newProductImageName,'public');
-
-        }
-        
+        $count = count($this->addVariants);
     
         $this->product->update([
             'prd_name' => $this->form['prd_name'],
+            'category_id' => $this->form['prd_category'],
+            'fabric_id' => $this->form['prd_fabric'],
             'prd_description' => $this->form['prd_description'],
             'prd_price' => $this->form['prd_price'],
         ]);
 
-        $productStocks = [
-            'xxsmall' => $this->form['xxsmall'],
-            'xsmall' => $this->form['xsmall'],
-            'small' => $this->form['small'],
-            'medium' => $this->form['medium'],
-            'large' => $this->form['large'],
-            'xlarge' => $this->form['xlarge'],
-            'xxlarge' => $this->form['xxlarge'],
-        ];
+        // $productVariants = $this->product->product_variants()->createMany($productVariants);
 
-        $this->product->product_stock->update($productStocks);
+        for($i = 0; $i < $count; $i++) {
+            $variant = ProductVariant::where('prd_var_name', $this->addVariants[$i]['prd_var_name'])->find();
+
+            $productVariantsStocks = [
+                '2XS' => $this->addVariants[$i]['2XS'],
+                'XS' => $this->addVariants[$i]['XS'],
+                'S' => $this->addVariants[$i]['S'],
+                'M' => $this->addVariants[$i]['M'],
+                'L' => $this->addVariants[$i]['L'],
+                'XL' => $this->addVariants[$i]['XL'],
+                '2XL' => $this->addVariants[$i]['2XL'],
+            ];
+
+            // If variant does not exist
+            if(!$variant) {
+
+                $variantFront = $this->addVariants[$i]['front_view'];
+                $variantBack = $this->addVariants[$i]['back_view'];
+
+                $newFrontName = $this->addVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantFront->extension();
+                $newBackName = $this->addVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantBack->extension();
+        
+                $frontImagePath = $variantFront->storeAs('/images/products', $newFrontName,'public');
+                $backImagePath = $variantBack->storeAs('/images/products', $newBackName,'public');
+
+                $newVariant = ProductVariant::create([
+                    'prd_var_name' => $this->addVariants[$i]['prd_var_name'],
+                    'front_view' => $frontImagePath,
+                    'back_view' => $backImagePath,
+                ]);
+
+                $newVariant->product_stock()->create($productVariantsStocks);
+
+            } else {
+                // If variant exists
+                foreach($this->productVariants as $productVariant) {
+              
+                }
+            }
+        }
 
         $this->emitUp('refreshParent');
 
         session()->flash('success', 'Product has been updated successfully!');
+    }
+
+    public function addMore()
+    {
+        if(count($this->addVariants) == 5) {
+            session()->flash('fail', 'Only 5 variants are allowed!'); 
+        } else {
+            $this->addVariants[] = [
+                'prd_var_name' => '',
+                'front_view' => null,
+                'back_view' => null,
+                '2XS'  => '',
+                'XS'  => '',
+                'S'  => '',
+                'M'  => '',
+                'L'  => '',
+                'XL'  => '',
+                '2XL'  => '',
+            ];
+        }
+    }
+
+    public function removeVariant($index)
+    {
+        unset($this->addVariants[$index]);
+
+        $this->addVariants = array_values($this->addVariants);
     }
 
     public function closeEditModal()
