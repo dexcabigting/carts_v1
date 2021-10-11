@@ -21,23 +21,19 @@
         
         @livewireStyles
     </head>
-    <body class="font-Raleway antialiased bg-custom-black">
-        <div>       
-         
+    <body class="font-Raleway antialiased">
+        <div>
+            @include('layouts.user-navigation')
 
             <!-- Page Heading -->
-            @livewireScripts
+           
 
             <!-- Page Content -->
-            <main class= "bg-custom-black">
-            <div class="flex-shrink flex">
-            @include('layouts.user-navigation')
+            <main class="bg-custom-black">
                 {{ $slot }}
-              
             </main>
-           
-            </div>
         </div>
-       
+        @livewireScripts
     </body>
+    
 </html>

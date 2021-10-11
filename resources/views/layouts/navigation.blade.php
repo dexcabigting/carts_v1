@@ -125,14 +125,6 @@
             <x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
                 {{ __('Products') }}
             </x-responsive-nav-link>
-            @else
-            <x-responsive-nav-link :href="route('shop.index')" :active="request()->routeIs('shop.index')">
-                {{ __('Shop') }}
-            </x-responsive-nav-link>
-
-            <x-responsive-nav-link :href="route('carts.index')" :active="request()->routeIs('carts.index')">
-                {{ __('Carts') }}
-            </x-responsive-nav-link>
             @endif
         </div>
 
