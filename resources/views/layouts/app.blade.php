@@ -23,11 +23,11 @@
         @livewireStyles
     </head>
     <body class="font-Raleway antialiased">
-        <div>
+        <div>       
             @include('layouts.navigation')
 
             <!-- Page Heading -->
-           
+            
 
             <!-- Page Content -->
             <main class="bg-custom-black">
