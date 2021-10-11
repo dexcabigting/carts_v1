@@ -40,13 +40,7 @@
                     <div class="flex-1 p-6 text-white my-4">    
                         Available sizes:
                             <div class="my-4 flex flex-row flex-wrap">
-                                @foreach($product->product_stock->sizes->toArray() as $column => $value)
-                                    @if($value > 10)
-                                        <div class="bg-custom-black hover:bg-custom-violet mx-1 my-1 p-2 uppercase border border-gray-300 rounded-lg">
-                                            {{ $column }}
-                                        </div>
-                                    @endif    
-                                @endforeach
+                                
                             </div>
                     </div>
 

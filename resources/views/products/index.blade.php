@@ -1,4 +1,4 @@
-<div class="h-screen">
+<div class="h-screen lg:ml-64 lg:mt-24">
     <div class="pt-12 pb-5">
         <div class="max-w-6xl mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
