@@ -62,7 +62,7 @@ class ProductStock extends Model
         return $this->S;
     }
 
-    public function getMediumlAttribute()
+    public function getMediumAttribute()
     {
         if($this->M == 0) {
             return "";

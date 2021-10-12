@@ -34,6 +34,7 @@ class ProductsEdit extends Component
     public $categories = [];
     public $fabrics = [];
     public $productVariants = [];
+    public $deleteExisting = [];
 
     protected $listeners = [
         'closeEdit',
@@ -129,11 +130,39 @@ class ProductsEdit extends Component
             'prd_price' => $this->form['prd_price'],
         ]);
 
-        $product = $this->product;
-
         $oldVariants = array_filter($this->addVariants, function ($var) {
             return ($var['id'] != null);
         });
+
+        $this->updateExisting($oldVariants);
+
+
+        if(count($this->addVariants) > count($oldVariants)) {
+            // For new variants 
+            $newVariants = array_filter($this->addVariants, function ($var) {
+                return ($var['id'] == null);
+            });
+
+            $newVariants = array_values($newVariants);
+
+            $this->createNewVariants($newVariants);
+        }
+
+        if($this->deleteExisting) {
+            $this->deleteExistingVariants($this->deleteExisting);
+        }
+        $this->product->refresh();
+
+        $this->mount($this->product);
+        $this->deleteExisting = [];
+
+        $this->emitUp('refreshParent');
+
+        session()->flash('success', 'Product has been updated successfully!');
+    }
+
+    private function updateExisting($oldVariants)
+    {
 
         $oldCount = count($oldVariants);
 
@@ -162,18 +191,16 @@ class ProductsEdit extends Component
 
             $oldProductVariant->product_stock()->update($oldSizes);
         }
+    }
 
-        if(count($this->addVariants) > count($oldVariants)) {
-            // For new variants 
-            $newVariants = array_filter($this->addVariants, function ($var) {
-                return ($var['id'] == null);
-            });
+    private function createNewVariants($newVariants)
+    {
 
-            $newCount = count($newVariants);
+        $product = $this->product;
 
-            $newVariants = array_values($newVariants);
+        $newCount = count($newVariants);
 
-            $newSizes = [];
+        $newSizes = [];
 
             for($i = 0; $i < $newCount; $i++) {
                 $variants[] = [
@@ -202,28 +229,11 @@ class ProductsEdit extends Component
             for($i = 0; $i < $newCount; $i++) {
                 $productVariants->get($i)->product_stock()->create($newSizes[$i]);
             }
-        }
-        // dd($variants, $sizes);
+    }
 
-        // Working Update
-        // [$existingVariants, $newVariants] = collect($this->addVariants)->partition(function ($variant) {
-        //     return $variant['id'];
-        // });
-
-        // $existingVariants->each(function ($item) use ($product) {
-        //     $variantInfoColumns = ['id', 'prd_var_name', 'front_view', 'back_view'];
-        //     $item = collect($item);
-        //     $variant_info = $item->only($variantInfoColumns)->toArray();
-        //     $variant_stock_info = $item->except($variantInfoColumns)->toArray();
-        //     $productVariantId = $product->product_variants()->update($variant_info);
-        //     ProductStock::where('product_variant_id', $productVariantId)->update($variant_stock_info);
-        // });
-
-        // $newVariants = $newVariants->toArray();
-
-        $this->emitUp('refreshParent');
-
-        session()->flash('success', 'Product has been updated successfully!');
+    private function deleteExistingVariants($deleteExisting)
+    {
+        ProductVariant::whereIn('id', $deleteExisting)->delete();
     }
 
     public function addMore()
@@ -249,6 +259,12 @@ class ProductsEdit extends Component
 
     public function removeVariant($index)
     {
+        $id = $this->addVariants[$index]['id'];
+
+        if($id !== NULL) {
+            array_push($this->deleteExisting, $id);
+        }
+
         unset($this->addVariants[$index]);
 
         $this->addVariants = array_values($this->addVariants);
@@ -256,6 +272,8 @@ class ProductsEdit extends Component
 
     public function closeEditModal()
     {
+        $this->deleteExisting = [];
+
         $this->resetValidation();
 
         $this->dispatchBrowserEvent('editModalDisplayNone');
