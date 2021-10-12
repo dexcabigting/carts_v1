@@ -35,6 +35,15 @@ class ProductsEdit extends Component
     public $fabrics = [];
     public $productVariants = [];
     public $deleteExisting = [];
+    private $SIZES = [
+        '2XS',
+        'XS',
+        'S',
+        'M',
+        'L',
+        'XL',
+        '2XL',
+    ];
 
     protected $listeners = [
         'closeEdit',
@@ -48,16 +57,17 @@ class ProductsEdit extends Component
             'form.prd_fabric' => 'nullable|string|max:100|exists:fabrics,id',
             'form.prd_description' => 'required|string|max:100',
             'form.prd_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
+            'addVariants.*.id' => 'nullable|integer',
             'addVariants.*.prd_var_name' => 'required|string|max:100',
-            'addVariants.*.front_view' => 'required',
-            'addVariants.*.back_view' => 'required',
-            'addVariants.*.2XS'  => 'nullable|integer|min:10|max:100',
-            'addVariants.*.XS'  => 'nullable|integer|min:10|max:100',
-            'addVariants.*.S'  => 'nullable|integer|min:10|max:100',
-            'addVariants.*.M'  => 'nullable|integer|min:10|max:100',
-            'addVariants.*.L'  => 'nullable|integer|min:10|max:100',
-            'addVariants.*.XL'  => 'nullable|integer|min:10|max:100',
-            'addVariants.*.2XL'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.front_view' => 'required_if:addVariants.*.id,null|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'addVariants.*.back_view' => 'required_if:addVariants.*.id,null|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'addVariants.*.2XS'  => 'required_without_all:addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
+            'addVariants.*.XS'  => 'required_without_all:addVariants.*.2XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
+            'addVariants.*.S'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
+            'addVariants.*.M'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
+            'addVariants.*.L'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.XL,addVariants.*.2XL|integer|min:10|max:100',
+            'addVariants.*.XL'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.2XL|integer|min:10|max:100',
+            'addVariants.*.2XL'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL|integer|min:10|max:100',
         ];
     }
 
@@ -94,15 +104,15 @@ class ProductsEdit extends Component
             $array = [
                 'id' => $productVariant->id,
                 'prd_var_name' => $productVariant->prd_var_name,
-                'front_view' => Str::random(5),
-                'back_view' =>  Str::random(5),
-                '2XS' => $productVariant->product_stock->xxsmall,
-                'XS' => $productVariant->product_stock->xsmall,
-                'S' => $productVariant->product_stock->small,
-                'M' => $productVariant->product_stock->medium,
-                'L' => $productVariant->product_stock->large,
-                'XL' => $productVariant->product_stock->xlarge,
-                '2XL' => $productVariant->product_stock->xxlarge,
+                'front_view' => null,
+                'back_view' => null,
+                '2XS' => $productVariant->product_stock->{'2XS'},
+                'XS' => $productVariant->product_stock->XS,
+                'S' => $productVariant->product_stock->S,
+                'M' => $productVariant->product_stock->M,
+                'L' => $productVariant->product_stock->L,
+                'XL' => $productVariant->product_stock->XL,
+                '2XL' => $productVariant->product_stock->{'2XL'},
             ];
 
             array_push($this->addVariants, $array);
@@ -120,6 +130,15 @@ class ProductsEdit extends Component
 
     public function update()
     {
+        // dd($this->addVariants);
+        foreach($this->addVariants as $key => $value){
+            foreach($this->SIZES as $size) {
+                if($value[$size] == 0){
+                    $this->addVariants[$key][$size] = "";
+                }  
+            }
+        }
+
         $this->validate();
     
         $this->product->update([
@@ -165,16 +184,42 @@ class ProductsEdit extends Component
 
     private function updateExisting($oldVariants)
     {
-
         $oldCount = count($oldVariants);
 
         for($i = 0; $i < $oldCount; $i++) {
             $oldProductVariant = ProductVariant::where('id', $oldVariants[$i]['id'])->first();
 
+            // Get path info of the variant from database
+            $frontViewPath = pathinfo($oldProductVariant->front_view);
+            $backViewPath = pathinfo($oldProductVariant->back_view);
+
+            // Set new image path for both images
+            $frontViewImagePath = $frontViewPath['dirname'] . '/' . $oldVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $frontViewPath['extension'];
+            $backViewImagePath = $backViewPath['dirname'] . '/' . $oldVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $backViewPath['extension'];
+            
+            // if(($this->form['prd_name'] != $this->product->prd_name) || ($oldVariants[$i]['prd_var_name'] != $oldProductVariant->prd_var_name)) {
+            // If admin changes the product name, product image name should be updated
+            Storage::move('public/' . $oldProductVariant->front_view, 'public/' . $frontViewImagePath);
+            Storage::move('public/' . $oldProductVariant->back_view, 'public/' . $backViewImagePath);
+
+            if($oldVariants[$i]['front_view'] && $oldVariants[$i]['back_view']) {
+                // If admin changes the product image, old image must be removed and replaced with a renamed image according to product name
+                Storage::delete('public/' .$oldProductVariant->front_view);
+                Storage::delete('public/' .$oldProductVariant->back_view);
+
+                $frontImage = $oldVariants[$i]['front_view'];
+                $frontViewImageName = $oldVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $frontImage->extension();
+                $frontViewImagePath = $frontImage->storeAs('/images/products', $frontViewImageName,'public');
+
+                $backImage = $oldVariants[$i]['back_view'];
+                $backViewImageName = $oldVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $backImage->extension();
+                $backViewImagePath = $backImage->storeAs('/images/products', $backViewImageName,'public');
+            }
+
             $oldVariant = [
                 'prd_var_name' => $oldVariants[$i]['prd_var_name'],
-                'front_view' => $oldVariants[$i]['front_view'],
-                'back_view' => $oldVariants[$i]['back_view'],
+                'front_view' => $frontViewImagePath,
+                'back_view' => $backViewImagePath,
             ];
 
             $oldSizes = [
@@ -187,7 +232,10 @@ class ProductsEdit extends Component
                 '2XL' => $oldVariants[$i]['2XL'],
             ];
 
-            $oldSizes = array_filter($oldSizes);   
+            $oldSizes = array_map(function ($size) {
+                return $size === "" ? 0 : $size ;
+            }, $oldSizes);   
+
             
             $oldProductVariant->update($oldVariant);
 
@@ -205,11 +253,11 @@ class ProductsEdit extends Component
         $newSizes = [];
 
             for($i = 0; $i < $newCount; $i++) {
-                $variantFront = $this->addVariants[$i]['front_view'];
-                $variantBack = $this->addVariants[$i]['back_view'];
+                $variantFront = $newVariants[$i]['front_view'];
+                $variantBack = $newVariants[$i]['back_view'];
 
-                $newFrontName = $this->addVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantFront->extension();
-                $newBackName = $this->addVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantBack->extension();
+                $newFrontName = $newVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantFront->extension();
+                $newBackName = $newVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantBack->extension();
             
                 $frontImagePath = $variantFront->storeAs('/images/products', $newFrontName,'public');
                 $backImagePath = $variantBack->storeAs('/images/products', $newBackName,'public');
