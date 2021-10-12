@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Products;
 
 use Livewire\Component;
 use App\Models\Product;
+use App\Models\Category;
 use Livewire\WithPagination;
 
 class ProductsIndex extends Component
@@ -12,6 +13,8 @@ class ProductsIndex extends Component
     
     public $checkedProducts;
     public $checkedKeys;
+    public $category;
+    public $categories = [];
     public $selectAll = false;
     public $createModal = 0;
     public $editModal = 0;
@@ -38,10 +41,12 @@ class ProductsIndex extends Component
         $this->checkedProducts = [];
         $this->checkedKeys = [];
         $this->productId = [];
+        $this->categories = Category::all();
     }
 
     public function render()
     {
+        // dd($this->category);
         $products = $this->products->paginate(6);
 
         return view('livewire.products.products-index', compact('products'));
@@ -55,17 +60,27 @@ class ProductsIndex extends Component
 
         $sortDirection = $this->sortDirection;
 
-        return Product::where('prd_name', 'like', $search)
+        $category = $this->category;
+
+        /**
+         * @var Category
+         */
+        $categories = $this->categories;
+
+        $categories = $categories->pluck('id')->toArray();
+
+        $category = is_string($category) && $category != 'All' ? [$category] : $categories;
+
+        return Product::with(['category', 'fabric', 'product_variants', 'product_stocks'])
+            ->where('prd_name', 'like', $search)
+            ->whereIn('category_id', $category)
             ->orderBy($sortColumn, $sortDirection);
     }
+
 
     public function updatedSelectAll($value)
     {
         $search = '%' . $this->search . '%';
-
-        $sortColumn = $this->sortColumn; 
-
-        $sortDirection = $this->sortDirection;
 
         if ($value) {
             $this->checkedProducts = Product::where('prd_name', 'like', $search)
@@ -98,6 +113,11 @@ class ProductsIndex extends Component
 
             $this->selectAll = false;
         }
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 
     public function openCreateModal()

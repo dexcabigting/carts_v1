@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Shop\Carts;
 use Livewire\Component;
 use App\Models\Product;
 use App\Models\Cart; 
+use Illuminate\Support\Facades\Storage;
 
 class CartsCreate extends Component
 {
@@ -12,6 +13,7 @@ class CartsCreate extends Component
     public $addItems;
     public $totalAmount;
     public $productPrice;
+    public $model;
 
     protected $rules = [
         'addItems.*.size' => 'required|string',
@@ -40,6 +42,8 @@ class CartsCreate extends Component
         $this->productPrice =  $this->product->prd_price;
 
         $this->totalAmount  = $this->productPrice;
+
+        $this->model = Storage::url('public/' . $this->product->prd_3d);
     }
 
     public function render()

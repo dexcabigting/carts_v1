@@ -10,23 +10,28 @@ class ProductStock extends Model
     use HasFactory;
 
     protected $fillable = [
-        'product_id',
-        'xxsmall',
-        'xsmall',
-        'small',
-        'medium',
-        'large',
-        'xlarge',
-        'xxlarge',
+        'product_variant_id',
+        '2XS',
+        'XS',
+        'S',
+        'M',
+        'L',
+        'XL',
+        '2XL',
     ];
 
-    public function product()
+    public function product_variant()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(ProductVariant::class);
     }
 
     public function getSizesAttribute()
     {
         return $this->makeHidden(['id', 'product_id', 'created_at', 'updated_at']);
+    }
+
+    public function getQuantityAttribute()
+    {
+        return $this->{'2XS'} + $this->XS + $this->S + $this->M + $this->L + $this->XL + $this->{'2XL'};
     }
 }

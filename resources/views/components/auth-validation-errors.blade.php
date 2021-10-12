@@ -14,7 +14,7 @@
             </div>
 
             <div >
-                <ul class="mt-3 list-disc list-inside text-sm font-bold">
+                <ul class="mt-3 list-disc list-inside text-sm font-semibold">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach

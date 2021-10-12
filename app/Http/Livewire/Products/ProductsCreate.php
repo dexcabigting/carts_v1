@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Models\Product;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
+use App\Models\Category;
+use App\Models\Fabric;
 
 class ProductsCreate extends Component
 {
@@ -16,32 +18,33 @@ class ProductsCreate extends Component
 
     public $form = [
         'prd_name' => '',
+        'prd_category' => '',
+        'prd_fabric' => '',
         'prd_description' => '',
         'prd_price' => '',
-        'prd_image' => null,
-        'xxsmall'  => '',
-        'xsmall'  => '',
-        'small'  => '',
-        'medium'  => '',
-        'large'  => '',
-        'xlarge'  => '',
-        'xxlarge'  => '',
     ];
+    public $addVariants;
+    public $categories = [];
+    public $fabrics = [];
 
     protected function rules()
     {
         return [
-            'form.prd_name' => 'required|string|max:255|unique:products,prd_name',
-            'form.prd_description' => 'required|string|max:255',
+            'form.prd_name' => 'required|string|max:100|unique:products,prd_name',
+            'form.prd_category' => 'required|string|max:100|exists:categories,id',
+            'form.prd_fabric' => 'required|string|max:100|exists:fabrics,id',
+            'form.prd_description' => 'required|string|max:100',
             'form.prd_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
-            'form.prd_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'form.xxsmall'  => 'required_without_all:form.xsmall,form.small,form.medium,form.large,form.xlarge,form.xxlarge|integer|min:10|max:100',
-            'form.xsmall'  => 'required_without_all:form.xxsmall,form.small,form.medium,form.large,form.xlarge,form.xxlarge|integer|min:10|max:100',
-            'form.small'  => 'required_without_all:form.xxsmall,form.xsmall,form.medium,form.large,form.xlarge,form.xxlarge|integer|min:10|max:100',
-            'form.medium'  => 'required_without_all:form.xxsmall,form.xsmall,form.small,form.large,form.xlarge,form.xxlarge|integer|min:10|max:100',
-            'form.large'  => 'required_without_all:form.xxsmall,form.xsmall,form.small,form.medium,form.xlarge,form.xxlarge|integer|min:10|max:100',
-            'form.xlarge'  => 'required_without_all:form.xxsmall,form.xsmall,form.small,form.medium,form.large,form.xxlarge|integer|min:10|max:100',
-            'form.xxlarge'  => 'required_without_all:form.xxsmall,form.xsmall,form.small,form.medium,form.large,form.xlarge|integer|min:10|max:100',
+            'addVariants.*.prd_var_name' => 'required|string|max:100',
+            'addVariants.*.front_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'addVariants.*.back_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'addVariants.*.2XS'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.XS'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.S'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.M'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.L'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.XL'  => 'nullable|integer|min:10|max:100',
+            'addVariants.*.2XL'  => 'nullable|integer|min:10|max:100',
         ];
     }
 
@@ -49,15 +52,41 @@ class ProductsCreate extends Component
         'form.prd_name' => 'product name',
         'form.prd_description' => 'product description',
         'form.prd_price' => 'product price',
-        'form.prd_image' => 'product image',
-        'form.xxsmall'  => 'xxsmall',
-        'form.xsmall'  => 'xsmall',
-        'form.small'  => 'small',
-        'form.medium'  => 'medium',
-        'form.large'  => 'large',
-        'form.xlarge'  => 'xlarge',
-        'form.xxlarge'  => 'xxlarge',
+        'form.prd_category' => 'product category',
+        'form.prd_fabric' => 'product fabric',
+        'addVariants.*.prd_var_name' => 'variant name',
+        'addVariants.*.front_view' => 'front view image',
+        'addVariants.*.back_view' => 'back view image',
+        'addVariants.*.2XS'  => '2XS',
+        'addVariants.*.XS'  => 'XS',
+        'addVariants.*.S'  => 'S',
+        'addVariants.*.M'  => 'M',
+        'addVariants.*.L'  => 'L',
+        'addVariants.*.XL'  => 'XL',
+        'addVariants.*.2XL'  => '2XL',
     ];
+
+    public function mount()
+    {
+        $this->addVariants = [
+            [
+                'prd_var_name' => '',
+                'front_view' => null,
+                'back_view' => null,
+                '2XS'  => '',
+                'XS'  => '',
+                'S'  => '',
+                'M'  => '',
+                'L'  => '',
+                'XL'  => '',
+                '2XL'  => '',
+            ]
+        ];
+
+        $this->categories = Category::all();
+
+        $this->fabrics = Fabric::all();
+    }
 
     public function render()
     {
@@ -68,35 +97,56 @@ class ProductsCreate extends Component
     {
         $this->validate();
 
-        $prdImage = $this->form['prd_image'];
+        $count = count($this->addVariants);
 
-        $newProductImageName = $this->form['prd_name'] . Str::random(30) . '.' . $prdImage->extension();
+        $productVariants = [];
 
-        $prdImagePath = $prdImage->storeAs('/images/products', $newProductImageName,'public');
+        $productStocks = [];
+
+        for($i = 0; $i < $count; $i++) {
+            $variantFront = $this->addVariants[$i]['front_view'];
+            $variantBack = $this->addVariants[$i]['back_view'];
+
+            $newFrontName = $this->addVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantFront->extension();
+            $newBackName = $this->addVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantBack->extension();
         
-        $i = 5;
-        while ($i-- > 0) {
+            $frontImagePath = $variantFront->storeAs('/images/products', $newFrontName,'public');
+            $backImagePath = $variantBack->storeAs('/images/products', $newBackName,'public');
 
-            $product = Product::create([
-                'prd_name' => $this->form['prd_name'] . Str::random(5),
-                'prd_description' => $this->form['prd_description'],
-                'prd_price' => $this->form['prd_price'],
-                'prd_image' => $prdImagePath,
-            ]);
-    
-            $productStocks = [
-                'xxsmall' => $this->form['xxsmall'],
-                'xsmall' => $this->form['xsmall'],
-                'small' => $this->form['small'],
-                'medium' => $this->form['medium'],
-                'large' => $this->form['large'],
-                'xlarge' => $this->form['xlarge'],
-                'xxlarge' => $this->form['xxlarge'],
+            $productVariants[] = [
+                'prd_var_name' => $this->addVariants[$i]['prd_var_name'],
+                'front_view' => $frontImagePath,
+                'back_view' => $backImagePath,
             ];
-    
-            $productStocks = array_filter($productStocks);
-    
-            $product->product_stock()->create($productStocks);
+
+            $productVariantsStocks = [
+                '2XS' => $this->addVariants[$i]['2XS'],
+                'XS' => $this->addVariants[$i]['XS'],
+                'S' => $this->addVariants[$i]['S'],
+                'M' => $this->addVariants[$i]['M'],
+                'L' => $this->addVariants[$i]['L'],
+                'XL' => $this->addVariants[$i]['XL'],
+                '2XL' => $this->addVariants[$i]['2XL'],
+            ];
+
+            $productVariantsStocks = array_filter($productVariantsStocks);
+
+            array_push($productStocks, $productVariantsStocks);
+        }
+        
+        $product = Product::create([
+            'prd_name' => $this->form['prd_name'],
+            'category_id' => $this->form['prd_category'],
+            'fabric_id' => $this->form['prd_fabric'],
+            'prd_description' => $this->form['prd_description'],
+            'prd_price' => $this->form['prd_price'],
+            // 'prd_image' => $prdImagePath,
+        ]);
+
+        $productVariants = $product->product_variants()->createMany($productVariants);
+
+        for($i = 0; $i < $count; $i++) {
+            $productVariants->get($i)->product_stock()->create($productStocks[$i]);
         }
         
         $this->clearFormFields();
@@ -111,14 +161,50 @@ class ProductsCreate extends Component
         $this->form['prd_name'] = '';
         $this->form['prd_description'] = '';
         $this->form['prd_price'] = '';
-        $this->form['prd_image'] = null;
-        $this->form['xxsmall'] = '';
-        $this->form['xsmall'] = '';
-        $this->form['small'] = '';
-        $this->form['medium'] = '';
-        $this->form['large'] = '';
-        $this->form['xlarge'] = '';
-        $this->form['xxlarge'] = '';
+        $this->form['prd_category'] = '';
+        $this->form['prd_fabric'] = '';
+
+        $this->addVariants = [
+            [
+                'prd_var_name' => '',
+                'front_view' => null,
+                'back_view' => null,
+                '2XS'  => '',
+                'XS'  => '',
+                'S'  => '',
+                'M'  => '',
+                'L'  => '',
+                'XL'  => '',
+                '2XL'  => '',
+            ]
+        ];
+    }
+
+    public function addMore()
+    {
+        if(count($this->addVariants) == 5) {
+            session()->flash('fail', 'Only 5 variants are allowed!'); 
+        } else {
+            $this->addVariants[] = [
+                'prd_var_name' => '',
+                'front_view' => null,
+                'back_view' => null,
+                '2XS'  => '',
+                'XS'  => '',
+                'S'  => '',
+                'M'  => '',
+                'L'  => '',
+                'XL'  => '',
+                '2XL'  => '',
+            ];
+        }
+    }
+
+    public function removeVariant($index)
+    {
+        unset($this->addVariants[$index]);
+
+        $this->addVariants = array_values($this->addVariants);
     }
 
     public function closeCreateModal()

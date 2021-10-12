@@ -19,6 +19,11 @@
     </div>
 
     <div class="mt-4">
+        <x-label for="phone" :value="__('Phone')" />
+        <x-input wire:model="form.phone" id="phone" class="block mt-1 w-full" type="text" name="phone" value="{{ old('phone') }}" required />
+    </div>
+
+    <div class="mt-4">
         <x-label for="password" :value="__('Password')" />
         <x-input wire:model="form.password" id="password" class="block mt-1 w-full"
                         type="password"
@@ -34,7 +39,7 @@
     </div>
 
     <div class="flex items-center justify-center mt-4">
-        <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-bold text-white w-full px-12 py-4 bg-custom-violet my-3">
+        <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white w-full px-12 py-4 bg-custom-violet my-3">
             {{ __('Create User') }}
         </x-button>
     </div>

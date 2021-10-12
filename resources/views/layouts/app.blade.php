@@ -5,14 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app-user.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;0,900;1,700&display=swap"
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,500;0,900;1,700&display=swap"
         rel="stylesheet">
-</head>
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -22,19 +21,23 @@
         
         @livewireStyles
     </head>
-    <body class="font-Raleway antialiased">
+    <body class="font-Raleway antialiased bg-custom-black">
         <div>       
-            @include('layouts.navigation')
+         
 
             <!-- Page Heading -->
-            
+            @livewireScripts
 
             <!-- Page Content -->
-            <main class="bg-custom-black">
+            <main class= "bg-custom-black">
+            <div class="flex-shrink flex">
+            @include('layouts.navigation')
                 {{ $slot }}
+              
             </main>
+           
+            </div>
         </div>
-        @livewireScripts
+       
     </body>
-    
 </html>

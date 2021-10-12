@@ -45,6 +45,12 @@
                     <input type="file" wire:model.defer="form.prd_image" />
                     <div wire:loading wire:target="form.prd_image">Uploading...</div>
                 </div>
+
+                <div class="mt-4">
+                    <x-label for="prd_3d" :value="__('Image')" />
+                    <input type="file" wire:model.defer="form.prd_3d" />
+                    <div wire:loading wire:target="form.prd_3d">Uploading...</div>
+                </div>
             </div>
             
             <div class="flex flex-row gap-5">
@@ -93,12 +99,12 @@
            
             
             <div>
-                <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-bold text-white px-4 py-2 bg-custom-violet my-3">
+                <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
                     {{ __('Update Product') }}
                 </x-button>
             </div>  
             <div>
-                <x-button class="font-bold text-custom-text" type="button" wire:click="closeEditModal()">
+                <x-button class="font-semibold text-custom-text" type="button" wire:click="closeEditModal()">
                     {{ __('Close') }}
                 </x-button>
             </div>

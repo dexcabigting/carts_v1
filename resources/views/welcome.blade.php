@@ -43,7 +43,7 @@
     </header>
     <div class="relative flex justify-center items-center">
       <button
-        class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-bold text-white px-12 py-6 absolute bottom-24 bg-custom-violet">SHOP
+        class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 absolute bottom-24 bg-custom-violet">SHOP
         NOW</button>
       <img class="w-1/2 h-auto -mr-10" src="../img/Group 18.png" alt="">
     </div>
@@ -62,7 +62,7 @@
     <div class="flex justify-center items-center">
       <div class="flex flex-col mx-32">
         <img class="w-10 h-10" src="img/Rectangle 6.svg" alt="">
-        <h1 class="text-gray-100 text-4xl font-bold my-2">What's inside?</h1>
+        <h1 class="text-gray-100 text-4xl font-semibold my-2">What's inside?</h1>
         <p class="text-gray-100 text-2xl w-2/3 my-4">The best of the best quality precision crafted
           by the experts for professional basketball players.</p>
         <div class="flex flex-col mx-8">
@@ -70,7 +70,7 @@
           <div class="flex-row flex my-6">
             <img class="w-24 h-24" src="img/mico.svg" alt="">
             <div class="flex flex-col my-1 mx-7">
-              <h1 class="font-bold text-2xl text-gray-100">Microfiber</h1>
+              <h1 class="font-semibold text-2xl text-gray-100">Microfiber</h1>
               <p class="w-full text-md text-gray-100">as the name suggests, is a material
                 made of fine tiny thread fibers with a linear
                 density of not more than one denier. </p>
@@ -80,7 +80,7 @@
           <div class="flex-row flex my-6">
             <img class="w-24 h-24" src="img/poly.svg" alt="">
             <div class="flex flex-col my-1 mx-7">
-              <h1 class="font-bold text-2xl text-gray-100">Polyester</h1>
+              <h1 class="font-semibold text-2xl text-gray-100">Polyester</h1>
               <p class="w-full text-md text-gray-100">A cloth made out of plastic fibers making it light-weight,
                 wrinkle-free, long lasting and breathable. </p>
             </div>
@@ -89,7 +89,7 @@
           <div class="flex-row flex my-6">
             <img class="w-24 h-24" src="img/x.svg" alt="">
             <div class="flex flex-col my-1 mx-7">
-              <h1 class="font-bold text-2xl text-gray-100">X- Static</h1>
+              <h1 class="font-semibold text-2xl text-gray-100">X- Static</h1>
               <p class="w-full text-xl text-gray-100">Silver is a metal with anti-bacterial properties that prevents
                 the accumulation of bacteria and fungus. X-Static sportswear is,
                 therefore, clean and free of odor even after excessive use.</p>
@@ -99,7 +99,7 @@
 
         </div>
         <button
-          class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-bold text-white px-2 py-6 uppercase bg-custom-violet">Get
+          class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-2 py-6 uppercase bg-custom-violet">Get
           yours now</button>
       </div>
 
@@ -107,7 +107,7 @@
   </div>
   <section class="relative flex justify-center items-center py-24">
     <div class="absolute top-44 left-64">
-      <p class="text-2xl text-gray-100 text-left font-bold">CUSTOMIZE YOUR JERSEY, WEAR IT AND</p>
+      <p class="text-2xl text-gray-100 text-left font-semibold">CUSTOMIZE YOUR JERSEY, WEAR IT AND</p>
       <h1 class="text-9xl text-gray-100 font-extrabold">BE A WINNER</h1>
     </div>
 
@@ -116,7 +116,7 @@
   <div class="flex flex-col justify-center items-center">
     <img class="w-1/2" src="img/Group 15.png" alt="">
     <button
-      class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-bold text-white my-12 px-10 py-6 uppercase bg-custom-violet">CUSTOMIZE
+      class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white my-12 px-10 py-6 uppercase bg-custom-violet">CUSTOMIZE
       YOURS NOW</button>
   </div>
   <section class="relative flex justify-center items-center my-24">
@@ -126,11 +126,11 @@
   <div class="relative h-screen">
     <div class="absolute right-3 top-64">
       <div class="flex flex-col justify-center items-center">
-        <p class="text-2xl text-gray-100 text-left font-bold">CHOOSE WHAT YOU WEAR</p>
+        <p class="text-2xl text-gray-100 text-left font-semibold">CHOOSE WHAT YOU WEAR</p>
         <h1 class="text-9xl text-gray-100 font-extrabold">VISIT OUR SHOP</h1>
 
         <button
-          class="my-12 hover:bg-purple-900 hover:text-purple-100 text-4xl font-bold text-white px-12 py-6 uppercase bg-custom-violet">SHOP
+          class="my-12 hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 uppercase bg-custom-violet">SHOP
           NOW</button>
       </div>
     </div>
@@ -142,12 +142,12 @@
   <div class="flex flex-row">
     <div class="flex flex-col mr-32">
       <ul class="text-gray-100">
-        <h1 class="font-bold text-2xl">CONTENTS</h1>
+        <h1 class="font-semibold text-2xl">CONTENTS</h1>
         <div class="font-md">
-          <li class="py-4 font-bold">HOME</li>
-          <li class="py-4 font-bold">ABOUT</li>
-          <h1 class="py-4 font-bold">PRODUCTS</h1>
-          <li class="py-4 font-bold">CUSTOMIZE</li>
+          <li class="py-4 font-semibold">HOME</li>
+          <li class="py-4 font-semibold">ABOUT</li>
+          <h1 class="py-4 font-semibold">PRODUCTS</h1>
+          <li class="py-4 font-semibold">CUSTOMIZE</li>
 
         </div>
       </ul>
@@ -155,10 +155,10 @@
     </div>
     <div class="flex flex-col mx-24">
       <ul class="text-gray-100">
-        <h1 class="font-bold text-2xl">BE A MEMBER</h1>
+        <h1 class="font-semibold text-2xl">BE A MEMBER</h1>
         <div class="font-md">
-          <li class="py-4 font-bold">LOGIN</li>
-          <li class="py-4 font-bold">REGISTER</li>
+          <li class="py-4 font-semibold">LOGIN</li>
+          <li class="py-4 font-semibold">REGISTER</li>
 
         </div>
       </ul>
@@ -166,7 +166,7 @@
     </div>
     <div class="flex flex-col mx-32">
       <ul class="text-gray-100">
-        <h1 class="font-bold text-2xl">CONTACT</h1>
+        <h1 class="font-semibold text-2xl">CONTACT</h1>
         <div class="font-md">
           <li class="py-4">example@gmail.com</li>
           <li></li>

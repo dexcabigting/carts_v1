@@ -52,4 +52,9 @@ class CartsIndex extends Component
     {
         $this->cartId = $id;
     }
+
+    public function closeEditCartModal()
+    {
+        $this->cartModal = true;
+    }
 }

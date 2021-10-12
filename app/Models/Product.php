@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -12,24 +11,45 @@ class Product extends Model
 
     protected $table = 'products';
 
-    protected $with = ['product_stock'];
-
     protected $fillable = [
+        'category_id',
+        'fabric_id',
         'prd_name',
         'prd_description',
         'prd_price',
-        'prd_image',
     ];
 
-    public function product_stock()
+    public function product_variants()
     {
-        return $this->hasOne(ProductStock::class);
+        return $this->hasMany(ProductVariant::class);
     }
 
-    public function getProductImageUrlAttribute()
+    public function category()
     {
-        if($this->prd_image && Storage::exists('public/' . $this->prd_image)) {
-            return Storage::url('public/' . $this->prd_image);
-        }
+        return $this->belongsTo(Category::class);
     }
+
+    public function fabric()
+    {
+        return $this->belongsTo(Fabric::class);
+    }
+
+    public function product_stocks()
+    {
+        return $this->hasManyThrough(ProductStock::class, ProductVariant::class);
+    }
+
+    // public function getProductImageUrlAttribute()
+    // {
+    //     if($this->prd_image && Storage::exists('public/' . $this->prd_image)) {
+    //         return Storage::url('public/' . $this->prd_image);
+    //     }
+    // }
+
+    // public function getProductModelUrlAttribute()
+    // {
+    //     if($this->prd_3d && Storage::exists('public/' . $this->prd_3d)) {
+    //         return Storage::url('public/' . $this->prd_3d);
+    //     }
+    // }
 }

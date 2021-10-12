@@ -79,7 +79,7 @@
             </div>  
 
             <div class="pr-5 self-center">
-                Total: {{ $totalAmount }}
+                Total: &#8369;{{ number_format($totalAmount, 2) }}
             </div>
         </div> 
 
@@ -98,5 +98,4 @@
         </div>
     </form>
 
-    
 </div>
