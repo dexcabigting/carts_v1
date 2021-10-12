@@ -151,9 +151,11 @@ class ProductsEdit extends Component
         if($this->deleteExisting) {
             $this->deleteExistingVariants($this->deleteExisting);
         }
+
         $this->product->refresh();
 
         $this->mount($this->product);
+
         $this->deleteExisting = [];
 
         $this->emitUp('refreshParent');
@@ -203,10 +205,20 @@ class ProductsEdit extends Component
         $newSizes = [];
 
             for($i = 0; $i < $newCount; $i++) {
+                $variantFront = $this->addVariants[$i]['front_view'];
+                $variantBack = $this->addVariants[$i]['back_view'];
+
+                $newFrontName = $this->addVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantFront->extension();
+                $newBackName = $this->addVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantBack->extension();
+            
+                $frontImagePath = $variantFront->storeAs('/images/products', $newFrontName,'public');
+                $backImagePath = $variantBack->storeAs('/images/products', $newBackName,'public');
+
+
                 $variants[] = [
                     'prd_var_name' => $newVariants[$i]['prd_var_name'],
-                    'front_view' => $newVariants[$i]['front_view'],
-                    'back_view' => $newVariants[$i]['back_view'],
+                    'front_view' => $frontImagePath,
+                    'back_view' => $backImagePath,
                 ];
 
                 $sizes = [
@@ -244,8 +256,8 @@ class ProductsEdit extends Component
             $this->addVariants[] = [
                 'id' => null,
                 'prd_var_name' => '',
-                'front_view' => Str::random(5),
-                'back_view' => Str::random(5),
+                'front_view' => null,
+                'back_view' => null,
                 '2XS'  => '',
                 'XS'  => '',
                 'S'  => '',
