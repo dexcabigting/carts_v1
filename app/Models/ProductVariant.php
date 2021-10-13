@@ -25,4 +25,9 @@ class ProductVariant extends Model
     {
         return $this->hasOne(ProductStock::class);
     }
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::item);
+    }
 }
