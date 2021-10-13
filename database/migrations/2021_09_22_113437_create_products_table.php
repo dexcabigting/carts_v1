@@ -18,7 +18,6 @@ class CreateProductsTable extends Migration
             $table->string('prd_name')->unique();
             $table->string('prd_description');
             $table->float('prd_price');
-            $table->unsignedInteger('prd_likes')->nullable()->default(0);
             $table->timestamps();
         });
     }

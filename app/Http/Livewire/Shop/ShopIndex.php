@@ -27,6 +27,7 @@ class ShopIndex extends Component
 
     public function mount()
     {
+
         $this->categories = Category::all();
         $this->fabrics = Fabric::all();
     }
@@ -70,6 +71,16 @@ class ShopIndex extends Component
     public function updatingSearch()
     {
         $this->resetPage();
+    }
+
+    public function likeProduct($id)
+    {
+        
+    }
+
+    public function unlikeProduct($id)
+    {
+        
     }
 
     public function openCartModal($id)

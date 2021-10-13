@@ -17,7 +17,6 @@ class Product extends Model
         'prd_name',
         'prd_description',
         'prd_price',
-        'prd_likes',
     ];
 
     public function product_variants()
@@ -38,6 +37,11 @@ class Product extends Model
     public function product_stocks()
     {
         return $this->hasManyThrough(ProductStock::class, ProductVariant::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(ProductLike::class);
     }
 
     // public function getProductImageUrlAttribute()
