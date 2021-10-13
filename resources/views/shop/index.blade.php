@@ -70,6 +70,11 @@
 
                     <div class="flex-none absolute bottom-0 right-0 p-5">
                         <div class="flex items-center gap-5">
+                            @if($product->isAuthUserLikedProduct())
+                                <p>Liked</p>
+                            @else
+                                <p>Not Liked</p>
+                            @endif
                             <div>
                                 <x-button wire:click.prevent="likeProduct({{ $product->id }})" class="text-white">                                   
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 rounded-md hover:bg-custom-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor">
