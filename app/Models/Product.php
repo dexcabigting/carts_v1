@@ -39,6 +39,16 @@ class Product extends Model
         return $this->hasManyThrough(ProductStock::class, ProductVariant::class);
     }
 
+    public function likes()
+    {
+        return $this->hasMany(ProductLike::class);
+    }
+
+    public function isAuthUserLikedProduct()
+    {
+        return $this->likes()->where('user_id', auth()->id())->exists();
+    }
+
     // public function getProductImageUrlAttribute()
     // {
     //     if($this->prd_image && Storage::exists('public/' . $this->prd_image)) {
