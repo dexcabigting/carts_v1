@@ -67,6 +67,11 @@ class ShopIndex extends Component
             ->whereIn('fabric_id', $fabric);
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public function openCartModal($id)
     {
         $this->cartId = $id;
