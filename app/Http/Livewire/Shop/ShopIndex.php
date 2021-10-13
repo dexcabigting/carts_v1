@@ -30,7 +30,7 @@ class ShopIndex extends Component
     {
         $search = '%' . $this->search . '%';
 
-        return Product::with('product_variants','product_stocks')
+        return Product::with('category')
             ->where('prd_name', 'like', $search);
     }
 
