@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Shop;
 
 use Livewire\Component;
 use App\Models\Product;
+use App\Models\ProductLike;
 use App\Models\Category;
 use App\Models\Fabric;
 use Livewire\WithPagination;
@@ -73,14 +74,29 @@ class ShopIndex extends Component
         $this->resetPage();
     }
 
-    public function likeProduct($id)
+    public function likeProduct(Product $id)
     {
-        
+        $user = auth()->id();
+        $product = $id;
+
+        if(!$product->likes()->where('user_id', $user)->exists()) {
+            ProductLike::create([
+                'user_id' => $user,
+                'product_id' => $product->id,
+            ]);
+        }
     }
 
-    public function unlikeProduct($id)
+    public function unlikeProduct(Product $id)
     {
+        $user = auth()->id();
+        $product = $id;
         
+        if($product->likes()->where('user_id', $user)->exists()) {
+            ProductLike::where('user_id', $user)
+                ->where('product_id', $product->id)
+                ->delete();
+        }
     }
 
     public function openCartModal($id)
