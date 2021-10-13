@@ -62,7 +62,7 @@ class ShopIndex extends Component
         $category = is_string($category) && $category != 'All' ? [$category] : $categories;
         $fabric = is_string($fabric) && $fabric != 'All' ? [$fabric] : $fabrics;
 
-        return Product::with('category')
+        return Product::with('product_variants', 'category', 'fabric')
             ->where('prd_name', 'like', $search)
             ->whereIn('category_id', $category)
             ->whereIn('fabric_id', $fabric);
