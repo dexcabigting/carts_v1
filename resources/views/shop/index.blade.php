@@ -7,7 +7,7 @@
                     <div class="">
                         <div class="text-base font-medium text-gray-100 py-4">
                             <select wire:model="category" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
-                                <option value="all" selected>
+                                <option value="All" selected>
                                     <x-label value="All categories" class="inline-block" />
                                 </option> 
                                 @foreach($categories as $category)
@@ -118,4 +118,3 @@
         </div>
     </div>
 </div>
-
