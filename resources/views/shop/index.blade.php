@@ -53,8 +53,9 @@
                 @forelse ($products as $product)
                 <!-- Loop Content -->
                 <div class="flex flex-col border-4 border-gray-500 bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg gap-5 p-5 relative">
-                    <div class="p-5 bg-white m-auto rounded-lg">
-                        <div class=" flex-none m-auto p-10 bg-white shadow-2xl">    
+                    <div class="p-5 bg-white m-auto rounded-lg relative">
+                        <img class="bg-black py-2 px-2 h-10 w-10 absolute top-0 right-0 rounded-tr-md" src="img/Group 12.svg">
+                        <div class="flex-none m-auto p-10 bg-white shadow-2xl">    
                             <img class="h-40 w-40" src="{{ Storage::url('public/' . $product->product_variants->first()->front_view) }}" />
                         </div>
                     </div>
