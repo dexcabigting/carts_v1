@@ -4,7 +4,7 @@
         <x-validation-errors :errors="$errors" />
     </div>
     
-    <form method="POST" wire:submit.prevent="store" enctype="multipart/form-data">
+    <form wire:submit.prevent="store" enctype="multipart/form-data">
         @csrf
 
         <div class="overflow-y-auto px-5 h-96 ">
