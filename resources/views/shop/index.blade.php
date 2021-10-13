@@ -2,7 +2,34 @@
     <div class="pt-12 pb-6">
         <div class="max-w-5xl mx-auto">
             <div class=" shadow-2xl overflow-hidden sm:rounded-lg">
-                <div class="flex flex-row items-center gap-5 p-5 bg-custom-blacki  overflow-x-auto"> 
+                <div class="flex flex-row items-center gap-5 p-5 bg-custom-blacki  overflow-x-auto">                 
+                    <!-- Category and Fabric filter -->
+                    <div class="">
+                        <div class="text-base font-medium text-gray-100 py-4">
+                            <select wire:model="category" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                <option value="all" selected>
+                                    <x-label value="All categories" class="inline-block" />
+                                </option> 
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">
+                                        <x-label value="{{ $category->ctgr_name }}" class="inline-block" />
+                                    </option>  
+                                @endforeach
+                            </select>
+
+                            <select wire:model="fabric" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                <option value="All" selected>
+                                    <x-label value="All fabrics" class="inline-block" />
+                                </option> 
+                                @foreach($fabrics as $fabric)
+                                    <option value="{{ $fabric->id }}">
+                                        <x-label value="{{ $fabric->fab_name }}" class="inline-block" />
+                                    </option>  
+                                @endforeach
+                            </select>
+                        </div>     
+                    </div>
+
                     <div class="text-white font-semibold text-xl ml-12">
                         Browse our products!
                     </div>
@@ -14,6 +41,7 @@
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                         </svg>
                     </div>
+
                 </div>
             </div>
         </div>
