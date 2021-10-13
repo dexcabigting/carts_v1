@@ -17,6 +17,7 @@ class Product extends Model
         'prd_name',
         'prd_description',
         'prd_price',
+        'prd_likes',
     ];
 
     public function product_variants()
