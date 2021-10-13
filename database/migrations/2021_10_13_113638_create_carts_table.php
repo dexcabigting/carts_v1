@@ -23,7 +23,7 @@ class CreateCartsTable extends Migration
 
             $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('product_variant_id')->references('id')->on('products_variants')->onDelete('cascade');
+            $table->foreign('product_variant_id')->references('id')->on('product_variants')->onDelete('cascade');
         });
     }
 
