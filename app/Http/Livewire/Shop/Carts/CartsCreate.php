@@ -16,6 +16,7 @@ class CartsCreate extends Component
     public $totalAmount;
     public $productPrice;
     public $selectVariant;
+    public $productVariantStocks;
 
     protected $rules = [
         'addItems.*.size' => 'required|string',
@@ -33,8 +34,10 @@ class CartsCreate extends Component
     {
         $this->product = $id;
 
-        $this->productVariants = ProductVariant::where('product_id', $this->product->id)->select('id','prd_var_name')->get()->toArray();
+        $this->productVariants = ProductVariant::where('product_id', $this->product->id)->select('id','prd_var_name')->get()->toArray();    
 
+        $this->selectVariant = $this->productVariants[0]['id'];
+        
         $this->addItems = [
             [
                 'size' => '',
@@ -46,19 +49,24 @@ class CartsCreate extends Component
         $this->productPrice =  $this->product->prd_price;
 
         $this->totalAmount  = $this->productPrice;
-
-        $this->model = Storage::url('public/' . $this->product->prd_3d);
     }
 
     public function render()
     {
-        return view('livewire.shop.carts.carts-create');
+        $sizes = $this->variant_stocks->first();
+
+        return view('livewire.shop.carts.carts-create', compact('sizes'));
     }
 
     // public function getProductVariantsProperty()
     // {
     //     return ProductVariants::where('product_id', $this->product->id);
     // }
+
+    public function getVariantStocksProperty()
+    {
+        return ProductStock::where('product_variant_id', $this->selectVariant);
+    }
 
     public function store()
     {
@@ -90,13 +98,17 @@ class CartsCreate extends Component
 
     public function addMore()
     {
-        $this->addItems[] = [
-            'size' => '',
-            'surname' => '',
-            'jersey_number' => '',
-        ];
+        if(count($this->addItems) === 5) {
+            session()->flash('fail', 'Only 5 variants are allowed!');
+        } else {
+            $this->addItems[] = [
+                'size' => '',
+                'surname' => '',
+                'jersey_number' => '',
+            ];
 
-        $this->totalAmount = $this->totalAmount + $this->productPrice;
+            $this->totalAmount = $this->totalAmount + $this->productPrice;
+        }
     }
 
     public function removeItem($index)
