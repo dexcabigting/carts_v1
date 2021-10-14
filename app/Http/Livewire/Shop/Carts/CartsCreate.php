@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Shop\Carts;
 
 use Livewire\Component;
 use App\Models\Product;
+use App\Models\ProductVariant;
+use App\Models\ProductStock;
 use App\Models\Cart; 
 use Illuminate\Support\Facades\Storage;
 
@@ -13,7 +15,7 @@ class CartsCreate extends Component
     public $addItems;
     public $totalAmount;
     public $productPrice;
-    public $model;
+    public $selectVariant;
 
     protected $rules = [
         'addItems.*.size' => 'required|string',
@@ -30,6 +32,8 @@ class CartsCreate extends Component
     public function mount(Product $id)
     {
         $this->product = $id;
+
+        $this->productVariants = ProductVariant::where('product_id', $this->product->id)->select('id','prd_var_name')->get()->toArray();
 
         $this->addItems = [
             [
@@ -51,6 +55,11 @@ class CartsCreate extends Component
         return view('livewire.shop.carts.carts-create');
     }
 
+    // public function getProductVariantsProperty()
+    // {
+    //     return ProductVariants::where('product_id', $this->product->id);
+    // }
+
     public function store()
     {
         $this->validate();
@@ -59,7 +68,7 @@ class CartsCreate extends Component
 
         $cart = Cart::create([
             'user_id' => auth()->user()->id,
-            'product_id' => $this->product->id,
+            'product_variant_id' => $this->product->id,
             'quantity' => $quantity,
             'subtotal' => $quantity * $this->product->prd_price,
         ]);
@@ -72,9 +81,7 @@ class CartsCreate extends Component
                 'surname' => '',
                 'jersey_num' => '',
             ]
-        ];
-
-        $this->totalAmount  = $this->productPrice;
+        ];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 
         $this->totalAmount  = $this->productPrice;
 
