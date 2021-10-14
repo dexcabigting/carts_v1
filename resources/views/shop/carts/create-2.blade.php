@@ -1,4 +1,4 @@
-<div class="">
+<div class="flex flex-col gap-5 p-5 ">
     <div class="font-semibold text-2xl p-3 border-gray-200">
         {{ $product->prd_name }}
     </div>
@@ -13,17 +13,17 @@
 
     <div class="p-3 border-gray-200">
         Available sizes:
-        <div class="flex flex-row flex-wrap text-center">    
+        <div class="flex flex-row flex-wrap text-center">
             @foreach($sizes->sizes->toArray() as $column => $value)
-                @if($value > 0)
-                <div class="p-2 border border-gray-300 rounded-lg">
-                    {{ $column }}
-                    <div class="justify p-2 border border-gray-300 rounded-lg">
-                        {{ $value }}
-                    </div>
+            @if($value > 0)
+            <div class="p-2 border border-gray-300 rounded-lg">
+                {{ $column }}
+                <div class="justify p-2 border border-gray-300 rounded-lg">
+                    {{ $value }}
                 </div>
-                @endif
-            @endforeach 
+            </div>
+            @endif
+            @endforeach
         </div>
     </div>
 </div>

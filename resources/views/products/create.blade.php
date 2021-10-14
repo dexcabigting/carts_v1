@@ -7,7 +7,7 @@
     <form wire:submit.prevent="store" enctype="multipart/form-data">
         @csrf
 
-        <div class="overflow-y-auto px-5 h-96 ">
+        <div class="overflow-y-auto px-5 h-96">
             <div class="flex flex-row divide-x-4 divide-gray-600 gap-5">
                 <div class="w-48">
                     <div class="flex justify-around">
@@ -184,4 +184,3 @@
         </div>
     </form>
 </div>
-
