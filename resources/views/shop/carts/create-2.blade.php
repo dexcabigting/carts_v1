@@ -13,19 +13,17 @@
 
     <div class="p-3 border-gray-200">
         Available sizes:
-        <div class="flex flex-row flex-wrap text-center">
-            @foreach($product->product_stocks as $product_stock)
-                @foreach($product_stock->sizes->toArray() as $column => $value)
-                    @if($value > 10)
-                    <div class="p-2 border border-gray-300 rounded-lg">
-                        {{ $column }}
-                        <div class="justify p-2 border border-gray-300 rounded-lg">
-                            {{ $value }}
-                        </div>
+        <div class="flex flex-row flex-wrap text-center">    
+            @foreach($sizes->sizes->toArray() as $column => $value)
+                @if($value > 0)
+                <div class="p-2 border border-gray-300 rounded-lg">
+                    {{ $column }}
+                    <div class="justify p-2 border border-gray-300 rounded-lg">
+                        {{ $value }}
                     </div>
-                    @endif
-                @endforeach
-            @endforeach
+                </div>
+                @endif
+            @endforeach 
         </div>
     </div>
 </div>

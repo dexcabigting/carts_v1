@@ -74,9 +74,11 @@ class CartsCreate extends Component
 
         $quantity = count($this->addItems);
 
+        $productVariantId = $this->selectVariant;
+
         $cart = Cart::create([
-            'user_id' => auth()->user()->id,
-            'product_variant_id' => $this->product->id,
+            'user_id' => auth()->id(),
+            'product_variant_id' => $productVariantId,
             'quantity' => $quantity,
             'subtotal' => $quantity * $this->product->prd_price,
         ]);
