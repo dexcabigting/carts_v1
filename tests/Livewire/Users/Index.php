@@ -94,4 +94,15 @@ class Index extends TestCase
 		Livewire::test(UsersIndex::class)
 			->assertSeeInOrder($users->pluck("Name")->sort()->toArray());
 	}
+
+	public function test_checked_keys()
+	{
+		(new RoleSeeder())->run();
+
+		$users = User::factory()->asCustomer()->count(10)->create();
+
+		Livewire::test(UsersIndex::class)
+			->set("selectAll", true)
+			->assertSet("checkedKeys", $users->pluck("id")->toArray());
+	}
 }

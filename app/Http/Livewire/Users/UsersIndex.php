@@ -12,7 +12,6 @@ class UsersIndex extends Component
     use WithPagination;
 
     public $checkedUsers;
-    public $checkedKeys;
     public $userId;
     public $selectAll = 0;
     public $search;
@@ -30,7 +29,6 @@ class UsersIndex extends Component
     public function mount()
     {
         $this->checkedUsers = [];
-        $this->checkedKeys = [];
         $this->userId = [];
     }
 
@@ -55,6 +53,11 @@ class UsersIndex extends Component
             ->orderBy($sortBy, $orderBy);
     }
 
+	 public function getCheckedKeysProperty()
+	 {
+		return array_keys($this->checkedUsers);
+	 }
+
     public function updatedSelectAll($value)
     {
         $search = '%' . $this->search . '%';
@@ -74,7 +77,6 @@ class UsersIndex extends Component
 			} else {
 				$this->checkedUsers = [];
 			}
-			$this->checkedKeys = array_keys($this->checkedUsers);
     }
 
     public function updatedCheckedUsers()
@@ -82,8 +84,6 @@ class UsersIndex extends Component
         $this->selectAll = false;
 
         $this->checkedUsers = array_filter($this->checkedUsers);
-
-        $this->checkedKeys = array_keys($this->checkedUsers);
     }
 
     public function updatedSearch()
@@ -116,7 +116,6 @@ class UsersIndex extends Component
     {
         $this->checkedUsers = [];
 
-        $this->checkedKeys = array_keys($this->checkedUsers);
 
         $this->selectAll = false;
     }
