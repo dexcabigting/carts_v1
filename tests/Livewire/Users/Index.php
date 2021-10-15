@@ -62,4 +62,25 @@ class Index extends TestCase
 			->assertSet("selectAll", false)
 			->assertSet("checkedUsers", [$retainedUserID => true]);
 	}
+
+	public function test_cleanse()
+	{
+		(new RoleSeeder())->run();
+
+		$users = User::factory()->asCustomer()->count(10)->create();
+		$checkedUsers = $users
+			->pluck("id")
+			->map(fn ($item) => (string) $item)
+			->flip()
+			->map(fn ($item) => true);
+
+		Livewire::test(UsersIndex::class)
+			->set("selectAll", true)
+			->assertSet("checkedUsers", $checkedUsers->toArray())
+			->assertSet("checkedKeys", $checkedUsers->keys()->toArray())
+			->call("cleanse")
+			->assertSet("selectAll", false)
+			->assertSet("checkedUsers", [])
+			->assertSet("checkedKeys", []);
+	}
 }
