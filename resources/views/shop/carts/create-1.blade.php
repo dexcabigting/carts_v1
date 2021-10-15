@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-5 p-5 h-auto">
+<div class="flex flex-col gap-5 p-5 h-auto overflow-y-auto">
 
     <x-success-fail-message />
     <x-validation-errors :errors="$errors" />
@@ -64,11 +64,11 @@
                 </div>
 
                 <div class="">
-                    <x-input wire:model.defer="addItems.{{ $index }}.surname" class="block w-full" type="text" autofocus />
+                    <x-input wire:model.defer="addItems.{{ $index }}.surname" class="block text-black w-full" type="text" autofocus />
                 </div>
 
                 <div class="">
-                    <x-input wire:model.defer="addItems.{{ $index }}.jersey_number" class="block w-full" type="text" autofocus />
+                    <x-input wire:model.defer="addItems.{{ $index }}.jersey_number" class="block text-black w-full" type="text" autofocus />
                 </div>
 
                 @if(count($addItems) == 1)

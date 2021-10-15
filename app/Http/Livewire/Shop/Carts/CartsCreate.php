@@ -6,11 +6,13 @@ use Livewire\Component;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\ProductStock;
-use App\Models\Cart; 
-use Illuminate\Support\Facades\Storage;
+use App\Models\Cart;
+use Livewire\WithPagination;
 
 class CartsCreate extends Component
 {
+    use WithPagination;
+
     public $product;
     public $addItems;
     public $totalAmount;
@@ -55,13 +57,27 @@ class CartsCreate extends Component
     {
         $sizes = $this->variant_stocks->first();
 
-        return view('livewire.shop.carts.carts-create', compact('sizes'));
+        $variant = $this->product_variant->first();
+
+        $variants = $this->product_variants->paginate(1);                                                                  
+
+        return view('livewire.shop.carts.carts-create', compact('sizes', 'variant', 'variants'));
     }
 
     // public function getProductVariantsProperty()
     // {
     //     return ProductVariants::where('product_id', $this->product->id);
     // }
+
+    public function getProductVariantProperty()
+    {
+        return ProductVariant::where('id', $this->selectVariant);
+    }
+
+    public function getProductVariantsProperty()
+    {
+        return ProductVariant::where('product_id', $this->product->id);
+    }
 
     public function getVariantStocksProperty()
     {
