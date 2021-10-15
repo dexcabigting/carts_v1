@@ -19,6 +19,15 @@ class CartsCreate extends Component
     public $productPrice;
     public $selectVariant;
     public $productVariantStocks;
+    public $SIZES = [
+        '2XS',
+        'XS',
+        'S',
+        'M',
+        'L',
+        'XL',
+        '2XL',
+    ];
 
     protected $rules = [
         'addItems.*.size' => 'required|string',
@@ -86,6 +95,19 @@ class CartsCreate extends Component
 
     public function store()
     {
+        $variantStocks = array_count_values(array_column($this->addItems, 'size'));
+
+        $originalStocks = $this->variant_stocks->first()->sizes->toArray();
+
+        foreach($variantStocks as $size => $count) {
+            $originalCountSize = $originalStocks[$size];
+
+            if( $count > $originalCountSize ) {
+                session()->flash('fail', 'The quantity of ' . $size . ' exceeded the available size!');
+                return;
+            }
+        }
+
         $this->validate();
 
         $quantity = count($this->addItems);
