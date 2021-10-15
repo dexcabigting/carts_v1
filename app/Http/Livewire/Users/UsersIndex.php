@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Users;
 
 use Livewire\Component;
 use App\Models\User;
+use App\Models\Role;
 use Livewire\WithPagination;
 
 class UsersIndex extends Component
@@ -49,7 +50,7 @@ class UsersIndex extends Component
         $orderBy = $this->orderBy;
 
         return User::with('role')
-            ->where('role_id', 2)
+            ->where('role_id', Role::where('role', '=', 'Customer')->first()->id)
             ->where('name', 'like', $search)
             ->orderBy($sortBy, $orderBy);
     }

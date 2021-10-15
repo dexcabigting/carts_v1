@@ -83,4 +83,15 @@ class Index extends TestCase
 			->assertSet("checkedUsers", [])
 			->assertSet("checkedKeys", []);
 	}
+
+	public function test_users_property()
+	{
+		(new RoleSeeder())->run();
+
+		$users = User::factory()->asCustomer()->count(10)->create();
+
+		// Used `assertSeeInOrder` because the instances are not the same.
+		Livewire::test(UsersIndex::class)
+			->assertSeeInOrder($users->pluck("Name")->sort()->toArray());
+	}
 }
