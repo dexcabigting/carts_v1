@@ -29,7 +29,6 @@ class UsersDelete extends Component
         } else {
             $flash = 'Users have been deleted successfully!';
         }
-            
         User::whereIn('id', $this->users)->delete();
 
         $this->emitUp('unsetCheckedUsers', $this->users);

@@ -6,9 +6,8 @@
     </x-slot>
 
     @if($deleteModal)
-        @livewire('users.users-delete', ['id' => $userId])   
+        @livewire('users.users-delete', ['id' => $this->checkedKeys])
     @endif
 
     @include('users.index', ['users' => $users])
 </div>
-            
