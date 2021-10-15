@@ -73,10 +73,10 @@ class CartsCreate extends Component
         return view('livewire.shop.carts.carts-create', compact('stocks', 'variant', 'variants'));
     }
 
-    // public function getProductVariantsProperty()
-    // {
-    //     return ProductVariants::where('product_id', $this->product->id);
-    // }
+    public function getQueryString()
+    {
+        return [];
+    }
 
     public function getVariantProperty()
     {
