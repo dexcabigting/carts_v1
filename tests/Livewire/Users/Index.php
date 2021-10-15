@@ -44,4 +44,21 @@ class Index extends TestCase
 			->assertSet("selectAll", false)
 			->assertSet("checkedUsers", $checkedUsers->filter()->toArray());
 	}
+
+	public function test_unset_selected_users()
+	{
+		(new RoleSeeder())->run();
+
+		$users = User::factory()->asCustomer()->count(10)->create();
+		$retainedUserID = $users->get(0)->id;
+		$userIDstoRemove = $users
+			->pluck("id")
+			->filter(fn ($item) => $item != $retainedUserID);
+
+		Livewire::test(UsersIndex::class)
+			->set("selectAll", true)
+			->call("unsetCheckedUsers", $userIDstoRemove->toArray())
+			->assertSet("selectAll", false)
+			->assertSet("checkedUsers", [$retainedUserID => true]);
+	}
 }

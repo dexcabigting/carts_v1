@@ -125,6 +125,8 @@ class UsersIndex extends Component
             foreach ($ids as $id) {
                 unset($this->checkedUsers["$id"]);
             }
+
+				$this->selectAll = false;
         }
     }
 }
