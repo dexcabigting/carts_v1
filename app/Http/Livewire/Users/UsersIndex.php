@@ -70,9 +70,10 @@ class UsersIndex extends Component
                 ->flip()
                 ->map(fn ($item) => true)
                 ->toArray();
-        } else {
-            $this->checkedUsers = [];
-        }
+			} else {
+				$this->checkedUsers = [];
+			}
+			$this->checkedKeys = array_keys($this->checkedUsers);
     }
 
     public function updatedCheckedUsers()

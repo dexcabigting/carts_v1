@@ -22,13 +22,13 @@ class Index extends TestCase
 
 		Livewire::test(UsersIndex::class)
 			->set("selectAll", true)
-			->assertSet("checkedUsers", [$user->id => true]);
+			->assertSet("checkedUsers", [$user->id => true])
+			->assertSet("checkedKeys", [$user->id]);
 	}
 
 	public function test_uncheck_selected_user()
 	{
 		(new RoleSeeder())->run();
-		// (new UserSeeder())->run();
 
 		$users = User::factory()->asCustomer()->count(10)->create();
 		$checkedUsers = $users
@@ -42,7 +42,8 @@ class Index extends TestCase
 			->set("selectAll", true)
 			->set("checkedUsers", $checkedUsers->toArray())
 			->assertSet("selectAll", false)
-			->assertSet("checkedUsers", $checkedUsers->filter()->toArray());
+			->assertSet("checkedUsers", $checkedUsers->filter()->toArray())
+			->assertSet("checkedKeys", $checkedUsers->filter()->keys()->toArray());
 	}
 
 	public function test_unset_selected_users()
