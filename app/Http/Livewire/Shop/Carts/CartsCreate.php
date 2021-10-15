@@ -95,6 +95,8 @@ class CartsCreate extends Component
 
     public function store()
     {
+        // TO DO: set $this->addItems limit with a maximum value of 15
+
         $variantStocks = array_count_values(array_column($this->addItems, 'size'));
 
         $originalStocks = $this->variant_stocks->first()->sizes->toArray();
