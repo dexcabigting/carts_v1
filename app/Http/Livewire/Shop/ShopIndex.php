@@ -28,6 +28,8 @@ class ShopIndex extends Component
 
     public function mount()
     {
+        $this->resetPage();
+
         $this->categories = Category::all();
         $this->fabrics = Fabric::all();
     }

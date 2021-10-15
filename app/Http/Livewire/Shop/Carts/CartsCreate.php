@@ -43,7 +43,7 @@ class CartsCreate extends Component
 
     public function mount(Product $id)
     {
-        $this->product = $id;
+        $this->product = $id->load(['category','fabric']);
 
         $this->productVariants = ProductVariant::where('product_id', $this->product->id)->select('id','prd_var_name')->get()->toArray();    
 
@@ -64,13 +64,13 @@ class CartsCreate extends Component
 
     public function render()
     {
-        $sizes = $this->variant_stocks->first();
+        $stocks = $this->variant_stocks->first();
 
-        $variant = $this->product_variant->first();
+        $variant = $this->variant->first();
 
-        $variants = $this->product_variants->paginate(1);                                                                  
+        $variants = $this->variants->paginate(1);                                                                  
 
-        return view('livewire.shop.carts.carts-create', compact('sizes', 'variant', 'variants'));
+        return view('livewire.shop.carts.carts-create', compact('stocks', 'variant', 'variants'));
     }
 
     // public function getProductVariantsProperty()
@@ -78,12 +78,12 @@ class CartsCreate extends Component
     //     return ProductVariants::where('product_id', $this->product->id);
     // }
 
-    public function getProductVariantProperty()
+    public function getVariantProperty()
     {
         return ProductVariant::where('id', $this->selectVariant);
     }
 
-    public function getProductVariantsProperty()
+    public function getVariantsProperty()
     {
         return ProductVariant::where('product_id', $this->product->id);
     }

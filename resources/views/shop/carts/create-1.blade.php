@@ -53,7 +53,7 @@
             <div class="grid grid-cols-4 justify-items-center gap-5 mb-5">
                 <div class="">
                     <select wire:model="addItems.{{ $index }}.size" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
-                        @foreach($sizes->sizes->toArray() as $column => $value)
+                        @foreach($stocks->sizes->toArray() as $column => $value)
                         @if($value > 0)
                         <option value="{{ $column }}">
                             <x-label value="{{ $column }}" class="inline-block" />
