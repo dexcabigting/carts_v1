@@ -42,6 +42,8 @@ class CartsEdit extends Component
 
     public function update()
     {
+        dd($this->deleteExisting);
+
         // Update existing cart items
         $origCartItems = collect($this->cartItems)
             ->filter(fn ($value) => $value['id'] != null);
@@ -55,30 +57,40 @@ class CartsEdit extends Component
             ->filter(fn ($value) => $value['id'] == null)
             ->map(fn ($value) => array_filter($value));
 
-        //$cart = $this->cartId->cart_items()->createMany();
+        if($newCartItems) {
+            $this->createItems($newCartItems);
+        }
 
         // Delete existing cart items if there are any
-        $deleteExistingItems = $this->deleteExisting;
         
-        if($deleteExistingItems) {
-            //$this->deleteItems($deleteExistingItems);
+        if($this->deleteExisting) {
+            $this->deleteItems($this->deleteExisting);
         }
+
+        $this->cartId->refresh();
 
         $this->emitUp('refreshParent');
 
         session()->flash('success', 'Cart has been updated successfully!');
-
-        // dd($origCartItems, $newCartItems, $deleteExistingItems);
     }
 
-    private function updateItems($origCartItems)
+    public function createItems($newCartItems)
+    {
+        $count = count($newCartItems);
+
+        $this->cartId->increment('quantity', $count);
+
+        $this->cartId->update([
+            'subtotal' => $this->totalAmount + ($this->productPrice * $count),
+        ]);
+
+        $this->cartId->cart_items()->createMany($newCartItems);
+
+    }
+
+    public function updateItems($origCartItems)
     {
         $origIds = $origCartItems->pluck('id');
-
-        // $updatedValues = $origCartItems->map(function ($value) {
-        //     unset($value['id']);
-        //     return $value;
-        // })->toArray();
 
         $updatedValues = $origCartItems->toArray();
 
@@ -89,14 +101,15 @@ class CartsEdit extends Component
         }
     }
 
-    // private function deleteItems($deleteExistingItems)
-    // {
-    //     $items = CartItem::whereIn('id', $deleteExistingItems)->get();
+    public function deleteItems($deleteExistingItems)
+    {
+        $count = count($deleteExistingItems);
+        
+        CartItem::destroy($deleteExistingItems);
 
-    //     if($items) {
-    //         CartItem::destroy($items);
-    //     }
-    // }
+        $this->cartId->decrement('quantity', $count);
+        
+    }
 
     public function addMore()
     {
@@ -131,6 +144,8 @@ class CartsEdit extends Component
 
     public function closeCartModal()
     {
+        $this->deleteExisting = [];
+
         $this->dispatchBrowserEvent('cartModalDisplayNone');
 
         $this->emitUp('closeEditCartModal');

@@ -38,17 +38,17 @@
 
     <form wire:submit.prevent="update">
         @foreach($cartItems as $index => $cartItem)
-        <div class="grid grid-cols-4 justify-items-center gap-3 pb-3">
+        <div class="grid grid-cols-4 justify-items-center gap-3 pb-3" wire:key="{{ $loop->index }}">
             <input type="hidden" wire:model.defer="cartItems.{{ $index }}.id">
 
             <div class="">
                 <select wire:model="cartItems.{{ $index }}.size" class="border-gray-300 rounded-lg w-full">
                     @foreach($cartVariant->product_stock->sizes->toArray() as $column => $value)
-                    @if($value > 0)
-                    <option value="{{ $column }}">
-                        {{ $column }}
-                    </option>
-                    @endif
+                        @if($value > 0)
+                        <option value="{{ $column }}">
+                            {{ $column }}
+                        </option>
+                        @endif
                     @endforeach
                 </select>
             </div>
@@ -63,7 +63,7 @@
 
             @if(count($cartItems) == 1)
             <div class="text-center">
-                <x-button wire:click.prevent="addMore" type="button">
+                <x-button wire:click.prevent="addMore">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -71,7 +71,7 @@
             </div>
             @else
             <div>
-                <x-button wire:click.prevent="removeCartItem({{ $index }})" type="button">
+                <x-button type="button" wire:click.prevent="removeCartItem({{ $index }})">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -99,7 +99,7 @@
 
         <div class="flex justify-center mt-4 gap-5">
             <div>
-                <x-button>
+                <x-button type="submit">
                     {{ __('Update Cart') }}
                 </x-button>
             </div>
