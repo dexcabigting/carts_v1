@@ -1,6 +1,6 @@
 <div class="h-screen">
     <div class="pt-12 pb-6">
-        <div class="max-w-2xl mx-auto">
+        <div class="max-w-3xl mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-custom-blacki shadow-2xl text-6xl font-extrabold text-center text-gray-300 font-extraboldoverflow-x-auto">
                     My Carts
@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <div class="max-w-2xl mx-auto">
+    <div class="max-w-3xl mx-auto">
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">
@@ -68,13 +68,13 @@
 
                                     <td class="px-6 py-4 whitespace-nowrap text-center">
                                         <div class="text-sm font-medium text-gray-900">
-                                            x{{ $userCart->quantity }}
+                                            x{{ $userCart->quantity() }}
                                         </div>
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
-                                            &#8369;{{ number_format($userCart->quantity * 750, 2) }}
+                                            &#8369;{{ number_format($userCart->quantity() * 750, 2) }}
                                         </div>
                                     </td>
 
