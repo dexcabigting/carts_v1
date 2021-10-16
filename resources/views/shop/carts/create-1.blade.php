@@ -14,8 +14,8 @@
     <div>
         <select wire:model="selectVariant" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
             @foreach($productVariants as $index => $productVariant)
-            <option value="{{ $productVariant['id'] }}">
-                <x-label value="{{ $productVariant['prd_var_name'] }}" class="inline-block" />
+            <option value="{{ $productVariant->id }}">
+                <x-label value="{{ $productVariant->prd_var_name }}" class="inline-block" />
             </option>
             @endforeach
         </select>
@@ -53,12 +53,15 @@
             <div class="grid grid-cols-4 justify-items-center gap-5 mb-5">
                 <div class="">
                     <select wire:model="addItems.{{ $index }}.size" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                            <option value="">
+                                ---
+                            </option>
                         @foreach($stocks->sizes->toArray() as $column => $value)
-                        @if($value > 0)
-                        <option value="{{ $column }}">
-                            <x-label value="{{ $column }}" class="inline-block" />
-                        </option>
-                        @endif
+                            @if($value > 0)
+                                <option value="{{ $column }}">
+                                    {{ $column }}
+                                </option>
+                            @endif
                         @endforeach
                     </select>
                 </div>

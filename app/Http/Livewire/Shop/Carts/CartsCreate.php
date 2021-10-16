@@ -36,7 +36,7 @@ class CartsCreate extends Component
     ];
 
     protected $validationAttributes = [
-        'addItems.*.size' => '*Jersey Size',
+        'addItems.*.size' => 'Jersey Size',
         'addItems.*.surname' => 'Jersey Surname',
         'addItems.*.jersey_number' => 'Jersey Number',
     ];
@@ -45,7 +45,7 @@ class CartsCreate extends Component
     {
         $this->product = $id->load(['category','fabric']);
 
-        $this->productVariants = ProductVariant::where('product_id', $this->product->id)->select('id','prd_var_name')->get()->toArray();    
+        $this->productVariants = ProductVariant::where('product_id', $this->product->id)->select('id','prd_var_name')->get();    
 
         $this->selectVariant = $this->productVariants[0]['id'];
         
@@ -96,6 +96,7 @@ class CartsCreate extends Component
     public function store()
     {
         // TO DO: set $this->addItems limit with a maximum value of 15
+        $this->validate();
 
         $variantStocks = array_count_values(array_column($this->addItems, 'size'));
 
@@ -109,8 +110,6 @@ class CartsCreate extends Component
                 return;
             }
         }
-
-        $this->validate();
 
         $quantity = count($this->addItems);
 

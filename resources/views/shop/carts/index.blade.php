@@ -74,7 +74,7 @@
 
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
-                                            &#8369;{{ number_format($userCart->subtotal, 2) }}
+                                            &#8369;{{ number_format($userCart->quantity * 750, 2) }}
                                         </div>
                                     </td>
 
@@ -129,7 +129,7 @@
                                     <td class="px-6 py-4 text-center">
                                         <div>
                                             <span class="font-semibold text-l text-black leading-tight">
-                                                &#8369;{{ number_format($totalAmount, 2) }}
+                                                &#8369;
                                             </span>
                                         </div>
                                     </td>

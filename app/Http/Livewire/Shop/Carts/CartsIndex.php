@@ -27,9 +27,7 @@ class CartsIndex extends Component
     {
         $userCarts = $this->user_carts->paginate(6);
 
-        $totalAmount = $this->total_amount;
-
-        return view('livewire.shop.carts.carts-index', compact('userCarts', 'totalAmount'));
+        return view('livewire.shop.carts.carts-index', compact('userCarts'));
     }
 
     public function getUserCartsProperty()
@@ -39,7 +37,7 @@ class CartsIndex extends Component
 
     public function getTotalAmountProperty()
     {
-        return $this->user_carts->sum('subtotal');
+        // return $this->user_carts->sum('subtotal');
     }
 
     public function openEditCartModal($id)
