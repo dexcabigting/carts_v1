@@ -15,16 +15,16 @@ class CartsEdit extends Component
             'jersey_number' => '', 
         ]
     ];
-    public $product;
-    public $product_sizes;
+    public $cartVariant;
+    public $totalAmount;
 
     public function mount(Cart $id)
     {
+        $this->cartVariant = $id->load('product_variant');
+
+        $this->totalAmount = $this->cartVariant->subtotal;
+
         $this->cartItems = $id->cart_items()->get()->toArray();
-
-        $this->product = Product::where('id', $id->product_id)->first();
-
-        $this->product_sizes = $this->product->product_stock->sizes->toArray();
     }
 
     public function render()

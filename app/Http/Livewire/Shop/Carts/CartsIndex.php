@@ -55,6 +55,6 @@ class CartsIndex extends Component
 
     public function closeEditCartModal()
     {
-        $this->cartModal = true;
+        $this->cartModal = false;
     }
 }

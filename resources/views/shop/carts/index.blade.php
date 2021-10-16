@@ -128,8 +128,8 @@
 
                                     <td class="px-6 py-4 text-center">
                                         <div>
-                                            <span class="font-semibold text-xl text-gray-800 leading-tight">
-                                                &#8369;{{ $totalAmount }}
+                                            <span class="font-semibold text-l text-black leading-tight">
+                                                &#8369;{{ number_format($totalAmount, 2) }}
                                             </span>
                                         </div>
                                     </td>
