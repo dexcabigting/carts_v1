@@ -41,7 +41,7 @@ class CartsEdit extends Component
 
         $this->productPrice = $this->cartVariant->product()->first()->prd_price;
 
-        $this->totalAmount = $id->subtotal;
+        $this->totalAmount = $this->productPrice;
 
         $this->cartItems = $id->cart_items()->get()->toArray();
     }
