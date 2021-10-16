@@ -130,6 +130,30 @@ class Index extends TestCase
 			->assertSet("checkedProducts", []);
 	}
 
+	public function test_unset_checked_products()
+	{
+		[$jersey_id, $sportsmax_id] = $this->create_default_ids();
+
+		$products = Product::factory()
+			->addCategory($jersey_id)
+			->addFabric($sportsmax_id)
+			->has(ProductVariant::factory()->count(2), 'product_variants')
+			->count(10)
+			->create();
+		$selectedProducts = $products
+			->take(2)
+			->pluck("id")
+			->map(fn ($item) => (string) $item)
+			->flip()
+			->map(fn ($item) => true)
+			->toArray();
+
+		Livewire::test(ProductsIndex::class)
+			->set("checkedProducts", $selectedProducts)
+			->call("unsetCheckedProducts", array_keys($selectedProducts))
+			->assertSet("checkedProducts", []);
+	}
+
 	private function create_default_ids() {
 		return [$this->create_jersey_id(), $this->create_sportsmax_id()];
 	}
