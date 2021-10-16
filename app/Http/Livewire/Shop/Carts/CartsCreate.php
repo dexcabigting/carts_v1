@@ -4,16 +4,30 @@ namespace App\Http\Livewire\Shop\Carts;
 
 use Livewire\Component;
 use App\Models\Product;
-use App\Models\Cart; 
-use Illuminate\Support\Facades\Storage;
+use App\Models\ProductVariant;
+use App\Models\ProductStock;
+use App\Models\Cart;
+use Livewire\WithPagination;
 
 class CartsCreate extends Component
 {
+    use WithPagination;
+
     public $product;
     public $addItems;
     public $totalAmount;
     public $productPrice;
-    public $model;
+    public $selectVariant;
+    public $productVariantStocks;
+    public $SIZES = [
+        '2XS',
+        'XS',
+        'S',
+        'M',
+        'L',
+        'XL',
+        '2XL',
+    ];
 
     protected $rules = [
         'addItems.*.size' => 'required|string',
@@ -29,8 +43,12 @@ class CartsCreate extends Component
 
     public function mount(Product $id)
     {
-        $this->product = $id;
+        $this->product = $id->load(['category','fabric']);
 
+        $this->productVariants = ProductVariant::where('product_id', $this->product->id)->select('id','prd_var_name')->get()->toArray();    
+
+        $this->selectVariant = $this->productVariants[0]['id'];
+        
         $this->addItems = [
             [
                 'size' => '',
@@ -42,24 +60,65 @@ class CartsCreate extends Component
         $this->productPrice =  $this->product->prd_price;
 
         $this->totalAmount  = $this->productPrice;
-
-        $this->model = Storage::url('public/' . $this->product->prd_3d);
     }
 
     public function render()
     {
-        return view('livewire.shop.carts.carts-create');
+        $stocks = $this->variant_stocks->first();
+
+        $variant = $this->variant->first();
+
+        $variants = $this->variants->paginate(1);                                                                  
+
+        return view('livewire.shop.carts.carts-create', compact('stocks', 'variant', 'variants'));
+    }
+
+    public function getQueryString()
+    {
+        return [];
+    }
+
+    public function getVariantProperty()
+    {
+        return ProductVariant::where('id', $this->selectVariant);
+    }
+
+    public function getVariantsProperty()
+    {
+        return ProductVariant::where('product_id', $this->product->id);
+    }
+
+    public function getVariantStocksProperty()
+    {
+        return ProductStock::where('product_variant_id', $this->selectVariant);
     }
 
     public function store()
     {
+        // TO DO: set $this->addItems limit with a maximum value of 15
+
+        $variantStocks = array_count_values(array_column($this->addItems, 'size'));
+
+        $originalStocks = $this->variant_stocks->first()->sizes->toArray();
+
+        foreach($variantStocks as $size => $count) {
+            $originalCountSize = $originalStocks[$size];
+
+            if( $count > $originalCountSize ) {
+                session()->flash('fail', 'The quantity of ' . $size . ' exceeded the available size!');
+                return;
+            }
+        }
+
         $this->validate();
 
         $quantity = count($this->addItems);
 
+        $productVariantId = $this->selectVariant;
+
         $cart = Cart::create([
-            'user_id' => auth()->user()->id,
-            'product_id' => $this->product->id,
+            'user_id' => auth()->id(),
+            'product_variant_id' => $productVariantId,
             'quantity' => $quantity,
             'subtotal' => $quantity * $this->product->prd_price,
         ]);
@@ -72,9 +131,7 @@ class CartsCreate extends Component
                 'surname' => '',
                 'jersey_num' => '',
             ]
-        ];
-
-        $this->totalAmount  = $this->productPrice;
+        ];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 
         $this->totalAmount  = $this->productPrice;
 
@@ -83,13 +140,17 @@ class CartsCreate extends Component
 
     public function addMore()
     {
-        $this->addItems[] = [
-            'size' => '',
-            'surname' => '',
-            'jersey_number' => '',
-        ];
+        if(count($this->addItems) === 5) {
+            session()->flash('fail', 'Only 5 variants are allowed!');
+        } else {
+            $this->addItems[] = [
+                'size' => '',
+                'surname' => '',
+                'jersey_number' => '',
+            ];
 
-        $this->totalAmount = $this->totalAmount + $this->productPrice;
+            $this->totalAmount = $this->totalAmount + $this->productPrice;
+        }
     }
 
     public function removeItem($index)

@@ -3,14 +3,14 @@
 
     </div>
 
-    <div class="m-auto z-20">
-            <div class="text-white mx-auto">
-                <div class="bg-white shadow-sm rounded-lg border-4 border-gray-500">
-                    <div class="bg-custom-blacki border-b border-gray-200">
-                        @include('products.create')
-                    </div>
+    <div class="p-5 m-auto z-20">
+        <div class="text-white mx-auto">
+            <div class="bg-white shadow-sm rounded-lg border-4 border-gray-500">
+                <div class="bg-custom-blacki border-b border-gray-200">
+                    @include('products.create')
                 </div>
             </div>
+        </div>
     </div>
 </div>
 

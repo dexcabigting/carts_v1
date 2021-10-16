@@ -6,7 +6,7 @@
     </x-slot>
 
     @if($cartModal)
-        @livewire('shop.carts.carts-create', ['id' => $cartId])
+        @livewire('shop.carts.carts-create', ['id' => $cartId], key(auth()->id()))
     @endif    
 
     @include('shop.index', ['products' => $products])      

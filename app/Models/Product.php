@@ -19,11 +19,6 @@ class Product extends Model
         'prd_price',
     ];
 
-    public function product_stock()
-    {
-        return $this->hasOne(ProductStock::class);
-    }
-
     public function product_variants()
     {
         return $this->hasMany(ProductVariant::class);
@@ -37,6 +32,21 @@ class Product extends Model
     public function fabric()
     {
         return $this->belongsTo(Fabric::class);
+    }
+
+    public function product_stocks()
+    {
+        return $this->hasManyThrough(ProductStock::class, ProductVariant::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(ProductLike::class);
+    }
+
+    public function isAuthUserLikedProduct()
+    {
+        return $this->likes()->where('user_id', auth()->id())->exists();
     }
 
     // public function getProductImageUrlAttribute()
