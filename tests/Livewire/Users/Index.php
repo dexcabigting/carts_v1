@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Livewire;
+namespace Tests\Livewire\Users;
 
 use Livewire\Livewire;
 use App\Http\Livewire\Users\UsersIndex;
