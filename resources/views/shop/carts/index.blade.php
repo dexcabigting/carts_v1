@@ -69,14 +69,14 @@
 
                                     <td class="px-6 py-4 whitespace-nowrap text-center">
                                         <div class="text-sm font-medium text-gray-900">
-                                            x{{ $userCart->quantity() }}
+                                            x{{ $userCart->cart_items_count }}
                                         </div>
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
-                                            &#8369;{{ number_format($userCart->quantity() * $userCart->product_variant->product->prd_price, 2) }}
-                                            @php($totalAmount = $totalAmount + ($userCart->quantity() * $userCart->product_variant->product->prd_price))
+                                            &#8369;{{ $amount = number_format(($userCart->cart_items_count) * ($userCart->product_variant->product->prd_price), 2) }}
+                                            @php($totalAmount = $totalAmount + (($userCart->cart_items_count) * ($userCart->product_variant->product->prd_price)))
                                         </div>
                                     </td>
 
@@ -131,7 +131,7 @@
                                     <td class="px-6 py-4 text-left" colspan="2">
                                         <div>
                                             <span class="font-semibold text-l text-black leading-tight">
-                                                &#8369; {{ number_format($totalAmount, 2) }}
+                                                &#8369;{{ number_format($totalAmount, 2) }}
                                             </span>
                                         </div>
                                     </td>

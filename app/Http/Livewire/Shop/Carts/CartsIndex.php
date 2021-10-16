@@ -32,7 +32,8 @@ class CartsIndex extends Component
 
     public function getUserCartsProperty()
     {
-        return auth()->user()->carts()->with(['product_variant.product']);
+        return auth()->user()->carts()->with(['product_variant.product'])
+            ->withCount('cart_items');
     }
 
     public function getTotalAmountProperty()
