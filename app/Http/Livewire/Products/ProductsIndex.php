@@ -12,7 +12,6 @@ class ProductsIndex extends Component
     use WithPagination;
 
     public $checkedProducts;
-    public $checkedKeys;
     public $category;
     public $categories = [];
     public $selectAll = false;
@@ -39,7 +38,6 @@ class ProductsIndex extends Component
     public function mount()
     {
         $this->checkedProducts = [];
-        $this->checkedKeys = [];
         $this->productId = [];
         $this->categories = Category::all();
     }
@@ -77,6 +75,10 @@ class ProductsIndex extends Component
             ->orderBy($sortColumn, $sortDirection);
     }
 
+	 public function getCheckedKeysProperty()
+	 {
+		return array_keys($this->checkedProducts);
+	 }
 
     public function updatedSelectAll($value)
     {
@@ -93,7 +95,6 @@ class ProductsIndex extends Component
             $this->checkedProducts = [];
         }
 
-        $this->checkedKeys = array_keys($this->checkedProducts);
     }
 
     public function updatedCheckedProducts()
@@ -102,14 +103,12 @@ class ProductsIndex extends Component
 
         $this->checkedProducts = array_filter($this->checkedProducts);
 
-        $this->checkedKeys = array_keys($this->checkedProducts);
     }
 
     public function updatedSearch()
     {
         if(is_array($this->checkedProducts)) {
             $this->checkedProducts = [];
-            $this->checkedKeys = [];
 
             $this->selectAll = false;
         }
@@ -158,7 +157,6 @@ class ProductsIndex extends Component
     {
         $this->checkedProducts = [];
 
-        $this->checkedKeys = array_keys($this->checkedProducts);
 
         $this->selectAll = false;
     }

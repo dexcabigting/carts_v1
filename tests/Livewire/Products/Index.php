@@ -80,6 +80,23 @@ class Index extends TestCase
 			->assertSeeInOrder($tshirt_products->pluck("prd_name")->sort()->toArray());
 	}
 
+	public function test_open_delete_modal_to_bulk_delete()
+	{
+		[$jersey_id, $sportsmax_id] = $this->create_default_ids();
+
+		$products = Product::factory()
+			->addCategory($jersey_id)
+			->addFabric($sportsmax_id)
+			->has(ProductVariant::factory()->count(2), 'product_variants')
+			->count(5)
+			->create();
+
+		Livewire::test(ProductsIndex::class)
+			->set("selectAll", true)
+			->call("openDeleteModal", $products->pluck("id")->toArray())
+			->assertStatus(200);
+	}
+
 	private function create_default_ids() {
 		return [$this->create_jersey_id(), $this->create_sportsmax_id()];
 	}
