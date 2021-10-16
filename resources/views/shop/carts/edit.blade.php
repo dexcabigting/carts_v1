@@ -43,6 +43,12 @@
 
             <div class="">
                 <select wire:model="cartItems.{{ $index }}.size" class="border-gray-300 rounded-lg w-full">
+                    @if($cartItems[$index]['size'] == '')
+                    <option value="">
+                        ---
+                    </option>
+                    @endif
+                    
                     @foreach($cartVariant->product_stock->sizes->toArray() as $column => $value)
                         @if($value > 0)
                         <option value="{{ $column }}">

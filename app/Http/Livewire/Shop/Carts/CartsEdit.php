@@ -21,6 +21,18 @@ class CartsEdit extends Component
     public $cartVariant;
     public $totalAmount;
 
+    protected $rules = [
+        'cartItems.*.size' => 'required|string',
+        'cartItems.*.surname' => 'required|string',
+        'cartItems.*.jersey_number' => 'required|numeric|min:1|max:99',
+    ];
+
+    protected $validationAttributes = [
+        'cartItems.*.size' => 'Jersey Size',
+        'cartItems.*.surname' => 'Jersey Surname',
+        'cartItems.*.jersey_number' => 'Jersey Number',
+    ];
+
     public function mount(Cart $id)
     {
         $this->cartId = $id;
@@ -42,7 +54,8 @@ class CartsEdit extends Component
 
     public function update()
     {
-        dd($this->deleteExisting);
+        // TO DO: set $this->cartItems limit with a maximum value of 15
+        $this->validate();
 
         // Update existing cart items
         $origCartItems = collect($this->cartItems)
@@ -76,14 +89,6 @@ class CartsEdit extends Component
 
     public function createItems($newCartItems)
     {
-        $count = count($newCartItems);
-
-        $this->cartId->increment('quantity', $count);
-
-        $this->cartId->update([
-            'subtotal' => $this->totalAmount + ($this->productPrice * $count),
-        ]);
-
         $this->cartId->cart_items()->createMany($newCartItems);
 
     }
@@ -103,12 +108,7 @@ class CartsEdit extends Component
 
     public function deleteItems($deleteExistingItems)
     {
-        $count = count($deleteExistingItems);
-        
         CartItem::destroy($deleteExistingItems);
-
-        $this->cartId->decrement('quantity', $count);
-        
     }
 
     public function addMore()
