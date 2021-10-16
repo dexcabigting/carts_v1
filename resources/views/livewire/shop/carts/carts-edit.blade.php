@@ -1,4 +1,4 @@
-<div id="cart-modal" class="z-20 flex flex-wrap flex-row justify-items-center align-items-center fixed top-0 left-0 w-full h-full">
+<div id="cart-modal" class="z-20 flex flex-wrap flex-row justify-items-center align-items-center absolute top-0 left-0 w-full h-full">
     <div class="py-12 fixed top-0 left-0 w-full h-full bg-gray-500 opacity-75">
 
     </div>

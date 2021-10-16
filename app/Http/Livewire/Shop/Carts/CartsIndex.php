@@ -14,6 +14,7 @@ class CartsIndex extends Component
     public $cartModal = false;
 
     protected $listeners = [
+        'refreshParent' => '$refresh',
         'closeEditCartModal',
     ];
 

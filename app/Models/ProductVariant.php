@@ -28,6 +28,6 @@ class ProductVariant extends Model
 
     public function carts()
     {
-        return $this->hasMany(Cart::item);
+        return $this->hasMany(Cart::class);
     }
 }
