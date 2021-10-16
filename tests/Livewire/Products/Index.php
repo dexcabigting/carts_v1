@@ -97,6 +97,21 @@ class Index extends TestCase
 			->assertStatus(200);
 	}
 
+	public function test_open_delete_modal_to_delete_one_item()
+	{
+		[$jersey_id, $sportsmax_id] = $this->create_default_ids();
+
+		$product = Product::factory()
+			->addCategory($jersey_id)
+			->addFabric($sportsmax_id)
+			->has(ProductVariant::factory()->count(2), 'product_variants')
+			->create();
+
+		Livewire::test(ProductsIndex::class)
+			->call("openDeleteModal", $product->id)
+			->assertStatus(200);
+	}
+
 	private function create_default_ids() {
 		return [$this->create_jersey_id(), $this->create_sportsmax_id()];
 	}
