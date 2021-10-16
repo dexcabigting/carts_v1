@@ -12,7 +12,8 @@ class UsersIndex extends Component
     use WithPagination;
 
     public $checkedUsers;
-   public $selectAll = 0;
+    public $userId;
+    public $selectAll = 0;
     public $search;
     public $sortBy = 'Name';
     public $orderBy = 'asc';
@@ -28,7 +29,8 @@ class UsersIndex extends Component
     public function mount()
     {
         $this->checkedUsers = [];
-   }
+        $this->userId = [];
+    }
 
     public function render()
     {
@@ -98,8 +100,10 @@ class UsersIndex extends Component
         $this->resetPage();
     }
 
-    public function openDeleteModal()
+    public function openDeleteModal($id)
     {
+        $this->userId = $id;
+
         $this->deleteModal = true;
     }
 

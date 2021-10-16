@@ -84,23 +84,6 @@ class Index extends TestCase
 			->assertSet("checkedKeys", []);
 	}
 
-	public function test_open_delete_modal()
-	{
-		(new RoleSeeder())->run();
-
-		$users = User::factory()->asCustomer()->count(10)->create();
-		$checkedUsers = $users
-			->pluck("id")
-			->map(fn ($item) => (string) $item)
-			->flip()
-			->map(fn ($item) => true);
-
-		Livewire::test(UsersIndex::class)
-			->set("selectAll", true)
-			->call("openDeleteModal")
-			->assertStatus(200);
-	}
-
 	public function test_users_property()
 	{
 		(new RoleSeeder())->run();
