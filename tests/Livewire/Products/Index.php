@@ -58,6 +58,28 @@ class Index extends TestCase
 			->assertSet("checkedKeys", $checkedProducts->filter()->keys()->toArray());
 	}
 
+	public function test_filtered_products()
+	{
+		[$jersey_id, $sportsmax_id] = $this->create_default_ids();
+		$tshirt_id = Category::where("ctgr_name", "T-Shirt")->first()->id;
+
+		$jersey_products = Product::factory()
+			->addCategory($jersey_id)
+			->addFabric($sportsmax_id)
+			->has(ProductVariant::factory()->count(2), 'product_variants')
+			->create();
+		$tshirt_products = Product::factory()
+			->addCategory($tshirt_id)
+			->addFabric($sportsmax_id)
+			->has(ProductVariant::factory()->count(3), 'product_variants')
+			->count(3)
+			->create();
+
+		Livewire::test(ProductsIndex::class, [ "category" => "$tshirt_id" ])
+			->assertDontSee($jersey_products->prd_name)
+			->assertSeeInOrder($tshirt_products->pluck("prd_name")->sort()->toArray());
+	}
+
 	private function create_default_ids() {
 		return [$this->create_jersey_id(), $this->create_sportsmax_id()];
 	}

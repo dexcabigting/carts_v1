@@ -10,7 +10,7 @@ use Livewire\WithPagination;
 class ProductsIndex extends Component
 {
     use WithPagination;
-    
+
     public $checkedProducts;
     public $checkedKeys;
     public $category;
@@ -56,7 +56,7 @@ class ProductsIndex extends Component
     {
         $search = '%' . $this->search . '%';
 
-        $sortColumn = $this->sortColumn; 
+        $sortColumn = $this->sortColumn;
 
         $sortDirection = $this->sortDirection;
 
@@ -88,11 +88,11 @@ class ProductsIndex extends Component
                 ->map(fn ($item) => (string) $item)
                 ->flip()
                 ->map(fn ($item) => true)
-                ->toArray(); 
+                ->toArray();
         } else {
             $this->checkedProducts = [];
         }
-        
+
         $this->checkedKeys = array_keys($this->checkedProducts);
     }
 
@@ -100,7 +100,7 @@ class ProductsIndex extends Component
     {
         $this->selectAll = false;
 
-        $this->checkedProducts = array_filter($this->checkedProducts); 
+        $this->checkedProducts = array_filter($this->checkedProducts);
 
         $this->checkedKeys = array_keys($this->checkedProducts);
     }
@@ -166,7 +166,7 @@ class ProductsIndex extends Component
     public function unsetCheckedProducts($ids)
     {
         if (is_array($this->checkedProducts)) {
-            foreach ($ids as $id) { 
+            foreach ($ids as $id) {
                 unset($this->checkedProducts["$id"]);
             }
         }
