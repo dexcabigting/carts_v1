@@ -23,7 +23,7 @@ class UsersIndex extends Component
         'refreshParent' => '$refresh',
         'closeDeleteModal',
         'cleanse',
-        'unsetCheckedProducts',
+        'unsetCheckedUsers',
     ];
 
     public function mount()
