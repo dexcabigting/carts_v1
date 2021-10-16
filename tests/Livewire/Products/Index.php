@@ -112,6 +112,24 @@ class Index extends TestCase
 			->assertStatus(200);
 	}
 
+	public function test_cleanse()
+	{
+		[$jersey_id, $sportsmax_id] = $this->create_default_ids();
+
+		Product::factory()
+			->addCategory($jersey_id)
+			->addFabric($sportsmax_id)
+			->has(ProductVariant::factory()->count(2), 'product_variants')
+			->count(10)
+			->create();
+
+		Livewire::test(ProductsIndex::class)
+			->set("selectAll", true)
+			->call("cleanse")
+			->assertSet("selectAll", false)
+			->assertSet("checkedProducts", []);
+	}
+
 	private function create_default_ids() {
 		return [$this->create_jersey_id(), $this->create_sportsmax_id()];
 	}
