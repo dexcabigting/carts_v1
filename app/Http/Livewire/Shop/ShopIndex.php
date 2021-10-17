@@ -36,7 +36,7 @@ class ShopIndex extends Component
     {
         $products = $this->products->paginate(6);
 
-        return view('livewire.shop.shop-index', compact('products'));
+        return view('livewire.shop.shop-index', compact('products'))->layout('layouts.app-user');
     }
 
     public function getProductsProperty()

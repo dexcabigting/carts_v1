@@ -1,7 +1,7 @@
 <x-success-fail-message />
 <x-validation-errors :errors="$errors" />
 
-<h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
+<h2 class="font-semibold text-l text-gray-100 leading-tight mb-4">
     {{ __('User Credentials') }}
 </h2>
 

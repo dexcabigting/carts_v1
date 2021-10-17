@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app-user.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,22 +22,18 @@
         @livewireStyles
     </head>
     <body class="font-Raleway antialiased bg-custom-black">
-        <div>       
-         
+        <div>
+            @include('layouts.user-navigation')
 
             <!-- Page Heading -->
-            @livewireScripts
+           
 
             <!-- Page Content -->
-            <main class= "bg-custom-black">
-            <div class="flex-shrink flex">
-            @include('layouts.navigation')
+            <main class="bg-custom-black">
                 {{ $slot }}
-              
             </main>
-           
-            </div>
         </div>
-       
+        @livewireScripts
     </body>
+    
 </html>

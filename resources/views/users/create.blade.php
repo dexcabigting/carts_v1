@@ -1,16 +1,17 @@
 <x-success-fail-message />
 <x-validation-errors :errors="$errors" />
 
-<h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
+<div class="flex-col bg-custom-blacki flex justify-center items-center">
+<h2 class="font-semibold text-xl text-gray-100 leading-tight mb-4">
     {{ __('User Credentials') }}
 </h2>
 
-<form method="POST" wire:submit.prevent="store">
+<form class="bg-custom-blacki w-96" method="POST" wire:submit.prevent="store">
     @csrf
 
-    <div>
-        <x-label for="name" :value="__('Name')"/>
-        <x-input wire:model="form.name" id="name" class="block mt-1 w-full" type="text" name="name" value="{{ old('name') }}" autofocus required />
+    <div class="text-gray-900">
+        <x-label  for="name" :value="__('Name')"/>
+        <x-input wire:model="form.name" id="name" class="block mt-1 w-full " type="text" name="name" value="{{ old('name') }}" autofocus required />
     </div>
 
     <div class="mt-4">
@@ -44,3 +45,4 @@
         </x-button>
     </div>
 </form>
+</div>

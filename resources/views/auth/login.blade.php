@@ -1,14 +1,14 @@
 <x-guest-layout class="overflow-x-hidden">
-    <x-auth-card >
+    <x-auth-card>
 
-    <section class="flex flex-row justify-center items-center md:w-full ">
+    <section class="flex flex-row justify-center items-center md:w-full">
 
-        <div class="h-auto my-32 border-24 w-full shadow-xl mx-24 md:mx-32 bg-no-repeat bg-contain justify-center bottom-0">
-              <img  class="md:inline-flex hidden absolute ml-96 bottom-0 left-0"src="img/GROI.png" alt="">
-            <div class="flex md:relative justify-start items-center py-24">
-                <div class="flex justify-center items-center flex-col">
+        <div class="h-auto my-12 border-24 w-full shadow-xl mx-24 md:mx-32 bg-no-repeat bg-contain justify-center">
+              <img class="2xl:inline-flex hidden float-right w-2/5"src="img/GROI.png" alt="">
+            <div class="flex justify-start items-center py-12">
+                <div class="flex justify-center items-center flex-col md:ml-32">
                   
-                    <img class="md:ml-64 w-48 h-48 mb-12" src="img/Group 20.svg" alt=""/>
+                    <img class="2xl:ml-64 w-40 h-40 md:w-48 md:h-48 mb-12" src="img/Group 20.svg" alt=""/>
 
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />

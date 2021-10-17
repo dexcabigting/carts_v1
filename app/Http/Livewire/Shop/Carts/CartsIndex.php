@@ -34,7 +34,7 @@ class CartsIndex extends Component
     {
         $userCarts = $this->user_carts->paginate(6);
 
-        return view('livewire.shop.carts.carts-index', compact('userCarts'));
+        return view('livewire.shop.carts.carts-index', compact('userCarts'))->layout('layouts.app-user');
     }
 
     public function getUserCartsProperty()

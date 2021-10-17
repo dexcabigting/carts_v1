@@ -1,8 +1,8 @@
 <div>
     <div class="pt-12 pb-6">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-6xl mx-auto">
             <div class=" shadow-2xl overflow-hidden sm:rounded-lg">
-                <div class="flex flex-row items-center gap-5 p-5 bg-custom-blacki  overflow-x-auto">
+                <div class="flex flex-row items-center md:justify-start justify-center gap-5 p-6 bg-custom-blacki overflow-x-auto">
                     <!-- Category and Fabric filter -->
                     <div class="">
                         <div class="text-base font-medium text-gray-100 py-4">
@@ -30,29 +30,28 @@
                         </div>
                     </div>
 
-                    <div class="text-white font-semibold text-xl ml-12">
+                    <div class="text-white font-semibold text-xl md:ml-12">
                         Browse our products!
                     </div>
 
                     <!-- Search Bar -->
-                    <div class="ml-8 col-span-2 lg:col-span-2 grid items-center align-center relative lg:w-96">
+                    <div class="md:ml-8 col-span-2 lg:col-span-2 grid items-center align-center relative lg:w-96">
                         <x-input class="h-9 pr-10" type="search" wire:model="search" autofocus />
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-indigo-300 absolute right-0" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                         </svg>
                     </div>
-
                 </div>
+
             </div>
         </div>
     </div>
 
     <div class="pb-6">
-        <div class="grid grid-cols-3 gap-5 max-w-5xl mx-auto">
-
+        <div class="grid grid-cols-3 gap-6 max-w-6xl mx-auto">
             @forelse ($products as $product)
             <!-- Loop Content -->
-            <div class="flex flex-col border-4 border-gray-500 bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg gap-5 p-5 relative">
+            <div class="flex flex-col gap-5 p-5 border-4 border-gray-500 bg-custom-blacki h-auto overflow-hidden shadow-sm sm:rounded-lg relative">
                 <div class="p-5 bg-white m-auto rounded-lg relative">
                     <img class="bg-black py-2 px-2 h-10 w-10 absolute top-0 right-0 rounded-tr-md" src="img/Group 12.svg">
                     <div class="flex-none m-auto p-10 bg-white shadow-2xl">
@@ -98,16 +97,14 @@
                     </div>
 
                 </div>
-
             </div>
             @empty
-            <div>
-                <span class="font-semibold text-xl text-gray-100  leading-tight">
-                    {{ __('There are no matches!') }}
-                </span>
+            <div class="flex justify-center items-center w-full ">
+                <div class="text-gray-400 font-bold text-2xl md:text-4xl text-center">
+                    <h1>There are no results</h1>
+                </div>
             </div>
             @endforelse
-
         </div>
     </div>
 

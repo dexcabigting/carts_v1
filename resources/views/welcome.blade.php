@@ -24,7 +24,7 @@
         </style>
     </head>
     <body class="bg-custom-black">
-    <section class="bg-gradient-to-r from-custom-black via-custom-blacki to-custom-black h-screen">
+    <section class="bg-gradient-to-r from-custom-black via-custom-blacki to-custom-black pb-28 md:h-screen">
     <header class="py-8 text-white font-light text-base flex justify-center items-center w-full">
       <h1 class="py-4 px-10"><a href="index.html">HOME</a></h1>
       <h1 class="py-4 px-10">ABOUT</h1>
@@ -43,32 +43,34 @@
     </header>
     <div class="relative flex justify-center items-center">
       <button
-        class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 absolute bottom-24 bg-custom-violet">SHOP
+        class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 absolute md:bottom-24 -bottom-16 bg-custom-violet">SHOP
         NOW</button>
-      <img class="w-1/2 h-auto -mr-10" src="../img/Group 18.png" alt="">
+        <div class="contents">
+      <img class=" w-2/3 sm:w-1/2 h-auto -mr-10" src="../img/Group 18.png" alt="">
+      </div>
     </div>
   </section>
        
         
 
             <div class="relative flex justify-center items-center py-24">
-    <h1 class="absolute text-2xl top-48 text-gray-100 text-center w-1/2">EJ EZON SPORTSWEAR IS A CLOTHING LINE MAINLY
+    <h1 class="absolute md:text-2xl top-36 md:top-48 text-gray-100 text-center w-1/2">EJ EZON SPORTSWEAR IS A CLOTHING LINE MAINLY
       FOCUS ON
       CREATING <span class="underline">QUALITY</span> BASKETBALL JERSEY. </h1>
-    <h1 class="text-9xl text-custom-text font-extrabold  top-2">ABOUT</h1>
+    <h1 class="text-7xl md:text-9xl text-custom-text font-extrabold  top-2">ABOUT</h1>
         </div>
   <div class="flex-row flex justify-center items-center">
-    <img class="w-1/3 ml-64" src="img/Group 5.svg" alt="">
+    <img class="hidden sm:block md:w-1/3 md:ml-64" src="img/Group 5.svg" alt="">
     <div class="flex justify-center items-center">
-      <div class="flex flex-col mx-32">
+      <div class="flex flex-col mx-12 md:mx-32">
         <img class="w-10 h-10" src="img/Rectangle 6.svg" alt="">
-        <h1 class="text-gray-100 text-4xl font-semibold my-2">What's inside?</h1>
-        <p class="text-gray-100 text-2xl w-2/3 my-4">The best of the best quality precision crafted
+        <h1 class="text-gray-100 text-2xl md:text-4xl font-semibold my-2">What's inside?</h1>
+        <p class="text-gray-100 md:text-2xl md:w-2/3 my-4">The best of the best quality precision crafted
           by the experts for professional basketball players.</p>
-        <div class="flex flex-col mx-8">
+        <div class="flex flex-col md:mx-8">
 
           <div class="flex-row flex my-6">
-            <img class="w-24 h-24" src="img/mico.svg" alt="">
+            <img class="w-14 h-14 md:w-24 md:h-24" src="img/mico.svg" alt="">
             <div class="flex flex-col my-1 mx-7">
               <h1 class="font-semibold text-2xl text-gray-100">Microfiber</h1>
               <p class="w-full text-md text-gray-100">as the name suggests, is a material
@@ -78,7 +80,7 @@
           </div>
 
           <div class="flex-row flex my-6">
-            <img class="w-24 h-24" src="img/poly.svg" alt="">
+            <img class="w-14 h-14 md:w-24 md:h-24" src="img/poly.svg" alt="">
             <div class="flex flex-col my-1 mx-7">
               <h1 class="font-semibold text-2xl text-gray-100">Polyester</h1>
               <p class="w-full text-md text-gray-100">A cloth made out of plastic fibers making it light-weight,
@@ -87,10 +89,10 @@
           </div>
 
           <div class="flex-row flex my-6">
-            <img class="w-24 h-24" src="img/x.svg" alt="">
+            <img class="w-14 h-14 md:w-24 md:h-24" src="img/x.svg" alt="">
             <div class="flex flex-col my-1 mx-7">
               <h1 class="font-semibold text-2xl text-gray-100">X- Static</h1>
-              <p class="w-full text-xl text-gray-100">Silver is a metal with anti-bacterial properties that prevents
+              <p class="w-full text-md text-gray-100">Silver is a metal with anti-bacterial properties that prevents
                 the accumulation of bacteria and fungus. X-Static sportswear is,
                 therefore, clean and free of odor even after excessive use.</p>
             </div>
@@ -105,29 +107,29 @@
 
     </div>
   </div>
-  <section class="relative flex justify-center items-center py-24">
-    <div class="absolute top-44 left-64">
-      <p class="text-2xl text-gray-100 text-left font-semibold">CUSTOMIZE YOUR JERSEY, WEAR IT AND</p>
-      <h1 class="text-9xl text-gray-100 font-extrabold">BE A WINNER</h1>
+  <section class=" md:mx-0 relative flex justify-center items-center py-24">
+    <div class="absolute top-44 md:left-64">
+      <p class="md:text-2xl text-gray-100 md:text-left text-center font-semibold">CUSTOMIZE YOUR JERSEY, WEAR IT AND</p>
+      <h1 class="text-7xl md:text-9xl text-gray-100 font-extrabold">BE A WINNER</h1>
     </div>
 
-    <h1 class="text-9xl text-custom-text font-extrabold  top-2">CUSTOMIZE</h1>
+    <h1 class="text-7xl md:text-9xl text-custom-text font-extrabold  top-2">CUSTOMIZE</h1>
   </section>
   <div class="flex flex-col justify-center items-center">
     <img class="w-1/2" src="img/Group 15.png" alt="">
     <button
-      class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white my-12 px-10 py-6 uppercase bg-custom-violet">CUSTOMIZE
+      class="hover:bg-purple-900 hover:text-purple-100 text-2xl md:text-4xl font-semibold text-white my-12 px-10 py-6 uppercase bg-custom-violet">CUSTOMIZE
       YOURS NOW</button>
   </div>
   <section class="relative flex justify-center items-center my-24">
-    <h1 class="text-9xl text-custom-text font-extrabold  top-2">SHOP NOW</h1>
+    <h1 class="text-7xl md:text-9xl text-custom-text font-extrabold  top-2">SHOP NOW</h1>
     <img class="w-1/2 absolute top-12" src="img/Group 19.png" alt="">
   </section>
-  <div class="relative h-screen">
-    <div class="absolute right-3 top-64">
+  <div class="relative md:h-screen">
+    <div class="absolute left-16 md:right-3 top-32 md:top-64">
       <div class="flex flex-col justify-center items-center">
         <p class="text-2xl text-gray-100 text-left font-semibold">CHOOSE WHAT YOU WEAR</p>
-        <h1 class="text-9xl text-gray-100 font-extrabold">VISIT OUR SHOP</h1>
+        <h1 class="text-5xl md:text-9xl text-gray-100 font-extrabold">VISIT OUR SHOP</h1>
 
         <button
           class="my-12 hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 uppercase bg-custom-violet">SHOP
@@ -137,7 +139,7 @@
 
   </div>
     </body>
-    <footer class="relatve w-full h bg-no-repeat bg-contain flex justify-center items-center"
+    <footer class="relatve w-full pt-96 md:pt-0 md:bg-no-repeat md:bg-contain flex justify-center items-center"
   style="background-image: url('img/Rectangle 11.png');">
   <div class="flex flex-row">
     <div class="flex flex-col mr-32">

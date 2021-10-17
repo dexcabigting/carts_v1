@@ -1,8 +1,8 @@
 <x-guest-layout>
     <x-auth-card>
-        
-        <section class="md:w-full flex justify-center items-center my-24 flex-col">
-        <h1 class="font-semibold text-2xl md:text-8xl text-custom-blacki my-4">REGISTER</h1>
+        <div class="px-12">
+        <section class="w-full flex justify-center items-center my-24 flex-col">
+        <h1 class="font-semibold  text-7xl md:text-9xl text-custom-blacki my-4">REGISTER</h1>
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
@@ -49,9 +49,9 @@
                                 name="password_confirmation" required />
             </div>
 
-            <div class="flex items-center flex-col justify-center mt-4">
+            <div class="flex items-center flex-col justify-center ">
                 <div>
-                <x-button class="uppercase hover:bg-purple-900 hover:text-purple-100 text-3xl font-semibold text-white px-44 py-6 my-6 w-full bg-custom-violet">
+                <x-button class="md:mt-4 mt-12 uppercase hover:bg-purple-900 hover:text-purple-100 text-3xl font-semibold text-white px-32 md:px-44 py-6 my-6 w-full bg-custom-violet">
                     {{ __('Register') }}
                 </x-button>
                 </div>
@@ -64,5 +64,6 @@
             </div>
         </form>
         </section>
+        </div>
     </x-auth-card>
 </x-guest-layout>
