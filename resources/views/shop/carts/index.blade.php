@@ -57,6 +57,7 @@
                             </thead>
 
                             <tbody class="bg-white divide-y divide-gray-200">
+                                @php($totalAmount = 0)
                                 @forelse($userCarts as $index => $userCart)
                                 <tr>
                                     <td class="md:px-6 py-4" wire:key="userCart-{{ $userCart->index }}">
