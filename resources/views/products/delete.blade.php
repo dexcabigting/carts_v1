@@ -2,7 +2,7 @@
     <x-success-fail-message />
 
     @if($promptDelete)   
-        <h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
+        <h2 class="font-semibold text-l text-gray-100 leading-tight mb-4">
             @if (count($products) == 1)
                 {{ __('Are you sure you want to delete this product?') }}
             @else

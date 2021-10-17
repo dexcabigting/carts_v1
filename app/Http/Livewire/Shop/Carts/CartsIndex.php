@@ -28,7 +28,7 @@ class CartsIndex extends Component
 
         $totalAmount = $this->total_amount;
 
-        return view('livewire.shop.carts.carts-index', compact('userCarts', 'totalAmount'));
+        return view('livewire.shop.carts.carts-index', compact('userCarts', 'totalAmount'))->layout('layouts.app-user');
     }
 
     public function getUserCartsProperty()

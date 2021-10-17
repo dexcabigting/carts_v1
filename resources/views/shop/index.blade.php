@@ -3,7 +3,7 @@
         <div class="pt-12 pb-6">
             <div class="max-w-6xl mx-auto">
                 <div class=" shadow-2xl overflow-hidden sm:rounded-lg">
-                    <div class="flex flex-row items-center gap-5 p-6 bg-custom-blacki  overflow-x-auto"> 
+                    <div class="flex flex-row items-center gap-5 p-6 bg-custom-blacki overflow-x-auto"> 
                         <div class="text-white font-semibold text-xl ml-12">
                             Browse our products!
                         </div>
@@ -79,8 +79,8 @@
                         </div>
                     </div>
                     @empty
-                    <div>
-                        There are no results
+                    <div class="text-gray-400 font-bold text-4xl">
+                        <h1>There are no results</h1>
                     </div>  
                     @endforelse
                     

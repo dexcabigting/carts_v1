@@ -1,12 +1,12 @@
-<x-app-layout>
+<x-app-user-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight h-full">
             {{ __('My Profile') }}
         </h2>
     </x-slot>
 
-    <div class="py-12 h-screen">
-        <div class="max-w-lg mx-auto sm:px-6">   
+    <div class="py-12 h-screen w-full flex justify-center items-center">
+        <div class="max-w-4xl mx-auto sm:px-6 w-full mt-32 2xl:mt-24">   
             <div class="bg-black overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-custom-blacki border-gray-500 divide-y divide-gray-300">
 
@@ -91,4 +91,4 @@
             </div>
         </div>  
     </div>
-</x-app-layout>
+</x-app-user-layout>

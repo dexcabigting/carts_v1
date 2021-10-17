@@ -1,11 +1,12 @@
-<div class = "h-screen lg:ml-64 lg:mt-24">
+<div class ="h-screen xl:ml-64 lg:mt-24 mt-12">
     <div class="pt-12 pb-5 ">
-        <div class="max-w-6xl mx-auto">
+        <div class="md:max-w-6xl md:mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex flex-row gap-5 p-6 bg-custom-blacki overflow-x-auto">
+                <div class="flex flex-row md:gap-5 md:p-6 p-3 bg-custom-blacki overflow-x-auto">
+                    <div class="flex flex-col md:flex-row mx-12 md:m-0">
                     <div>
                         <a href="{{ route('users.create') }}">
-                            <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
+                            <x-button class="mx-2 hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
                                 {{ __('Create User') }}
                             </x-button>
                         </a>
@@ -14,16 +15,16 @@
                     <div class="">
                         <button wire:click.prevent="openDeleteModal(@json($checkedKeys))"         
                             type="button" {{ (!$checkedUsers) ?  'disabled' : null }}
-                            class="hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedUsers) cursor-not-allowed @endif">
+                            class="mx-2 hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedUsers) cursor-not-allowed @endif">
                             {{ __('Bulk Delete') }} 
                             @if ($checkedUsers)
                                 ({{ count($checkedUsers) }})
                             @endif
                         </button>
                     </div>  
-
+                    </div>
                     <!-- Search Bar -->
-                    <div class="col-span-2 lg:col-span-2 grid items-center align-center relative lg:w-64">
+                    <div class="hidden col-span-2 lg:col-span-2 md:grid items-center align-center relative lg:w-64">
                         <x-input class="h-9 pr-10" type="search" wire:model="search" autofocus />
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-indigo-300 absolute right-0" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
@@ -31,8 +32,8 @@
                     </div>
 
                    <!-- Order By -->
-                    <div>
-                        <div class="text-xl font-medium text-gray-100 py-4 ">
+                    <div class="">
+                        <div class="text-xl font-medium text-gray-100 py-4">
                             <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-2xl" />
                             <select wire:model="sortBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                 <option value="name">

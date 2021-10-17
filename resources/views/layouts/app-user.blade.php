@@ -21,7 +21,7 @@
         
         @livewireStyles
     </head>
-    <body class="font-Raleway antialiased">
+    <body class="font-Raleway antialiased bg-custom-black">
         <div>
             @include('layouts.user-navigation')
 
