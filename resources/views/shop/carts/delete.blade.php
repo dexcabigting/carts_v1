@@ -26,7 +26,7 @@
     @elseif($promptDeleted)
     <div class="flex mt-4">
         <div>
-            <x-button type="button" wire:click.prevent="closeDeleteModal()">
+            <x-button type="button" wire:click.prevent="closeDeleteCartModal()">
                 {{ __('Close') }}
             </x-button>
         </div>

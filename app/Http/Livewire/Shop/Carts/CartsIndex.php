@@ -57,6 +57,11 @@ class CartsIndex extends Component
         }
     }
 
+    public function getCheckedKeysProperty()
+    {
+        return array_keys($this->checkedCarts);
+    }
+
     public function updatedCheckedCarts()
     {
         $this->selectAll = false;
