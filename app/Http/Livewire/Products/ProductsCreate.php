@@ -21,7 +21,9 @@ class ProductsCreate extends Component
         'prd_category' => '',
         'prd_fabric' => '',
         'prd_description' => '',
-        'prd_price' => '',
+        'prd_whole_body_price' => '',
+        'prd_upper_body_price' => '',
+        'prd_lower_body_price' => '',
     ];
     public $addVariants;
     public $categories = [];
@@ -34,7 +36,9 @@ class ProductsCreate extends Component
             'form.prd_category' => 'required|string|max:100|exists:categories,id',
             'form.prd_fabric' => 'required|string|max:100|exists:fabrics,id',
             'form.prd_description' => 'required|string|max:100',
-            'form.prd_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
+            'form.prd_whole_body_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
+            'form.prd_upper_body_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
+            'form.prd_lower_body_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
             'addVariants.*.prd_var_name' => 'required|string|max:100',
             'addVariants.*.front_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'addVariants.*.back_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -51,7 +55,9 @@ class ProductsCreate extends Component
     protected $validationAttributes = [
         'form.prd_name' => 'product name',
         'form.prd_description' => 'product description',
-        'form.prd_price' => 'product price',
+        'form.prd_whole_body_price' => 'whole body price',
+        'form.prd_upper_body_price' => 'upper body price',
+        'form.prd_lower_body_price' => 'lower body price',
         'form.prd_category' => 'product category',
         'form.prd_fabric' => 'product fabric',
         'addVariants.*.prd_var_name' => 'variant name',
@@ -139,7 +145,10 @@ class ProductsCreate extends Component
             'category_id' => $this->form['prd_category'],
             'fabric_id' => $this->form['prd_fabric'],
             'prd_description' => $this->form['prd_description'],
-            'prd_price' => $this->form['prd_price'],
+            'prd_whole_body_price' => $this->form['prd_whole_body_price'],
+            'prd_upper_body_price' => $this->form['prd_upper_body_price'],
+            'prd_lower_body_price' => $this->form['prd_lower_body_price'],
+            
             // 'prd_image' => $prdImagePath,
         ]);
 
@@ -160,7 +169,9 @@ class ProductsCreate extends Component
     {
         $this->form['prd_name'] = '';
         $this->form['prd_description'] = '';
-        $this->form['prd_price'] = '';
+        $this->form['prd_whole_body_price'] = '';
+        $this->form['prd_upper_body_price'] = '';
+        $this->form['prd_lower_body_price'] = '';
         $this->form['prd_category'] = '';
         $this->form['prd_fabric'] = '';
 

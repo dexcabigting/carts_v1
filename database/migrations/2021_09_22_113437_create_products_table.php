@@ -17,7 +17,9 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('prd_name')->unique();
             $table->string('prd_description');
-            $table->float('prd_price');
+            $table->float('prd_whole_body_price');
+            $table->float('prd_upper_body_price');
+            $table->float('prd_lower_body_price');
             $table->timestamps();
         });
     }
