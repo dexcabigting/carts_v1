@@ -1,9 +1,9 @@
 <div class="py-5 w-auto overflow-y-auto">
     <div class="px-5">
-        <x-success-fail-message />
+        <x-success-fail-message/>
         <x-validation-errors :errors="$errors" />
     </div>
-
+    
     <form wire:submit.prevent="store" enctype="multipart/form-data">
         @csrf
 
@@ -16,11 +16,11 @@
                                 {{ __('Product Info') }}
                             </h2>
                         </div>
-                    </div>
+                    </div>       
 
                     <div>
-                        <x-label :value="__('Name')" />
-                        <x-input wire:model.lazy="form.prd_name" class="block mt-1 w-full text-black" type="text" value="{{ old('prd_name') }}" autofocus required />
+                        <x-label :value="__('Name')"/>
+                        <x-input  wire:model.lazy="form.prd_name" class="block mt-1 w-full text-black" type="text" value="{{ old('prd_name') }}" autofocus required />
                     </div>
 
                     <div class="mt-4">
@@ -28,11 +28,11 @@
                         <select wire:model="form.prd_category" class="border-gray-300 mt-1 text-black rounded-lg w-full">
                             <option value="" selected>
                                 Category
-                            </option>
+                            </option>  
                             @foreach($categories as $category)
-                            <option value="{{ $category->id }}">
+                                <option value="{{ $category->id }}">
                                 {{ $category->ctgr_name }}
-                            </option>
+                                </option>  
                             @endforeach
                         </select>
                     </div>
@@ -42,11 +42,11 @@
                         <select wire:model="form.prd_fabric" class="border-gray-300 mt-1 text-black rounded-lg w-full">
                             <option value="" selected>
                                 Fabric
-                            </option>
+                            </option>    
                             @foreach($fabrics as $fabric)
-                            <option value="{{ $fabric->id }}">
-                                {{ $fabric->fab_name }}
-                            </option>
+                                <option value="{{ $fabric->id }}">
+                                    {{ $fabric->fab_name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -57,21 +57,11 @@
                     </div>
 
                     <div class="mt-4">
-                        <x-label for="prd_whole_body_price" :value="__('Whole Set Price')" />
-                        <x-input id="prd_whole_body_price" wire:model.lazy="form.prd_whole_body_price" type="text" class="block mt-1 w-full text-black" />
-                    </div>
-
-                    <div class="mt-4">
-                        <x-label for="prd_upper_body_price" :value="__('Upper Garment Price')" />
-                        <x-input id="prd_upper_body_price" wire:model.lazy="form.prd_upper_body_price" type="text" class="block mt-1 w-full text-black" />
-                    </div>
-
-                    <div class="mt-4">
-                        <x-label for="prd_lower_body_price" :value="__('Lower Garment Price')" />
-                        <x-input id="prd_lower_body_price" wire:model.lazy="form.prd_lower_body_price" type="text" class="block mt-1 w-full text-black" />
+                        <x-label for="prd_price" :value="__('Price')" />
+                        <x-input  id="prd_price" wire:model.lazy="form.prd_price" type="text" class="block mt-1 w-full text-black"/>
                     </div>
                 </div>
-
+                
                 <div class="pl-5">
                     <div class="">
                         <div class="flex justify-around">
@@ -83,101 +73,101 @@
                         </div>
 
                         @foreach($addVariants as $index => $addVariant)
-                        <div class="flex gap-5 pb-3">
-                            <div>
-                                <x-label :value="__('Variant')" />
-                                <x-input wire:model.lazy="addVariants.{{ $index }}.prd_var_name" class="block mt-1 w-full text-black" type="text" autofocus />
+                            <div class="flex gap-5 pb-3">
+                                <div >    
+                                    <x-label :value="__('Variant')"/>
+                                    <x-input wire:model.lazy="addVariants.{{ $index }}.prd_var_name" class="block mt-1 w-full text-black" type="text" autofocus />
+                                </div>
+
+                                <div class="w-2/4">
+                                    <div class="">
+                                        <x-label :value="__('Front View')"/>
+                                        <input type="file" wire:model="addVariants.{{ $index }}.front_view" />
+                                        <div wire:loading wire:target="addVariants.{{ $index }}.front_view">Uploading...</div>
+                                    </div>
+
+                                    <div class="">   
+                                        <x-label :value="__('Back View')"/> 
+                                        <input type="file" wire:model="addVariants.{{ $index }}.back_view" />
+                                        <div wire:loading wire:target="addVariants.{{ $index }}.back_view">Uploading...</div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-row gap-5">
+                                        <div>
+                                            <x-label for="2XS" :value="__('2XS')"/>
+                                            <x-input wire:model.lazy="addVariants.{{ $index }}.2XS" class="block mt-1 w-16 text-black" type="text" value="{{ old('2XS') }}" autofocus />
+                                        </div>
+                                        
+                                        <div>
+                                            <x-label for="XS" :value="__('XS')"/>
+                                            <x-input wire:model.lazy="addVariants.{{ $index }}.XS" class="block mt-1 w-16 text-black" type="text" value="{{ old('XS') }}" autofocus />
+                                        </div>
+
+                                        <div>
+                                            <x-label for="S" :value="__('S')"/>
+                                            <x-input wire:model.lazy="addVariants.{{ $index }}.S" class="block mt-1 w-16 text-black" type="text" value="{{ old('S') }}" autofocus />
+                                        </div>
+
+                                        <div>
+                                            <x-label for="M" :value="__('M')"/>
+                                            <x-input wire:model.lazy="addVariants.{{ $index }}.M" class="block mt-1 w-16 text-black" type="text" value="{{ old('M') }}" autofocus />
+                                        </div>
+                                    
+                                        <div>
+                                            <x-label for="L" :value="__('L')"/>
+                                            <x-input wire:model.lazy="addVariants.{{ $index }}.L" class="block mt-1 w-16 text-black" type="text" value="{{ old('L') }}" autofocus />
+                                        </div>
+
+                                        <div>
+                                            <x-label for="XL" :value="__('XL')"/>
+                                            <x-input wire:model.lazy="addVariants.{{ $index }}.XL" class="block mt-1 w-16 text-black" type="text" value="{{ old('XL') }}" autofocus />
+                                        </div>
+
+                                        <div>
+                                            <x-label for="2XL" :value="__('2XL')"/>
+                                            <x-input wire:model.lazy="addVariants.{{ $index }}.2XL" class="block mt-1 w-16 text-black" type="text" value="{{ old('2XL') }}" autofocus />
+                                        </div>
+                                    
+                                </div>
+
+                                @if(count($addVariants) == 1) 
+                                    <div>
+                                        <x-button type="button" wire:click.prevent="addMore">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </x-button>
+                                    </div>
+                                @else 
+                                    <div>
+                                        <x-button type="button" wire:click.prevent="removeVariant({{ $index }})">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </x-button>
+                                    </div>
+                                @endif
                             </div>
-
-                            <div class="w-2/4">
-                                <div class="">
-                                    <x-label :value="__('Front View')" />
-                                    <input type="file" wire:model="addVariants.{{ $index }}.front_view" />
-                                    <div wire:loading wire:target="addVariants.{{ $index }}.front_view">Uploading...</div>
-                                </div>
-
-                                <div class="">
-                                    <x-label :value="__('Back View')" />
-                                    <input type="file" wire:model="addVariants.{{ $index }}.back_view" />
-                                    <div wire:loading wire:target="addVariants.{{ $index }}.back_view">Uploading...</div>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-row gap-5">
-                                <div>
-                                    <x-label for="2XS" :value="__('2XS')" />
-                                    <x-input wire:model.lazy="addVariants.{{ $index }}.2XS" class="block mt-1 w-16 text-black" type="text" value="{{ old('2XS') }}" autofocus />
-                                </div>
-
-                                <div>
-                                    <x-label for="XS" :value="__('XS')" />
-                                    <x-input wire:model.lazy="addVariants.{{ $index }}.XS" class="block mt-1 w-16 text-black" type="text" value="{{ old('XS') }}" autofocus />
-                                </div>
-
-                                <div>
-                                    <x-label for="S" :value="__('S')" />
-                                    <x-input wire:model.lazy="addVariants.{{ $index }}.S" class="block mt-1 w-16 text-black" type="text" value="{{ old('S') }}" autofocus />
-                                </div>
-
-                                <div>
-                                    <x-label for="M" :value="__('M')" />
-                                    <x-input wire:model.lazy="addVariants.{{ $index }}.M" class="block mt-1 w-16 text-black" type="text" value="{{ old('M') }}" autofocus />
-                                </div>
-
-                                <div>
-                                    <x-label for="L" :value="__('L')" />
-                                    <x-input wire:model.lazy="addVariants.{{ $index }}.L" class="block mt-1 w-16 text-black" type="text" value="{{ old('L') }}" autofocus />
-                                </div>
-
-                                <div>
-                                    <x-label for="XL" :value="__('XL')" />
-                                    <x-input wire:model.lazy="addVariants.{{ $index }}.XL" class="block mt-1 w-16 text-black" type="text" value="{{ old('XL') }}" autofocus />
-                                </div>
-
-                                <div>
-                                    <x-label for="2XL" :value="__('2XL')" />
-                                    <x-input wire:model.lazy="addVariants.{{ $index }}.2XL" class="block mt-1 w-16 text-black" type="text" value="{{ old('2XL') }}" autofocus />
-                                </div>
-
-                            </div>
-
-                            @if(count($addVariants) == 1)
-                            <div>
-                                <x-button type="button" wire:click.prevent="addMore">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </x-button>
-                            </div>
-                            @else
-                            <div>
-                                <x-button type="button" wire:click.prevent="removeVariant({{ $index }})">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </x-button>
-                            </div>
-                            @endif
-                        </div>
                         @endforeach
 
                         @if(count($addVariants) != 1)
-                        <div class="flex justify-center">
-                            <div>
-                                <x-button type="button" wire:click.prevent="addMore">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </x-button>
-                            </div>
-                        </div>
-                        @endif
+                            <div class="flex justify-center">
+                                <div>
+                                    <x-button type="button" wire:click.prevent="addMore">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </x-button>
+                                </div>
+                            </div>  
+                        @endif  
                     </div>
 
                 </div>
             </div>
 
-
+            
         </div>
 
         <div class="flex justify-center px-5 mt-4 gap-5 items-center">
@@ -185,7 +175,7 @@
                 <x-button class="hover:bg-purple-900 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-custom-violet my-3">
                     {{ __('Add Product') }}
                 </x-button>
-            </div>
+            </div>  
             <div>
                 <x-button class="hover:bg-purple-900 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-custom-violet my-3" type="button" wire:click="closeCreateModal()">
                     {{ __('Close') }}

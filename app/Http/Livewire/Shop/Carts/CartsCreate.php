@@ -48,18 +48,30 @@ class CartsCreate extends Component
         $this->productVariants = ProductVariant::where('product_id', $this->product->id)->select('id','prd_var_name')->get();    
 
         $this->selectVariant = $this->productVariants[0]['id'];
+
+        $this->category = $this->product->category->ctgr_name;
         
-        $this->addItems = [
-            [
-                'size' => '',
-                'surname' => '',
-                'jersey_number' => '',
-            ]
-        ];
+        if($this->category == 'Jersey') {
+            $count = 10;
+        } else {
+            $count = 1;
+        }
+
+        $this->addItems = [];
 
         $this->productPrice =  $this->product->prd_price;
 
-        $this->totalAmount  = $this->productPrice;
+        for ($i = 1; $i <= $count; $i++) {
+            $item = [
+                'size' => '',
+                'surname' => '',
+                'jersey_number' => '',
+            ];
+
+            array_push($this->addItems, $item);
+
+            $this->totalAmount  = $this->totalAmount + $this->productPrice;
+        }
     }
 
     public function render()
@@ -111,8 +123,6 @@ class CartsCreate extends Component
             }
         }
 
-        $quantity = count($this->addItems);
-
         $productVariantId = $this->selectVariant;
 
         $cart = Cart::create([
@@ -137,8 +147,8 @@ class CartsCreate extends Component
 
     public function addMore()
     {
-        if(count($this->addItems) === 5) {
-            session()->flash('fail', 'Only 5 variants are allowed!');
+        if(count($this->addItems) === 15) {
+            session()->flash('fail', 'Only 15 items are allowed!');
         } else {
             $this->addItems[] = [
                 'size' => '',
@@ -152,11 +162,15 @@ class CartsCreate extends Component
 
     public function removeItem($index)
     {
-        unset($this->addItems[$index]);
+        if(($this->category == 'Jersey') && (count($this->addItems) === 10)) {
+            session()->flash('fail', 'The jersey quantity should not subceed 10');
+        } else {
+            unset($this->addItems[$index]);
 
-        $this->addItems = array_values($this->addItems);
+            $this->addItems = array_values($this->addItems);
 
-        $this->totalAmount = $this->totalAmount - $this->productPrice;
+            $this->totalAmount = $this->totalAmount - $this->productPrice;
+        }
     }
 
     public function closeCartModal()
