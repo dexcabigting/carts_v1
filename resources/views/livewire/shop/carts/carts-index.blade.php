@@ -5,8 +5,10 @@
         </h2>
     </x-slot>
 
-    @if($cartModal)
-        @livewire('shop.carts.carts-edit', ['id' => $cartId])   
+    @if($cartEditModal)
+        @livewire('shop.carts.carts-edit', ['id' => $cartId])
+    @elseif($cartDeleteModal)
+        @livewire('shop.carts.carts-delete', ['id' => $cartId])
     @endif
 
     @include('shop.carts.index')

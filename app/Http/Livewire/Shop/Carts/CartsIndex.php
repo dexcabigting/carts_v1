@@ -3,31 +3,35 @@
 namespace App\Http\Livewire\Shop\Carts;
 
 use Livewire\Component;
-use App\Models\User;
 use Livewire\WithPagination;
 
 class CartsIndex extends Component
 {
     use WithPagination;
 
+    public $checkedCarts;
     public $cartId;
-    public $cartModal = false;
+    public $cartEditModal = false;
+    public $cartDeleteModal = false;
+    public $selectAll = false;
 
     protected $listeners = [
         'refreshParent' => '$refresh',
         'closeEditCartModal',
+        'closeDeleteCartModal',
+        'cleanse',
+        'unsetCheckedCarts',
     ];
 
     public function mount()
     {
-
+        $this->checkedCarts = [];
+        $this->cartId = [];
     }
 
     public function render()
     {
         $userCarts = $this->user_carts->paginate(6);
-
-        
 
         return view('livewire.shop.carts.carts-index', compact('userCarts'));
     }
@@ -38,20 +42,69 @@ class CartsIndex extends Component
             ->withCount('cart_items');
     }
 
+    public function getCheckedKeysProperty()
+    {
+        return array_keys($this->checkedProducts);
+    }
+
+    public function updatedSelectAll($value)
+    {
+        if ($value) {
+            $this->checkedCarts = Cart::all()
+                ->pluck('id')
+                ->map(fn ($item) => (string) $item)
+                ->flip()
+                ->map(fn ($item) => true)
+                ->toArray();
+        } else {
+            $this->checkedProducts = [];
+        }
+    }
+
+    public function updatedCheckedCarts()
+    {
+        $this->selectAll = false;
+
+        $this->checkedCarts = array_filter($this->checkedCarts);
+    }
+
     public function openEditCartModal($id)
     {
         $this->cartId = $id;
 
-        $this->cartModal = true;
+        $this->cartEditModal = true;
     }
 
     public function openDeleteCartModal($id)
     {
         $this->cartId = $id;
+
+        $this->cartDeleteModal = true;
     }
 
     public function closeEditCartModal()
     {
-        $this->cartModal = false;
+        $this->cartEditModal = false;
+    }
+
+    public function closeDeleteCartModal()
+    {
+        $this->cartDeleteModal = false;
+    }
+
+    public function cleanse()
+    {
+        $this->checkedCarts = [];
+
+        $this->selectAll = false;
+    }
+
+    public function unsetCheckedCarts($ids)
+    {
+        if (is_array($this->checkedCarts)) {
+            foreach ($ids as $id) {
+                unset($this->checkedCarts['$id']);
+            }
+        }
     }
 }
