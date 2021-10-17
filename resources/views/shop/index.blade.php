@@ -58,16 +58,17 @@
                     <div class="flex-none m-auto p-10 bg-white shadow-2xl">
                         <img class="h-40 w-40" src="{{ Storage::url('public/' . $product->product_variants->first()->front_view) }}" />
                     </div>
-                    <div class="text-black text-2xl font-bold absolute bottom-5 left-5">
-                        {{ $product->prd_name }}
-                    </div>
 
-                    <div class="text-black text-2xl font-semibold absolute bottom-5 right-5">
+                    <div class="text-black text-2xl absolute bottom-5 right-5">
                         &#8369;{{ number_format($product->prd_price, 2) }}
                     </div>
                 </div>
 
-                <div class="text-white text-xl">
+                <div class="text-white font-bold text-2xl ">
+                    {{ $product->prd_name }}
+                </div>
+
+                <div class="text-white text-l">
                     {{ $product->fabric->fab_name }} {{ $product->category->ctgr_name }}
                 </div>
 
