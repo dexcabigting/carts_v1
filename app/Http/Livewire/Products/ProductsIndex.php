@@ -15,10 +15,9 @@ class ProductsIndex extends Component
     public $category;
     public $categories = [];
     public $selectAll = false;
-    public $createModal = 0;
-    public $editModal = 0;
-    public $deleteModal = 0;
-    public $imageId;
+    public $createModal = false;
+    public $editModal = false;
+    public $deleteModal = false;
     public $productId;
     public $search;
     public $sortColumn = 'prd_name';
@@ -26,13 +25,11 @@ class ProductsIndex extends Component
 
     protected $listeners = [
         'refreshParent' => '$refresh',
-        'refreshImage',
         'closeCreateModal',
         'closeEditModal',
         'closeDeleteModal',
         'cleanse',
         'unsetCheckedProducts',
-        'arrayDiffCheckedProducts',
     ];
 
     public function mount()
@@ -44,7 +41,6 @@ class ProductsIndex extends Component
 
     public function render()
     {
-        // dd($this->category);
         $products = $this->products->paginate(6);
 
         return view('livewire.products.products-index', compact('products'));
@@ -74,11 +70,6 @@ class ProductsIndex extends Component
             ->whereIn('category_id', $category)
             ->orderBy($sortColumn, $sortDirection);
     }
-
-	 public function getCheckedKeysProperty()
-	 {
-		return array_keys($this->checkedProducts);
-	 }
 
     public function updatedSelectAll($value)
     {
@@ -164,7 +155,7 @@ class ProductsIndex extends Component
     {
         if (is_array($this->checkedProducts)) {
             foreach ($ids as $id) {
-                unset($this->checkedProducts["$id"]);
+                unset($this->checkedProducts['$id']);
             }
         }
     }
