@@ -6,15 +6,12 @@
     </x-slot>
 
     @if($createModal)
-        @livewire('products.products-create')        
+        @livewire('products.products-create')
     @elseif($editModal)
-        @livewire('products.products-edit', ['id' => $productId])  
+        @livewire('products.products-edit', ['id' => $productId])
     @elseif($deleteModal)
-        @livewire('products.products-delete', ['id' => $productId])   
+        @livewire('products.products-delete', ['id' => $this->productId])
     @endif
 
-    @include('products.index', ['products' => $products])      
+    @include('products.index', ['products' => $products])
 </div>
-
-
-

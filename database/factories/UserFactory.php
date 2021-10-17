@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
@@ -79,4 +80,12 @@ class UserFactory extends Factory
                 ];
         });
     }
+
+	 public function asCustomer() {
+		 return $this->state(function ($attributes) {
+			return array_merge($attributes, [
+				"role_id" => Role::where("role", "Customer")->first()->id
+			]);
+		});
+	 }
 }

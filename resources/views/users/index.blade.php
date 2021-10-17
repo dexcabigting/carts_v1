@@ -9,18 +9,18 @@
                                 {{ __('Create User') }}
                             </x-button>
                         </a>
-                    </div>    
+                    </div>
 
                     <div class="">
-                        <button wire:click.prevent="openDeleteModal(@json($checkedKeys))"         
+                        <button wire:click.prevent="openDeleteModal(@json($this->checkedKeys))"
                             type="button" {{ (!$checkedUsers) ?  'disabled' : null }}
                             class="hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedUsers) cursor-not-allowed @endif">
-                            {{ __('Bulk Delete') }} 
+                            {{ __('Bulk Delete') }}
                             @if ($checkedUsers)
                                 ({{ count($checkedUsers) }})
                             @endif
                         </button>
-                    </div>  
+                    </div>
 
                     <!-- Search Bar -->
                     <div class="col-span-2 lg:col-span-2 grid items-center align-center relative lg:w-64">
@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    
+
     <div class="max-w-6xl mx-auto">
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
@@ -70,7 +70,7 @@
                             <tr>
                                 <th scope="col" class="px-6 py-3 float-left">
                                     <div>
-                                        <input type="checkbox" name="" wire:model="selectAll" 
+                                        <input type="checkbox" name="" wire:model="selectAll"
                                         {{ (count($users) == 0) ?  'disabled' : null }}
                                         class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring-indigo-200 focus:ring-opacity-50 @if (count($users) == 0) cursor-not-allowed @endif">
                                     </div>
@@ -98,15 +98,15 @@
 
                         <tbody class="bg-custom-blacki divide-y divide-gray-200">
                             @forelse ($users as $index => $user)
-                            <tr> 
+                            <tr>
                                 <td class="px-6 py-4" wire:key="user-{{ $loop->index }}">
                                     <div>
-                                        <input type="checkbox" wire:model="checkedUsers.{{ $user->id }}" 
+                                        <input type="checkbox" wire:model="checkedUsers.{{ $user->id }}"
                                         class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                     </div>
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap"> 
+                                <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm font-medium text-gray-100">
                                         {{ $users->firstItem() + $index }}
                                     </div>
@@ -127,7 +127,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                
+
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     @if ($user->email_verified_at == !null)
                                     <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -146,7 +146,7 @@
                                     @endif
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap"> 
+                                <td class="px-6 py-4 whitespace-nowrap">
                                     @if ($user->role_id == 2)
                                     <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                                         {{ $user->role->role }}
@@ -166,7 +166,7 @@
                                                     {{ __('Edit') }}
                                                 </span>
                                             </button>
-                                        </a>    
+                                        </a>
                                     </div>
 
                                     <div>
@@ -178,7 +178,7 @@
                                                 {{ __('Delete') }}
                                             </span>
                                         </button>
-                                    </div>                                                                         
+                                    </div>
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -198,7 +198,7 @@
                                 </td>
                             </tr>
                             @endforelse
-                        </tbody>                      
+                        </tbody>
                         </table>
                     </div>
                 </div>
@@ -215,5 +215,3 @@
     </div>
 
 </div>
-
-  

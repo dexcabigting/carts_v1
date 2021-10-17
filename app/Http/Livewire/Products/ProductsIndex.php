@@ -10,9 +10,8 @@ use Livewire\WithPagination;
 class ProductsIndex extends Component
 {
     use WithPagination;
-    
+
     public $checkedProducts;
-    public $checkedKeys;
     public $category;
     public $categories = [];
     public $selectAll = false;
@@ -39,7 +38,6 @@ class ProductsIndex extends Component
     public function mount()
     {
         $this->checkedProducts = [];
-        $this->checkedKeys = [];
         $this->productId = [];
         $this->categories = Category::all();
     }
@@ -56,7 +54,7 @@ class ProductsIndex extends Component
     {
         $search = '%' . $this->search . '%';
 
-        $sortColumn = $this->sortColumn; 
+        $sortColumn = $this->sortColumn;
 
         $sortDirection = $this->sortDirection;
 
@@ -77,6 +75,10 @@ class ProductsIndex extends Component
             ->orderBy($sortColumn, $sortDirection);
     }
 
+	 public function getCheckedKeysProperty()
+	 {
+		return array_keys($this->checkedProducts);
+	 }
 
     public function updatedSelectAll($value)
     {
@@ -88,28 +90,25 @@ class ProductsIndex extends Component
                 ->map(fn ($item) => (string) $item)
                 ->flip()
                 ->map(fn ($item) => true)
-                ->toArray(); 
+                ->toArray();
         } else {
             $this->checkedProducts = [];
         }
-        
-        $this->checkedKeys = array_keys($this->checkedProducts);
+
     }
 
     public function updatedCheckedProducts()
     {
         $this->selectAll = false;
 
-        $this->checkedProducts = array_filter($this->checkedProducts); 
+        $this->checkedProducts = array_filter($this->checkedProducts);
 
-        $this->checkedKeys = array_keys($this->checkedProducts);
     }
 
     public function updatedSearch()
     {
         if(is_array($this->checkedProducts)) {
             $this->checkedProducts = [];
-            $this->checkedKeys = [];
 
             $this->selectAll = false;
         }
@@ -158,15 +157,13 @@ class ProductsIndex extends Component
     {
         $this->checkedProducts = [];
 
-        $this->checkedKeys = array_keys($this->checkedProducts);
-
         $this->selectAll = false;
     }
 
     public function unsetCheckedProducts($ids)
     {
         if (is_array($this->checkedProducts)) {
-            foreach ($ids as $id) { 
+            foreach ($ids as $id) {
                 unset($this->checkedProducts["$id"]);
             }
         }

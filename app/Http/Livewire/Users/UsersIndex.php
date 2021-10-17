@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Users;
 
 use Livewire\Component;
 use App\Models\User;
+use App\Models\Role;
 use Livewire\WithPagination;
 
 class UsersIndex extends Component
@@ -11,25 +12,23 @@ class UsersIndex extends Component
     use WithPagination;
 
     public $checkedUsers;
-    public $checkedKeys;
     public $userId;
     public $selectAll = 0;
     public $search;
     public $sortBy = 'Name';
     public $orderBy = 'asc';
     public $deleteModal = 0;
-    
+
     protected $listeners = [
         'refreshParent' => '$refresh',
         'closeDeleteModal',
         'cleanse',
-        'unsetCheckedProducts',
+        'unsetCheckedUsers',
     ];
 
     public function mount()
     {
         $this->checkedUsers = [];
-        $this->checkedKeys = [];
         $this->userId = [];
     }
 
@@ -49,10 +48,15 @@ class UsersIndex extends Component
         $orderBy = $this->orderBy;
 
         return User::with('role')
-            ->where('role_id', 2)
+            ->where('role_id', Role::where('role', '=', 'Customer')->first()->id)
             ->where('name', 'like', $search)
             ->orderBy($sortBy, $orderBy);
     }
+
+	 public function getCheckedKeysProperty()
+	 {
+		return array_keys($this->checkedUsers);
+	 }
 
     public function updatedSelectAll($value)
     {
@@ -62,25 +66,24 @@ class UsersIndex extends Component
 
         if ($value) {
             $this->checkedUsers = User::with('role')
-                ->where('role_id', 2)
+                ->join('roles', 'roles.id', '=', 'role_id')
+                ->where('roles.role', '=', 'Customer')
                 ->where($sortBy, 'like', $search)
-                ->pluck('id')
+                ->pluck('users.id')
                 ->map(fn ($item) => (string) $item)
                 ->flip()
                 ->map(fn ($item) => true)
                 ->toArray();
-        } else {
-            $this->checkedUsers = [];
-        }
+			} else {
+				$this->checkedUsers = [];
+			}
     }
 
     public function updatedCheckedUsers()
     {
         $this->selectAll = false;
 
-        $this->checkedUsers = array_filter($this->checkedUsers); 
-
-        $this->checkedKeys = array_keys($this->checkedUsers);
+        $this->checkedUsers = array_filter($this->checkedUsers);
     }
 
     public function updatedSearch()
@@ -113,7 +116,6 @@ class UsersIndex extends Component
     {
         $this->checkedUsers = [];
 
-        $this->checkedKeys = array_keys($this->checkedUsers);
 
         $this->selectAll = false;
     }
@@ -121,9 +123,11 @@ class UsersIndex extends Component
     public function unsetCheckedUsers($ids)
     {
         if (is_array($this->checkedUsers)) {
-            foreach ($ids as $id) { 
+            foreach ($ids as $id) {
                 unset($this->checkedUsers["$id"]);
             }
+
+				$this->selectAll = false;
         }
     }
 }

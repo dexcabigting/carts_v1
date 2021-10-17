@@ -35,4 +35,20 @@ class ProductFactory extends Factory
             'prd_price' => $this->faker->randomFloat($nbMaxDecimals = NULL, $min = 750.00, $max = 1000.00),
         ];
     }
+
+	 public function addCategory($id) {
+		 return $this->state(function($attributes) use ($id) {
+			return array_merge($attributes, [
+				"category_id" => $id
+			]);
+		 });
+	 }
+
+	 public function addFabric($id) {
+		 return $this->state(function($attributes) use ($id) {
+			return array_merge($attributes, [
+				"fabric_id" => $id
+			]);
+		 });
+	 }
 }

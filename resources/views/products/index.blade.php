@@ -7,18 +7,18 @@
                         <x-button class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3" wire:click="openCreateModal()">
                             {{ __('Add Product') }}
                         </x-button>
-                    </div>  
+                    </div>
 
                     <div class="">
-                        <button wire:click.prevent="openDeleteModal(@json($checkedKeys))"          
+                        <button wire:click.prevent="openDeleteModal(@json($this->checkedKeys))"
                             type="button" {{ (!$checkedProducts) ?  'disabled' : null }}
                             class="rounded-sm hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedProducts) cursor-not-allowed @endif">
-                            {{ __('Bulk Delete') }} 
+                            {{ __('Bulk Delete') }}
                             @if ($checkedProducts)
                                 ({{ count($checkedProducts) }})
                             @endif
                         </button>
-                    </div>  
+                    </div>
 
                     <!-- Order By -->
                     <div class="">
@@ -47,16 +47,16 @@
                             <select wire:model="category" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                 <option value="All" selected>
                                     <x-label value="All" class="inline-block" />
-                                </option> 
+                                </option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}">
                                         <x-label value="{{ $category->ctgr_name }}" class="inline-block" />
-                                    </option>  
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
 
-                        
+
                     </div>
 
                     <!-- Search Bar -->
@@ -82,7 +82,7 @@
                             <tr>
                                 <th scope="col" class="px-6 py-3 float-left">
                                     <div>
-                                        <input type="checkbox" wire:model="selectAll" 
+                                        <input type="checkbox" wire:model="selectAll"
                                         {{ (count($products) == 0) ?  'disabled' : null }}
                                         class="rounded border-gray-100 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring-indigo-200 focus:ring-opacity-50">
                                     </div>
@@ -113,15 +113,15 @@
 
                         <tbody class="bg-custom-text divide-y divide-gray-200">
                             @forelse ($products as $index => $product)
-                            <tr> 
+                            <tr>
                                 <td class="px-6 py-4" wire:key="product-{{ $loop->index }}">
                                     <div>
-                                        <input type="checkbox" wire:model="checkedProducts.{{ $product->id }}" 
+                                        <input type="checkbox" wire:model="checkedProducts.{{ $product->id }}"
                                         class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                     </div>
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap"> 
+                                <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm font-medium text-gray-100">
                                         {{ $products->firstItem() + $index }}
                                     </div>
@@ -140,26 +140,26 @@
                                     </div>
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap">                                     
+                                <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm font-medium text-gray-100">
                                         {{ $product->category->ctgr_name }}
-                                    </div>                                      
+                                    </div>
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap">                                     
+                                <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm font-medium text-gray-100">
                                         {{ $product->fabric->fab_name }}
-                                    </div>                                      
+                                    </div>
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap">                                     
+                                <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm font-medium text-gray-100">
                                         @php($quantity = 0)
                                         @foreach($product->product_stocks as $product_stock)
                                            @php($quantity += $product_stock->quantity)
                                         @endforeach
                                         x{{ $quantity }}
-                                    </div>                                      
+                                    </div>
                                 </td>
 
                                 <td class="flex px-6 py-4 whitespace-nowrap">
@@ -184,7 +184,7 @@
                                                 {{ __('Delete') }}
                                             </span>
                                         </button>
-                                    </div>                                                                         
+                                    </div>
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -204,8 +204,8 @@
                                 </td>
                             </tr>
                             @endforelse
-                        </tbody>                        
-                        </table>  
+                        </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
