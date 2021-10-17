@@ -72,12 +72,8 @@
                     {{ $product->fabric->fab_name }} {{ $product->category->ctgr_name }}
                 </div>
 
-
-
                 <div class="flex flex-row justify-end gap-5 absolute bottom-0 right-0 pb-2 pr-5">
-
                     <div>
-
                         @if($product->isAuthUserLikedProduct())
                         <x-button wire:click.prevent="unlikeProduct({{ $product->id }})" class="text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 rounded-md bg-custom-violet" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -91,7 +87,6 @@
                             </svg>
                         </x-button>
                         @endif
-
                     </div>
 
                     <div>
