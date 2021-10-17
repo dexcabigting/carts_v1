@@ -146,7 +146,7 @@ class CartsEdit extends Component
     {
         $this->deleteExisting = [];
 
-        $this->dispatchBrowserEvent('cartModalDisplayNone');
+        $this->dispatchBrowserEvent('cartEditModalDisplayNone');
 
         $this->emitUp('closeEditCartModal');
     }
