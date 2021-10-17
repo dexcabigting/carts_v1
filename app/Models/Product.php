@@ -16,9 +16,7 @@ class Product extends Model
         'fabric_id',
         'prd_name',
         'prd_description',
-        'prd_whole_body_price',
-        'prd_upper_body_price',
-        'prd_lower_body_price',
+        'prd_price',
     ];
 
     public function product_variants()

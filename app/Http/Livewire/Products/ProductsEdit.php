@@ -27,9 +27,7 @@ class ProductsEdit extends Component
         'category_id' => '',
         'fabric_id' => '',
         'prd_description' => '',
-        'prd_whole_body_price' => '',
-        'prd_upper_body_price' => '',
-        'prd_lower_body_price' => '',
+        'prd_price' => '',
     ];
 
     public $addVariants;
@@ -58,9 +56,7 @@ class ProductsEdit extends Component
             'form.prd_category' => 'nullable|string|max:100|exists:categories,id',
             'form.prd_fabric' => 'nullable|string|max:100|exists:fabrics,id',
             'form.prd_description' => 'required|string|max:100',
-            'form.prd_whole_body_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
-            'form.prd_upper_body_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
-            'form.prd_lower_body_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
+            'form.prd_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
             'addVariants.*.id' => 'nullable|integer',
             'addVariants.*.prd_var_name' => 'required|string|max:100',
             'addVariants.*.front_view' => 'required_if:addVariants.*.id,null|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -78,9 +74,7 @@ class ProductsEdit extends Component
     protected $validationAttributes = [
         'form.prd_name' => 'product name',
         'form.prd_description' => 'product description',
-        'form.prd_whole_body_price' => 'whole body price',
-        'form.prd_upper_body_price' => 'upper body price',
-        'form.prd_lower_body_price' => 'lower body price',
+        'form.prd_price' => 'product price',
         'form.prd_category' => 'product category',
         'form.prd_fabric' => 'product fabric',
         'addVariants.*.prd_var_name' => 'variant name',
@@ -152,9 +146,7 @@ class ProductsEdit extends Component
             'category_id' => $this->form['category_id'],
             'fabric_id' => $this->form['fabric_id'],
             'prd_description' => $this->form['prd_description'],
-            'prd_whole_body_price' => $this->form['prd_whole_body_price'],
-            'prd_upper_body_price' => $this->form['prd_upper_body_price'],
-            'prd_lower_body_price' => $this->form['prd_lower_body_price'],
+            'prd_price' => $this->form['prd_price'],
         ]);
 
         $oldVariants = array_filter($this->addVariants, function ($var) {
