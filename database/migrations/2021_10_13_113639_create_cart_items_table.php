@@ -19,6 +19,7 @@ class CreateCartItemsTable extends Migration
             $table->string('size');
             $table->string('surname');
             $table->string('jersey_number');
+            $table->float('price');
             $table->timestamps();
 
             $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');

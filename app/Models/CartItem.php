@@ -14,6 +14,7 @@ class CartItem extends Model
         'size',
         'surname',
         'jersey_number',
+        'price',
     ];
 
     public function cart()
