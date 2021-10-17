@@ -75,8 +75,8 @@
 
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
-                                            &#8369;{{ $amount = number_format(($userCart->cart_items_count) * ($userCart->product_variant->product->prd_price), 2) }}
-                                            @php($totalAmount = $totalAmount + (($userCart->cart_items_count) * ($userCart->product_variant->product->prd_price)))
+                                            &#8369;{{ number_format( $amount = ($userCart->cart_items_count) * ($userCart->product_variant->product->prd_price), 2) }}
+                                            @php($totalAmount = $totalAmount + $amount)
                                         </div>
                                     </td>
 
