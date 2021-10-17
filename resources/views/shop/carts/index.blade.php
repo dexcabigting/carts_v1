@@ -3,7 +3,23 @@
         <div class="max-w-3xl mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-custom-blacki shadow-2xl text-6xl font-extrabold text-center text-gray-300 font-extraboldoverflow-x-auto">
-                    My Carts
+                    My Carts 
+                    @foreach ( $checkedCarts as $items)
+                        {{ $items }}
+                    @endforeach
+                </div>
+
+                <div class="">
+                    <button wire:click.prevent="openDeleteCartModal(@json($checkedCarts))" type="button" {{ (!$checkedCarts) ?  'disabled' : null }} class="rounded-sm hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCarts) cursor-not-allowed @endif">
+                        {{ __('Bulk Delete') }}
+                        @if ($checkedCarts)
+                        ({{ count($checkedCarts) }})
+                        @endif
+                    </button>
+                </div>
+
+                <div class="text-medium text-white">
+
                 </div>
             </div>
         </div>
@@ -19,7 +35,7 @@
                                 <tr>
                                     <th scope="col" class="px-6 py-3 float-left">
                                         <div>
-                                            <input type="checkbox" class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring-indigo-200 focus:ring-opacity-50">
+                                            <input type="checkbox" wire:model="selectAll" {{ (count($userCarts) == 0) ?  'disabled' : null }} class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring-indigo-200 focus:ring-opacity-50">
                                         </div>
                                     </th>
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -46,7 +62,7 @@
                                 <tr>
                                     <td class="px-6 py-4" wire:key="userCart-{{ $userCart->index }}">
                                         <div>
-                                            <input type="checkbox" class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                            <input type="checkbox" wire:model="checkedCarts.{{ $userCart->id }}" class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                         </div>
                                     </td>
 

@@ -15,9 +15,9 @@ class ProductsIndex extends Component
     public $category;
     public $categories = [];
     public $selectAll = false;
-    public $createModal = false;
-    public $editModal = false;
-    public $deleteModal = false;
+    public $createModal = 0;
+    public $editModal = 0;
+    public $deleteModal = 0;
     public $productId;
     public $search;
     public $sortColumn = 'prd_name';
@@ -82,10 +82,17 @@ class ProductsIndex extends Component
                 ->flip()
                 ->map(fn ($item) => true)
                 ->toArray();
+
+            // dd($this->checkedProducts);
         } else {
             $this->checkedProducts = [];
+            // dd($this->checkedProducts);
         }
+    }
 
+    public function getCheckedKeysProperty()
+    {
+        return array_keys($this->checkedProducts);
     }
 
     public function updatedCheckedProducts()
@@ -93,7 +100,6 @@ class ProductsIndex extends Component
         $this->selectAll = false;
 
         $this->checkedProducts = array_filter($this->checkedProducts);
-
     }
 
     public function updatedSearch()

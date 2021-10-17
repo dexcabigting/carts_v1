@@ -53,10 +53,10 @@ class UsersIndex extends Component
             ->orderBy($sortBy, $orderBy);
     }
 
-	 public function getCheckedKeysProperty()
-	 {
-		return array_keys($this->checkedUsers);
-	 }
+    public function getCheckedKeysProperty()
+    {
+    return array_keys($this->checkedUsers);
+    }
 
     public function updatedSelectAll($value)
     {

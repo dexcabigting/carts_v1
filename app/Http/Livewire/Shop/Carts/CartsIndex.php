@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Shop\Carts;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\Cart;
 
 class CartsIndex extends Component
 {
@@ -42,22 +43,17 @@ class CartsIndex extends Component
             ->withCount('cart_items');
     }
 
-    public function getCheckedKeysProperty()
-    {
-        return array_keys($this->checkedProducts);
-    }
-
     public function updatedSelectAll($value)
     {
         if ($value) {
-            $this->checkedCarts = Cart::all()
+            $this->checkedCarts = Cart::where('user_id', auth()->id())
                 ->pluck('id')
                 ->map(fn ($item) => (string) $item)
                 ->flip()
                 ->map(fn ($item) => true)
                 ->toArray();
         } else {
-            $this->checkedProducts = [];
+            $this->checkedCarts = [];
         }
     }
 

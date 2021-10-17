@@ -10,12 +10,10 @@
                     </div>
 
                     <div class="">
-                        <button wire:click.prevent="openDeleteModal(@json($this->checkedKeys))"
-                            type="button" {{ (!$checkedProducts) ?  'disabled' : null }}
-                            class="rounded-sm hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedProducts) cursor-not-allowed @endif">
+                        <button wire:click.prevent="openDeleteModal(@json($this->checked_keys))" type="button" {{ (!$checkedProducts) ?  'disabled' : null }} class="rounded-sm hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedProducts) cursor-not-allowed @endif">
                             {{ __('Bulk Delete') }}
                             @if ($checkedProducts)
-                                ({{ count($checkedProducts) }})
+                            ({{ count($checkedProducts) }})
                             @endif
                         </button>
                     </div>
@@ -24,9 +22,9 @@
                     <div class="">
                         <div class="text-base font-medium text-gray-100 py-4">
                             <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-xl" />
-                             <select wire:model="sortColumn" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            <select wire:model="sortColumn" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 <option value="prd_name">
-                                        <x-label :value="__('Name')" class="inline-block" />
+                                    <x-label :value="__('Name')" class="inline-block" />
                                 </option>
 
                                 <option value="created_at">
@@ -49,9 +47,9 @@
                                     <x-label value="All" class="inline-block" />
                                 </option>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">
-                                        <x-label value="{{ $category->ctgr_name }}" class="inline-block" />
-                                    </option>
+                                <option value="{{ $category->id }}">
+                                    <x-label value="{{ $category->ctgr_name }}" class="inline-block" />
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -78,133 +76,130 @@
                 <div class="py-2 align-middle inline-block min-w-full">
                     <div class="shadow overflow-hidden sm:rounded-lg">
                         <table class="table-auto min-w-full divide-y divide-gray-200 border-4 border-gray-500">
-                        <thead class="bg-custom-blacki ">
-                            <tr>
-                                <th scope="col" class="px-6 py-3 float-left">
-                                    <div>
-                                        <input type="checkbox" wire:model="selectAll"
-                                        {{ (count($products) == 0) ?  'disabled' : null }}
-                                        class="rounded border-gray-100 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring-indigo-200 focus:ring-opacity-50">
-                                    </div>
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    No.
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    Name
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    Category
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    Fabric
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    Quantity
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    Actions
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    Date Created
-                                </th>
-                            </tr>
-                        </thead>
-
-                        <tbody class="bg-custom-text divide-y divide-gray-200">
-                            @forelse ($products as $index => $product)
-                            <tr>
-                                <td class="px-6 py-4" wire:key="product-{{ $loop->index }}">
-                                    <div>
-                                        <input type="checkbox" wire:model="checkedProducts.{{ $product->id }}"
-                                        class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                    </div>
-                                </td>
-
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-gray-100">
-                                        {{ $products->firstItem() + $index }}
-                                    </div>
-                                </td>
-
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 h-10 w-10">
-                                            <img class="h-10 w-10 rounded-full" src="{{ Storage::url('public/' . $product->product_variants->first()->front_view) }}" alt="">
+                            <thead class="bg-custom-blacki ">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 float-left">
+                                        <div>
+                                            <input type="checkbox" wire:model="selectAll" {{ (count($products) == 0) ?  'disabled' : null }} class="rounded border-gray-100 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring-indigo-200 focus:ring-opacity-50">
                                         </div>
-                                        <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-100">
-                                            {{ $product->prd_name }}
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                        No.
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                        Name
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                        Category
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                        Fabric
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                        Quantity
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                        Actions
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                        Date Created
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="bg-custom-text divide-y divide-gray-200">
+                                @forelse ($products as $index => $product)
+                                <tr>
+                                    <td class="px-6 py-4" wire:key="product-{{ $loop->index }}">
+                                        <div>
+                                            <input type="checkbox" wire:model="checkedProducts.{{ $product->id }}" class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                        </div>
+                                    </td>
+
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-100">
+                                            {{ $products->firstItem() + $index }}
+                                        </div>
+                                    </td>
+
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="{{ Storage::url('public/' . $product->product_variants->first()->front_view) }}" alt="">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-100">
+                                                    {{ $product->prd_name }}
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-gray-100">
-                                        {{ $product->category->ctgr_name }}
-                                    </div>
-                                </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-100">
+                                            {{ $product->category->ctgr_name }}
+                                        </div>
+                                    </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-gray-100">
-                                        {{ $product->fabric->fab_name }}
-                                    </div>
-                                </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-100">
+                                            {{ $product->fabric->fab_name }}
+                                        </div>
+                                    </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-gray-100">
-                                        @php($quantity = 0)
-                                        @foreach($product->product_stocks as $product_stock)
-                                           @php($quantity += $product_stock->quantity)
-                                        @endforeach
-                                        x{{ $quantity }}
-                                    </div>
-                                </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-100">
+                                            @php($quantity = 0)
+                                                @foreach($product->product_stocks as $product_stock)
+                                                    @php($quantity += $product_stock->quantity)
+                                                @endforeach
+                                            x{{ $quantity }}
+                                        </div>
+                                    </td>
 
-                                <td class="flex px-6 py-4 whitespace-nowrap">
-                                    <div>
-                                        <button wire:click.prevent="openEditModal({{ $product->id }})" type="button" class="p-2 bg-green-600  border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-                                                    <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
-                                                </svg>
-                                                {{ __('Edit') }}
+                                    <td class="flex px-6 py-4 whitespace-nowrap">
+                                        <div>
+                                            <button wire:click.prevent="openEditModal({{ $product->id }})" type="button" class="p-2 bg-green-600  border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                                                        <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                                                    </svg>
+                                                    {{ __('Edit') }}
+                                                </span>
+                                            </button>
+                                        </div>
+
+                                        <div>
+                                            <button wire:click.prevent="openDeleteModal({{ $product->id }})" type="button" class="p-2 bg-red-600  border border-transparent font-semibold text-xs text-white uppercase tracking-normal hover:bg-red-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                                <span>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                                    </svg>
+                                                    {{ __('Delete') }}
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </td>
+
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-100">
+                                            {{ $product->created_at->diffForHumans() }}
+                                        </div>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td class="px-6 py-4 text-center w-full items-center" colspan="8">
+                                        <div>
+                                            <span class="font-semibold text-xl text-gray-100  leading-tight">
+                                                {{ __('There are no matches!') }}
                                             </span>
-                                        </button>
-                                    </div>
-
-                                    <div>
-                                        <button wire:click.prevent="openDeleteModal({{ $product->id }})" type="button" class="p-2 bg-red-600  border border-transparent font-semibold text-xs text-white uppercase tracking-normal hover:bg-red-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                                </svg>
-                                                {{ __('Delete') }}
-                                            </span>
-                                        </button>
-                                    </div>
-                                </td>
-
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-gray-100">
-                                        {{ $product->created_at->diffForHumans() }}
-                                    </div>
-                                </td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td class="px-6 py-4 text-center w-full items-center" colspan="8">
-                                    <div>
-                                        <span class="font-semibold text-xl text-gray-100  leading-tight">
-                                            {{ __('There are no matches!') }}
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforelse
-                        </tbody>
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endforelse
+                            </tbody>
                         </table>
                     </div>
                 </div>
