@@ -27,7 +27,7 @@
     </head>
     <body class="bg-custom-black">
     <header class="py-8 text-white font-light text-base flex justify-center items-center w-full">
-      <h1 class="py-4 px-10"><a href="index.html">HOME</a></h1>
+      <h1 class="py-4 px-10"><a href="#">HOME</a></h1>
       <h1 class="py-4 px-10">ABOUT</h1>
       <h1 class="py-4 px-10">FAQ</h1>
       <img class="py-2 px-12" src="img/Group 12.svg" />

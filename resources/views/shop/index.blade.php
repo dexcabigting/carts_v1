@@ -3,13 +3,13 @@
         <div class="pt-12 pb-6">
             <div class="max-w-6xl mx-auto">
                 <div class=" shadow-2xl overflow-hidden sm:rounded-lg">
-                    <div class="flex flex-row items-center gap-5 p-6 bg-custom-blacki overflow-x-auto"> 
-                        <div class="text-white font-semibold text-xl ml-12">
+                    <div class="flex flex-row items-center md:justify-start justify-center gap-5 p-6 bg-custom-blacki overflow-x-auto"> 
+                        <div class="text-white font-semibold text-xl md:ml-12">
                             Browse our products!
                         </div>
 
                         <!-- Search Bar -->
-                        <div class="ml-8 col-span-2 lg:col-span-2 grid items-center align-center relative lg:w-96">
+                        <div class="md:ml-8 col-span-2 lg:col-span-2 grid items-center align-center relative lg:w-96">
                             <x-input class="h-9 pr-10" type="search" wire:model="search" autofocus />
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-indigo-300 absolute right-0" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
@@ -79,13 +79,16 @@
                         </div>
                     </div>
                     @empty
-                    <div class="text-gray-400 font-bold text-4xl">
-                        <h1>There are no results</h1>
-                    </div>  
-                    @endforelse
+                    
                     
             </div>
         </div>
+        <div class="flex justify-center items-center w-full ">
+                    <div class="text-gray-400 font-bold text-2xl md:text-4xl text-center">
+                        <h1>There are no results</h1>
+                    </div>  
+                    </div>
+                    @endforelse
 
         <div class="pb-12 text-gray-100">
             <div class="max-w-6xl mx-auto">
