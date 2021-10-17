@@ -55,7 +55,7 @@ class UsersIndex extends Component
 
     public function getCheckedKeysProperty()
     {
-    return array_keys($this->checkedUsers);
+        return array_keys($this->checkedUsers);
     }
 
     public function updatedSelectAll($value)
