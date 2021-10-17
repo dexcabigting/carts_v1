@@ -57,17 +57,17 @@
                     </div>
 
                     <div class="mt-4">
-                        <x-label for="prd_whole_body_price" :value="__('Price')" />
+                        <x-label for="prd_whole_body_price" :value="__('Whole Set Price')" />
                         <x-input id="prd_whole_body_price" wire:model.lazy="form.prd_whole_body_price" type="text" class="block mt-1 w-full text-black" />
                     </div>
 
                     <div class="mt-4">
-                        <x-label for="prd_upper_body_price" :value="__('Price')" />
+                        <x-label for="prd_upper_body_price" :value="__('Upper Garment Price')" />
                         <x-input id="prd_upper_body_price" wire:model.lazy="form.prd_upper_body_price" type="text" class="block mt-1 w-full text-black" />
                     </div>
 
                     <div class="mt-4">
-                        <x-label for="prd_lower_body_price" :value="__('Price')" />
+                        <x-label for="prd_lower_body_price" :value="__('Lower Garment Price')" />
                         <x-input id="prd_lower_body_price" wire:model.lazy="form.prd_lower_body_price" type="text" class="block mt-1 w-full text-black" />
                     </div>
                 </div>
