@@ -143,8 +143,13 @@ class CartsCreate extends Component
             //         $array = array_sum($array);
             //     }
             // }
+
+            $stocks = $existingVariantInCartSizes->each( function ($item) use($variantStocks) {
+                return array_push($variantStocks, $item);
+            });
+            
                 
-            dd($existingVariantInCartSizes, $variantStocks);
+            dd($existingVariantInCartSizes, $stocks, $variantStocks);
 
             $userCart->cart_items()->createMany($this->addItems);
 
