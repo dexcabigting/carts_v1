@@ -26,6 +26,9 @@
                         <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('dashboard')" :href="route('carts.index')" :active="request()->routeIs('carts.index')">
                             {{ __('Carts') }}
                         </x-nav-link>
+                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('dashboard')" :href="route('products.customize')" :active="request()->routeIs('products.customize')">
+                            {{ __('Customize') }}
+                        </x-nav-link>
                     @endif
                 </div>
 
@@ -101,6 +104,10 @@
 
             <x-responsive-nav-link :href="route('carts.index')" :active="request()->routeIs('carts.index')">
                 {{ __('Carts') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('products.customize')" :active="request()->routeIs('products.customize')">
+                {{ __('Customize') }}
             </x-responsive-nav-link>
             @endif
         </div>
