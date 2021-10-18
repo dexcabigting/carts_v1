@@ -65,7 +65,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('carts', CartsIndex::class)->name('carts.index');
 
          //2d
-         Route::get('products', ProductsIndex::class)->name('products.index');
          Route::get('products/customize', ProductsCustomize::class)->name('products.customize');
     });
     
