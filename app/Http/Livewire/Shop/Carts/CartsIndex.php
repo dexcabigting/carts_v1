@@ -33,6 +33,7 @@ class CartsIndex extends Component
     public function render()
     {
         $userCarts = $this->user_carts->paginate(6);
+        // dd(Cart::where('user_id', auth()->id())->get());
 
         return view('livewire.shop.carts.carts-index', compact('userCarts'))->layout('layouts.app-user');
     }

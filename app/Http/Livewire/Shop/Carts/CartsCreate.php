@@ -110,6 +110,11 @@ class CartsCreate extends Component
         // TO DO: set $this->addItems limit with a maximum value of 15
         $this->validate();
 
+        $productVariant = ProductVariant::where('id', $this->selectVariant)->first(); 
+
+        $productVariantId = $productVariant->id;
+
+        //Sizes to be inserted in the database
         $variantStocks = array_count_values(array_column($this->addItems, 'size'));
 
         $originalStocks = $this->variant_stocks->first()->sizes->toArray();
@@ -123,26 +128,51 @@ class CartsCreate extends Component
             }
         }
 
-        $productVariantId = $this->selectVariant;
+        // Check if the variant is already on the user's cart
+        if ($productVariant->userHasVariantInCart()) {
+            // dd("You already have this on your cart");
 
-        $cart = Cart::create([
-            'user_id' => auth()->id(),
-            'product_variant_id' => $productVariantId,
-        ]);
+            $userCart = auth()->user()->carts()->where('product_variant_id', $productVariantId)->first();
 
-        $cart->cart_items()->createMany($this->addItems);
+            $existingVariantInCartSizes = $userCart->cart_items()->pluck('size')->countBy();
+
+            // $test = array_merge_recursive($existingVariantInCartSizes, $variantStocks);
+
+            // foreach($test as $array) {
+            //     if(is_array($array)) {
+            //         $array = array_sum($array);
+            //     }
+            // }
+                
+            dd($existingVariantInCartSizes, $variantStocks);
+
+            $userCart->cart_items()->createMany($this->addItems);
+
+            $flash = "Your existing cart has been updated!";
+        } else {
+            // dd("You don't have this on your cart yet");
+
+            $cart = Cart::create([
+                'user_id' => auth()->id(),
+                'product_variant_id' => $productVariantId,
+            ]);
+
+            $cart->cart_items()->createMany($this->addItems);
+
+            $flash = "Cart has been created successfully!";
+        }
 
         $this->addItems = [
             [
                 'size' => '',
                 'surname' => '',
-                'jersey_num' => '',
+                'jersey_number' => '',
             ]
         ];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 
         $this->totalAmount  = $this->productPrice;
 
-        session()->flash('success', 'Cart has been created successfully!'); 
+        session()->flash('success', $flash); 
     }
 
     public function addMore()
@@ -179,7 +209,7 @@ class CartsCreate extends Component
             [
                 'size' => '',
                 'surname' => '',
-                'jersey_num' => '',
+                'jersey_number' => '',
             ]
         ];
 
