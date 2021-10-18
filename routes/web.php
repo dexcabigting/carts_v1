@@ -34,8 +34,6 @@ Route::view('3d', 'three-js');
 
 // Auth
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Dashboard
-    Route::view('dashboard', 'dashboard')->name('dashboard');
 
     // Profile
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
@@ -44,6 +42,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Admin
     Route::middleware('admin')->group(function () {
+        // Dashboard
+        Route::view('dashboard', 'dashboard')->name('dashboard');
+
         // Users Livewire Component
         Route::get('users', UsersIndex::class)->name('users.index');
         Route::get('users/create', UsersCreate::class)->name('users.create');
