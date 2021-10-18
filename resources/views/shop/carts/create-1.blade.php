@@ -67,11 +67,11 @@
                 </div>
 
                 <div class="">
-                    <x-input wire:model.defer="addItems.{{ $index }}.surname" class="block text-black w-full" type="text" autofocus />
+                    <x-input wire:model.lazy="addItems.{{ $index }}.surname" class="block text-black w-full" type="text" autofocus />
                 </div>
 
                 <div class="">
-                    <x-input wire:model.defer="addItems.{{ $index }}.jersey_number" class="block text-black w-full" type="text" autofocus />
+                    <x-input wire:model.lazy="addItems.{{ $index }}.jersey_number" class="block text-black w-full" type="text" autofocus />
                 </div>
 
                 @if(count($addItems) == 1)
