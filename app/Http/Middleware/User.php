@@ -16,7 +16,7 @@ class user
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->user()->role_id == 3) {
+        if (auth()->user()->role_id > 0) {
             return $next($request);
         }
         abort(403);
