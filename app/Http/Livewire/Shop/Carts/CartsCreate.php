@@ -136,26 +136,27 @@ class CartsCreate extends Component
 
             $existingVariantInCartSizes = $userCart->cart_items()->pluck('size')->countBy();
 
-            // $test = array_merge_recursive($existingVariantInCartSizes, $variantStocks);
+            $stocks = collect($variantStocks)->map( function ($item, $size) use($existingVariantInCartSizes) {
+                if(isset($existingVariantInCartSizes[$size])) {
+                    return $item + $existingVariantInCartSizes[$size];
+                }
+                return $item;
+            })->toArray();
 
-            // foreach($test as $array) {
-            //     if(is_array($array)) {
-            //         $array = array_sum($array);
-            //     }
-            // }
+            foreach ($stocks as $size => $count) {
+                $originalCountSize = $originalStocks[$size];
 
-            $stocks = $existingVariantInCartSizes->each( function ($item) use($variantStocks) {
-                return array_push($variantStocks, $item);
-            });
-            
-                
-            dd($existingVariantInCartSizes, $stocks, $variantStocks);
+                if ($count > $originalCountSize) {
+                    session()->flash('fail', 'The quantity of ' . $size . ' exceeded the available size!');
+                    return;
+                }
+            }
 
             $userCart->cart_items()->createMany($this->addItems);
 
             $flash = "Your existing cart has been updated!";
         } else {
-            // dd("You don't have this on your cart yet");
+            // If user doesn't have this variant on his/her cart
 
             $cart = Cart::create([
                 'user_id' => auth()->id(),
