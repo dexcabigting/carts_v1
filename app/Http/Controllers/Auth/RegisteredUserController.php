@@ -45,6 +45,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         // preg_replace($request->input('phone'));
         $phone = preg_replace( '/^(09)(\d+)/', '639$2', $request->input('phone'));
 
@@ -55,6 +56,10 @@ class RegisteredUserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'phone' => ['required', 'string', 'unique:users', new PhoneNumber($this->service)],
+            'region' => 'required|string|max:255',
+            'province' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'barangay' => 'required|string|max:255',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
         
