@@ -45,7 +45,7 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        // dd($request);
         // preg_replace($request->input('phone'));
         $phone = preg_replace( '/^(09)(\d+)/', '639$2', $request->input('phone'));
 

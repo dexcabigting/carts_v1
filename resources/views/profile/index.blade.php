@@ -1,12 +1,7 @@
 <x-app-user-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight h-full">
-            {{ __('My Profile') }}
-        </h2>
-    </x-slot>
 
-    <div class="py-12 h-screen w-full flex justify-center items-center">
-        <div class="max-w-4xl mx-auto sm:px-6 w-full mt-32 2xl:mt-24">   
+    <div class="pt-12 w-full flex justify-center items-center">
+        <div class="max-w-3xl mx-auto sm:px-6 w-full mb-5 2xl:mt-24">
             <div class="bg-black overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-custom-blacki border-gray-500 divide-y divide-gray-300">
 
@@ -23,7 +18,7 @@
                             @csrf
 
                             <div class>
-                                <x-label for="name" :value="__('Name')"/>
+                                <x-label for="name" :value="__('Name')" />
                                 <x-input id="name" class="block mt-1 w-full text-black" type="text" name="name" value="{{ Auth::user()->name }}" autofocus required />
                             </div>
 
@@ -57,25 +52,17 @@
 
                             <div class="mt-4">
                                 <x-label for="current_password" :value="__('Current Password')" />
-                                <x-input id="current_password" class="block mt-1 w-full"
-                                                type="password"
-                                                name="current_password"
-                                                required />
+                                <x-input id="current_password" class="block mt-1 w-full" type="password" name="current_password" required />
                             </div>
 
                             <div class="mt-4">
                                 <x-label for="new_password" :value="__('New Password')" />
-                                <x-input id="new_password" class="block mt-1 w-full"
-                                                type="password"
-                                                name="new_password"
-                                                required />
+                                <x-input id="new_password" class="block mt-1 w-full" type="password" name="new_password" required />
                             </div>
 
                             <div class="mt-4">
                                 <x-label for="new_password_confirmation" :value="__('Confirm New Password')" />
-                                <x-input id="new_password_confirmation" class="block mt-1 w-full"
-                                                type="password"
-                                                name="new_password_confirmation" required />
+                                <x-input id="new_password_confirmation" class="block mt-1 w-full" type="password" name="new_password_confirmation" required />
                             </div>
 
                             <div class="flex items-center justify-end mt-4">
@@ -89,6 +76,6 @@
 
                 </div>
             </div>
-        </div>  
+        </div>
     </div>
 </x-app-user-layout>
