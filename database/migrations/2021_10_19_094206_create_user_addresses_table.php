@@ -21,6 +21,7 @@ class CreateUserAddressesTable extends Migration
             $table->string('city');
             $table->string('barangay');
             $table->string('home_address');
+            $table->boolean('is_main_address')->default(0);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
