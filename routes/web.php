@@ -39,6 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::put('profile/credentials', [ProfileController::class, 'update_credentials'])->name('profile.update-credentials');
     Route::put('profile/password', [ProfileController::class, 'update_password'])->name('profile.update-password');
+    Route::put('profile/address', [ProfileController::class, 'update_address'])->name('profile.update-address');
 
     // Admin
     Route::middleware('admin')->group(function () {

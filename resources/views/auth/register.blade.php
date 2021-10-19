@@ -53,14 +53,14 @@
                         <select id="city">
                             <option>City</option>
                         </select>
-                        <x-input id="city-text" type="hidden" name="city" :value="old('province')" />
+                        <x-input id="city-text" type="hidden" name="city" :value="old('city')" />
                     </div>
                     <div>
                         <x-label for="barangay" :value="__('Barangay')" />
                         <select name="barangay" id="barangay">
                             <option>Barangay</option>
                         </select>
-                        <x-input id="barangay-text" type="hidden" name="barangay" :value="old('province')" />
+                        <x-input id="barangay-text" type="hidden" name="barangay" :value="old('barangay')" />
                     </div>
                     <div class="mt-4">
                         <x-label class="text-xl text-custom-violet  " for="home_address" :value="__('Home Address')" />

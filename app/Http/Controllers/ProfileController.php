@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateCredentialsRequest;
 use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Requests\UpdateAddressRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -12,7 +13,9 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        return view('profile.index');
+        $userAddress = auth()->user()->addresses()->where('is_main_address', 1)->first();
+
+        return view('profile.index', compact('userAddress'));
     }
 
     public function update_credentials(UpdateCredentialsRequest $request)
@@ -39,5 +42,14 @@ class ProfileController extends Controller
             ]);
 
         return redirect()->route('profile.index')->with('success', 'Password updated successfully!');
+    }
+
+    public function update_address(UpdateAddressRequest $request)
+    {
+        $userAddress = auth()->user()->addresses()->where('is_main_address', 1)->first();
+
+        $userAddress->update($request->only('region', 'province', 'city', 'barangay', 'home_address', 'is_main_address'));
+
+        return redirect()->route('profile.index')->with('success', 'Address updated successfully!');
     }
 }
