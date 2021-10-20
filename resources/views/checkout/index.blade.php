@@ -29,7 +29,7 @@
                             <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" value="{{ Auth::user()->phone }}" required />
                         </div>
 
-                        
+
                     </div>
                 </div>
 
@@ -148,9 +148,11 @@
                                         <tr>
                                             <td class="text-center" colspan="4">
                                                 <div>
-                                                    <x-button class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
-                                                        {{ __('Place Order') }}
-                                                    </x-button>
+                                                    <a href="{{ route('payment.index') }}">
+                                                        <x-button type="button" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
+                                                            {{ __('Place Order') }}
+                                                        </x-button>
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PaymentController;
 
 // Livewire Users Components
 use App\Http\Livewire\Users\UsersIndex;
@@ -66,6 +67,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Checkout Livewire Component
         Route::get('checkout/{ids}', CheckoutIndex::class)->name('checkout.index');
+
+        Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
+        Route::post('/payment/store', [PaymentController::class, 'store'])->name('payment.store');
     });
     
 });
