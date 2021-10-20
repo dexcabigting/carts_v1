@@ -44,19 +44,24 @@
 
                                         @php($cartTotal = 0)
                                         @forelse($userCarts as $userCart)
+
+                                        @foreach($userCart->cartItemSizes() as $key => $value)
                                         <tr>
-                                            <td class="text-left md:px-6 py-4 whitespace-nowrap" colspan="4">
-                                                <div class="text-sm font-medium text-gray-900">
-                                                    {{ $userCart->product_variant->product->prd_name }}: {{ $userCart->product_variant->prd_var_name }}
-                                                    @php($price = $userCart->product_variant->product->prd_price)
+                                            @if($loop->first)
+                                            <td class="md:px-6 py-4 whitespace-nowrap">
+                                                <div>
+                                                    <span class="font-semibold text-xl text-gray-800 leading-tight">
+                                                        {{ $userCart->product_variant->product->prd_name }}: {{ $userCart->product_variant->prd_var_name }}
+                                                        @php($price = $userCart->product_variant->product->prd_price)
+                                                    </span>
                                                 </div>
                                             </td>
-                                        <tr>
-                                            @foreach($userCart->cartItemSizes() as $key => $value)
-                                        <tr>
+                                            @else
                                             <td>
 
                                             </td>
+                                            @endif
+
                                             <td class="md:px-6 py-4 whitespace-nowrap">
                                                 <div class="text-sm font-medium text-gray-900">
                                                     {{ $key }}
@@ -76,15 +81,15 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                            @endforeach
+                                        @endforeach
 
-                                            @if(!$loop->last)
-                                            <tr>
-                                                <td class="h-10 bg-gray-100" colspan="4">
-                                                    
-                                                </td>
-                                            </tr>
-                                            @endif
+                                        @if(!$loop->last)
+                                        <tr>
+                                            <td class="h-10 bg-gray-100" colspan="4">
+
+                                            </td>
+                                        </tr>
+                                        @endif
                                         @empty
                                         <tr>
                                             <td class="md:px-6 py-4 text-center" colspan="6">
