@@ -62,9 +62,19 @@ class User extends Authenticatable
         return $this->hasMany(Cart::class);
     }
 
-    public function cart_items()
+    public function userCarts($ids)
+    {
+        return $this->hasMany(Cart::class)->whereIn('id', $ids);
+    }
+
+    public function cartItems()
     {
         return $this->hasManyThrough(CartItem::class, Cart::class);
+    }
+
+    public function userCartItems($ids)
+    {
+        return $this->hasManyThrough(CartItem::class, Cart::class)->whereIn('cart_id', $ids)->pluck('size');
     }
 
     public function likes()

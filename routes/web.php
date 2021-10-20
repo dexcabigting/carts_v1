@@ -65,7 +65,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('carts', CartsIndex::class)->name('carts.index');
 
         // Checkout Livewire Component
-        Route::get('checkout/{id}/cart', CheckoutIndex::class)->name('checkout.index');
+        Route::get('checkout/{ids}', CheckoutIndex::class)->name('checkout.index');
     });
     
 });

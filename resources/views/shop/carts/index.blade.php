@@ -18,6 +18,15 @@
                     </button>
                 </div>
 
+                <div class="">
+
+                    <a href="{{ route('checkout.index', json_encode($this->checked_keys)) }}">
+                        <button type="button" {{ (!$checkedCarts) ?  'disabled' : null }} class=" rounded-sm hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCarts) cursor-not-allowed @endif">
+                            {{ __('Checkout') }}
+                        </button>
+                    </a>
+                </div>
+
                 <div class="text-medium text-white">
 
                 </div>

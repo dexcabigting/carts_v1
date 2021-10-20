@@ -9,20 +9,12 @@
         </div>
     </div>
 
-    <div class="">
+    <div class="pb-5">
         <div class="max-w-5xl mx-auto">
             <div class="flex flex-row gap-5">
                 <div class="flex bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 bg-custom-blacki shadow-2xl text-6xl font-extrabold text-center text-gray-300 font-extraboldoverflow-x-auto">
-                        {{ $userCart->product_variant->product->prd_name }} {{ $userCart->product_variant->prd_var_name }}
-                        @php($cartTotal = 0)
-                        @foreach($userCartItems as $key => $value)
-                        <div class="text-base text-white">
-                            {{ $key }} x{{ $value }} &#8369;{{ number_format($total = $value * $price, 2) }}
-                            @php($cartTotal = $cartTotal + $total)
-                        </div>
-                        @endforeach
-                        x{{ $cartQuantity }} &#8369;{{ number_format($cartTotal, 2) }}
+                        Hello
                     </div>
                 </div>
 
@@ -33,6 +25,9 @@
                                 <table class="table-auto min-w-full divide-y divide-gray-200">
                                     <thead class="bg-custom-blacki">
                                         <tr>
+                                            <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                Product Variant
+                                            </th>
                                             <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 Size
                                             </th>
@@ -46,16 +41,22 @@
                                     </thead>
 
                                     <tbody class="bg-white divide-y divide-gray-200">
+
+                                        @php($cartTotal = 0)
+                                        @forelse($userCarts as $userCart)
                                         <tr>
-                                            <td class="text-center md:px-6 py-4 whitespace-nowrap" colspan="3">
+                                            <td class="text-left md:px-6 py-4 whitespace-nowrap" colspan="4">
                                                 <div class="text-sm font-medium text-gray-900">
                                                     {{ $userCart->product_variant->product->prd_name }}: {{ $userCart->product_variant->prd_var_name }}
+                                                    @php($price = $userCart->product_variant->product->prd_price)
                                                 </div>
                                             </td>
                                         <tr>
-                                            @php($cartTotal = 0)
-                                            @forelse($userCartItems as $key => $value)
+                                            @foreach($userCart->cartItemSizes() as $key => $value)
                                         <tr>
+                                            <td>
+
+                                            </td>
                                             <td class="md:px-6 py-4 whitespace-nowrap">
                                                 <div class="text-sm font-medium text-gray-900">
                                                     {{ $key }}
@@ -75,6 +76,15 @@
                                                 </div>
                                             </td>
                                         </tr>
+                                            @endforeach
+
+                                            @if(!$loop->last)
+                                            <tr>
+                                                <td class="h-10 bg-gray-100" colspan="4">
+                                                    
+                                                </td>
+                                            </tr>
+                                            @endif
                                         @empty
                                         <tr>
                                             <td class="md:px-6 py-4 text-center" colspan="6">
@@ -95,10 +105,14 @@
                                                 </div>
                                             </td>
 
+                                            <td>
+
+                                            </td>
+
                                             <td class="md:px-6 py-4 ">
                                                 <div>
                                                     <span class="font-semibold text-xl text-gray-800 leading-tight">
-                                                        {{ $cartQuantity }}
+                                                        x{{ $cartQuantity }}
                                                     </span>
                                                 </div>
                                             </td>

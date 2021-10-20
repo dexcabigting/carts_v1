@@ -15,6 +15,7 @@ class CartsDelete extends Component
     public function mount(...$id)
     {
         $this->carts = collect($id)->flatten()->toArray();
+        dd($this->carts);
     }
 
     public function render()

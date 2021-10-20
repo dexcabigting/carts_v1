@@ -9,20 +9,19 @@ class CheckoutIndex extends Component
 {
     public $userCartItems;
     public $userCart;
+    public $userCarts;
     public $price;
     public $cartQuantity;
+    public $cart;
+    public $carts = [];
 
-    public function mount(Cart $id)
+    public function mount($ids)
     {
-        $this->userCart = $id->load('product_variant.product');
+        $this->carts = json_decode($ids);
 
-        $this->price = $this->userCart->product_variant->product->prd_price;
-        
-        $this->userCartItems = $id->cart_items()->get()->countBy('size')->toArray();
+        $this->userCarts = auth()->user()->userCarts($this->carts)->with('product_variant.product')->get();
 
-        $this->cartQuantity = array_sum($this->userCartItems);
-
-        // dd($this->userCartItems);
+        $this->cartQuantity = auth()->user()->userCartItems($this->carts)->count();
     }
 
     public function render()
