@@ -21,6 +21,13 @@ class UserAddress extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault([
+            'region' => 'No address yet',
+            'province' => 'No address yet',
+            'city' => 'No address yet',
+            'barangay' => 'No address yet',
+            'home_address' => 'No address yet',
+            'is_main_address' => 'No address yet',
+        ]);
     }
 }

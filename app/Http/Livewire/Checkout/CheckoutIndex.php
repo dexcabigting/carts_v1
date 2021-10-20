@@ -7,13 +7,11 @@ use App\Models\Cart;
 
 class CheckoutIndex extends Component
 {
-    public $userCartItems;
-    public $userCart;
     public $userCarts;
     public $price;
     public $cartQuantity;
-    public $cart;
     public $carts = [];
+    public $userAddress;
 
     public function mount($ids)
     {
@@ -22,6 +20,8 @@ class CheckoutIndex extends Component
         $this->userCarts = auth()->user()->userCarts($this->carts)->with('product_variant.product')->get();
 
         $this->cartQuantity = auth()->user()->userCartItems($this->carts)->count();
+
+        $this->userAddress = auth()->user()->addresses()->where('is_main_address', 1)->first();
     }
 
     public function render()

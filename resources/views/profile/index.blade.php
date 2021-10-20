@@ -52,49 +52,49 @@
 
                             <!-- Address -->
                             <div class="mt-4">
-                                <x-label for="region" value="{{ $userAddress->region }}" />
-                                <select id="region" value="{{ $userAddress->region }}">
+                                <x-label for="region" value="{{ $userAddress->region ?? '' }}" />
+                                <select id="region" value="{{ $userAddress->region ?? '' }}">
                                     <option>
                                         Region
                                     </option>
                                 </select>
-                                <x-input id="region-text" type="hidden" name="region" value="{{ $userAddress->region }}" />
+                                <x-input id="region-text" type="hidden" name="region" value="{{ $userAddress->region ?? '' }}" />
                             </div>
 
                             <div class="mt-4">
-                                <x-label for="province" value="{{ $userAddress->province }}" />
+                                <x-label for="province" value="{{ $userAddress->province ?? '' }}" />
                                 <select id="province">
                                     <option>
                                         Province
                                     </option>
                                 </select>
-                                <x-input id="province-text" type="hidden" name="province" value="{{ $userAddress->province }}" />
+                                <x-input id="province-text" type="hidden" name="province" value="{{ $userAddress->province ?? '' }}" />
                             </div>
 
                             <div class="mt-4">
-                                <x-label for="city" value="{{ $userAddress->city }}" />
+                                <x-label for="city" value="{{ $userAddress->city ?? '' }}" />
                                 <select id="city">
                                     <option>
                                         City
                                     </option>
                                 </select>
-                                <x-input id="city-text" type="hidden" name="city" value="{{ $userAddress->city }}" />
+                                <x-input id="city-text" type="hidden" name="city" value="{{ $userAddress->city ?? '' }}" />
                             </div>
 
                             <div class="mt-4">
-                                <x-label for="barangay" value="{{ $userAddress->barangay }}" />
+                                <x-label for="barangay" value="{{ $userAddress->barangay ?? '' }}" />
                                 <select name="barangay" id="barangay">
                                     <option>
                                         Barangay
                                     </option>
                                 </select>
-                                <x-input id="barangay-text" type="hidden" name="barangay" value="{{ $userAddress->barangay }}" />
+                                <x-input id="barangay-text" type="hidden" name="barangay" value="{{ $userAddress->barangay ?? '' }}" />
                             </div>
                             
                             <div class="mt-4">
                                 <x-label class="text-xl text-custom-violet  " for="home_address" :value="__('Home Address')" />
 
-                                <x-input id="home_address" class="block mt-1 w-full" type="text" name="home_address" value="{{ $userAddress->home_address }}" required />
+                                <x-input id="home_address" class="block mt-1 w-full" type="text" name="home_address" value="{{ $userAddress->home_address ?? ''  }}" required />
                             </div>
 
                             <div class="flex items-center justify-end mt-4">

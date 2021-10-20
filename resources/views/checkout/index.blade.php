@@ -13,8 +13,23 @@
         <div class="max-w-5xl mx-auto">
             <div class="flex flex-row gap-5">
                 <div class="flex bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-custom-blacki shadow-2xl text-6xl font-extrabold text-center text-gray-300 font-extraboldoverflow-x-auto">
-                        Hello
+                    <div class="p-6 bg-custom-blacki shadow-2xl text-base text-black">
+                        <div class>
+                            <x-label for="name" :value="__('Name')" />
+                            <x-input id="name" class="block mt-1 w-full " type="text" name="name" value="{{ Auth::user()->name }}" autofocus required />
+                        </div>
+
+                        <div class="mt-4">
+                            <x-label for="email" :value="__('Email')" />
+                            <x-input id="email" class="block mt-1 w-full" type="email" name="email" value="{{ Auth::user()->email }}" required />
+                        </div>
+
+                        <div class="mt-4">
+                            <x-label for="phone" :value="__('Phone')" />
+                            <x-input id="phone" class="block mt-1 w-full" type="text" name="phone" value="{{ Auth::user()->phone }}" required />
+                        </div>
+
+                        
                     </div>
                 </div>
 
@@ -127,6 +142,15 @@
                                                     <span class="font-semibold text-xl text-gray-800 leading-tight">
                                                         &#8369;{{ number_format($cartTotal, 2) }}
                                                     </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center" colspan="4">
+                                                <div>
+                                                    <x-button class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
+                                                        {{ __('Place Order') }}
+                                                    </x-button>
                                                 </div>
                                             </td>
                                         </tr>
