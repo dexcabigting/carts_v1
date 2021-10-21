@@ -48,8 +48,16 @@ class CheckoutIndex extends Component
         'form.name' => 'name',
         'form.email' => 'email',
         'form.phone' => 'phone',
+        'form.province' => 'province',
+        'form.city' => 'city',
+        'form.barangay' => 'barangay',
+        'form.home_address' => 'home address',
+        'form.postal_code' => 'postal code',
         'form.amount' => 'amount',
         'form.type' => 'payment method',
+        'form.card_number' => 'card number',
+        'form.exp_date' => 'expiration date',
+        'form.cvc' => 'card validation code',
     ];
 
     public function mount($ids)
@@ -113,12 +121,7 @@ class CheckoutIndex extends Component
         }
     }
 
-    public function previousPage()
-    {
-        $this->pages--;
-    }
-
-    public function placeOrder()
+    public function gotoPageFive()
     {
         // Date will be validated here
         $this->validate($this->rules[$this->pages]);
@@ -127,9 +130,10 @@ class CheckoutIndex extends Component
         $exp_month = date_format($date, 'n');
 
         // Re-validate whole form
-        // $rules = collect($this->rules)->collapse()->toArray();
+        $rules = collect($this->rules)->collapse()->toArray();
 
-        // $this->validate($rules);
+        $this->validate($rules);
+
         $amount = $this->form['amount'];
         $this->paymentIntent($amount);
 
@@ -158,12 +162,22 @@ class CheckoutIndex extends Component
         $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
         $paymentMethod = Paymongo::paymentMethod()->find(session('paymentMethodId'));
 
-        $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
+        // Do this if user confirms the payment
+        // $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
 
-        dd($paymentIntent, $paymentMethod, $successfulPayment);
+        // Do this if user cancels payment
+        // $cancelPaymentIntent = $paymentIntent->cancel();
+
+        // dd($paymentIntent, $paymentMethod, $successfulPayment);
 
         $this->reset();
         $this->resetValidation();
+    }
+
+
+    public function previousPage()
+    {
+        $this->pages--;
     }
 
     private function paymentIntent($amount)

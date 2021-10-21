@@ -82,7 +82,7 @@
                         <td class="md:px-6 py-4">
                             <div>
                                 <span class="font-semibold text-xl text-gray-800 leading-tight">
-                                    Total:
+                                    Subtotal:
                                 </span>
                             </div>
                         </td>
