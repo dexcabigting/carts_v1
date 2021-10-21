@@ -133,8 +133,34 @@ class CheckoutIndex extends Component
         $amount = $this->form['amount'];
         $this->paymentIntent($amount);
 
-    
-        $this->paymentMethod();
+        $type = $this->form['type'];
+        $details = [
+            'card_number' => $this->form['card_number'],
+            'exp_month' => $exp_month,
+            'exp_year' => $exp_year,
+            'cvc' => $this->form['cvc'],
+        ];
+        $address = [
+            'province' => $this->form['province'],
+            'city' => $this->form['city'],
+            'barangay' => $this->form['barangay'],
+            'home_address' => $this->form['home_address'],
+            'postal_code' => $this->form['postal_code'],
+            'country' => $this->form['country'],
+        ];
+        $info = [
+            'name' => $this->form['name'],
+            'email' => $this->form['email'],
+            'phone' => $this->form['phone'],
+        ];
+        $this->paymentMethod($type, $details, $address, $info);
+
+        $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
+        $paymentMethod = Paymongo::paymentMethod()->find(session('paymentMethodId'));
+
+        $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
+
+        dd($paymentIntent, $paymentMethod, $successfulPayment);
 
         $this->reset();
         $this->resetValidation();
@@ -160,29 +186,31 @@ class CheckoutIndex extends Component
         session(['paymentIntentId' => $paymentIntent->id]);
     }
 
-    private function paymentMethod()
+    private function paymentMethod($type, $details, $address, $info)
     {
         $paymentMethod = Paymongo::paymentMethod()->create([
-            'type' => 'card',
+            'type' => $type,
             'details' => [
-                'card_number' => '4343434343434345',
-                'exp_month' => 12,
-                'exp_year' => 25,
-                'cvc' => "123",
+                'card_number' => $details['card_number'],
+                'exp_month' => +$details['exp_month'],
+                'exp_year' => +$details['exp_year'],
+                'cvc' => $details['cvc'],
             ],
             'billing' => [
                 'address' => [
-                    'line1' => 'Somewhere there',
-                    'city' => 'Cebu City',
-                    'state' => 'Cebu',
-                    'country' => 'PH',
-                    'postal_code' => '6000',
+                    'line1' => $address['home_address'] . ' ' . $address['barangay'],
+                    'city' => $address['city'],
+                    'state' => $address['province'],
+                    'country' => $address['country'],
+                    'postal_code' => $address['postal_code'],
                 ],
-                'name' => 'Rigel Kent Carbonel',
-                'email' => 'rigel20.kent@gmail.com',
-                'phone' => '0935454875545'
+                'name' => $info['name'],
+                'email' => $info['email'],
+                'phone' => $info['phone'],
             ],
         ]);
+
+        session(['paymentMethodId' => $paymentMethod->id]);
     }
 
     public function render()
