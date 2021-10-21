@@ -19,6 +19,9 @@ use App\Http\Livewire\Shop\Carts\CartsIndex;
 // Livewire Checkout Component
 use App\Http\Livewire\Checkout\CheckoutIndex;
 
+// Livewire Orders Component
+use App\Http\Livewire\Orders\OrdersIndex;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,6 +60,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Products Livewire Component
         Route::get('products', ProductsIndex::class)->name('products.index');
+
+        // Orders Livewire Component
+        Route::get('orders', OrdersIndex::class)->name('orders.index');
     });
 
     // Users
