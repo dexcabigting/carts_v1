@@ -16,22 +16,7 @@ class CheckoutIndex extends Component
     public $userAddress;
     public $pages = 1;
     public $amount;
-    public $form = [
-        'name' => '',
-        'email' => '',
-        'phone' => '',
-        'region' => '',
-        'province' => '',
-        'city' => '',
-        'barangay' => '',
-        'home_address' => '',
-        'country' => '',
-        'amount' => '',
-        'type' => '',
-        'card_number' => '',
-        'exp_date' => '',
-        'cvc' => '',
-    ];
+    public $form = [];
     public $paymentMethod;
 
     protected $rules = [
@@ -45,6 +30,7 @@ class CheckoutIndex extends Component
             'form.city' => ['required', 'string', 'exists:user_addresses,city'],
             'form.barangay' => ['required', 'string', 'exists:user_addresses,barangay'],
             'form.home_address' => ['required', 'string', 'exists:user_addresses,home_address'],
+            'form.postal_code' => ['required', 'string'],
             'form.country' => ['required', 'string', 'in:PH'],
         ],
         3 => [
@@ -52,13 +38,16 @@ class CheckoutIndex extends Component
             'form.type' => ['required', 'string', 'in:card,gcash'],
         ],
         4 => [
-            'form.card_number' => ['required'],
-            'form.exp_date' => ['required', 'string', 'date_format:Y-m','after:today'],
+            'form.card_number' => ['required', 'string'],
+            'form.exp_date' => ['required', 'string', 'date_format:Y-m-d','after:today'],
             'form.cvc' => ['required', 'string'],
         ], 
     ];
 
     protected $validationAttributes = [
+        'form.name' => 'name',
+        'form.email' => 'email',
+        'form.phone' => 'phone',
         'form.amount' => 'amount',
         'form.type' => 'payment method',
     ];
@@ -82,12 +71,12 @@ class CheckoutIndex extends Component
             'city' => Str::ucfirst(Str::lower($this->userAddress->city)),
             'barangay' => $this->userAddress->barangay,
             'home_address' => $this->userAddress->home_address,
+            'postal_code' => '4005',
             'country' => 'PH',
             'amount' => '',
             'type' => '',
-            'card_number' => 4009930000001421,
-            'exp_month' => '',
-            'exp_year' => '',
+            'card_number' => '4009930000001421',
+            'exp_date' => '',
             'cvc' => '',
         ];
     }
@@ -131,19 +120,69 @@ class CheckoutIndex extends Component
 
     public function placeOrder()
     {
-        // dd($this->form['exp_date']);
+        // Date will be validated here
         $this->validate($this->rules[$this->pages]);
-        $date = date_create_from_format('Y-m', $this->form['exp_date']);
+        $date = date_create_from_format('Y-m-d', $this->form['exp_date']);
         $exp_year = date_format($date, 'y');
         $exp_month = date_format($date, 'n');
-        dd(+$exp_year, +$exp_month);
-        $rules = collect($this->rules)->collapse()->toArray();
 
-        $this->validate($rules);
+        // Re-validate whole form
+        // $rules = collect($this->rules)->collapse()->toArray();
 
+        // $this->validate($rules);
+        $amount = $this->form['amount'];
+        $this->paymentIntent($amount);
+
+    
+        $this->paymentMethod();
 
         $this->reset();
         $this->resetValidation();
+    }
+
+    private function paymentIntent($amount)
+    {
+        $paymentIntent = Paymongo::paymentIntent()->create([
+            'amount' => $amount,
+            'payment_method_allowed' => [
+                'card'
+            ],
+            'payment_method_options' => [
+                'card' => [
+                    'request_three_d_secure' => 'automatic'
+                ]
+            ],
+            'description' => 'This is a test payment intent',
+            'statement_descriptor' => 'EJ Ezon Sportswear',
+            'currency' => "PHP",
+        ]);
+
+        session(['paymentIntentId' => $paymentIntent->id]);
+    }
+
+    private function paymentMethod()
+    {
+        $paymentMethod = Paymongo::paymentMethod()->create([
+            'type' => 'card',
+            'details' => [
+                'card_number' => '4343434343434345',
+                'exp_month' => 12,
+                'exp_year' => 25,
+                'cvc' => "123",
+            ],
+            'billing' => [
+                'address' => [
+                    'line1' => 'Somewhere there',
+                    'city' => 'Cebu City',
+                    'state' => 'Cebu',
+                    'country' => 'PH',
+                    'postal_code' => '6000',
+                ],
+                'name' => 'Rigel Kent Carbonel',
+                'email' => 'rigel20.kent@gmail.com',
+                'phone' => '0935454875545'
+            ],
+        ]);
     }
 
     public function render()

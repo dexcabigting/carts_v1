@@ -54,6 +54,11 @@
                         <x-label :value="__('Home Address')" />
                         <x-input wire:model="form.home_address" class="block mt-1 w-full " type="text" autofocus required />
                     </div>
+
+                    <div class>
+                        <x-label :value="__('Postal Code')" />
+                        <x-input wire:model="form.postal_code" class="block mt-1 w-full " type="text" autofocus required />
+                    </div>
                 @elseif($pages === 3)
                     <div class="text-lg font-bold text-left text-white">
                         Step 3: <span class="text-lg font-normal">Payment Method</span>
