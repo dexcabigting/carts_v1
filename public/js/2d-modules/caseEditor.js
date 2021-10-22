@@ -57,8 +57,8 @@ var line4;
 		document.getElementById('add-text').onclick = function() {
 			var text = $("#text-string").val();
 		    var textSample = new fabric.Text(text, {
-		      left: fabric.util.getRandomInt(0, 200),
-		      top: fabric.util.getRandomInt(0, 400),
+		      left: fabric.util.getRandomInt(0, 230),
+		      top: fabric.util.getRandomInt(0, 570),
 		      fontFamily: 'helvetica',
 		      angle: 0,
 		      fill: '#000000',
@@ -78,37 +78,6 @@ var line4;
 		    	  activeObject.text = this.value;
 		    	  canvas.renderAll();
 		      }
-	  	});
-	  	
-	  	$("#phoneTypes").change(function(e){
-	  		debugger;
-	  		if($(this).val() == "1"){
-	  			$("#phoneDiv").css('height','590');
-	  			$("#phone")[0].src = "img/phones/iphone5A.png";
-	  			//$("#borderMask")[0].src = "img/phones/iphone5Mask.png";
-				line1 = new fabric.Line([0,0,225,0], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-				line2 = new fabric.Line([224,0,225,450], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-				line3 = new fabric.Line([0,0,0,450], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-				line4 = new fabric.Line([0,450,225,449], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-	  		}
-	  		else if ($(this).val() == "2"){
-	  			$("#phoneDiv").css('height','540');
-	  			$("#phone")[0].src = "img/phones/iPhone4A.png";
-	  			//$("#borderMask")[0].src = "img/phones/iphone4Mask.png";
-	  			line1 = new fabric.Line([0,20,220,20], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-				line2 = new fabric.Line([220,20,220,420], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-				line3 = new fabric.Line([0,20,0,420], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-				line4 = new fabric.Line([0,420,220,420], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-	  		}
-	  		else if ($(this).val() == "3"){	  		
-	  			$("#phoneDiv").css('height','535');
-	  			$("#phone")[0].src = "img/phones/GalaxyS3A.png";
-	  			//$("#borderMask")[0].src = "img/phones/GalaxyS3Mask.png";	
-	  			line1 = new fabric.Line([0,30,225,30], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-				line2 = new fabric.Line([224,30,225,400], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-				line3 = new fabric.Line([0,30,0,400], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-				line4 = new fabric.Line([0,400,225,400], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-	  		}
 	  	});
 	  	
 	  	line1 = new fabric.Line([0,0,225,0], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});

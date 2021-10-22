@@ -1,15 +1,15 @@
-<div class="h-screen">
+<div class="h-screen lg:ml-80 lg:mt-9">
     <div class="pt-12 pb-5">
         <div class="max-w-6xl mx-auto">
-            <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
+            <!-- <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="flex flex-row gap-5 p-6 bg-custom-blacki shadow-2xl overflow-x-auto">
 
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
-
-    <div class="max-w-6xl mx-auto">
+    
+    <div class="max-w-6xl mx-auto ">
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">

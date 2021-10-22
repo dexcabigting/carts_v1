@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>TShirt Editor</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
+ @section('content') 
+  <section>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>	
 	<script type="text/javascript" src="{{asset('js/2d-modules/fabric.js')}}"></script>
 	
@@ -15,32 +9,37 @@
     <link href="{{asset('css/2d-styles/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/2d-styles/bootstrap-responsive.min.css')}}" rel="stylesheet">
 	 <style type="text/css">
-		 .footer {
-			padding: 70px 0;
-			margin-top: 70px;
-			border-top: 1px solid #E5E5E5;
-			background-color: whiteSmoke;
-			}			
-	      body {
-	        padding-top: 60px;	        
-	      }
-	      .color-preview {
-	      	border: 1px solid #CCC;
-	      	margin: 2px;
-	      	zoom: 1;
-	      	vertical-align: top;
-	      	display: inline-block;
-	      	cursor: pointer;
-	      	overflow: hidden;
-	      	width: 20px;
-	      	height: 20px;
-	      }
-	      .rotate {  
-		    -webkit-transform:rotate(90deg);
-		    -moz-transform:rotate(90deg);
-		    -o-transform:rotate(90deg);
-		    -ms-transform:rotate(90deg);		   
+		.nav-container-class > a{
+			text-decoration: none;
+		}
+
+		.nav-container-class > a.border-indigo-100:hover{
+			color: white;
+		}
+
+		.rounded-full.w-10.h-10.mx-4.border-4.border-custom-violet{ 
+    		border: medium solid rgba(71, 12, 175, 1);
+		}
+
+		.color-preview {
+			border: 1px solid #CCC;
+			margin: 2px;
+			zoom: 1;
+			vertical-align: top;
+			display: inline-block;
+			cursor: pointer;
+			overflow: hidden;
+			width: 20px;
+			height: 20px;
+		}
+
+		.rotate {  
+			-webkit-transform:rotate(90deg);
+			-moz-transform:rotate(90deg);
+			-o-transform:rotate(90deg);
+			-ms-transform:rotate(90deg);		   
 		}		
+
 		.Arial{font-family:"Arial";}
 		.Helvetica{font-family:"Helvetica";}
 		.MyriadPro{font-family:"Myriad Pro";}
@@ -60,9 +59,9 @@
 			display: none;
 		 }
 	 </style>
-  </head>
+  </section> 
 
-  <body style="padding-top: 0 !important;">
+  <section style="padding-top: 0 !important;">
   <meta name="csrf-token" content="{{ Session::token() }}"> 
   <!-- Navbar
     ================================================== -->
@@ -196,8 +195,8 @@
                 <button id="flipback" type="button" class="btn" title="Rotate View"><i class="icon-retweet" style="height:19px;"></i></button>
 					<div id="shirtDiv" class="shirtDiv page" style="width: 530px; height: 630px; position: relative; background-color: rgb(255, 255, 255);">
 						<img name="tshirtview" id="tshirtFacing" src="{{ asset('images/2d-img/jersey3.png')}}">
-						<div id="drawingArea" style="position: absolute;top: 100px;left: 160px;z-index: 10;width: 200px;height: 400px;">					
-							<canvas id="tcanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>
+						<div id="drawingArea" style="position: absolute;top: 100px;left: 160px;z-index: 10;width: 230px;height: 570px;">					
+							<canvas id="tcanvas" width=230 height="570" class="hover" style="-webkit-user-select: none;margin-top:-67px !important;margin-left:-12px !important;"></canvas>
 						</div>
 					</div>
 		    </div>
@@ -299,5 +298,5 @@
 	<script type="text/javascript" src="{{asset('js/2d-modules/jquery.miniColors.min.js')}}"></script>
     <script src="{{asset('js/2d-modules/tshirt-page-module/tshirt-save-setup-module.js')}}"></script>
     <script src="{{asset('js/2d-modules/bootstrap.min.js')}}"></script>  
-  </body>
-</html>
+  </section>
+  @stop

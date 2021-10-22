@@ -23,6 +23,7 @@ SHOW_BACK_VIEW_TITLE = "Show Back View",
 NULL = null,
 FALSE = false,
 TRUE = true,
+
 _valueSelect = NULL,
 _savedFrontCanvas = NULL,
 _savedBackCanvas = NULL,
@@ -32,6 +33,10 @@ _isFrontCanvas = TRUE;
 
 function _getIdSelector(selectorID){
     return ID_SELECTOR + selectorID;
+}
+
+function _getClassSelector(selectorClass){
+    return CLASS_SELECTOR + selectorClass;
 }
 
 function _attachEvent(selector, selectorEvent, callback){
@@ -67,7 +72,7 @@ function _renderShirtChanges(sender, frontImgUrl, backImgUrl){
         }
         catch(e)
         {
-            console.log(e);
+            // console.log(e);
         }
     
     } else {
@@ -89,7 +94,7 @@ function _renderShirtChanges(sender, frontImgUrl, backImgUrl){
         }
         catch(e)
         {
-            console.log(e);
+            // console.log(e);
         }
     }	
 }

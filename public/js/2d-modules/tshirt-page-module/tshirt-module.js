@@ -2,10 +2,12 @@ $(document).ready(function(){
 
   var TSHIRT_TYPE_ID = "tshirttype",
   IMG_MODULE_SELECTOR = "img[name=tshirtview]",
+  NAVIGATION_CONTAINER_CLASS = "nav-container-class",
   // Selectors
   
   ID_SELECTOR = "#",
   CLASS_SELECTOR = ".",
+  HIDDEN = "hidden",
   SRC_SELECTOR = "src",
   
   // Events
@@ -15,6 +17,10 @@ $(document).ready(function(){
 
 function _getIdSelector(selectorID){
   return ID_SELECTOR + selectorID;
+}
+
+function _getClassSelector(selectorClass){
+  return CLASS_SELECTOR + selectorClass;
 }
 
 function _attachEvent(selector, selectorEvent, callback){
@@ -39,6 +45,7 @@ function _attachEvents(){
 // Public Methods
 
 function _initializeFunctions(){
+  $(_getClassSelector(NAVIGATION_CONTAINER_CLASS)).removeClass(HIDDEN);
   _attachEvents();
 }
 

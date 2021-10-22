@@ -59,8 +59,8 @@ canvas.on('object:out', function(e) {
 document.getElementById('add-text').onclick = function() {
 	var text = $("#text-string").val();
 	var textSample = new fabric.Text(text, {
-		left: fabric.util.getRandomInt(0, 200),
-		top: fabric.util.getRandomInt(0, 400),
+		left: fabric.util.getRandomInt(0, 230),
+		top: fabric.util.getRandomInt(0, 570),
 		fontFamily: 'helvetica',
 		angle: 0,
 		fill: '#000000',
@@ -329,10 +329,10 @@ $('#flip').click(
 		},200);			   	
 });	   
 $(".clearfix button,a").tooltip();
-line1 = new fabric.Line([0,0,200,0], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-line2 = new fabric.Line([199,0,200,399], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-line3 = new fabric.Line([0,0,0,400], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
-line4 = new fabric.Line([0,400,200,399], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
+line1 = new fabric.Line([-16,-10,230,-10], {"stroke":"#000000", "strokeWidth":1.5,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
+line2 = new fabric.Line([212,-10,212,560], {"stroke":"#000000", "strokeWidth":1.5,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
+line3 = new fabric.Line([-17,-10,-17,560], {"stroke":"#000000", "strokeWidth":1.5,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
+line4 = new fabric.Line([-35,558,230,558], {"stroke":"#000000", "strokeWidth":1.5,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
 });//doc ready
 
 

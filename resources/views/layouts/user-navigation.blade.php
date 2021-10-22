@@ -7,7 +7,7 @@
                 
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="nav-container-class hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @if(auth()->user()->role_id == 1)
                         <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
@@ -35,7 +35,7 @@
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class="nav-container-class hidden sm:flex sm:items-center sm:ml-6">
             <img src="../img/GROI.png" alt="" class="rounded-full w-10 h-10 mx-4 border-4 border-custom-violet">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">

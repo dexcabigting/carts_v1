@@ -7866,7 +7866,7 @@ fabric.util.object.extend(fabric.StaticCanvas.prototype, {
      */
     transform: function(ctx) {
       ctx.globalAlpha = this.opacity;
-      ctx.translate(this.left, this.top);
+      ctx.translate(this.left + 17, this.top + 10);
       ctx.rotate(this._theta);
       ctx.scale(
         this.scaleX * (this.flipX ? -1 : 1),

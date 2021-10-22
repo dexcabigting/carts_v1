@@ -31,6 +31,9 @@
             <!-- Page Content -->
             <main class="bg-custom-black">
                 {{ $slot }}
+
+                @yield('content')
+                
             </main>
         </div>
         @livewireScripts
