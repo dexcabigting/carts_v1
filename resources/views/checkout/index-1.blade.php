@@ -163,7 +163,7 @@
                                 {{ __('Back') }}
                             </x-button>
 
-                            <x-button wire:click.prevent="gotoPageFour" type="submit" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
+                            <x-button wire:click.prevent="gotoPageFour" type="button" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
                                 {{ __('Next') }}
                             </x-button>
                         </div>
@@ -177,6 +177,17 @@
                                 {{ __('Next') }}
                             </x-button>
                         </div>
+                    @elseif($pages === 4)
+                    <div class="flex justify-between">
+                        <x-button wire:click.prevent="previousPage" type="button" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
+                            {{ __('Back') }}
+                        </x-button>
+
+                        <x-button type="submit" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
+                            {{ __('Next') }}
+                        </x-button>
+                    </div>
+                    @endif
                     @endif
                 </div>
             </div>

@@ -65,6 +65,11 @@ class User extends Authenticatable
     public function userCarts($ids)
     {
         return $this->hasMany(Cart::class)->whereIn('id', $ids);
+        // if(is_array($ids)) {
+            
+        // } else {
+        //     return $this->hasMany(Cart::class)->where('id', $ids);
+        // }
     }
 
     public function cartItems()

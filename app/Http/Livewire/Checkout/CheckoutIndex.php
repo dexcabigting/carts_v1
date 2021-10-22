@@ -62,8 +62,11 @@ class CheckoutIndex extends Component
 
     public function mount($ids)
     {
-        // dd(auth()->user()->phone);
         $this->carts = json_decode($ids);
+
+        if(!is_array($this->carts)) {
+            $this->carts = [$this->carts];
+        }        
 
         $this->userCarts = auth()->user()->userCarts($this->carts)->with('product_variant.product')->get();
 
@@ -121,18 +124,16 @@ class CheckoutIndex extends Component
         }
     }
 
-    public function placeOrder()
+    public function gotoPageFive()
     {
         // Date will be validated here
         $this->validate($this->rules[$this->pages]);
+
+        $this->pages++;
+
         $date = date_create_from_format('Y-m-d', $this->form['exp_date']);
         $exp_year = date_format($date, 'y');
         $exp_month = date_format($date, 'n');
-
-        // Re-validate whole form
-        $rules = collect($this->rules)->collapse()->toArray();
-
-        $this->validate($rules);
 
         $amount = $this->form['amount'];
         $this->paymentIntent($amount);
@@ -158,22 +159,29 @@ class CheckoutIndex extends Component
             'phone' => $this->form['phone'],
         ];
         $this->paymentMethod($type, $details, $address, $info);
+    }
 
-        $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
-        $paymentMethod = Paymongo::paymentMethod()->find(session('paymentMethodId'));
+    public function placeOrder()
+    {
+        // Re-validate whole form
+        $rules = collect($this->rules)->collapse()->toArray();
 
+        $this->validate($rules);
         // Do this if user confirms the payment
+        $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
+
         $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
 
-        // Do this if user cancels payment
-        $cancelPaymentIntent = $paymentIntent->cancel();
-
-        dd($paymentIntent, $paymentMethod, $successfulPayment);
-
         $this->reset();
+
         $this->resetValidation();
     }
 
+    public function cancelPaymentIntent()
+    {
+        $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
+        $cancelPaymentIntent = $paymentIntent->cancel();
+    }
 
     public function previousPage()
     {

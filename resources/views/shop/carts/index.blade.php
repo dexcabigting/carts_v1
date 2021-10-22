@@ -22,7 +22,10 @@
 
                     <a href="{{ route('checkout.index', json_encode($this->checked_keys)) }}">
                         <button type="button" {{ (!$checkedCarts) ?  'disabled' : null }} class=" rounded-sm hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCarts) cursor-not-allowed @endif">
-                            {{ __('Checkout') }}
+                            {{ __('Bulk Checkout') }}
+                            @if ($checkedCarts)
+                            ({{ count($checkedCarts) }})
+                            @endif
                         </button>
                     </a>
                 </div>
@@ -42,7 +45,7 @@
                         <table class="table-auto min-w-full divide-y divide-gray-200">
                             <thead class="bg-custom-blacki">
                                 <tr>
-                                    <th scope="col" class="md:px-6 py-3 float-left">
+                                    <th scope="col" class="md:px-2 py-3 float-left">
                                         <div class="px-4">
                                             <input type="checkbox" wire:model="selectAll" {{ (count($userCarts) == 0) ?  'disabled' : null }} class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring-indigo-200 focus:ring-opacity-50">
                                         </div>
@@ -107,7 +110,7 @@
 
                                     <td class="flex md:px-6 py-4 whitespace-nowrap">
                                         <div>
-                                            <a href="{{ route('checkout.index', [$userCart->id])  }}">
+                                            <a href="{{ route('checkout.index', [json_encode($userCart->id)])  }}">
                                                 <button type="button" class="p-2 bg-custom-violet hover:bg-purple-900 hover:text-purple-100 border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                                                     <span>
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
