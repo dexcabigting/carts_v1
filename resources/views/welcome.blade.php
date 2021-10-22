@@ -51,24 +51,24 @@
                     <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
                 </a>
                 <a href="#" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
-                CUSTOMIZE
+                  CUSTOMIZE
                     <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
                 </a>
 
                 @if (Route::has('login'))
-      @auth
-      @else<a href="{{ route('login') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
-                    LOGIN
-                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
-                </a>
-                @if (Route::has('register'))
-                <a  href="{{ route('register') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
-                   REGISTER
-                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
-                </a>
-                @endif
-                    @endauth
-                    @endif
+                    @auth
+                      @else<a href="{{ route('login') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
+                                    LOGIN
+                                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
+                                </a>
+                                @if (Route::has('register'))
+                                <a  href="{{ route('register') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
+                                  REGISTER
+                                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
+                                </a>
+                      @endif
+                  @endauth
+                  @endif
             </nav>
         </div>
         </div>
@@ -87,18 +87,30 @@
       
       @if (Route::has('login'))
       @auth
-                        <a  href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
-      <h1 class="hidden sm:block py-4 px-12">@else<a class="hidden sm:block" href="{{ route('login') }}">LOGIN</a></h1>
-      <h1 class="hidden sm:block py-4 px-12"> @if (Route::has('register'))<a href="{{ route('register') }}">REGISTER</a></h1>
+        @if(auth()->user()->role_id == 1)
+          <a  href="{{ route('dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
+        @elseif(auth()->user()->role_id == 2)
+          <a  href="{{ route('shop.index') }}" class="text-sm text-gray-700 underline">Shop Now</a>
+        @endif
+      <h1 class="hidden sm:block py-4 px-12">@else
+      <a class="hidden sm:block" href="{{ route('login') }}">LOGIN</a></h1>
+        <h1 class="hidden sm:block py-4 px-12"> @if (Route::has('register'))
+      <a href="{{ route('register') }}">REGISTER</a></h1>
       @endif
                     @endauth
                     @endif
                     
     </header>
     <div class="relative flex justify-center items-center">
-      <button
-        class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 absolute md:bottom-24 -bottom-16 bg-custom-violet">SHOP
-        NOW</button>
+        @auth
+          @if(auth()->user()->role_id == 2)
+          <a href="{{ route('shop.index') }}">
+            <button type="button"
+            class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 absolute md:bottom-24 -bottom-16 bg-custom-violet">SHOP
+            NOW</button>
+          </a>
+          @endif
+        @endauth
         <div class="contents">
       <img class=" w-2/3 sm:w-1/2 h-auto -mr-10" src="../img/Group 18.png" alt="">
       </div>
