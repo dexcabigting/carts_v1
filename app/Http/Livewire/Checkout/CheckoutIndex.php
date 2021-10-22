@@ -169,8 +169,9 @@ class CheckoutIndex extends Component
         $this->validate($rules);
         // Do this if user confirms the payment
         $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
+        $paymentMethodId = Paymongo::paymentMethod()->find(session('paymentMethodId'));
 
-        $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
+        $successfulPayment = $paymentIntent->attach($paymentMethodId);
 
         $this->reset();
 
