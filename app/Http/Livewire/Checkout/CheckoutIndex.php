@@ -80,7 +80,7 @@ class CheckoutIndex extends Component
             'email' => auth()->user()->email,
             'phone' => auth()->user()->phone,
             'province' => Str::ucfirst(Str::lower($this->userAddress->province)),
-            'city' => Str::ucfirst(Str::lower($this->userAddress->city)),
+            'city' => ucwords(Str::lower($this->userAddress->city)),
             'barangay' => $this->userAddress->barangay,
             'home_address' => $this->userAddress->home_address,
             'postal_code' => '4005',
@@ -137,7 +137,7 @@ class CheckoutIndex extends Component
 
         $this->pages++;
 
-        $date = date_create_from_format('Y-m-d', $this->form['exp_date']);
+        $date = date_create_from_format('Y-m', $this->form['exp_date']);
         $exp_year = date_format($date, 'y');
         $exp_month = date_format($date, 'n');
 
@@ -180,7 +180,6 @@ class CheckoutIndex extends Component
         $successfulPayment = $paymentIntent->attach($paymentMethodId);
 
         $this->reset();
-
         $this->resetValidation();
     }
 
@@ -188,6 +187,11 @@ class CheckoutIndex extends Component
     {
         $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
         $cancelPaymentIntent = $paymentIntent->cancel();
+
+        // $this->reset();
+        // $this->resetValidation();
+
+        // $this->pages = 1;
     }
 
     public function previousPage()
