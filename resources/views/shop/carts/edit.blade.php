@@ -39,7 +39,7 @@
     <form wire:submit.prevent="update">
         @foreach($cartItems as $index => $cartItem)
         <div class="grid grid-cols-4 justify-items-center gap-3 pb-3" wire:key="{{ $loop->index }}">
-            <input type="hidden" wire:model.defer="cartItems.{{ $index }}.id">
+            <input type="hidden" wire:model.lazy="cartItems.{{ $index }}.id">
 
             <div class="">
                 <select wire:model="cartItems.{{ $index }}.size" class="border-gray-300 rounded-lg w-full">
@@ -60,11 +60,11 @@
             </div>
 
             <div class="">
-                <x-input wire:model.defer="cartItems.{{ $index }}.surname" class="block w-full" type="text" autofocus />
+                <x-input wire:model.lazy="cartItems.{{ $index }}.surname" class="block w-full" type="text" autofocus />
             </div>
 
             <div class="">
-                <x-input wire:model.defer="cartItems.{{ $index }}.jersey_number" class="block w-full" type="text" autofocus />
+                <x-input wire:model.lazy="cartItems.{{ $index }}.jersey_number" class="block w-full" type="text" autofocus />
             </div>
 
             @if(count($cartItems) == 1)
