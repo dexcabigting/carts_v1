@@ -48,7 +48,14 @@ class ProfileController extends Controller
     {
         $userAddress = auth()->user()->addresses()->where('is_main_address', 1)->first();
 
-        $userAddress->update($request->only('region', 'province', 'city', 'barangay', 'home_address', 'is_main_address'));
+        if($userAddress) {
+            $userAddress->update($request->only('region', 'province', 'city', 'barangay', 'home_address', 'is_main_address'));
+        } else {
+            $newUserAddress = auth()->user()->addresses()->create($request->only('region', 'province', 'city', 'barangay', 'home_address'));
+            $newUserAddress->is_main_address = 1;
+            $newUserAddress->save();
+        }
+        
 
         return redirect()->route('profile.index')->with('success', 'Address updated successfully!');
     }
