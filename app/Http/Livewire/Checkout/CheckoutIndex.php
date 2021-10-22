@@ -175,11 +175,9 @@ class CheckoutIndex extends Component
         $this->validate($rules);
         // Do this if user confirms the payment
         $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
-        $paymentMethodId = Paymongo::paymentMethod()->find(session('paymentMethodId'));
 
-        $successfulPayment = $paymentIntent->attach($paymentMethodId);
+        $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
 
-        $this->reset();
         $this->resetValidation();
     }
 
@@ -188,10 +186,9 @@ class CheckoutIndex extends Component
         $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
         $cancelPaymentIntent = $paymentIntent->cancel();
 
-        // $this->reset();
-        // $this->resetValidation();
+        $this->resetValidation();
 
-        // $this->pages = 1;
+        $this->pages--;
     }
 
     public function previousPage()

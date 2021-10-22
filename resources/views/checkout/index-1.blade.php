@@ -209,7 +209,7 @@
                         </div>
                     @elseif($pages === 5)
                     <div class="flex justify-between">
-                        <x-button wire:click.prevent="previousPage" type="button" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
+                        <x-button wire:click.prevent="cancelPaymentIntent" type="button" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
                             {{ __('Cancel Payment') }}
                         </x-button>
 
