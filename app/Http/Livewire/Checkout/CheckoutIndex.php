@@ -121,7 +121,7 @@ class CheckoutIndex extends Component
         }
     }
 
-    public function gotoPageFive()
+    public function placeOrder()
     {
         // Date will be validated here
         $this->validate($this->rules[$this->pages]);
@@ -163,12 +163,12 @@ class CheckoutIndex extends Component
         $paymentMethod = Paymongo::paymentMethod()->find(session('paymentMethodId'));
 
         // Do this if user confirms the payment
-        // $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
+        $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
 
         // Do this if user cancels payment
-        // $cancelPaymentIntent = $paymentIntent->cancel();
+        $cancelPaymentIntent = $paymentIntent->cancel();
 
-        // dd($paymentIntent, $paymentMethod, $successfulPayment);
+        dd($paymentIntent, $paymentMethod, $successfulPayment);
 
         $this->reset();
         $this->resetValidation();
