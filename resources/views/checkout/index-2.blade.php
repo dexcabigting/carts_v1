@@ -1,5 +1,10 @@
 <div class="flex-grow flex flex-col">
-    <div class="align-middle inline-block min-w-full">
+    <div class="flex flex-col gap-5 align-middle inline-block min-w-full">
+
+        <div class="bg-custom-blacki text-xl font-extrabold text-center text-white p-5 sm:rounded-lg">
+            Transaction Breakdown
+        </div>
+
         <div class="shadow overflow-hidden  border-gray-200 sm:rounded-lg">
             <table class="table-auto min-w-full divide-y divide-gray-200">
                 <thead class="bg-custom-blacki">
@@ -103,6 +108,56 @@
                             <div>
                                 <span class="font-semibold text-xl text-gray-800 leading-tight">
                                     &#8369;{{ number_format( $this->amount = $cartTotal, 2) }}
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+
+                      <tr>
+                        <td class="md:px-6 py-4">
+                            <div>
+                                <span class="font-semibold text-xl text-gray-800 leading-tight">
+                                    Transaction Fee:
+                                </span>
+                            </div>
+                        </td>
+
+                        <td>
+
+                        </td>
+
+                        <td class="md:px-6 py-4 ">
+                        </td>
+
+                        <td class="md:px-6 py-4 ">
+                            <div>
+                                <span class="font-semibold text-xl text-gray-800 leading-tight">
+                                    &#8369;{{ number_format( (($this->amount * 0.035) + 15), 2) }}
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="md:px-6 py-4">
+                            <div>
+                                <span class="font-semibold text-2xl text-gray-800 leading-tight">
+                                    Total:
+                                </span>
+                            </div>
+                        </td>
+
+                        <td>
+
+                        </td>
+
+                        <td class="md:px-6 py-4 ">
+                        </td>
+
+                        <td class="md:px-6 py-4 ">
+                            <div>
+                                <span class="font-semibold text-2xl text-gray-800 leading-tight">
+                                    &#8369;{{ number_format( $this->total = (($this->amount * 0.035) + 15) + $this->amount, 2) }}
                                 </span>
                             </div>
                         </td>

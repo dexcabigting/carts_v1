@@ -18,6 +18,7 @@ class CheckoutIndex extends Component
     public $amount;
     public $form = [];
     public $paymentMethod;
+    public $total;
 
     protected $rules = [
         1 => [
@@ -39,7 +40,7 @@ class CheckoutIndex extends Component
         ],
         4 => [
             'form.card_number' => ['required', 'string'],
-            'form.exp_date' => ['required', 'string', 'date_format:Y-m-d','after:today'],
+            'form.exp_date' => ['required', 'string', 'date_format:Y-m','after:today'],
             'form.cvc' => ['required', 'string'],
         ], 
     ];
@@ -111,10 +112,15 @@ class CheckoutIndex extends Component
     {
         $this->validate($this->rules[$this->pages]);
 
-        $amount = $this->amount;
+        // The total
+        $total = $this->total;
 
-        if($amount > $this->form['amount']) {
+        if($total > $this->form['amount']) {
             session()->flash('fail', 'The amount you entered is insufficient!');
+
+            return;
+        } else if($total < $this->form['amount']) {
+            session()->flash('fail', 'Please enter the exact amount!');
 
             return;
         } else {

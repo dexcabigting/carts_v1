@@ -1,5 +1,5 @@
-<div class="">
-    <div class="bg-custom-blacki max-w-auto w-96 overflow-hidden shadow-sm sm:rounded-lg p-5">
+<div class="w-3/5">
+    <div class="bg-custom-blacki max-w-auto overflow-hidden shadow-sm sm:rounded-lg p-5">
         <form wire:submit.prevent="placeOrder">
             <div class="flex flex-col gap-3">
                 <div class="text-xl font-extrabold text-center text-white">
@@ -105,7 +105,7 @@
 
                     <div class>
                         <x-label :value="__('Expiration Date')" />
-                        <x-input wire:model.lazy="form.exp_date" placeholder="Enter expiration date" class="block mt-1 w-full" type="date" required />
+                        <x-input wire:model.lazy="form.exp_date" placeholder="Enter expiration date" class="block mt-1 w-full" type="month" required />
                     </div>
 
                     <div class>
@@ -130,7 +130,7 @@
 
                     <div class>
                         <x-label :value="__('Expiration Date')" />
-                        <x-input wire:model.lazy="form.exp_date" placeholder="Enter expiration date" class="block mt-1 w-full" type="date" required />
+                        <x-input wire:model.lazy="form.exp_date" placeholder="Enter expiration date" class="block mt-1 w-full" type="month" required />
                     </div>
 
                     <div class>
