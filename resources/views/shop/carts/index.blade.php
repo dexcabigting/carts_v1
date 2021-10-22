@@ -9,19 +9,6 @@
                     @endforeach
                 </div>
 
-
-                <div class="">
-
-                    <a href="{{ route('checkout.index', json_encode($this->checked_keys)) }}">
-                        <button type="button" {{ (!$checkedCarts) ?  'disabled' : null }} class=" rounded-sm hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCarts) cursor-not-allowed @endif">
-                            {{ __('Bulk Checkout') }}
-                            @if ($checkedCarts)
-                            ({{ count($checkedCarts) }})
-                            @endif
-                        </button>
-                    </a>
-                </div>
-
                 <div class="text-medium text-white">
 
                 </div>
@@ -175,16 +162,21 @@
             </div>
         </div>
         <div class="w-full flex justify-end">
-                    <button wire:click.prevent="openDeleteCartModal(@json($this->checked_keys))" type="button" {{ (!$checkedCarts) ?  'disabled' : null }} class="rounded-sm hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white mx-2 px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCarts) cursor-not-allowed @endif">
-                        {{ __('Bulk Delete') }}
-                        @if ($checkedCarts)
-                        ({{ count($checkedCarts) }})
-                        @endif
-                    </button>
-                    <button  wire:click.prevent="openDeleteCartModal(@json($this->checked_keys))" type="button" {{ (!$checkedCarts) ?  'disabled' : null }} class="opacity-40 rounded-sm hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-6 py-2 bg-custom-violet my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCarts) cursor-not-allowed @endif">
-                       Check Out
-                    </button>
-                </div>
+            <button wire:click.prevent="openDeleteCartModal(@json($this->checked_keys))" type="button" {{ (!$checkedCarts) ?  'disabled' : null }} class="rounded-sm hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white mx-2 px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCarts) cursor-not-allowed @endif">
+                {{ __('Bulk Delete') }}
+                @if ($checkedCarts)
+                ({{ count($checkedCarts) }})
+                @endif
+            </button>
+            <a href="{{ route('checkout.index', json_encode($this->checked_keys)) }}">
+                <button type="button" {{ (!$checkedCarts) ?  'disabled' : null }} class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-6 py-2 bg-custom-violet my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCarts) cursor-not-allowed @endif">
+                    {{ __('Bulk Checkout') }}
+                    @if ($checkedCarts)
+                    ({{ count($checkedCarts) }})
+                    @endif
+                </button>
+            </a>
+        </div>
     </div>
 
     <div class="pb-12">

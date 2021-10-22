@@ -188,7 +188,6 @@
                         </x-button>
                     </div>
                     @endif
-                    @endif
                 </div>
             </div>
         </form>
