@@ -3,7 +3,7 @@
 
     <section class="flex flex-row justify-center items-center md:w-full">
 
-        <div class="h-auto my-12 border-24 w-full shadow-xl mx-24 md:mx-32 bg-no-repeat bg-contain justify-center">
+        <div class="h-auto md:my-12 border-24 w-full shadow-xl mx-24 md:mx-32 bg-no-repeat bg-contain justify-center">
               <img class="2xl:inline-flex hidden float-right w-2/5"src="img/GROI.png" alt="">
             <div class="flex justify-start items-center py-12">
                 <div class="flex justify-center items-center flex-col md:ml-32">
