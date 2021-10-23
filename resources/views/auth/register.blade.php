@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-auth-card>
         <div class="px-12">
-        <section class="w-full flex justify-center items-center my-24 flex-col">
+        <section class="w-full flex justify-center items-center md: my-24 flex-col">
         <h1 class="font-semibold  text-7xl md:text-9xl text-custom-blacki my-4">REGISTER</h1>
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
