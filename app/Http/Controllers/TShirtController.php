@@ -22,6 +22,7 @@ class TShirtController extends Controller
             'tshirt_type' => $request['tshirt_type'],
             'tshirt_color' => $request['tshirt_color'],
             'tshirt_pdf' => $request['tshirt_pdf'],
+            'custom_price' => $request['custom_price'],
             'created_date' => $currentDate,
             'updated_date' => $currentDate,
         ]);
