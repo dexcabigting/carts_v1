@@ -4,9 +4,6 @@
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-custom-blacki shadow-2xl text-6xl font-extrabold text-center text-gray-300 font-extraboldoverflow-x-auto">
                     My Carts
-                    @foreach ( $checkedCarts as $items)
-                    {{ $items }}
-                    @endforeach
                 </div>
 
                 <div class="text-medium text-white">
