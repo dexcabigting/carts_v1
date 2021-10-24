@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Checkout;
 use Livewire\Component;
 use Luigel\Paymongo\Facades\Paymongo;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
 
 class CheckoutIndex extends Component
 {
@@ -247,7 +246,19 @@ class CheckoutIndex extends Component
 
     private function moveCartsToOrders()
     {
+        $carts = $this->carts;
 
+        $cartsToBeMoved = auth()->user()->userCarts($carts)
+                    ->select('user_id','product_variant_id')
+                    ->withCount('cart_items')
+                    ->with(['product_variant' => function ($query) {
+                        $query->withSum('product', 'prd_price');
+                    }])
+                    ->get();
+
+        foreach($cartsToBeMoved as $cartTobeMoved) {
+
+        }
     }
 
     public function render()
