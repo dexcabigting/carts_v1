@@ -12,28 +12,30 @@
                 </div>
 
                 @if($pages === 1)
-                    <div class="bg-white relative">
-                        <div class="h-10">
+                    @if(count($userCarts) != 0)
+                        <div class="bg-white relative">
+                            <div class="h-10">
+                            </div>
+                            <div class="text-lg font-bold text-gray-600  absolute bottom-1/4 left-1/4">
+                                Step 1: <span class="text-lg font-bold">Contact Information</span>
+                            </div>
                         </div>
-                        <div class="text-lg font-bold text-gray-600  absolute bottom-1/4 left-1/4">
-                            Step 1: <span class="text-lg font-bold">Contact Information</span>
+
+                        <div class>
+                            <x-label :value="__('Name')" />
+                            <x-input wire:model.lazy="form.name" class="block mt-1 w-full text-black" type="text" autofocus required />
                         </div>
-                    </div>
 
-                    <div class>
-                        <x-label :value="__('Name')" />
-                        <x-input wire:model.lazy="form.name" class="block mt-1 w-full text-black" type="text" autofocus required />
-                    </div>
+                        <div>
+                            <x-label :value="__('Email')" />
+                            <x-input wire:model.lazy="form.email" class="block mt-1 w-full text-black" type="email" required />
+                        </div>
 
-                    <div>
-                        <x-label :value="__('Email')" />
-                        <x-input wire:model.lazy="form.email" class="block mt-1 w-full text-black" type="email" required />
-                    </div>
-
-                    <div>
-                        <x-label :value="__('Phone')" />
-                        <x-input wire:model.lazy="form.phone" class="block mt-1 w-full text-black" type="text" required />
-                    </div>
+                        <div>
+                            <x-label :value="__('Phone')" />
+                            <x-input wire:model.lazy="form.phone" class="block mt-1 w-full text-black" type="text" required />
+                        </div>
+                    @endif
                 @elseif($pages === 2)
                     <div class="bg-white relative">
                         <div class="w-1/4 bg-green-500 h-10">
@@ -172,11 +174,13 @@
 
                 <div>
                     @if($pages === 1)
-                        <div class="text-right">
-                            <x-button wire:click.prevent="gotoPageTwo" type="button" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
-                                {{ __('Next') }}
-                            </x-button>
-                        </div>
+                        @if(count($userCarts) != 0)
+                            <div class="text-right">
+                                <x-button wire:click.prevent="gotoPageTwo" type="button" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
+                                    {{ __('Next') }}
+                                </x-button>
+                            </div>
+                        @endif
                     @elseif($pages === 2)
                         <div class="flex justify-between">
                             <x-button wire:click.prevent="previousPage" type="button" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">

@@ -187,6 +187,10 @@ class CheckoutIndex extends Component
         $this->moveCartstoOrders();
 
         $this->resetValidation();
+
+        $this->pages = 1;
+
+        session()->flash('success', 'Your payment is successful!');
     }
 
     public function cancelPaymentIntent()
