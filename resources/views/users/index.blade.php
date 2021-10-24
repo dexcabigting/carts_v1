@@ -1,4 +1,4 @@
-<div class ="h-1/2 xl:ml-64 lg:mt-24 mt-12">
+<div class ="h-1/2 xl:ml-52 lg:mt-24 mt-12">
     <div class="pt-12 pb-5 ">
         <div class="md:max-w-6xl md:mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">

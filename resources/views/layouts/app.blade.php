@@ -41,7 +41,7 @@
        
     
     </body>
-    <footer class="mt-12">
+    <footer class="mt-4">
         <div class="flex justify-center items-center">
         <h1 class="text-xs text-white font-light">Copyright by EJ SPORTSWEAR 2021</h1>
         </div>
