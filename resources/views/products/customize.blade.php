@@ -220,7 +220,7 @@
 		      	<h3>Measurement</h3>
 				  <h4>Jersey</h4>
 					<p>
-					<table class="table" style="opacity: 1;color: rgba(107, 114, 128);">
+					<table class="table" style="opacity: 1;color: rgba(107, 114, 128);font-weight:600;">
 						<tr>
 							<td>NECK</td>
 							<td align="right"><input min="0" id="neck-id" style="width: 50px;" value="1" type="number">/cm</td>
@@ -242,7 +242,7 @@
 							<td align="right"><input min="0" id="hip-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
 						</tr>
 							<tr>
-							<td>SHIRT LENGHT</td>
+							<td>SHIRT LENGTH</td>
 							<td align="right"><input min="0" id="shirt-lenght-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
 						</tr>
 						<tr>
@@ -259,7 +259,7 @@
 					</p>
 				  <h4>Jersey Short</h4>
 					<p>
-					<table class="table" style="opacity: 1;color: rgba(107, 114, 128);">
+					<table class="table" style="opacity: 1;color: rgba(107, 114, 128);font-weight: 600;">
 						<tr>
 							<td>WAIST</td>
 							<td align="right"><input min="0" id="short-waist-id" style="width: 50px;" value="1" type="number">/cm</td>
