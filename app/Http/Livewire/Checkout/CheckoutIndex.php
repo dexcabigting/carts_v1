@@ -93,6 +93,11 @@ class CheckoutIndex extends Component
         ];
     }
 
+    public function previousPage()
+    {
+        $this->pages--;
+    }
+
     public function gotoPageTwo()
     {
         $this->validate($this->rules[$this->pages]);
@@ -178,6 +183,8 @@ class CheckoutIndex extends Component
 
         $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
 
+        $this->moveCartstoOrders();
+
         $this->resetValidation();
     }
 
@@ -188,11 +195,6 @@ class CheckoutIndex extends Component
 
         $this->resetValidation();
 
-        $this->pages--;
-    }
-
-    public function previousPage()
-    {
         $this->pages--;
     }
 
@@ -241,6 +243,11 @@ class CheckoutIndex extends Component
         ]);
 
         session(['paymentMethodId' => $paymentMethod->id]);
+    }
+
+    private function moveCartsToOrders()
+    {
+
     }
 
     public function render()
