@@ -89,7 +89,7 @@
                         <td class="md:px-6 py-4">
                             <div>
                                 <span class="font-semibold text-xl text-gray-800 leading-tight">
-                                    Subtotal:
+                                    Quantity:
                                 </span>
                             </div>
                         </td>
@@ -109,13 +109,43 @@
                         <td class="md:px-6 py-4 ">
                             <div>
                                 <span class="font-semibold text-xl text-gray-800 leading-tight">
+                                    
+                                </span>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="md:px-6 py-4">
+                            <div>
+                                <span class="font-semibold text-xl text-gray-800 leading-tight">
+                                    Subtotal:
+                                </span>
+                            </div>
+                        </td>
+
+                        <td>
+
+                        </td>
+
+                        <td class="md:px-6 py-4 ">
+                            <div>
+                                <span class="font-semibold text-xl text-gray-800 leading-tight">
+                                    
+                                </span>
+                            </div>
+                        </td>
+
+                        <td class="md:px-6 py-4 ">
+                            <div>
+                                <span class="font-semibold text-xl text-gray-800 leading-tight">
                                     &#8369;{{ number_format( $this->amount = $cartTotal, 2) }}
                                 </span>
                             </div>
                         </td>
                     </tr>
 
-                      <tr>
+                    <tr>
                         <td class="md:px-6 py-4">
                             <div>
                                 <span class="font-semibold text-xl text-gray-800 leading-tight">
@@ -134,11 +164,39 @@
                         <td class="md:px-6 py-4 ">
                             <div>
                                 <span class="font-semibold text-xl text-gray-800 leading-tight">
-                                    &#8369;{{ number_format(($this->amount + 15) / ( (100-3.5) / 100 ) - $this->amount, 2) }}
+                                    &#8369;{{ number_format((($this->amount - $this->discount) + 15) / ( (100-3.5) / 100 ) - ($this->amount - $discount), 2) }}
                                 </span>
                             </div>
                         </td>
                     </tr>
+
+                    @if($discount != 0)
+                        <tr>
+                            <td class="md:px-6 py-4">
+                                <div>
+                                    <span class="font-semibold text-xl text-gray-800 leading-tight">
+                                        Discount:
+                                    </span>
+                                </div>
+                            </td>
+
+                            <td>
+
+                            </td>
+
+                            <td class="md:px-6 py-4 text-right">
+                                -
+                            </td>
+
+                            <td class="md:px-6 py-4 ">
+                                <div>
+                                    <span class="font-semibold text-xl text-gray-800 leading-tight">
+                                        &#8369;{{ number_format($this->discount, 2) }}
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                    @endif
 
                     <tr>
                         <td class="md:px-6 py-4">
@@ -159,7 +217,7 @@
                         <td class="md:px-6 py-4 ">
                             <div>
                                 <span class="font-semibold text-2xl text-gray-800 leading-tight">
-                                    &#8369;{{ number_format( $this->total = ($this->amount + 15) / ( (100-3.5) / 100 ), 2) }}
+                                    &#8369;{{ number_format( $this->total = (($this->amount - $this->discount) + 15) / ( (100-3.5) / 100 ), 2) }}
                                 </span>
                             </div>
                         </td>

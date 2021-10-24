@@ -22,6 +22,8 @@ class CheckoutIndex extends Component
     public $paymentMethod;
     public $total;
 
+    public $discount;
+
     protected $rules = [
         1 => [
             'form.name' => ['required', 'string', 'exists:users,name'],
@@ -66,7 +68,6 @@ class CheckoutIndex extends Component
     public function mount($ids)
     {
         // testing ends here
-
         $this->carts = json_decode($ids);
 
         if(!is_array($this->carts)) {
@@ -74,6 +75,20 @@ class CheckoutIndex extends Component
         }        
 
         $this->userCarts = auth()->user()->userCarts($this->carts)->with('product_variant.product')->get();
+
+        $this->discount = 0;
+
+        foreach($this->userCarts as $item) {
+            $sum = $item->cartItemSizes()->sum();
+
+            if($item->product_variant->product->category_id == 1) {
+                if($sum >= 10) {
+                    $this->discount = $this->discount + (100 * $sum);
+                } else {
+                }
+            }
+        }
+        //      
 
         $this->cartQuantity = auth()->user()->userCartItems($this->carts)->count();
 
