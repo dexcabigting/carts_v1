@@ -108,11 +108,11 @@ class CheckoutIndex extends Component
             'city' => ucwords(Str::lower($this->userAddress->city)),
             'barangay' => $this->userAddress->barangay,
             'home_address' => $this->userAddress->home_address,
-            'postal_code' => '4005',
+            'postal_code' => '',
             'country' => 'PH',
             'amount' => '',
             'type' => '',
-            'card_number' => '4009930000001421',
+            'card_number' => '',
             'exp_date' => '',
             'cvc' => '',
         ];
