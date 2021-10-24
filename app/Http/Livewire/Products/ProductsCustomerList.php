@@ -10,7 +10,7 @@ class ProductsCustomerList extends Component
 {
     public function render()
     {
-        $tshirt_details = TshirtDetails::all();;
+        $tshirt_details = TshirtDetails::all()->sortByDesc('created_at');
 
         return view('livewire.products.products-customer-list')->with('tshirt_details', $tshirt_details);;
     }

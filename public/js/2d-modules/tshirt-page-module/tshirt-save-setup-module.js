@@ -17,6 +17,10 @@ SHOULDER_ID = "should-id",
 STOMACH_ID = "stomach-id",
 WAIST_ID = "waist-id",
 
+SHORT_WAIST_ID = "short-waist-id",
+INSEAM_ID = "inseam-id",
+OUTSEAM_ID = "outseam-id",
+
 MODAL_BACKGROUND_CLASS = "modal-background-class",
 MODAL_BODY_CLASS = "modal-body-class",
 USER_NAV_CLASS = "user-nav-class",
@@ -121,7 +125,7 @@ function _onClickBtnSave(){
 
         var tshirtColor = $(_getIdSelector(TSHIRT_CONTAINER_ID)).css(BACKGROUND_COLOR);
         
-        var measurements = {
+        var jersey_measurements = {
             Neck: _getFieldTextValue(NECK_ID),
             Chest: _getFieldTextValue(CHEST_ID),
             Stomach: _getFieldTextValue(STOMACH_ID),
@@ -131,12 +135,19 @@ function _onClickBtnSave(){
             Shoulder: _getFieldTextValue(SHOULDER_ID),
             Bicep: _getFieldTextValue(BICEP_ID)
         };
+        
+        var short_measurements = {
+            Waist: _getFieldTextValue(SHORT_WAIST_ID),
+            Inseam: _getFieldTextValue(INSEAM_ID),
+            Outseam: _getFieldTextValue(OUTSEAM_ID)
+        };
 
         var tshirtSetup = {
             customer_name: JSON.stringify(_getFieldTextValue(HIDDEN_USER_NAME_ID)),
             tshirt_front: _savedFrontCanvas,
             tshirt_back: _savedBackCanvas,
-            tshirt_measurements: JSON.stringify(measurements),
+            tshirt_jersey_measurements: JSON.stringify(jersey_measurements),
+            tshirt_short_measurements: JSON.stringify(short_measurements),
             tshirt_fabric: JSON.stringify(_selectedFabricType),
             tshirt_type: JSON.stringify(_selectedTshirtType),
             tshirt_color: JSON.stringify(tshirtColor),

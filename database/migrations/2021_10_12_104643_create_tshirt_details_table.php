@@ -18,7 +18,8 @@ class CreateTshirtDetailsTable extends Migration
             $table->longText('customer_name');
             $table->longText('tshirt_front')->nullable();
             $table->longText('tshirt_back')->nullable();
-            $table->longText('tshirt_measurements')->nullable();
+            $table->longText('tshirt_jersey_measurements')->nullable();
+            $table->longText('tshirt_short_measurements')->nullable();
             $table->longText('tshirt_fabric')->nullable();
             $table->longText('tshirt_type')->nullable();
             $table->longText('tshirt_color')->nullable();

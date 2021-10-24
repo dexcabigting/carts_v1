@@ -186,7 +186,7 @@
 							  <div class="btn-group">										      
 							      <button class="btn" id="bring-to-front" title="Bring to Front"><i class="icon-fast-backward rotate" style="height:19px;"></i></button>
 							      <button class="btn" id="send-to-back" title="Send to Back"><i class="icon-fast-forward rotate" style="height:19px;"></i></button>
-							      <button id="flip" type="button" class="btn" title="Show Back View"><i class="icon-retweet" style="height:19px;"></i></button>
+							      <!-- <button id="flip" type="button" class="btn" title="Show Back View"><i class="icon-retweet" style="height:19px;"></i></button> -->
 							      <button id="remove-selected" class="btn" title="Delete selected item"><i class="icon-trash" style="height:19px;"></i></button>
 							  </div>
 							</div>			  
@@ -205,29 +205,30 @@
 				<div class="span3">
 					<div class="well">
 		      	<h3>Measurement</h3>
-			      <p>
-			      	<table class="table">
-			      		<tr>
-			      			<td>NECK</td>
-			      			<td align="right"><input min="0" id="neck-id" style="width: 50px;" value="1" type="number">/cm</td>
-			      		</tr>
-			      		<tr>
-			      			<td>CHEST</td>
-			      			<td align="right"><input min="0" id="chest-id" style="width: 50px;" placeholder="1" type="number">/cm</td>
-			      		</tr>
-			      		<tr>
-			      			<td>STOMACH</td>
-			      			<td align="right"><input min="0" id="stomach-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
-			      		</tr>
-			      		<tr>
-			      			<td>WAIST</td>
-			      			<td align="right"><input min="0" id="waist-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
-			      		</tr>
-                        <tr>
-			      			<td>HIP</td>
-			      			<td align="right"><input min="0" id="hip-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
-			      		</tr>
-						  <tr>
+				  <h4>Jersey</h4>
+					<p>
+					<table class="table">
+						<tr>
+							<td>NECK</td>
+							<td align="right"><input min="0" id="neck-id" style="width: 50px;" value="1" type="number">/cm</td>
+						</tr>
+						<tr>
+							<td>CHEST</td>
+							<td align="right"><input min="0" id="chest-id" style="width: 50px;" placeholder="1" type="number">/cm</td>
+						</tr>
+						<tr>
+							<td>STOMACH</td>
+							<td align="right"><input min="0" id="stomach-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
+						</tr>
+						<tr>
+							<td>WAIST</td>
+							<td align="right"><input min="0" id="waist-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
+						</tr>
+						<tr>
+							<td>HIP</td>
+							<td align="right"><input min="0" id="hip-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
+						</tr>
+							<tr>
 							<td>SHIRT LENGHT</td>
 							<td align="right"><input min="0" id="shirt-lenght-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
 						</tr>
@@ -239,10 +240,27 @@
 							<td>BICEP</td>
 							<td align="right"><input min="0" id="bicep-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
 						</tr>
-					
 
-			      	</table>			
-			      </p>
+
+					</table>			
+					</p>
+				  <h4>Jersey Short</h4>
+					<p>
+					<table class="table">
+						<tr>
+							<td>WAIST</td>
+							<td align="right"><input min="0" id="short-waist-id" style="width: 50px;" value="1" type="number">/cm</td>
+						</tr>
+						<tr>
+							<td>OUTSEAM</td>
+							<td align="right"><input min="0" id="outseam-id" style="width: 50px;" placeholder="1" type="number">/cm</td>
+						</tr>
+						<tr>
+							<td>INSEAM</td>
+							<td align="right"><input min="0" id="inseam-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
+						</tr>
+					</table>
+					</p>
 					<button type="button" class="btn btn-large btn-block btn-success" name="save" id="btn-save">SAVE</button>
 		      </div>		      		       		   
 		    </div>
