@@ -134,7 +134,7 @@
                         <td class="md:px-6 py-4 ">
                             <div>
                                 <span class="font-semibold text-xl text-gray-800 leading-tight">
-                                    &#8369;{{ round($this->transactionFee = ($this->amount * 0.035), 2) }}
+                                    &#8369;{{ number_format(($this->amount + 15) / ( (100-3.5) / 100 ) - $this->amount, 2) }}
                                 </span>
                             </div>
                         </td>
@@ -159,7 +159,7 @@
                         <td class="md:px-6 py-4 ">
                             <div>
                                 <span class="font-semibold text-2xl text-gray-800 leading-tight">
-                                    &#8369;{{ number_format($this->total = $this->amount + $this->transactionFee, 2) }}
+                                    &#8369;{{ number_format( $this->total = ($this->amount + 15) / ( (100-3.5) / 100 ), 2) }}
                                 </span>
                             </div>
                         </td>

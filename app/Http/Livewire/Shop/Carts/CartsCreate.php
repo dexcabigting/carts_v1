@@ -50,28 +50,18 @@ class CartsCreate extends Component
         $this->selectVariant = $this->productVariants[0]['id'];
 
         $this->category = $this->product->category->ctgr_name;
-        
-        if($this->category == 'Jersey') {
-            $count = 10;
-        } else {
-            $count = 1;
-        }
-
-        $this->addItems = [];
 
         $this->productPrice =  $this->product->prd_price;
 
-        for ($i = 1; $i <= $count; $i++) {
-            $item = [
+        $this->addItems = [
+            [
                 'size' => '',
                 'surname' => '',
                 'jersey_number' => '',
-            ];
+            ]
+        ];
 
-            array_push($this->addItems, $item);
-
-            $this->totalAmount  = $this->totalAmount + $this->productPrice;
-        }
+        $this->totalAmount  = $this->totalAmount + $this->productPrice;
     }
 
     public function render()
@@ -198,15 +188,12 @@ class CartsCreate extends Component
 
     public function removeItem($index)
     {
-        if(($this->category == 'Jersey') && (count($this->addItems) === 10)) {
-            session()->flash('fail', 'The jersey quantity should not subceed 10');
-        } else {
-            unset($this->addItems[$index]);
+        unset($this->addItems[$index]);
 
-            $this->addItems = array_values($this->addItems);
+        $this->addItems = array_values($this->addItems);
 
-            $this->totalAmount = $this->totalAmount - $this->productPrice;
-        }
+        $this->totalAmount = $this->totalAmount - $this->productPrice;
+       
     }
 
     public function closeCartModal()

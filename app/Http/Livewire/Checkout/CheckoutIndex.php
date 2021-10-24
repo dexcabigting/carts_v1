@@ -7,6 +7,7 @@ use Luigel\Paymongo\Facades\Paymongo;
 use Illuminate\Support\Str;
 use App\Models\Order;
 use App\Models\Cart;
+use App\Models\ProductStock;
 
 class CheckoutIndex extends Component
 {
@@ -20,7 +21,6 @@ class CheckoutIndex extends Component
     public $form = [];
     public $paymentMethod;
     public $total;
-    public $transactionFee; 
 
     protected $rules = [
         1 => [
@@ -65,6 +65,8 @@ class CheckoutIndex extends Component
 
     public function mount($ids)
     {
+        // testing ends here
+
         $this->carts = json_decode($ids);
 
         if(!is_array($this->carts)) {
@@ -183,7 +185,7 @@ class CheckoutIndex extends Component
         // Do this if user confirms the payment
         $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
 
-        // $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
+        $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
 
         $this->moveCartstoOrders();
 
@@ -277,6 +279,13 @@ class CheckoutIndex extends Component
                 'status' => 'pending',
             ]);
 
+            $productStock = ProductStock::where('product_variant_id', $cartToBeMoved->product_variant_id)->first();
+            $userCartItem = auth()->user()->carts()->where('id', $cartToBeMoved->id)->first()->cartItemSizes()->toArray();
+
+            foreach($userCartItem as $size => $qty) {
+                $productStock->decrement($size, $qty);
+            }
+
             foreach($cartToBeMoved->cart_items as $cartItem) {
                 $order->order_items()->create([
                     'size' => $cartItem->size,
@@ -291,6 +300,7 @@ class CheckoutIndex extends Component
 
     public function render()
     {
-        return view('livewire.checkout.checkout-index')->layout('layouts.app-user');
+        $transactionFee = $this->total;
+        return view('livewire.checkout.checkout-index', compact('transactionFee'))->layout('layouts.app-user');
     }
 }
