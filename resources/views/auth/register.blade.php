@@ -11,78 +11,79 @@
 
                     <!-- Name -->
                     <div>
-                        <x-label class="text-xl text-custom-violet  " for="name" :value="__('Name')" />
+                        <x-label class="text-xl text-purple-100  " for="name" :value="__('Name')" />
 
                         <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
                     </div>
 
                     <!-- Email Address -->
                     <div class="mt-4">
-                        <x-label class="text-xl text-custom-violet  " for="email" :value="__('Email')" />
+                        <x-label class="text-xl text-purple-100  " for="email" :value="__('Email')" />
 
                         <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
                     </div>
 
                     <!-- Phone -->
                     <div class="mt-4">
-                        <x-label class="text-xl text-custom-violet  " for="phone" :value="__('Phone')" />
+                        <x-label class="text-xl text-purple-100  " for="phone" :value="__('Phone')" />
 
                         <x-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" required />
                     </div>
 
                     <!-- Address -->
-                    <div>
-                        <x-label for="region" :value="__('Region')" />
-                        <select id="region">
+                    <div class="mt-4">
+                        <x-label class="text-xl text-purple-100  " for="home_address" :value="__('Home Address')" />
+
+                        <x-input id="home_address" class="block mt-1 w-full" type="text" name="home_address" :value="old('home_address')" required />
+                    </div>
+                    <div class="mt-4">
+                        <x-label  class="text-xl text-purple-100" for="region" :value="__('Region')" />
+                        <select class="w-full rounded-lg" id="region">
                             <option>Region</option>
                         </select>
                         <x-input id="region-text" type="hidden" name="region" :value="old('region')" />
                     </div>
-                    <div>
-                        <x-label for="province" :value="__('Province')" />
-                        <select id="province">
+                    <div class="mt-4">
+                        <x-label class="text-xl text-purple-100" for="province" :value="__('Province')" />
+                        <select class="w-full rounded-lg" id="province">
                             <option>
                                 Province
                             </option>
                         </select>
                         <x-input id="province-text" type="hidden" name="province" :value="old('province')" />
                     </div>
-                    <div>
-                        <x-label for="city" :value="__('City')" />
+                    <div class="mt-4">
+                        <x-label class="text-xl text-purple-100" for="city" :value="__('City')" />
 
-                        <select id="city">
+                        <select class="w-full rounded-lg" id="city">
                             <option>City</option>
                         </select>
                         <x-input id="city-text" type="hidden" name="city" :value="old('city')" />
                     </div>
-                    <div>
-                        <x-label for="barangay" :value="__('Barangay')" />
-                        <select name="barangay" id="barangay">
+                    <div class="mt-4">
+                        <x-label class="text-xl text-purple-100" for="barangay" :value="__('Barangay')" />
+                        <select class="w-full rounded-lg" name="barangay" id="barangay">
                             <option>Barangay</option>
                         </select>
                         <x-input id="barangay-text" type="hidden" name="barangay" :value="old('barangay')" />
                     </div>
-                    <div class="mt-4">
-                        <x-label class="text-xl text-custom-violet  " for="home_address" :value="__('Home Address')" />
-
-                        <x-input id="home_address" class="block mt-1 w-full" type="text" name="home_address" :value="old('home_address')" required />
-                    </div>
+                    
 
                     <!-- Password -->
                     <div class="mt-4">
-                        <x-label class="text-xl text-custom-violet  " for="password" :value="__('Password')" />
+                        <x-label class="text-xl text-purple-100  " for="password" :value="__('Password')" />
 
                         <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
                     </div>
 
                     <!-- Confirm Password -->
                     <div class="mt-4">
-                        <x-label class="text-xl text-custom-violet  " for="password_confirmation" :value="__('Confirm Password')" />
+                        <x-label class="text-xl text-purple-100  " for="password_confirmation" :value="__('Confirm Password')" />
 
                         <x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
                     </div>
 
-                    <div class="flex items-center flex-col justify-center ">
+                    <div class="flex items-center flex-col justify-center mt-4">
                         <div>
                             <x-button class="md:mt-4 mt-12 uppercase hover:bg-purple-900 hover:text-purple-100 text-3xl font-semibold text-white px-32 md:px-44 py-6 my-6 w-full bg-custom-violet">
                                 {{ __('Register') }}

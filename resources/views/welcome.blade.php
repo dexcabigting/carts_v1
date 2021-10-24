@@ -104,11 +104,13 @@
     <div class="relative flex justify-center items-center">
         @auth
           @if(auth()->user()->role_id == 2)
+          <button type="button"
+            class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 absolute md:bottom-24 -bottom-16 bg-custom-violet">
           <a href="{{ route('shop.index') }}">
-            <button type="button"
-            class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 absolute md:bottom-24 -bottom-16 bg-custom-violet">SHOP
-            NOW</button>
+           SHOP
+            NOW
           </a>
+          </button>
           @endif
         @endauth
         <div class="contents">

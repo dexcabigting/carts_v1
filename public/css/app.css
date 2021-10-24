@@ -10,7 +10,10 @@ Document
 /**
 Use a better box model (opinionated).
 */
-
+.splide__slide img {
+  width: 100%;
+  height: auto;
+}
 *,
 ::before,
 ::after {

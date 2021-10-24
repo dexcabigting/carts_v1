@@ -1,6 +1,6 @@
 <nav x-data="{ open: false }" class="bg-custom-blacki">
 
-<div class="hidden md:flex flex-col md:flex-row h-full md:w-full">
+<div class="hidden md:flex flex-col md:flex-row md:w-full">
   <div @click.away="open = false" class="flex flex-col w-full md:w-64 text-gray-700 bg-custom-blacki dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0" x-data="{ open: false }">
     <div class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-center">
       <div class="items-center flex justify-center text-lg font-semibold tracking-widest text-gray-100 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Admin</div>
@@ -11,10 +11,10 @@
         </svg>
       </button>
     </div>
-    <nav :class="{'block': open, 'hidden': !open}" class="flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
+    <nav :class="{'block': open, 'hidden': !open}" class=" flex-grow md:block px-4 pb-4 md:pb-0 md:overflow-y-auto">
        
    
-        <x-nav-link class="block w-full px-4 py-2 mt-2 text-sm font-semibold text-gray-100 bg-transparenthover:text-gray-100 focus:text-gray-900 hover:bg-purple-900 focus:bg-custom-violet" :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+        <x-nav-link class="block w-full px-4 py-2 mt-2 text-sm font-semibold text-gray-100 bg-transparenthover:text-gray-100 focus:text-gray-100 hover:bg-purple-900 focus:bg-custom-violet" :href="route('dashboard')" :active="request()->routeIs('dashboard')">
             <div class="mx-4">
             <svg class="w-6 h-6 fill-current text-gray-100" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 64 64" viewBox="0 0 64 64"><g transform="translate(280 380)"><path d="M-264.2-339.9c-4.4 0-7.9-3.5-7.9-7.9 0-4.4 3.5-7.9 7.9-7.9 4.4 0 7.9 3.5 7.9 7.9C-256.3-343.5-259.8-339.9-264.2-339.9L-264.2-339.9zM-264.2-352.8c-2.7 0-4.9 2.2-4.9 4.9 0 2.7 2.2 4.9 4.9 4.9 2.7 0 4.9-2.2 4.9-4.9C-259.3-350.5-261.5-352.8-264.2-352.8L-264.2-352.8zM-232.1-356c-4.4 0-7.9-3.5-7.9-7.9s3.5-7.9 7.9-7.9 7.9 3.5 7.9 7.9S-227.8-356-232.1-356L-232.1-356zM-232.1-368.8c-2.7 0-4.9 2.2-4.9 4.9s2.2 4.9 4.9 4.9 4.9-2.2 4.9-4.9S-229.4-368.8-232.1-368.8L-232.1-368.8zM-232.1-323.9c-4.4 0-7.9-3.5-7.9-7.9s3.5-7.9 7.9-7.9 7.9 3.5 7.9 7.9S-227.8-323.9-232.1-323.9L-232.1-323.9zM-232.1-336.7c-2.7 0-4.9 2.2-4.9 4.9s2.2 4.9 4.9 4.9 4.9-2.2 4.9-4.9S-229.4-336.7-232.1-336.7L-232.1-336.7z"/><polyline  points="-238.6 -333.2 -259.2 -343.5 -257.8 -346.4 -237.1 -336.1 -238.6 -333.2"/><polyline points="-257.8 -349.3 -259.2 -352.1 -238.6 -362.4 -237.1 -359.6 -257.8 -349.3"/></g></svg>
             </div>
@@ -22,21 +22,21 @@
         </x-nav-link>
       
         @if(auth()->user()->role_id == 1)               
-        <x-nav-link class="block w-full px-4 py-2 mt-2 text-sm font-semibold text-gray-100 bg-transparenthover:text-gray-100 focus:text-gray-900 hover:bg-purple-900 focus:bg-custom-violet" :href="route('users.index')" :active="request()->routeIs('users.index')">
+        <x-nav-link class="block w-full px-4 py-2 mt-2 text-sm font-semibold text-gray-100 bg-transparenthover:text-gray-100 focus:text-gray-100 hover:bg-purple-900 focus:bg-custom-violet" :href="route('users.index')" :active="request()->routeIs('users.index')">
             <div class="mx-4">
                 <svg class="w-6 h-6 fill-current text-gray-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.3,12.22A4.92,4.92,0,0,0,14,8.5a5,5,0,0,0-10,0,4.92,4.92,0,0,0,1.7,3.72A8,8,0,0,0,1,19.5a1,1,0,0,0,2,0,6,6,0,0,1,12,0,1,1,0,0,0,2,0A8,8,0,0,0,12.3,12.22ZM9,11.5a3,3,0,1,1,3-3A3,3,0,0,1,9,11.5Zm9.74.32A5,5,0,0,0,15,3.5a1,1,0,0,0,0,2,3,3,0,0,1,3,3,3,3,0,0,1-1.5,2.59,1,1,0,0,0-.5.84,1,1,0,0,0,.45.86l.39.26.13.07a7,7,0,0,1,4,6.38,1,1,0,0,0,2,0A9,9,0,0,0,18.74,11.82Z"/></svg>
             </div>
                 {{ __('User Management') }}
         </x-nav-link>
 
-        <x-nav-link class="block w-full px-4 py-2 mt-2 text-sm font-semibold text-gray-100 bg-transparenthover:text-gray-100 focus:text-gray-900 hover:bg-purple-900 focus:bg-custom-violet" :href="route('products.index')" :active="request()->routeIs('products.index')">
+        <x-nav-link class="block w-full px-4 py-2 mt-2 text-sm font-semibold text-gray-100 bg-transparenthover:text-gray-100 focus:text-gray-100 hover:bg-purple-900 focus:bg-custom-violet" :href="route('products.index')" :active="request()->routeIs('products.index')">
             <div class="mx-4">
                 <svg class="w-6 h-6 fill-current text-gray-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.47,7.37s0,0,0-.08l-.06-.15a.71.71,0,0,0-.07-.09.94.94,0,0,0-.09-.12l-.09-.07L20,6.78l-7.5-4.63a1,1,0,0,0-1.06,0L4,6.78l-.09.08-.09.07a.94.94,0,0,0-.09.12.71.71,0,0,0-.07.09l-.06.15s0,0,0,.08a1.15,1.15,0,0,0,0,.26v8.74a1,1,0,0,0,.47.85l7.5,4.63h0a.47.47,0,0,0,.15.06s.05,0,.08,0a.86.86,0,0,0,.52,0s.05,0,.08,0a.47.47,0,0,0,.15-.06h0L20,17.22a1,1,0,0,0,.47-.85V7.63A1.15,1.15,0,0,0,20.47,7.37ZM11,19.21l-5.5-3.4V9.43L11,12.82Zm1-8.12L6.4,7.63,12,4.18l5.6,3.45Zm6.5,4.72L13,19.21V12.82l5.5-3.39Z"/></svg>
             </div>
             {{ __('Product Management') }}
         </x-nav-link>
 
-        <x-nav-link class="block w-full px-4 py-2 mt-2 text-sm font-semibold text-gray-100 bg-transparenthover:text-gray-100 focus:text-gray-900 hover:bg-purple-900 focus:bg-custom-violet" :href="route('orders.index')" :active="request()->routeIs('orders.index')">
+        <x-nav-link class="block w-full px-4 py-2 mt-2 text-sm font-semibold text-gray-100 bg-transparenthover:text-gray-100 focus:text-gray-100 hover:bg-purple-900 focus:bg-custom-violet" :href="route('orders.index')" :active="request()->routeIs('orders.index')">
             <div class="mx-4">
                 <svg class="w-6 h-6 fill-current text-gray-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.47,7.37s0,0,0-.08l-.06-.15a.71.71,0,0,0-.07-.09.94.94,0,0,0-.09-.12l-.09-.07L20,6.78l-7.5-4.63a1,1,0,0,0-1.06,0L4,6.78l-.09.08-.09.07a.94.94,0,0,0-.09.12.71.71,0,0,0-.07.09l-.06.15s0,0,0,.08a1.15,1.15,0,0,0,0,.26v8.74a1,1,0,0,0,.47.85l7.5,4.63h0a.47.47,0,0,0,.15.06s.05,0,.08,0a.86.86,0,0,0,.52,0s.05,0,.08,0a.47.47,0,0,0,.15-.06h0L20,17.22a1,1,0,0,0,.47-.85V7.63A1.15,1.15,0,0,0,20.47,7.37ZM11,19.21l-5.5-3.4V9.43L11,12.82Zm1-8.12L6.4,7.63,12,4.18l5.6,3.45Zm6.5,4.72L13,19.21V12.82l5.5-3.39Z"/></svg>
             </div>
@@ -104,7 +104,7 @@
 
             <!-- Hamburger -->
             <div class="-mr-14 flex sm:items-center sm:hidden w-full justify-start">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-100 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />

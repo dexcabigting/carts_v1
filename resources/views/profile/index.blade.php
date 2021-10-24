@@ -1,6 +1,6 @@
 <x-app-user-layout>
 
-    <div class="pt-12 w-full flex justify-center items-center">
+    <div class="pt-4 w-full flex justify-center items-center">
         <div class="max-w-3xl mx-auto sm:px-6 w-full mb-5 2xl:mt-24">
             <div class="bg-black overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-custom-blacki border-gray-500 divide-y divide-gray-300">
@@ -42,18 +42,25 @@
                     </div>
 
                     <div class="pt-4">
-                        <h2 class="font-semibold text-xl text-gray-100 leading-tight mb-4">
+                    <h2 class="font-semibold text-xl text-gray-100 leading-tight mb-6">
                             {{ __('Address') }}
                         </h2>
+                    <div class="mt-4">
+                                <x-label class="text-xl mb-4 text-white  " for="home_address" :value="__('Home Address')" />
+
+                                <x-input id="home_address" class="block mt-1 w-full" type="text" placeholder="ex. Street Apartment no." name="home_address" value="{{ $userAddress->home_address ?? ''  }}" required />
+                            </div>
+                       
 
                         <form method="POST" action="{{ route('profile.update-address') }}">
                             @method('PUT')
                             @csrf
 
                             <!-- Address -->
-                            <div class="mt-4">
+                            <div class="block md:flex fle-row">
+                            <div class="mt-4 ">
                                 <x-label for="region" value="{{ $userAddress->region ?? '' }}" />
-                                <select id="region" value="{{ $userAddress->region ?? '' }}">
+                                <select class="rounded-lg lg:pr-16 pr-4" id="region" value="{{ $userAddress->region ?? '' }}">
                                     <option>
                                         Region
                                     </option>
@@ -61,19 +68,21 @@
                                 <x-input id="region-text" type="hidden" name="region" value="{{ $userAddress->region ?? '' }}" />
                             </div>
 
-                            <div class="mt-4">
+                            <div class="mt-4 md:ml-4">
                                 <x-label for="province" value="{{ $userAddress->province ?? '' }}" />
-                                <select id="province">
+                                <select class="rounded-lg md:pr-24 w-full md:w-auto" id="province">
                                     <option>
-                                        Province
+                                        <h1 class="px-12">Province</h1>
                                     </option>
                                 </select>
                                 <x-input id="province-text" type="hidden" name="province" value="{{ $userAddress->province ?? '' }}" />
                             </div>
+                            </div>
 
+                            
                             <div class="mt-4">
                                 <x-label for="city" value="{{ $userAddress->city ?? '' }}" />
-                                <select id="city">
+                                <select class="rounded-lg w-full" id="city">
                                     <option>
                                         City
                                     </option>
@@ -83,7 +92,7 @@
 
                             <div class="mt-4">
                                 <x-label for="barangay" value="{{ $userAddress->barangay ?? '' }}" />
-                                <select name="barangay" id="barangay">
+                                <select class="rounded-lg w-full" name="barangay" id="barangay">
                                     <option>
                                         Barangay
                                     </option>
@@ -91,11 +100,7 @@
                                 <x-input id="barangay-text" type="hidden" name="barangay" value="{{ $userAddress->barangay ?? '' }}" />
                             </div>
                             
-                            <div class="mt-4">
-                                <x-label class="text-xl text-custom-violet  " for="home_address" :value="__('Home Address')" />
-
-                                <x-input id="home_address" class="block mt-1 w-full" type="text" name="home_address" value="{{ $userAddress->home_address ?? ''  }}" required />
-                            </div>
+                            
 
                             <div class="flex items-center justify-end mt-4">
                                 <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white w-full px-4 py-2 bg-custom-violet my-3">

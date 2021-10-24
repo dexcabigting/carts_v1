@@ -21,7 +21,7 @@
         
         @livewireStyles
     </head>
-    <body class="font-Raleway antialiased bg-custom-black">
+    <body class="font-Raleway antialiased bg-custom-text">
         <div>       
          
 
@@ -39,5 +39,11 @@
             </div>
         </div>
        
+    
     </body>
+    <footer class="mt-12">
+        <div class="flex justify-center items-center">
+        <h1 class="text-xs text-white font-light">Copyright by EJ SPORTSWEAR 2021</h1>
+        </div>
+    </footer>   
 </html>

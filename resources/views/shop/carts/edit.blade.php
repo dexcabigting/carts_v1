@@ -4,7 +4,7 @@
 
     <div class="flex justify-around">
         <div>
-            <h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
+            <h2 class="font-semibold text-l text-gray-100 leading-tight mb-4">
                 {{ __('Edit Cart') }}
             </h2>
         </div>
@@ -12,25 +12,25 @@
 
     <div class="grid grid-cols-4 justify-items-center gap-3 text-center">
         <div class="">
-            <h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
+            <h2 class="font-semibold text-l text-gray-100 leading-tight mb-4">
                 {{ __('Size') }}
             </h2>
         </div>
 
         <div class="">
-            <h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
+            <h2 class="font-semibold text-l text-gray-100 leading-tight mb-4">
                 {{ __('Surname') }}
             </h2>
         </div>
 
         <div class="">
-            <h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
+            <h2 class="font-semibold text-l text-gray-100 leading-tight mb-4">
                 {{ __('Number') }}
             </h2>
         </div>
 
         <div class="">
-            <h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
+            <h2 class="font-semibold text-l text-gray-100 leading-tight mb-4">
                 {{ __('Remove') }}
             </h2>
         </div>
@@ -70,7 +70,7 @@
             @if(count($cartItems) == 1)
             <div class="text-center">
                 <x-button wire:click.prevent="addMore">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="#ffffff" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </x-button>
@@ -78,7 +78,7 @@
             @else
             <div>
                 <x-button type="button" wire:click.prevent="removeCartItem({{ $index }})">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="#ffffff" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </x-button>
@@ -91,27 +91,27 @@
             @if(count($cartItems) != 1)
             <div class="text-center">
                 <x-button wire:click.prevent="addMore" type="button">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="#ffffff" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </x-button>
             </div>
             @endif
 
-            <div class="text-right">
+            <div class="text-right text-white text-xl mb-8">
                 Total: &#8369;{{ number_format($totalAmount, 2) }}
             </div>
         </div>
 
-        <div class="flex justify-center mt-4 gap-5">
+        <div class="flex justify-center mt-4 gap-5 text-2xl">
             <div>
-                <x-button type="submit">
+                <x-button class="text-white font-bold bg-custom-violet px-12 py-4" type="submit">
                     {{ __('Update Cart') }}
                 </x-button>
             </div>
 
             <div>
-                <x-button type="button" wire:click.prevent="closeCartModal()">
+                <x-button class="text-white font-bold bg-red-600 px-12 py-4" type="button" wire:click.prevent="closeCartModal()">
                     {{ __('Close') }}
                 </x-button>
             </div>
