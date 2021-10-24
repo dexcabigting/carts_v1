@@ -6,6 +6,7 @@ use Livewire\Component;
 use Luigel\Paymongo\Facades\Paymongo;
 use Illuminate\Support\Str;
 use App\Models\Order;
+use App\Models\Cart;
 
 class CheckoutIndex extends Component
 {
@@ -36,7 +37,7 @@ class CheckoutIndex extends Component
             'form.country' => ['required', 'string', 'in:PH'],
         ],
         3 => [
-            'form.amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{2})?$/'],
+            'form.amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
             'form.type' => ['required', 'string', 'in:card,gcash'],
         ],
         4 => [
@@ -188,6 +189,8 @@ class CheckoutIndex extends Component
 
         $this->resetValidation();
 
+        $this->mount(0);
+
         $this->pages = 1;
 
         session()->flash('success', 'Your payment is successful!');
@@ -284,6 +287,8 @@ class CheckoutIndex extends Component
                 ]);
             }
         }
+        
+        Cart::whereIn('id', $carts)->delete();
     }
 
     public function render()

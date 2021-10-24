@@ -77,7 +77,7 @@
                             <td class="md:px-6 py-4 text-center" colspan="6">
                                 <div>
                                     <span class=" text-2xl font-semibold text-gray-400 leading-tight">
-                                        {{ __('Your cart items have been ordered!') }}
+                                        {{ __('You have no cart items!') }}
                                     </span>
                                 </div>
                             </td>
@@ -159,7 +159,7 @@
                         <td class="md:px-6 py-4 ">
                             <div>
                                 <span class="font-semibold text-2xl text-gray-800 leading-tight">
-                                    &#8369;{{ round($this->total = $this->amount + $this->transactionFee, 2) }}
+                                    &#8369;{{ number_format($this->total = $this->amount + $this->transactionFee, 2) }}
                                 </span>
                             </div>
                         </td>

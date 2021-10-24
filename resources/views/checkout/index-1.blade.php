@@ -167,7 +167,7 @@
                         </div>
 
                         <div class="mt-2">
-                            <span class="font-semibold">Amount to Pay:</span> &#8369;{{ round($this->total, 2) }}
+                            <span class="font-semibold">Amount to Pay:</span> &#8369;{{ number_format($this->total, 2) }}
                         </div>
                     </div>
                 @endif
