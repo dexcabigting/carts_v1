@@ -264,8 +264,6 @@ class CheckoutIndex extends Component
                     }])
                     ->with('cart_items')
                     ->get();
-                
-        // dd($cartsToBeMoved);
 
         $invoiceNumber = 'EJ-Ezon-' . Str::upper(Str::random(3)) . '-' .  Str::upper(Str::random(3));
 
