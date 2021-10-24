@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Checkout;
 use Livewire\Component;
 use Luigel\Paymongo\Facades\Paymongo;
 use Illuminate\Support\Str;
+use App\Models\Order;
 
 class CheckoutIndex extends Component
 {
@@ -18,6 +19,7 @@ class CheckoutIndex extends Component
     public $form = [];
     public $paymentMethod;
     public $total;
+    public $transactionFee; 
 
     protected $rules = [
         1 => [
@@ -117,13 +119,13 @@ class CheckoutIndex extends Component
         $this->validate($this->rules[$this->pages]);
 
         // The total
-        $total = $this->total;
+        $total = round($this->total, 2);
 
-        if($total > $this->form['amount']) {
+        if($total > +$this->form['amount']) {
             session()->flash('fail', 'The amount you entered is insufficient!');
 
             return;
-        } else if($total < $this->form['amount']) {
+        } else if($total < +$this->form['amount']) {
             session()->flash('fail', 'Please enter the exact amount!');
 
             return;
@@ -180,7 +182,7 @@ class CheckoutIndex extends Component
         // Do this if user confirms the payment
         $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
 
-        $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
+        // $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
 
         $this->moveCartstoOrders();
 
@@ -249,15 +251,34 @@ class CheckoutIndex extends Component
         $carts = $this->carts;
 
         $cartsToBeMoved = auth()->user()->userCarts($carts)
-                    ->select('user_id','product_variant_id')
                     ->withCount('cart_items')
                     ->with(['product_variant' => function ($query) {
                         $query->withSum('product', 'prd_price');
                     }])
+                    ->with('cart_items')
                     ->get();
+                
+        // dd($cartsToBeMoved);
 
-        foreach($cartsToBeMoved as $cartTobeMoved) {
+        $invoiceNumber = 'EJ-Ezon-' . Str::upper(Str::random(3)) . '-' .  Str::upper(Str::random(3));
 
+        foreach($cartsToBeMoved as $cartToBeMoved) {
+
+            $order = Order::create([
+                'invoice_number' => $invoiceNumber,
+                'user_id' => $cartToBeMoved->user_id,
+                'product_variant_id' => $cartToBeMoved->product_variant_id,
+                'amount' => $cartToBeMoved->product_variant->product_sum_prd_price * $cartToBeMoved->cart_items_count,
+                'status' => 'pending',
+            ]);
+
+            foreach($cartToBeMoved->cart_items as $cartItem) {
+                $order->order_items()->create([
+                    'size' => $cartItem->size,
+                    'surname' => $cartItem->surname,
+                    'jersey_number' => $cartItem->jersey_number,
+                ]);
+            }
         }
     }
 

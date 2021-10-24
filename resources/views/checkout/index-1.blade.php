@@ -124,7 +124,7 @@
 
                     <div class="bg-white flex flex-col p-5 gap-2 rounded-lg">
                         <div class="text-center font-bold">
-                            <h1>Contact Information</h1>
+                            <h1>Order Details</h1>
                         </div>
 
                         <div class="">
@@ -165,7 +165,7 @@
                         </div>
 
                         <div class="mt-2">
-                            <span class="font-semibold">Amount to Pay:</span> &#8369;{{ $this->total }}
+                            <span class="font-semibold">Amount to Pay:</span> &#8369;{{ round($this->total, 2) }}
                         </div>
                     </div>
                 @endif

@@ -28,41 +28,41 @@
                     @php($cartTotal = 0)
                     @forelse($userCarts as $userCart)
 
-                    @foreach($userCart->cartItemSizes() as $key => $value)
-                        <tr>
-                            @if($loop->first)
+                        @foreach($userCart->cartItemSizes() as $key => $value)
+                            <tr>
+                                @if($loop->first)
+                                    <td class="md:px-6 py-4 whitespace-nowrap">
+                                        <div>
+                                            <span class="font-semibold text-xl text-gray-800 leading-tight">
+                                                {{ $userCart->product_variant->product->prd_name }}: {{ $userCart->product_variant->prd_var_name }}
+                                                @php($price = $userCart->product_variant->product->prd_price)
+                                            </span>
+                                        </div>
+                                    </td>
+                                @else
+                                    <td>
+
+                                    </td>
+                                @endif
                                 <td class="md:px-6 py-4 whitespace-nowrap">
-                                    <div>
-                                        <span class="font-semibold text-xl text-gray-800 leading-tight">
-                                            {{ $userCart->product_variant->product->prd_name }}: {{ $userCart->product_variant->prd_var_name }}
-                                            @php($price = $userCart->product_variant->product->prd_price)
-                                        </span>
+                                    <div class="text-sm font-medium text-gray-900">
+                                        {{ $key }}
                                     </div>
                                 </td>
-                            @else
-                                <td>
 
+                                <td class="md:px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">
+                                        x{{ $value }}
+                                    </div>
                                 </td>
-                            @endif
-                            <td class="md:px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-medium text-gray-900">
-                                    {{ $key }}
-                                </div>
-                            </td>
 
-                            <td class="md:px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-medium text-gray-900">
-                                    x{{ $value }}
-                                </div>
-                            </td>
-
-                            <td class="md:px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm font-medium text-gray-900">
-                                    &#8369;{{ number_format($total = $value * $price, 2)}}
-                                    @php($cartTotal = $cartTotal + $total)
-                                </div>
-                            </td>
-                        </tr>
+                                <td class="md:px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm font-medium text-gray-900">
+                                        &#8369;{{ number_format($total = $value * $price, 2)}}
+                                        @php($cartTotal = $cartTotal + $total)
+                                    </div>
+                                </td>
+                            </tr>
                         @endforeach
 
                         @if(!$loop->last)
@@ -77,12 +77,14 @@
                             <td class="md:px-6 py-4 text-center" colspan="6">
                                 <div>
                                     <span class=" text-2xl font-semibold text-gray-400 leading-tight">
-                                        {{ __('You have no carts!') }}
+                                        {{ __('Your cart items have been ordered!') }}
                                     </span>
                                 </div>
                             </td>
                         </tr>
                     @endforelse
+                    
+                    @if(count($userCarts) != 0)
                     <tr>
                         <td class="md:px-6 py-4">
                             <div>
@@ -132,7 +134,7 @@
                         <td class="md:px-6 py-4 ">
                             <div>
                                 <span class="font-semibold text-xl text-gray-800 leading-tight">
-                                    &#8369;{{ number_format( (($this->amount * 0.035) + 15), 2) }}
+                                    &#8369;{{ round($this->transactionFee = ($this->amount * 0.035), 2) }}
                                 </span>
                             </div>
                         </td>
@@ -157,11 +159,12 @@
                         <td class="md:px-6 py-4 ">
                             <div>
                                 <span class="font-semibold text-2xl text-gray-800 leading-tight">
-                                    &#8369;{{ number_format( $this->total = (($this->amount * 0.035) + 15) + $this->amount, 2) }}
+                                    &#8369;{{ round($this->total = $this->amount + $this->transactionFee, 2) }}
                                 </span>
                             </div>
                         </td>
                     </tr>
+                    @endif
                 </tbody>
             </table>
         </div>

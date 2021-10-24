@@ -26,4 +26,9 @@ class Order extends Model
     {
         return $this->belongsTo(ProductVariant::class);
     }
+
+    public function order_items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }
