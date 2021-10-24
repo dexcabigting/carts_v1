@@ -114,13 +114,13 @@
 
             <div class="flex justify-center mt-4 gap-5 pb-5">
                 <div>
-                    <x-button type="button" wire:click.prevent="closeCartModal()">
+                    <x-button class="bg-red-500 text-2xl py-2 font-bold px-12" type="button" wire:click.prevent="closeCartModal()">
                         {{ __('Close') }}
                     </x-button>
                 </div>
 
                 <div>
-                    <x-button>
+                    <x-button class="bg-custom-violet text-2xl py-2 font-bold px-6">
                         {{ __('Add to Cart') }}
                     </x-button>
                 </div>
