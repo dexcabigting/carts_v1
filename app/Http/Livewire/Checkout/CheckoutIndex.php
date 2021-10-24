@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use App\Models\Order;
 use App\Models\Cart;
 use App\Models\ProductStock;
+use LVR\CreditCard\CardNumber;
+use LVR\CreditCard\CardExpirationDate;
 
 class CheckoutIndex extends Component
 {
@@ -24,30 +26,33 @@ class CheckoutIndex extends Component
 
     public $discount;
 
-    protected $rules = [
-        1 => [
-            'form.name' => ['required', 'string', 'exists:users,name'],
-            'form.email' => ['required', 'string', 'exists:users,email'],
-            'form.phone' => ['required', 'string', 'exists:users,phone'],
-        ],
-        2 => [
-            'form.province' => ['required', 'string', 'exists:user_addresses,province'],
-            'form.city' => ['required', 'string', 'exists:user_addresses,city'],
-            'form.barangay' => ['required', 'string', 'exists:user_addresses,barangay'],
-            'form.home_address' => ['required', 'string', 'exists:user_addresses,home_address'],
-            'form.postal_code' => ['required', 'string'],
-            'form.country' => ['required', 'string', 'in:PH'],
-        ],
-        3 => [
-            'form.amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'form.type' => ['required', 'string', 'in:card,gcash'],
-        ],
-        4 => [
-            'form.card_number' => ['required', 'string'],
-            'form.exp_date' => ['required', 'string', 'date_format:Y-m','after:today'],
-            'form.cvc' => ['required', 'string'],
-        ], 
-    ];
+    protected function rules()
+    {
+        return [ 
+            1 => [
+                'form.name' => ['required', 'string', 'exists:users,name'],
+                'form.email' => ['required', 'string', 'exists:users,email'],
+                'form.phone' => ['required', 'string', 'exists:users,phone'],
+            ],
+            2 => [
+                'form.province' => ['required', 'string', 'exists:user_addresses,province'],
+                'form.city' => ['required', 'string', 'exists:user_addresses,city'],
+                'form.barangay' => ['required', 'string', 'exists:user_addresses,barangay'],
+                'form.home_address' => ['required', 'string', 'exists:user_addresses,home_address'],
+                'form.postal_code' => ['required', 'string'],
+                'form.country' => ['required', 'string', 'in:PH'],
+            ],
+            3 => [
+                'form.amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
+                'form.type' => ['required', 'string', 'in:card,gcash'],
+            ],
+            4 => [
+                'form.card_number' => ['required', 'string',  new CardNumber],
+                'form.exp_date' => ['required', 'string', 'date_format:Y-m', new CardExpirationDate('Y-m')],
+                'form.cvc' => ['required', 'string', 'min:3', 'max:3'],
+            ], 
+        ];
+    }
 
     protected $validationAttributes = [
         'form.name' => 'name',
@@ -68,6 +73,7 @@ class CheckoutIndex extends Component
     public function mount($ids)
     {
         // testing ends here
+        
         $this->carts = json_decode($ids);
 
         if(!is_array($this->carts)) {
@@ -119,14 +125,14 @@ class CheckoutIndex extends Component
 
     public function gotoPageTwo()
     {
-        $this->validate($this->rules[$this->pages]);
+        $this->validate($this->rules()[$this->pages]);
 
         $this->pages++;        
     }
 
     public function gotoPageThree()
     {
-        $this->validate($this->rules[$this->pages]);
+        $this->validate($this->rules()[$this->pages]);
 
         $this->pages++;  
         // User's address will be validated here
@@ -134,7 +140,7 @@ class CheckoutIndex extends Component
 
     public function gotoPageFour()
     {
-        $this->validate($this->rules[$this->pages]);
+        $this->validate($this->rules()[$this->pages]);
 
         // The total
         $total = round($this->total, 2);
@@ -157,7 +163,7 @@ class CheckoutIndex extends Component
     public function gotoPageFive()
     {
         // Date will be validated here
-        $this->validate($this->rules[$this->pages]);
+        $this->validate($this->rules()[$this->pages]);
 
         $this->pages++;
 
@@ -194,7 +200,7 @@ class CheckoutIndex extends Component
     public function placeOrder()
     {
         // Re-validate whole form
-        $rules = collect($this->rules)->collapse()->toArray();
+        $rules = collect($this->rules())->collapse()->toArray();
 
         $this->validate($rules);
         // Do this if user confirms the payment
