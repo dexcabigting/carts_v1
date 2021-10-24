@@ -60,7 +60,7 @@
                             <div class="block md:flex fle-row">
                             <div class="mt-4 ">
                                 <x-label for="region" value="{{ $userAddress->region ?? '' }}" />
-                                <select class="rounded-lg lg:pr-16 pr-4" id="region" value="{{ $userAddress->region ?? '' }}">
+                                <select class="rounded-lg lg:pr-16 pr-4 w-full" id="region" value="{{ $userAddress->region ?? '' }}">
                                     <option>
                                         Region
                                     </option>
@@ -70,7 +70,7 @@
 
                             <div class="mt-4 md:ml-4">
                                 <x-label for="province" value="{{ $userAddress->province ?? '' }}" />
-                                <select class="rounded-lg md:pr-24 w-full md:w-auto" id="province">
+                                <select class="rounded-lg md:pr-20 w-full md:w-auto" id="province">
                                     <option>
                                         <h1 class="px-12">Province</h1>
                                     </option>
