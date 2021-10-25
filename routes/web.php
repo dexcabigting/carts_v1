@@ -43,9 +43,7 @@ use App\Http\Livewire\Orders\OrdersIndex;
 
 Route::get('/', function () {
     return view('welcome');
-});
-
-Route::view('3d', 'three-js');
+})->name('welcome');
 
 // Auth
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -59,7 +57,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Admin
     Route::middleware('admin')->group(function () {
         // Dashboard
-        Route::view('dashboard', 'dashboard')->name('dashboard');
 
         // Users Livewire Component
         Route::get('users', UsersIndex::class)->name('users.index');
