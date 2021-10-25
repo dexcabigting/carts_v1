@@ -3,22 +3,29 @@
 namespace App\Http\Livewire\Orders;
 
 use Livewire\Component;
-use Luigel\Paymongo\Facades\Paymongo;
+use App\Models\Order;
 
 class OrdersIndex extends Component
 {
     public function render()
     {
-        // dd($payments = Paymongo::payment()->all()->toArray());
-        return view('livewire.orders.orders-index')->layout('layouts.app');
+        $orders = $this->orders->paginate(6);
+
+        if(auth()->user()->role_id == 1) {
+            
+            return view('livewire.orders.orders-index', compact('orders'))->layout('layouts.app');
+        } else {
+            
+            return view('livewire.orders.orders-index', compact('orders'))->layout('layouts.app-user');
+        }
     }
 
-    public function cancelIntent()
+    public function getOrdersProperty()
     {
-        $paymentIntent = Paymongo::paymentIntent()->find('pi_W1kuEjPYuJVYxVAm6rgmBvvH');
-        $cancelledPaymentIntent = $paymentIntent->cancel();
-
-        // pi_W1kuEjPYuJVYxVAm6rgmBvvH
-        // pi_bN6AoeinPMX2xy6Me2NhG5U6
+        if(auth()->user()->role_id == 1) {
+            return Order::all();
+        } else {
+            return auth()->user()->orders()->where('status', 'pending')->withSum('order_items');
+        }
     }
 }

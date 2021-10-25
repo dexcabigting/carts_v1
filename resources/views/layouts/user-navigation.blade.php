@@ -9,22 +9,25 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @if(auth()->user()->role_id == 1)
-                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>                                                                                                                                                                                                                                                                          
-                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('dashboard')" :href="route('users.index')" :active="request()->routeIs('users.index')">
+                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('users.index')" :active="request()->routeIs('users.index')">
                             {{ __('Users') }}
                         </x-nav-link>
                         
-                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('dashboard')" :href="route('products.index')" :active="request()->routeIs('products.index')">
+                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('products.index')" :active="request()->routeIs('products.index')">
                             {{ __('Products') }}
                         </x-nav-link>
                     @else
-                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('dashboard')" :href="route('shop.index')" :active="request()->routeIs('shop.index')">
+                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('shop.index')" :active="request()->routeIs('shop.index')">
                             {{ __('Shop') }}
                         </x-nav-link>
-                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('dashboard')" :href="route('carts.index')" :active="request()->routeIs('carts.index')">
+                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('carts.index')" :active="request()->routeIs('carts.index')">
                             {{ __('Carts') }}
+                        </x-nav-link>
+                         <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('orders.index')" :active="request()->routeIs('orders.index')">
+                            {{ __('Orders') }}
                         </x-nav-link>
                     @endif
                 </div>
