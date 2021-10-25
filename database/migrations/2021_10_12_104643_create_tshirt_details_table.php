@@ -18,11 +18,13 @@ class CreateTshirtDetailsTable extends Migration
             $table->longText('customer_name');
             $table->longText('tshirt_front')->nullable();
             $table->longText('tshirt_back')->nullable();
-            $table->longText('tshirt_measurements')->nullable();
+            $table->longText('tshirt_jersey_measurements')->nullable();
+            $table->longText('tshirt_short_measurements')->nullable();
             $table->longText('tshirt_fabric')->nullable();
             $table->longText('tshirt_type')->nullable();
             $table->longText('tshirt_color')->nullable();
             $table->longText('tshirt_pdf')->nullable();
+            $table->float('custom_price')->default(0);
             $table->date('created_date');
             $table->date('updated_date');
             $table->timestamps();

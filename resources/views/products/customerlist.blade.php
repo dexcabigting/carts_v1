@@ -35,6 +35,9 @@
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Actions
                                 </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                    Custom Price
+                                </th>
                             </tr>
                         </thead>
 
@@ -59,11 +62,19 @@
                                 <td class="px-6 py-4 whitespace-nowrap">                                     
                                     <div class="text-sm font-medium text-gray-100">
                                         @php
-                                            $each_measurement = json_decode($tshirt_detail->tshirt_measurements,true);
+                                            $each_measurement = json_decode($tshirt_detail->tshirt_jersey_measurements,true);
+                                            
+                                            echo "<h3>Jersey</h3>";
 
                                             foreach($each_measurement as $key => $value)
                                                 echo $key.": ".$value."<br/>";
                                                 
+                                            $each_short_measurement = json_decode($tshirt_detail->tshirt_short_measurements,true);
+                                            
+                                            echo "<br/><h3>Jersey Short</h3>";
+
+                                            foreach($each_short_measurement as $key => $value)
+                                                echo $key.": ".$value."<br/>";
                                         @endphp
                                     </div>                                      
                                 </td>
@@ -77,6 +88,11 @@
                                     <button type="button" data-value="{{ str_replace('"', '', $tshirt_detail->tshirt_pdf) }}" class="btn-export-pdf p-2 bg-blue-600  border border-transparent font-semibold text-xs text-white uppercase">
                                         EXPORT TO PDF
                                     </button>                                                                  
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">                                     
+                                    <div class="text-sm font-medium text-gray-100">
+                                        {{ str_replace('"', '', $tshirt_detail->custom_price) }}
+                                    </div>                                      
                                 </td>
                             </tr>
                             @endforeach
