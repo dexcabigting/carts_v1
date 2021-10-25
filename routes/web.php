@@ -14,6 +14,9 @@ use App\Http\Livewire\Products\ProductsIndex;
 use App\Http\Livewire\Products\ProductsCustomize;
 use App\Http\Livewire\Products\ProductsCustomerList;
 
+// Livewire Fabrics Components
+use App\Http\Livewire\Fabrics\FabricsIndex;
+
 // Livewire Shop Component
 use App\Http\Livewire\Shop\ShopIndex;
 use App\Http\Livewire\Shop\Carts\CartsIndex;
@@ -62,6 +65,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Products Livewire Component
         Route::get('products', ProductsIndex::class)->name('products.index');
+
+        // Products Livewire Component
+        Route::get('fabrics', FabricsIndex::class)->name('fabrics.index');
 
         // Orders Livewire Component
         Route::get('orders', OrdersIndex::class)->name('orders.index');
