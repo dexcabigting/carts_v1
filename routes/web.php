@@ -81,7 +81,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Orders Livewire Component
         Route::get('orders', OrdersIndex::class)->name('orders.index');
          //2d
-         Route::get('products/customize', ProductsCustomize::class)->name('products.customize');
+        Route::get('products/customize', ProductsCustomize::class)->name('products.customize');
     });
     
 });

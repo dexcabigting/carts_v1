@@ -41,9 +41,9 @@ class CartsEdit extends Component
 
         $this->productPrice = $this->cartVariant->product()->first()->prd_price;
 
-        $this->totalAmount = $this->productPrice;
-
         $this->cartItems = $id->cart_items()->get()->toArray();
+
+        $this->totalAmount = $this->productPrice * count($this->cartItems);
     }
 
     public function render()
@@ -113,7 +113,7 @@ class CartsEdit extends Component
 
     public function addMore()
     {
-        if (count($this->cartItems) == 5) {
+        if (count($this->cartItems) == 15) {
             session()->flash('fail', 'Only 5 variants are allowed!');
         } else {
             $this->cartItems[] = [
