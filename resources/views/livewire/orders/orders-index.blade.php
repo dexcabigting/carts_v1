@@ -1,5 +1,3 @@
 <div>
-    <button wire:click.prevent="cancelIntent">
-        cancel intent
-    </button>
+    @include('orders.index')
 </div>

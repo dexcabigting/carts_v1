@@ -74,8 +74,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Checkout Livewire Component
         Route::get('checkout/{ids}', CheckoutIndex::class)->name('checkout.index');
 
-        Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
-        Route::post('/payment/store', [PaymentController::class, 'store'])->name('payment.store');
+        // Orders Livewire Component
+        Route::get('orders', OrdersIndex::class)->name('orders.index');
     });
     
 });
