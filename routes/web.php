@@ -11,6 +11,8 @@ use App\Http\Livewire\Users\UsersEdit;
 
 // Livewire Products Components
 use App\Http\Livewire\Products\ProductsIndex;
+use App\Http\Livewire\Products\ProductsCustomize;
+use App\Http\Livewire\Products\ProductsCustomerList;
 
 // Livewire Shop Component
 use App\Http\Livewire\Shop\ShopIndex;
@@ -63,6 +65,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Orders Livewire Component
         Route::get('orders', OrdersIndex::class)->name('orders.index');
+        Route::get('products/customerlist', ProductsCustomerList::class)->name('products.customerlist');
+       
     });
 
     // Users
@@ -76,6 +80,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Orders Livewire Component
         Route::get('orders', OrdersIndex::class)->name('orders.index');
+         //2d
+         Route::get('products/customize', ProductsCustomize::class)->name('products.customize');
     });
     
 });

@@ -7,7 +7,7 @@
                 
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="nav-container-class hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @if(auth()->user()->role_id == 1)
                         <x-nav-link class="text-white text-xl focus:text-custom-violet" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
@@ -26,8 +26,11 @@
                         <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('carts.index')" :active="request()->routeIs('carts.index')">
                             {{ __('Carts') }}
                         </x-nav-link>
-                         <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('orders.index')" :active="request()->routeIs('orders.index')">
+                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('orders.index')" :active="request()->routeIs('orders.index')">
                             {{ __('Orders') }}
+                        </x-nav-link>
+                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('products.customize')" :active="request()->routeIs('products.customize')">
+                            {{ __('Customize') }}
                         </x-nav-link>
                     @endif
                 </div>
@@ -104,6 +107,10 @@
 
             <x-responsive-nav-link :href="route('carts.index')" :active="request()->routeIs('carts.index')">
                 {{ __('Carts') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('products.customize')" :active="request()->routeIs('products.customize')">
+                {{ __('Customize') }}
             </x-responsive-nav-link>
             @endif
         </div>

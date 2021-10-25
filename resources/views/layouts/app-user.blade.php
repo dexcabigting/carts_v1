@@ -138,6 +138,7 @@ ul#move li:nth-child(1) {
 
 ul#move li:nth-child(2) {
 	background: #171717;
+}
 
 ul#move li:nth-child(3) {
 	background: #171717;
@@ -165,6 +166,10 @@ ul#move li:nth-child(5) {
         <!-- Page Content -->
         <main class="bg-custom-black">
             {{ $slot }}
+
+            <div>
+                @yield('content')
+            </div>
         </main>
     </div>
     @livewireScripts
