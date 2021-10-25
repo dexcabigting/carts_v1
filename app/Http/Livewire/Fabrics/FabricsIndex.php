@@ -51,6 +51,6 @@ class FabricsIndex extends Component
             'description' => '',
         ];
 
-        $this->fabrics->refresh();
+        $this->mount();
     }
 }
