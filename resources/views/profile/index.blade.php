@@ -44,17 +44,17 @@
                     <div class="pt-4">
                     <h2 class="font-semibold text-xl text-gray-100 leading-tight mb-6">
                             {{ __('Address') }}
-                        </h2>
-                    <div class="mt-4">
-                                <x-label class="text-xl mb-4 text-white  " for="home_address" :value="__('Home Address')" />
-
-                                <x-input id="home_address" class="block mt-1 w-full" type="text" placeholder="ex. Street Apartment no." name="home_address" value="{{ $userAddress->home_address ?? ''  }}" required />
-                            </div>
-                       
+                        </h2>                      
 
                         <form method="POST" action="{{ route('profile.update-address') }}">
                             @method('PUT')
                             @csrf
+
+                             <div class="mt-4">
+                                <x-label class="text-xl mb-4 text-white  " for="home_address" :value="__('Home Address')" />
+
+                                <x-input id="home_address" class="block mt-1 w-full" type="text" placeholder="ex. Street Apartment no." name="home_address" value="{{ $userAddress->home_address ?? ''  }}" required />
+                            </div>
 
                             <!-- Address -->
                             <div class="block md:flex fle-row">
