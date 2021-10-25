@@ -1,5 +1,5 @@
-<div class="">
-    <div class="bg-custom-blacki max-w-auto w-96 overflow-hidden shadow-sm sm:rounded-lg p-5">
+<div class="w-3/5">
+    <div class="bg-custom-blacki max-w-auto overflow-hidden shadow-sm sm:rounded-lg p-5">
         <form wire:submit.prevent="placeOrder">
             <div class="flex flex-col gap-3">
                 <div class="text-xl font-extrabold text-center text-white">
@@ -12,33 +12,35 @@
                 </div>
 
                 @if($pages === 1)
-                    <div class="bg-white relative">
-                        <div class="h-10">
+                    @if(count($userCarts) != 0)
+                        <div class="bg-white relative">
+                            <div class="h-10">
+                            </div>
+                            <div class="text-lg font-bold text-gray-600  absolute bottom-1/4 left-1/4">
+                                Step 1: <span class="text-lg font-bold">Contact Information</span>
+                            </div>
                         </div>
-                        <div class="text-lg font-bold text-gray-600 absolute left-10 bottom-2">
-                            Step 1: <span class="text-lg font-bold">Contact Information</span>
+
+                        <div class>
+                            <x-label :value="__('Name')" />
+                            <x-input wire:model.lazy="form.name" class="block mt-1 w-full text-black" type="text" autofocus required />
                         </div>
-                    </div>
 
-                    <div class>
-                        <x-label :value="__('Name')" />
-                        <x-input wire:model.lazy="form.name" class="block mt-1 w-full text-black" type="text" autofocus required />
-                    </div>
+                        <div>
+                            <x-label :value="__('Email')" />
+                            <x-input wire:model.lazy="form.email" class="block mt-1 w-full text-black" type="email" required />
+                        </div>
 
-                    <div>
-                        <x-label :value="__('Email')" />
-                        <x-input wire:model.lazy="form.email" class="block mt-1 w-full text-black" type="email" required />
-                    </div>
-
-                    <div>
-                        <x-label :value="__('Phone')" />
-                        <x-input wire:model.lazy="form.phone" class="block mt-1 w-full text-black" type="text" required />
-                    </div>
+                        <div>
+                            <x-label :value="__('Phone')" />
+                            <x-input wire:model.lazy="form.phone" class="block mt-1 w-full text-black" type="text" required />
+                        </div>
+                    @endif
                 @elseif($pages === 2)
                     <div class="bg-white relative">
                         <div class="w-1/4 bg-green-500 h-10">
                         </div>
-                        <div class="text-lg font-bold text-gray-600 absolute left-20 bottom-2">
+                        <div class="text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
                             Step 2: <span class="text-lg font-bold">Confirm Address</span>
                         </div>
                     </div>
@@ -71,7 +73,7 @@
                      <div class="bg-white relative">
                         <div class="w-2/4 bg-green-500 h-10">
                         </div>
-                        <div class="text-lg font-bold text-gray-600 absolute left-16 bottom-2">
+                        <div class="text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
                             Step 3: <span class="text-lg font-bold">Payment Method</span>
                         </div>
                     </div>
@@ -93,7 +95,7 @@
                     <div class="bg-white relative">
                         <div class="w-3/4 bg-green-500 h-10">
                         </div>
-                        <div class="text-lg font-bold text-gray-600 absolute left-20 bottom-2">
+                        <div class="text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
                             Step 4: <span class="text-lg font-bold">Card Details</span>
                         </div>
                     </div>
@@ -105,7 +107,7 @@
 
                     <div class>
                         <x-label :value="__('Expiration Date')" />
-                        <x-input wire:model.lazy="form.exp_date" placeholder="Enter expiration date" class="block mt-1 w-full" type="date" required />
+                        <x-input wire:model.lazy="form.exp_date" placeholder="Enter expiration date" class="block mt-1 w-full" type="month" required />
                     </div>
 
                     <div class>
@@ -114,39 +116,71 @@
                     </div>
                     @endif
                 @elseif($pages === 5)
-                    @if($paymentMethod == 'card')
-                    <div class="bg-white relative">
+                   <div class="bg-white relative">
                         <div class="w-4/4 bg-green-500 h-10">
                         </div>
-                        <div class="text-lg font-bold text-gray-600 absolute left-20 bottom-2">
-                            Step 4: <span class="text-lg font-bold">Card Details</span>
+                        <div class="text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
+                            Step 5: <span class="text-lg font-bold">Confirm your order details!</span>
                         </div>
                     </div>
 
-                    <div class>
-                        <x-label :value="__('Card Number')" />
-                        <x-input wire:model.lazy="form.card_number" placeholder="Enter card number" class="block mt-1 w-full" type="text" required />
-                    </div>
+                    <div class="bg-white flex flex-col p-5 gap-2 rounded-lg">
+                        <div class="text-center font-bold">
+                            <h1>Order Details</h1>
+                        </div>
 
-                    <div class>
-                        <x-label :value="__('Expiration Date')" />
-                        <x-input wire:model.lazy="form.exp_date" placeholder="Enter expiration date" class="block mt-1 w-full" type="date" required />
-                    </div>
+                        <div class="">
+                            <span class="font-semibold">Name:</span> {{ $this->form['name'] }}
+                        </div>
 
-                    <div class>
-                        <x-label :value="__('Card Verification Code')" />
-                        <x-input wire:model.lazy="form.cvc" placeholder="Enter cvc" class="block mt-1 w-full" type="text" required />
+                        <div class="">
+                            <span class="font-semibold">Email:</span> {{ $this->form['email'] }}
+                        </div>
+
+                        <div class="">
+                            <span class="font-semibold">Phone:</span> {{ $this->form['phone'] }}
+                        </div>
+
+                        <div class="flex flex-row gap-1">
+                            <div>
+                                <span class="font-semibold">Address: </divspan>
+                            </div>
+                            <div>
+                                {{ $this->form['home_address'] }}, {{ $this->form['barangay'] }}, {{ ucwords($this->form['city']) }}, {{ $this->form['province'] }}
+                            </div>                                      
+                        </div>
+
+                        <div class="">
+                            <span class="font-semibold">Postal Code:</span> {{ $this->form['postal_code'] }}
+                        </div>
+
+                        <div class="mt-2">
+                            <span class="font-semibold">Payment Method:</span> {{ ucfirst($this->form['type']) }}
+                        </div>
+
+                        <div class="">
+                            <span class="font-semibold">Card Number:</span> {{ $this->form['card_number'] }}
+                        </div>
+
+                        <div class="">
+                            <span class="font-semibold">Expiration Date:</span> {{ $this->form['exp_date'] }}
+                        </div>
+
+                        <div class="mt-2">
+                            <span class="font-semibold">Amount to Pay:</span> &#8369;{{ number_format($this->total, 2) }}
+                        </div>
                     </div>
-                    @endif
                 @endif
 
                 <div>
                     @if($pages === 1)
-                        <div class="text-right">
-                            <x-button wire:click.prevent="gotoPageTwo" type="button" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
-                                {{ __('Next') }}
-                            </x-button>
-                        </div>
+                        @if(count($userCarts) != 0)
+                            <div class="text-right">
+                                <x-button wire:click.prevent="gotoPageTwo" type="button" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
+                                    {{ __('Next') }}
+                                </x-button>
+                            </div>
+                        @endif
                     @elseif($pages === 2)
                         <div class="flex justify-between">
                             <x-button wire:click.prevent="previousPage" type="button" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
@@ -173,18 +207,18 @@
                                 {{ __('Back') }}
                             </x-button>
 
-                            <x-button type="submit" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
+                            <x-button wire:click.prevent="gotoPageFive" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
                                 {{ __('Next') }}
                             </x-button>
                         </div>
-                    @elseif($pages === 4)
+                    @elseif($pages === 5)
                     <div class="flex justify-between">
-                        <x-button wire:click.prevent="previousPage" type="button" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
-                            {{ __('Back') }}
+                        <x-button wire:click.prevent="cancelPaymentIntent" type="button" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
+                            {{ __('Cancel Payment') }}
                         </x-button>
 
                         <x-button type="submit" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
-                            {{ __('Next') }}
+                            {{ __('Place Order') }}
                         </x-button>
                     </div>
                     @endif

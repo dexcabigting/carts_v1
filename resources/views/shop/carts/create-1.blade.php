@@ -50,7 +50,7 @@
     <div class="max-h-96 overflow-y-auto">
         <form action="POST" wire:submit.prevent="store">
             @foreach($addItems as $index => $addItem)
-            <div class="grid grid-cols-4 justify-items-center gap-5 mb-5">
+            <div class="grid grid-cols-4 justify-items-center gap-5 mb-5" wire:key="item-{{ $loop->index }}">
                 <div class="">
                     <select wire:model="addItems.{{ $index }}.size" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                             <option value="">
@@ -67,11 +67,11 @@
                 </div>
 
                 <div class="">
-                    <x-input wire:model.lazy="addItems.{{ $index }}.surname" class="block text-black w-full" type="text" autofocus />
+                    <x-input wire:model.defer="addItems.{{ $index }}.surname" class="block text-black w-full" type="text" autofocus />
                 </div>
 
                 <div class="">
-                    <x-input wire:model.lazy="addItems.{{ $index }}.jersey_number" class="block text-black w-full" type="text" autofocus />
+                    <x-input wire:model.defer="addItems.{{ $index }}.jersey_number" class="block text-black w-full" type="text" autofocus />
                 </div>
 
                 @if(count($addItems) == 1)

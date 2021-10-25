@@ -5,7 +5,11 @@ namespace App\Http\Livewire\Checkout;
 use Livewire\Component;
 use Luigel\Paymongo\Facades\Paymongo;
 use Illuminate\Support\Str;
-use Carbon\Carbon;
+use App\Models\Order;
+use App\Models\Cart;
+use App\Models\ProductStock;
+use LVR\CreditCard\CardNumber;
+use LVR\CreditCard\CardExpirationDate;
 
 class CheckoutIndex extends Component
 {
@@ -18,31 +22,37 @@ class CheckoutIndex extends Component
     public $amount;
     public $form = [];
     public $paymentMethod;
+    public $total;
 
-    protected $rules = [
-        1 => [
-            'form.name' => ['required', 'string', 'exists:users,name'],
-            'form.email' => ['required', 'string', 'exists:users,email'],
-            'form.phone' => ['required', 'string', 'exists:users,phone'],
-        ],
-        2 => [
-            'form.province' => ['required', 'string', 'exists:user_addresses,province'],
-            'form.city' => ['required', 'string', 'exists:user_addresses,city'],
-            'form.barangay' => ['required', 'string', 'exists:user_addresses,barangay'],
-            'form.home_address' => ['required', 'string', 'exists:user_addresses,home_address'],
-            'form.postal_code' => ['required', 'string'],
-            'form.country' => ['required', 'string', 'in:PH'],
-        ],
-        3 => [
-            'form.amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{2})?$/'],
-            'form.type' => ['required', 'string', 'in:card,gcash'],
-        ],
-        4 => [
-            'form.card_number' => ['required', 'string'],
-            'form.exp_date' => ['required', 'string', 'date_format:Y-m-d','after:today'],
-            'form.cvc' => ['required', 'string'],
-        ], 
-    ];
+    public $discount;
+
+    protected function rules()
+    {
+        return [ 
+            1 => [
+                'form.name' => ['required', 'string', 'exists:users,name'],
+                'form.email' => ['required', 'string', 'exists:users,email'],
+                'form.phone' => ['required', 'string', 'exists:users,phone'],
+            ],
+            2 => [
+                'form.province' => ['required', 'string', 'exists:user_addresses,province'],
+                'form.city' => ['required', 'string', 'exists:user_addresses,city'],
+                'form.barangay' => ['required', 'string', 'exists:user_addresses,barangay'],
+                'form.home_address' => ['required', 'string', 'exists:user_addresses,home_address'],
+                'form.postal_code' => ['required', 'string'],
+                'form.country' => ['required', 'string', 'in:PH'],
+            ],
+            3 => [
+                'form.amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
+                'form.type' => ['required', 'string', 'in:card,gcash'],
+            ],
+            4 => [
+                'form.card_number' => ['required', 'string',  new CardNumber],
+                'form.exp_date' => ['required', 'string', 'date_format:Y-m', new CardExpirationDate('Y-m')],
+                'form.cvc' => ['required', 'string', 'min:3', 'max:3'],
+            ], 
+        ];
+    }
 
     protected $validationAttributes = [
         'form.name' => 'name',
@@ -62,6 +72,8 @@ class CheckoutIndex extends Component
 
     public function mount($ids)
     {
+        // testing ends here
+        
         $this->carts = json_decode($ids);
 
         if(!is_array($this->carts)) {
@@ -69,6 +81,20 @@ class CheckoutIndex extends Component
         }        
 
         $this->userCarts = auth()->user()->userCarts($this->carts)->with('product_variant.product')->get();
+
+        $this->discount = 0;
+
+        foreach($this->userCarts as $item) {
+            $sum = $item->cartItemSizes()->sum();
+
+            if($item->product_variant->product->category_id == 1) {
+                if($sum >= 10) {
+                    $this->discount = $this->discount + (100 * $sum);
+                } else {
+                }
+            }
+        }
+        //      
 
         $this->cartQuantity = auth()->user()->userCartItems($this->carts)->count();
 
@@ -79,29 +105,34 @@ class CheckoutIndex extends Component
             'email' => auth()->user()->email,
             'phone' => auth()->user()->phone,
             'province' => Str::ucfirst(Str::lower($this->userAddress->province)),
-            'city' => Str::ucfirst(Str::lower($this->userAddress->city)),
+            'city' => ucwords(Str::lower($this->userAddress->city)),
             'barangay' => $this->userAddress->barangay,
             'home_address' => $this->userAddress->home_address,
-            'postal_code' => '4005',
+            'postal_code' => '',
             'country' => 'PH',
             'amount' => '',
             'type' => '',
-            'card_number' => '4009930000001421',
+            'card_number' => '',
             'exp_date' => '',
             'cvc' => '',
         ];
     }
 
+    public function previousPage()
+    {
+        $this->pages--;
+    }
+
     public function gotoPageTwo()
     {
-        $this->validate($this->rules[$this->pages]);
+        $this->validate($this->rules()[$this->pages]);
 
         $this->pages++;        
     }
 
     public function gotoPageThree()
     {
-        $this->validate($this->rules[$this->pages]);
+        $this->validate($this->rules()[$this->pages]);
 
         $this->pages++;  
         // User's address will be validated here
@@ -109,12 +140,17 @@ class CheckoutIndex extends Component
 
     public function gotoPageFour()
     {
-        $this->validate($this->rules[$this->pages]);
+        $this->validate($this->rules()[$this->pages]);
 
-        $amount = $this->amount;
+        // The total
+        $total = round($this->total, 2);
 
-        if($amount > $this->form['amount']) {
+        if($total > +$this->form['amount']) {
             session()->flash('fail', 'The amount you entered is insufficient!');
+
+            return;
+        } else if($total < +$this->form['amount']) {
+            session()->flash('fail', 'Please enter the exact amount!');
 
             return;
         } else {
@@ -127,11 +163,11 @@ class CheckoutIndex extends Component
     public function gotoPageFive()
     {
         // Date will be validated here
-        $this->validate($this->rules[$this->pages]);
+        $this->validate($this->rules()[$this->pages]);
 
         $this->pages++;
 
-        $date = date_create_from_format('Y-m-d', $this->form['exp_date']);
+        $date = date_create_from_format('Y-m', $this->form['exp_date']);
         $exp_year = date_format($date, 'y');
         $exp_month = date_format($date, 'n');
 
@@ -164,28 +200,32 @@ class CheckoutIndex extends Component
     public function placeOrder()
     {
         // Re-validate whole form
-        $rules = collect($this->rules)->collapse()->toArray();
+        $rules = collect($this->rules())->collapse()->toArray();
 
         $this->validate($rules);
         // Do this if user confirms the payment
         $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
-        $paymentMethodId = Paymongo::paymentMethod()->find(session('paymentMethodId'));
 
-        $successfulPayment = $paymentIntent->attach($paymentMethodId);
+        $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
 
-        $this->reset();
+        $this->moveCartstoOrders();
 
         $this->resetValidation();
+
+        $this->mount(0);
+
+        $this->pages = 1;
+
+        session()->flash('success', 'Your payment is successful!');
     }
 
     public function cancelPaymentIntent()
     {
         $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
         $cancelPaymentIntent = $paymentIntent->cancel();
-    }
 
-    public function previousPage()
-    {
+        $this->resetValidation();
+
         $this->pages--;
     }
 
@@ -236,8 +276,52 @@ class CheckoutIndex extends Component
         session(['paymentMethodId' => $paymentMethod->id]);
     }
 
+    private function moveCartsToOrders()
+    {
+        $carts = $this->carts;
+
+        $cartsToBeMoved = auth()->user()->userCarts($carts)
+                    ->withCount('cart_items')
+                    ->with(['product_variant' => function ($query) {
+                        $query->withSum('product', 'prd_price');
+                    }])
+                    ->with('cart_items')
+                    ->get();
+
+        $invoiceNumber = 'EJ-Ezon-' . Str::upper(Str::random(3)) . '-' .  Str::upper(Str::random(3));
+
+        foreach($cartsToBeMoved as $cartToBeMoved) {
+
+            $order = Order::create([
+                'invoice_number' => $invoiceNumber,
+                'user_id' => $cartToBeMoved->user_id,
+                'product_variant_id' => $cartToBeMoved->product_variant_id,
+                'amount' => $cartToBeMoved->product_variant->product_sum_prd_price * $cartToBeMoved->cart_items_count,
+                'status' => 'pending',
+            ]);
+
+            $productStock = ProductStock::where('product_variant_id', $cartToBeMoved->product_variant_id)->first();
+            $userCartItem = auth()->user()->carts()->where('id', $cartToBeMoved->id)->first()->cartItemSizes()->toArray();
+
+            foreach($userCartItem as $size => $qty) {
+                $productStock->decrement($size, $qty);
+            }
+
+            foreach($cartToBeMoved->cart_items as $cartItem) {
+                $order->order_items()->create([
+                    'size' => $cartItem->size,
+                    'surname' => $cartItem->surname,
+                    'jersey_number' => $cartItem->jersey_number,
+                ]);
+            }
+        }
+        
+        Cart::whereIn('id', $carts)->delete();
+    }
+
     public function render()
     {
-        return view('livewire.checkout.checkout-index')->layout('layouts.app-user');
+        $transactionFee = $this->total;
+        return view('livewire.checkout.checkout-index', compact('transactionFee'))->layout('layouts.app-user');
     }
 }
