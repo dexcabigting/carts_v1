@@ -73,6 +73,7 @@ class CheckoutIndex extends Component
     public function mount($ids)
     {
         // testing ends here
+        dd($ids);
         
         $this->carts = json_decode($ids);
 
