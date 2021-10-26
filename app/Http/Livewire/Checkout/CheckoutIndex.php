@@ -23,6 +23,7 @@ class CheckoutIndex extends Component
     public $form = [];
     public $paymentMethod;
     public $total;
+    public $isPaymentSuccessful = 0;
 
     public $discount;
 
@@ -73,13 +74,14 @@ class CheckoutIndex extends Component
     public function mount($ids)
     {
         // testing ends here
-        dd($ids);
         
         $this->carts = json_decode($ids);
 
         if(!is_array($this->carts)) {
             $this->carts = [$this->carts];
-        }        
+        }
+
+        // Cart::findOrFail($this->carts);
 
         $this->userCarts = auth()->user()->userCarts($this->carts)->with('product_variant.product')->get();
 
@@ -216,6 +218,8 @@ class CheckoutIndex extends Component
         $this->mount(0);
 
         $this->pages = 1;
+
+        $this->isPaymentSuccessful = 1;
 
         session()->flash('success', 'Your payment is successful!');
     }

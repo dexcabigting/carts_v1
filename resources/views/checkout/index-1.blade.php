@@ -35,6 +35,12 @@
                             <x-label :value="__('Phone')" />
                             <x-input wire:model.lazy="form.phone" class="block mt-1 w-full text-black" type="text" required />
                         </div>
+                    @elseif($isPaymentSuccessful == 0)
+                        <div>
+                            <div class="text-center font-bold">
+                                <h1>There is nothing to checkout!</h1>
+                            </div>
+                        </div>
                     @endif
                 @elseif($pages === 2)
                     <div class="bg-white relative">
