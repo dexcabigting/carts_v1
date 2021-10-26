@@ -1,4 +1,4 @@
-                                                                                                                                                                                                                                                                                                    <nav x-data="{ open: false }" class="bg-custom-black">
+<nav x-data="{ open: false }" class="bg-custom-black">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -8,18 +8,7 @@
 
                 <!-- Navigation Links -->
                 <div class="nav-container-class hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    @if(auth()->user()->role_id == 1)
-                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :active="request()->routeIs('dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link>                                                                                                                                                                                                                                                                          
-                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('users.index')" :active="request()->routeIs('users.index')">
-                            {{ __('Users') }}
-                        </x-nav-link>
-                        
-                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('products.index')" :active="request()->routeIs('products.index')">
-                            {{ __('Products') }}
-                        </x-nav-link>
-                    @else
+                    @if(auth()->user()->role_id == 2)
                         <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('shop.index')" :active="request()->routeIs('shop.index')">
                             {{ __('Shop') }}
                         </x-nav-link>
@@ -43,7 +32,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-100 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <div>{{ Auth::user()->name }}</div>
+                            <div class="">{{ Auth::user()->name }}</div>
 
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -55,7 +44,7 @@
 
                     <x-slot name="content">
                         <!-- My Profile -->
-                        <x-dropdown-link :href="route('profile.index')">
+                        <x-dropdown-link :href="route('profile.index')" class="font-semibold bg-custom-blacki text-white hover:text-gray-100 focus:text-gray-100 hover:bg-purple-900 focus:bg-custom-violet">
                             {{ __('My Profile') }}
                         </x-dropdown-link>
 
@@ -65,7 +54,8 @@
 
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                                                this.closest('form').submit();"
+                                                class="font-semibold bg-custom-blacki text-white hover:text-gray-100 focus:text-gray-100 hover:bg-purple-900 focus:bg-custom-violet">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
@@ -88,30 +78,18 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            @if (auth()->user()->role_id == 1)
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-            
-            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
-                {{ __('Users') }}
-            </x-responsive-nav-link>
+            @if (auth()->user()->role_id == 2)
+                <x-responsive-nav-link :href="route('shop.index')" :active="request()->routeIs('shop.index')">
+                    {{ __('Shop') }}
+                </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
-                {{ __('Products') }}
-            </x-responsive-nav-link>
-            @else
-            <x-responsive-nav-link :href="route('shop.index')" :active="request()->routeIs('shop.index')">
-                {{ __('Shop') }}
-            </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('carts.index')" :active="request()->routeIs('carts.index')">
+                    {{ __('Carts') }}
+                </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('carts.index')" :active="request()->routeIs('carts.index')">
-                {{ __('Carts') }}
-            </x-responsive-nav-link>
-
-            <x-responsive-nav-link :href="route('products.customize')" :active="request()->routeIs('products.customize')">
-                {{ __('Customize') }}
-            </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('products.customize')" :active="request()->routeIs('products.customize')">
+                    {{ __('Customize') }}
+                </x-responsive-nav-link>
             @endif
         </div>
 
