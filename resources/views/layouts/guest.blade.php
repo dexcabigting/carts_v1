@@ -82,14 +82,14 @@
     <!-- .bg-blue-500 -->
     <header class="flex py-8 sm:text-sm text-white font-light text-base justify-center items-center w-full">
       <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5"><a href="index.html">HOME</a></h1>
-      <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">ABOUT</h1>
-      <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">FAQ</h1>
+      <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">ABOUT US</h1>
+      {{-- <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">FAQ</h1> --}}
       
         
       <img class="sm:block py-2 lg:px-12 sm:h-20 sm:w-10 h-10 w-40 -mt-24 md:h-auto md:w-auto sm:mt-2 md:mt-0 sm:mx-8" src="img/Group 12.svg" />
      
     
-      <h1 class="hidden sm:block py-4 lg:px-12 px-2 sm:px-5">CUSTOMIZE</h1>
+      {{-- <h1 class="hidden sm:block py-4 lg:px-12 px-2 sm:px-5">CUSTOMIZE</h1> --}}
       
       @if (Route::has('login'))
       @auth
