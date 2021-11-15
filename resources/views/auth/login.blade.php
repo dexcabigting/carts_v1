@@ -1,25 +1,27 @@
 <x-guest-layout class="overflow-x-hidden">
     <x-auth-card>
 
-    <section class="flex flex-row justify-center items-center md:w-full">
+    <section class="flex flex-col sm:flex-row justify-center items-center md:w-full">
 
-        <div class="h-auto md:my-12 border-24 w-full shadow-xl mx-24 md:mx-32 bg-no-repeat bg-contain justify-center">
+        <div class="h-auto md:my-12 w-full mx-24 md:mx-32 bg-no-repeat bg-contain items-center justify-center ml-40  md:-ml-52 xl:ml-11">
               <img class="2xl:inline-flex hidden float-right w-2/5"src="img/GROI.png" alt="">
-            <div class="flex justify-start items-center py-12">
+            <div class="flex justify-center lg:justify-start items-center py-12 -ml-12">
                 <div class="flex justify-center items-center flex-col md:ml-32">
-                  
-                    <img class="2xl:ml-64 w-40 h-40 md:w-48 md:h-48 mb-12" src="img/Group 20.svg" alt=""/>
-
+                 <div class="flex flex-col lg:flex-row justify-center items-center 2xl:block">
+                     <div class="md:ml-64 lg:ml-0 ">
+                    <img class="lg:ml-60 w-40 h-40 lg:w-48 lg:h-48 mb-12 2xl:ml-72" src="img/Group 20.svg" alt=""/>
+                    </div>
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('login') }}"  class="w-full max-w-sm ">
+        <form method="POST" action="{{ route('login') }}"  class="w-full max-w-sm lg:ml-24">
             @csrf
 
             <!-- Email Address -->
+            
             <div  class="md:flex md:items-center mb-6">
             <div  class="md:w-1/3">
                 <x-label class="block text-gray-500 font-semibold md:text-right mb-1 md:mb-0 pr-4"
@@ -75,6 +77,7 @@
             </div>
 </div>
         </form>
+        </div>
 </div>
 </div>
 </div>

@@ -1,5 +1,5 @@
 <nav x-data="{ open: false }" class="bg-custom-blacki">
-    <div class="hidden md:flex flex-col md:flex-row md:w-full">
+    <div class="hidden lg:flex flex-col md:flex-row md:w-full">
         <div @click.away="open = false" class="flex flex-col w-full md:w-64 text-gray-700 bg-custom-blacki dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0" x-data="{ open: false }">
             <div class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-center">
                 <div class="items-center flex justify-center text-lg font-semibold tracking-widest text-gray-100 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Admin</div>
@@ -99,7 +99,7 @@
             </div>
 
             <!-- Hamburger -->
-            <div class="-mr-14 flex sm:items-center sm:hidden w-full justify-start">
+            <div class="-ml-80 lg:-ml-32 flex sm:items-center lg:hidden w-full justify-start">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-100 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />

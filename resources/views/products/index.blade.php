@@ -19,9 +19,12 @@
                     </div>
 
                     <!-- Order By -->
-                    <div class="">
-                        <div class="text-base font-medium text-gray-100 py-4">
-                            <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-xl" />
+                    <div class="px-4">
+                        <div class="flex flex-col lg:flex-row text-sm font-medium text-gray-100 py-4">
+                            <div class="w-1/3">
+                            <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-base 2xl:text-xl" />
+                            </div>
+                            <div>
                             <select wire:model="sortColumn" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 <option value="prd_name">
                                     <x-label :value="__('Name')" class="inline-block" />
@@ -52,6 +55,7 @@
                                 </option>
                                 @endforeach
                             </select>
+                            </div>
                         </div>
 
 

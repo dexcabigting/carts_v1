@@ -27,7 +27,7 @@
       
     <section class="g-gradient-to-r from-custom-black via-custom-blacki to-custom-black pb-28 md:h-screen">
     <!-- Hamburger -->
-    <div class="md:hidden pb-12" x-data="{showMenu : false} ">
+    <div class="sm:hidden pb-12" x-data="{showMenu : false} ">
         <button @click.prevent="showMenu = !showMenu " class="px-2 py-4 flex justify-end pt-8 w-full text-white">
             <svg x-show="!showMenu" class="w-6 h-6 mr-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path d="M4 6h16M4 12h16M4 18h16"></path>
@@ -74,16 +74,16 @@
         </div>
     <!-- .bg-blue-500 -->
 
-    <header class="flex py-8 text-white font-light text-base justify-center items-center w-full">
-      <h1 class="hidden sm:block  py-4 px-10"><a href="index.html">HOME</a></h1>
-      <h1 class="hidden sm:block  py-4 px-10">ABOUT</h1>
-      <h1 class="hidden sm:block  py-4 px-10">FAQ</h1>
+    <header class="flex py-8 sm:text-sm text-white font-light text-base justify-center items-center w-full">
+      <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5"><a href="index.html">HOME</a></h1>
+      <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">ABOUT</h1>
+      <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">FAQ</h1>
       
         
-      <img class="sm:block py-2 px-12 h-40 w-40 -mt-24 md:h-auto md:w-auto md:mt-0 " src="img/Group 12.svg" />
+      <img class="sm:block py-2 lg:px-12 sm:h-20 sm:w-10 h-10 w-40 -mt-24 md:h-auto md:w-auto sm:mt-2 md:mt-0 sm:mx-8" src="img/Group 12.svg" />
      
     
-      <h1 class="hidden sm:block py-4 px-12">CUSTOMIZE</h1>
+      <h1 class="hidden sm:block py-4 lg:px-12 px-2 sm:px-5">CUSTOMIZE</h1>
       
       @if (Route::has('login'))
       @auth
@@ -92,9 +92,9 @@
         @elseif(auth()->user()->role_id == 2)
           <a  href="{{ route('shop.index') }}" class="text-sm text-gray-700 underline">Shop Now</a>
         @endif
-      <h1 class="hidden sm:block py-4 px-12">@else
+      <h1 class="hidden sm:block py-4 lg:px-12 md:px-2 sm:px-5">@else
       <a class="hidden sm:block" href="{{ route('login') }}">LOGIN</a></h1>
-        <h1 class="hidden sm:block py-4 px-12"> @if (Route::has('register'))
+        <h1 class="hidden sm:block py-4 lg:px-12 px-2 sm:px-5"> @if (Route::has('register'))
       <a href="{{ route('register') }}">REGISTER</a></h1>
       @endif
                     @endauth
@@ -121,24 +121,25 @@
        
         
 
-            <div class="relative flex justify-center items-center py-24">
+            <div class="relative flex justify-center items-center md:-mt-24 py-24">
     <h1 class="absolute md:text-2xl top-36 md:top-48 text-gray-100 text-center w-1/2">EJ EZON SPORTSWEAR IS A CLOTHING LINE MAINLY
       FOCUS ON
       CREATING <span class="underline">QUALITY</span> BASKETBALL JERSEY. </h1>
     <h1 class="text-7xl md:text-9xl text-custom-text font-extrabold  top-2">ABOUT</h1>
         </div>
-  <div class="flex-row flex justify-center items-center">
-    <img class="hidden sm:block md:w-1/3 md:ml-64" src="img/Group 5.svg" alt="">
+  <div class="lg:flex-row flex-col flex justify-center items-center">
+    <img class="hidden sm:block sm:w-0 lg:ml-32 lg:w-1/4 2xl:ml-64" src="img/Group 5.svg" alt="">
     <div class="flex justify-center items-center">
       <div class="flex flex-col mx-12 md:mx-32">
+        <!-- purple bar -->
         <img class="w-10 h-10" src="img/Rectangle 6.svg" alt="">
-        <h1 class="text-gray-100 text-2xl md:text-4xl font-semibold my-2">What's inside?</h1>
-        <p class="text-gray-100 md:text-2xl md:w-2/3 my-4">The best of the best quality precision crafted
+        <h1 class="text-gray-100 text-2xl md:text-4xl font-semibold my-2 lg:text-2xl">What's inside?</h1>
+        <p class="text-gray-100 md:text-2xl md:w-2/3 my-4 lg:text-base">The best of the best quality precision crafted
           by the experts for professional basketball players.</p>
         <div class="flex flex-col md:mx-8">
 
           <div class="flex-row flex my-6">
-            <img class="w-14 h-14 md:w-24 md:h-24" src="img/mico.svg" alt="">
+            <img class="w-14 h-14 md:w-24 md:h-24 lg:h-10 lg:w-10 2xl:w-14 2xl:h-14" src="img/mico.svg" alt="">
             <div class="flex flex-col my-1 mx-7">
               <h1 class="font-semibold text-2xl text-gray-100">Microfiber</h1>
               <p class="w-full text-md text-gray-100">as the name suggests, is a material
@@ -148,7 +149,7 @@
           </div>
 
           <div class="flex-row flex my-6">
-            <img class="w-14 h-14 md:w-24 md:h-24" src="img/poly.svg" alt="">
+            <img class="w-14 h-14 md:w-24 md:h-24 lg:h-10 lg:w-10 2xl:w-14 2xl:h-14" src="img/poly.svg" alt="">
             <div class="flex flex-col my-1 mx-7">
               <h1 class="font-semibold text-2xl text-gray-100">Polyester</h1>
               <p class="w-full text-md text-gray-100">A cloth made out of plastic fibers making it light-weight,
@@ -157,7 +158,7 @@
           </div>
 
           <div class="flex-row flex my-6">
-            <img class="w-14 h-14 md:w-24 md:h-24" src="img/x.svg" alt="">
+            <img class="w-14 h-14 md:w-24 md:h-24  lg:h-10 lg:w-10 2xl:w-14 2xl:h-14" src="img/x.svg" alt="">
             <div class="flex flex-col my-1 mx-7">
               <h1 class="font-semibold text-2xl text-gray-100">X- Static</h1>
               <p class="w-full text-md text-gray-100">Silver is a metal with anti-bacterial properties that prevents
@@ -169,7 +170,7 @@
 
         </div>
         <button
-          class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-2 py-6 uppercase bg-custom-violet">Get
+          class="hover:bg-purple-900 hover:text-purple-100 text-2xl md:text-4xl font-semibold text-white py-6 lg:px-2 lg:py-6 uppercase bg-custom-violet">Get
           yours now</button>
       </div>
 
@@ -178,7 +179,7 @@
   <section class=" md:mx-0 relative flex justify-center items-center py-24">
     <div class="absolute top-44 md:left-64">
       <p class="md:text-2xl text-gray-100 md:text-left text-center font-semibold">CUSTOMIZE YOUR JERSEY, WEAR IT AND</p>
-      <h1 class="text-7xl md:text-9xl text-gray-100 font-extrabold">BE A WINNER</h1>
+      <h1 class="text-5xl md:text-6xl lg:text-9xl text-gray-100 font-extrabold">BE A WINNER</h1>
     </div>
 
     <h1 class="text-7xl md:text-9xl text-custom-text font-extrabold  top-2">CUSTOMIZE</h1>
@@ -194,10 +195,10 @@
     <img class="w-1/2 absolute top-12" src="img/Group 19.png" alt="">
   </section>
   <div class="relative md:h-screen">
-    <div class="absolute left-16 md:right-3 top-32 md:top-64">
+    <div class="absolute sm:left-12 left-8 md:left-16 right-3 top-32 md:top-64">
       <div class="flex flex-col justify-center items-center">
         <p class="text-2xl text-gray-100 text-left font-semibold">CHOOSE WHAT YOU WEAR</p>
-        <h1 class="text-5xl md:text-9xl text-gray-100 font-extrabold">VISIT OUR SHOP</h1>
+        <h1 class="text-5xl md:text-6xl lg:text-9xl text-gray-100 text-center font-extrabold">VISIT OUR SHOP</h1>
 
         <button
           class="my-12 hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 uppercase bg-custom-violet">SHOP

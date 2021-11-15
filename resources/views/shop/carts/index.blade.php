@@ -1,7 +1,7 @@
 <div class="h-screen">
     <div class="pt-12 pb-6">
         <div class="max-w-3xl mx-auto">
-            <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-custom-blacki overflow-hidden shadow-sm rounded-lg mx-2">
                 <div class="p-6 bg-custom-blacki shadow-2xl text-6xl font-extrabold text-center text-gray-300 font-extraboldoverflow-x-auto">
                     My Carts
                 </div>
@@ -13,7 +13,7 @@
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">
-                    <div class="shadow overflow-hidden  border-gray-200 sm:rounded-lg">
+                    <div class="shadow overflow-hidden  border-gray-200 mx-2 rounded-lg">
                         <table class="table-auto min-w-full divide-y divide-gray-200">
                             <thead class="bg-custom-blacki">
                                 <tr>
@@ -154,7 +154,7 @@
                 </div>
             </div>
         </div>
-        <div class="w-full flex justify-end">
+        <div class="w-full flex justify-end px-2">
             <button wire:click.prevent="openDeleteCartModal(@json($this->checked_keys))" type="button" {{ (!$checkedCarts) ?  'disabled' : null }} class="rounded-sm hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white mx-2 px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCarts) cursor-not-allowed @endif">
                 {{ __('Bulk Delete') }}
                 @if ($checkedCarts)

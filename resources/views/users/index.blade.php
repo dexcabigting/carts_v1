@@ -1,12 +1,13 @@
-<div class ="h-1/2 xl:ml-52 lg:mt-24 mt-12">
+<div class ="h-1/2 md:ml-8 lg:ml-8 xl:ml-16 2xl:ml-52 lg:mt-12 2xl:mt-24 mt-12 md:w-auto lg:max-w-4xl 2xl:max-w-6xl">
     <div class="pt-12 pb-5 ">
         <div class="md:max-w-6xl md:mx-auto">
-            <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex flex-row md:gap-5 md:p-6 p-3 bg-custom-blacki overflow-x-auto">
-                    <div class="flex flex-col md:flex-row mx-12 md:m-0">
+            <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg mx-2 block w-full">
+                <div class="flex flex-row md:gap-5 md:p-6 p-3 bg-custom-blacki overflow-x-auto ">
+                <div class="flex flex-col md:flex-row ">
+                    <div class="flex md:flex-row mx-12 md:m-0">
                     <div>
                         <a href="{{ route('users.create') }}">
-                            <x-button class="mx-2 hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
+                            <x-button class="mx-2 hover:bg-purple-900 hover:text-purple-100 text-sm 2xl:text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
                                 {{ __('Create User') }}
                             </x-button>
                         </a>
@@ -15,7 +16,7 @@
                     <div class="">
                         <button wire:click.prevent="openDeleteModal(@json($this->checked_keys))"
                             type="button" {{ (!$checkedUsers) ?  'disabled' : null }}
-                            class="mx-2 hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedUsers) cursor-not-allowed @endif">
+                            class="mx-2 hover:bg-red-900 hover:text-purple-100 text-sm 2xl:text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedUsers) cursor-not-allowed @endif">
                             {{ __('Bulk Delete') }} 
                             @if ($checkedUsers)
                                 ({{ count($checkedUsers) }})
@@ -27,14 +28,15 @@
                     <div class="hidden col-span-2 lg:col-span-2 md:grid items-center align-center relative lg:w-64">
                         <x-input class="h-9 pr-10" type="search" wire:model="search" autofocus />
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-indigo-300 absolute right-0" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                            <path fill-rule="evenodd" d="M8 4a4 4 0mx-24 w-full 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                         </svg>
                     </div>
-
+                    </div>
                    <!-- Order By -->
-                    <div class="">
-                        <div class="text-xl font-medium text-gray-100 py-4">
-                            <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-2xl" />
+                    <div class="items-center ml-5 xl:ml-0">
+                        <div class="font-medium text-gray-100 py-4">
+                            <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-base xl:text-2xl" />
+                            
                             <select wire:model="sortBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                 <option value="name">
                                         <x-label :value="__('Name')" class="inline-block" />
@@ -53,7 +55,8 @@
                                     <x-label :value="__('Descending')" class="inline-block" />
                                 </option>
                             </select>
-                        </div>
+                            </div>
+                
                     </div>
                 </div>
             </div>
@@ -61,7 +64,7 @@
     </div>
 
 
-    <div class="max-w-6xl mx-auto">
+    <div class="xl:max-w-6xl mx-auto w-full max-w-4xl">
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">
@@ -69,29 +72,29 @@
                         <table class="table-auto min-w-full divide-y divide-gray-200 border-4 border-gray-500">
                         <thead class="bg-custom-blacki">
                             <tr>
-                                <th scope="col" class="px-6 py-3 float-left">
+                                <th scope="col" class="md:px-6 px-2 py-3 float-left">
                                     <div>
                                         <input type="checkbox" name="" wire:model="selectAll"
                                         {{ (count($users) == 0) ?  'disabled' : null }}
                                         class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring-indigo-200 focus:ring-opacity-50 @if (count($users) == 0) cursor-not-allowed @endif">
                                     </div>
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                <th scope="col" class="md:px-6 px-2 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     No.
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                <th scope="col" class="md:px-6 px-2 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Name
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                <th scope="col" class="md:px-6 px-2 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Status
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                <th scope="col" class="md:px-6 px-2 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Role
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                <th scope="col" class="md:px-6 px-2 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Actions
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                <th scope="col" class="md:px-6 px-2 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Date Created
                                 </th>
                             </tr>
@@ -100,26 +103,26 @@
                         <tbody class="bg-custom-blacki divide-y divide-gray-200">
                             @forelse ($users as $index => $user)
                             <tr>
-                                <td class="px-6 py-4" wire:key="user-{{ $loop->index }}">
+                                <td class="md:px-6 px-2 py-4" wire:key="user-{{ $loop->index }}">
                                     <div>
                                         <input type="checkbox" wire:model="checkedUsers.{{ $user->id }}"
                                         class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                     </div>
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="md:px-6 px-2 py-4 whitespace-nowrap">
                                     <div class="text-sm font-medium text-gray-100">
                                         {{ $users->firstItem() + $index }}
                                     </div>
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="md:px-6 px-2 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
-                                            <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
+                                            <img class="lg:h-10 lg:w-10 w-5 h-5 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
                                         </div>
                                         <div class="ml-4">
-                                            <div class="text-xl font-medium text-gray-100">
+                                            <div class="text-sm lg:text-xl font-medium text-gray-100">
                                             {{ $user->name }}
                                             </div>
                                             <div class="text-sm text-gray-100">
@@ -129,7 +132,7 @@
                                     </div>
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="md:px-6 px-2 py-4 whitespace-nowrap">
                                     @if ($user->email_verified_at == !null)
                                     <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -147,7 +150,7 @@
                                     @endif
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="md:px-6 px-2 py-4 whitespace-nowrap">
                                     @if ($user->role_id == 2)
                                     <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                                         {{ $user->role->role }}
@@ -155,7 +158,7 @@
                                     @endif
                                 </td>
 
-                                <td class="flex px-6 py-4 whitespace-nowrap">
+                                <td class="flex md:px-6 px-2 py-4 whitespace-nowrap">
                                     <div>
                                         <a href="{{ route('users.edit', [$user->id])  }}">
                                             <button class="p-2 bg-green-600 border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
@@ -182,7 +185,7 @@
                                     </div>
                                 </td>
 
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="md:px-6 px-2 py-4 whitespace-nowrap">
                                     <div class="text-sm font-medium text-gray-100">
                                         {{ $user->created_at->diffForHumans() }}
                                     </div>
@@ -190,7 +193,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td class="px-6 py-4 text-center" colspan="7">
+                                <td class="md:px-6 px-2 py-4 text-center" colspan="7">
                                     <div>
                                         <span class="font-semibold text-xl text-white leading-tight">
                                             {{ __('There are no matches!') }}
@@ -208,7 +211,7 @@
     </div>
 
     <div class="pb-12">
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto sm:md:px-6 px-2 lg:px-8">
             <div class="mt-4">
                 {{ $users->onEachSide(5)->links() }}
             </div>

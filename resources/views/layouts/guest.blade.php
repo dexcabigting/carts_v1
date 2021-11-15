@@ -34,7 +34,7 @@
     </head>
     <body class="bg-custom-black">
         <!-- Hamburger -->
-    <div class="md:hidden" x-data="{showMenu : false} ">
+        <div class="sm:hidden pb-12" x-data="{showMenu : false} ">
         <button @click.prevent="showMenu = !showMenu " class="px-2 py-4 flex justify-end pt-8 w-full text-white">
             <svg x-show="!showMenu" class="w-6 h-6 mr-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                 <path d="M4 6h16M4 12h16M4 18h16"></path>
@@ -58,43 +58,50 @@
                     <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
                 </a>
                 <a href="#" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
-                CUSTOMIZE
+                  CUSTOMIZE
                     <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
                 </a>
+
                 @if (Route::has('login'))
-      @auth
-      @else<a href="{{ route('login') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
-                    LOGIN
-                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
-                </a>
-                @if (Route::has('register'))
-                <a  href="{{ route('register') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
-                   REGISTER
-                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
-                </a>
-                @endif
-                    @endauth
-                    @endif
+                    @auth
+                      @else<a href="{{ route('login') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
+                                    LOGIN
+                                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
+                                </a>
+                                @if (Route::has('register'))
+                                <a  href="{{ route('register') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
+                                  REGISTER
+                                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
+                                </a>
+                      @endif
+                  @endauth
+                  @endif
             </nav>
         </div>
         </div>
     <!-- .bg-blue-500 -->
-    <header class="flex py-8 text-white font-light text-base justify-center items-center w-full">
-      <h1 class="hidden sm:block  py-4 px-10"><a href="index.html">HOME</a></h1>
-      <h1 class="hidden sm:block  py-4 px-10">ABOUT</h1>
-      <h1 class="hidden sm:block  py-4 px-10">FAQ</h1>
+    <header class="flex py-8 sm:text-sm text-white font-light text-base justify-center items-center w-full">
+      <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5"><a href="index.html">HOME</a></h1>
+      <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">ABOUT</h1>
+      <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">FAQ</h1>
       
         
-      <img class="hidden sm:block py-2 px-12 h-40 w-40 -mt-24 md:h-auto md:w-auto md:mt-0 " src="img/Group 12.svg" />
+      <img class="sm:block py-2 lg:px-12 sm:h-20 sm:w-10 h-10 w-40 -mt-24 md:h-auto md:w-auto sm:mt-2 md:mt-0 sm:mx-8" src="img/Group 12.svg" />
      
     
-      <h1 class="hidden sm:block py-4 px-12">CUSTOMIZE</h1>
+      <h1 class="hidden sm:block py-4 lg:px-12 px-2 sm:px-5">CUSTOMIZE</h1>
       
       @if (Route::has('login'))
       @auth
-                        <a  href="{{ url('/dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
-      <h1 class="hidden sm:block py-4 px-12">@else<a class="hidden sm:block" href="{{ route('login') }}">LOGIN</a></h1>
-      <h1 class="hidden sm:block py-4 px-12"> @if (Route::has('register'))<a href="{{ route('register') }}">REGISTER</a></h1>
+        @if(auth()->user()->role_id == 1)
+          <a  href="{{ route('dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
+        @elseif(auth()->user()->role_id == 2)
+          <a  href="{{ route('shop.index') }}" class="text-sm text-gray-700 underline">Shop Now</a>
+        @endif
+      <h1 class="hidden sm:block py-4 lg:px-12 md:px-2 sm:px-5">@else
+      <a class="hidden sm:block" href="{{ route('login') }}">LOGIN</a></h1>
+        <h1 class="hidden sm:block py-4 lg:px-12 px-2 sm:px-5"> @if (Route::has('register'))
+      <a href="{{ route('register') }}">REGISTER</a></h1>
       @endif
                     @endauth
                     @endif
