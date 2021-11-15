@@ -5,7 +5,7 @@
                 <div class="flex flex-row gap-5 p-6 bg-custom-blacki shadow-2xl overflow-x-auto">
                     <div class="">
                         <x-button class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3" wire:click="openCreateModal()">
-                            {{ __('Add Product') }}
+                            {{ __('Create Product') }}
                         </x-button>
                     </div>
 
