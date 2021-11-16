@@ -58,7 +58,7 @@
                     <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
                 </a>
                 <a href="#" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
-                  CUSTOMIZE
+                    CUSTOMIZE
                     <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
                 </a>
 
@@ -82,30 +82,17 @@
     <!-- .bg-blue-500 -->
     <header class="flex py-8 sm:text-sm text-white font-light text-base justify-center items-center w-full">
       <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5"><a href="index.html">HOME</a></h1>
-      <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">ABOUT US</h1>
-      {{-- <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">FAQ</h1> --}}
-      
+      <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">ABOUT US</h1>    
         
-      <img class="sm:block py-2 lg:px-12 sm:h-20 sm:w-10 h-10 w-40 -mt-24 md:h-auto md:w-auto sm:mt-2 md:mt-0 sm:mx-8" src="img/Group 12.svg" />
-     
-    
-      {{-- <h1 class="hidden sm:block py-4 lg:px-12 px-2 sm:px-5">CUSTOMIZE</h1> --}}
-      
-      @if (Route::has('login'))
-      @auth
-        @if(auth()->user()->role_id == 1)
-          <a  href="{{ route('dashboard') }}" class="text-sm text-gray-700 underline">Dashboard</a>
-        @elseif(auth()->user()->role_id == 2)
-          <a  href="{{ route('shop.index') }}" class="text-sm text-gray-700 underline">Shop Now</a>
-        @endif
-      <h1 class="hidden sm:block py-4 lg:px-12 md:px-2 sm:px-5">@else
-      <a class="hidden sm:block" href="{{ route('login') }}">LOGIN</a></h1>
-        <h1 class="hidden sm:block py-4 lg:px-12 px-2 sm:px-5"> @if (Route::has('register'))
-      <a href="{{ route('register') }}">REGISTER</a></h1>
-      @endif
-                    @endauth
-                    @endif
-                    
+      <img class="sm:block py-2 lg:px-12 sm:h-20 sm:w-10 h-10 w-40 -mt-24 md:h-auto md:w-auto sm:mt-2 md:mt-0 sm:mx-8" src="img/Group 12.svg" />      
+
+      <h1 class="hidden sm:block py-4 lg:px-12 md:px-2 sm:px-5">
+        <a class="hidden sm:block" href="{{ route('login') }}">LOGIN</a>
+      </h1>
+
+      <h1 class="hidden sm:block py-4 lg:px-12 px-2 sm:px-5">
+        <a href="{{ route('register') }}">REGISTER</a>
+      </h1>      
     </header>
 
     </section>
