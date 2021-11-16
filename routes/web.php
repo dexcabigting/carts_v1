@@ -41,9 +41,11 @@ use App\Http\Livewire\Orders\OrdersIndex;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+// Landing Page
+Route::view('/', 'welcome')->name('welcome');
+
+// About Us
+Route::view('/about-us', 'about-us')->name('about-us');
 
 // Auth
 Route::middleware(['auth', 'verified'])->group(function () {
