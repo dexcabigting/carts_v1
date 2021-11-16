@@ -108,17 +108,14 @@
         @auth
           @if(auth()->user()->role_id == 2)
           <button type="button"
-            class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 absolute md:bottom-24 -bottom-16 bg-custom-violet">
-          <a href="{{ route('shop.index') }}">
-           SHOP
-            NOW
-          </a>
+          class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 absolute md:bottom-24 -bottom-16 bg-custom-violet">
+            <a href="{{ route('shop.index') }}">SHOP NOW</a>
           </button>
           @endif
         @endauth
         <div class="contents">
-      <img class=" w-2/3 sm:w-1/2 h-auto -mr-10" src="../img/Group 18.png" alt="">
-      </div>
+          <img class=" w-2/3 sm:w-1/2 h-auto -mr-10" src="../img/Group 18.png" alt="">
+        </div>
     </div>
   </section>
        
