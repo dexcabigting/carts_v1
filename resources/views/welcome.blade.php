@@ -59,6 +59,14 @@
                       <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
                     </a>
                   @endif
+                  <h1 class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
+                    <form method="POST" action="{{ route('logout') }}">
+                      @csrf
+                      <button type="submit">
+                        LOGOUT 
+                      </button>
+                  </form>
+                  </h1>
                 @endauth
 
                 @guest
