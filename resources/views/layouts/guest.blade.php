@@ -81,9 +81,9 @@
       </h1>      
     </header>
 
-    </section>
-    {{ $slot }}
+    <div>
+      {{ $slot }}
     </div>
-</body>
+  </body>
 
 </html>
