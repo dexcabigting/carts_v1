@@ -43,32 +43,35 @@
                     <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
                 </a>
                 <a href="#" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
-                    ABOUT
-                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
-                </a>
-                <a href="#" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
-                    FAQ
-                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
-                </a>
-                <a href="#" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
-                  CUSTOMIZE
+                    ABOUT US
                     <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
                 </a>
 
-                @if (Route::has('login'))
-                    @auth
-                      @else<a href="{{ route('login') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
-                                    LOGIN
-                                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
-                                </a>
-                                @if (Route::has('register'))
-                                <a  href="{{ route('register') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
-                                  REGISTER
-                                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
-                                </a>
-                      @endif
-                  @endauth
+                @auth
+                  @if(auth()->user()->role_id == 1)
+                    <a href="{{ route('dashboard') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
+                      DASHBOARD
+                      <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
+                    </a>
+                  @else
+                    <a href="{{ route('shop.index') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
+                      SHOP NOW
+                      <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
+                    </a>
                   @endif
+                @endauth
+
+                @guest
+                  <a href="{{ route('login') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
+                    LOGIN
+                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
+                  </a>
+                            
+                  <a  href="{{ route('register') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
+                    REGISTER
+                    <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
+                  </a>
+                @endguest
             </nav>
         </div>
         </div>
@@ -76,20 +79,23 @@
 
     <header class="flex py-8 sm:text-sm text-white font-light text-base justify-center items-center w-full">
       <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5"><a href="index.html">HOME</a></h1>
-      <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">ABOUT US</h1>
-      {{-- <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">FAQ</h1> --}}
-      
+      <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">ABOUT US</h1>   
         
       <img class="sm:block py-2 lg:px-12 sm:h-20 sm:w-10 h-10 w-40 -mt-24 md:h-auto md:w-auto sm:mt-2 md:mt-0 sm:mx-8" src="img/Group 12.svg" />
         @auth
           @if(auth()->user()->role_id == 1)
             <a  href="{{ route('dashboard') }}" class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">DASHBOARD</a>
-          @elseif(auth()->user()->role_id == 2)
+          @else
             <a  href="{{ route('shop.index') }}" class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">SHOP NOW</a>
           @endif
 
           <h1 class="hidden sm:block py-4 lg:px-12 px-2 sm:px-5">
-            <a href="">LOGOUT</a>
+            <form method="POST" action="{{ route('logout') }}">
+              @csrf
+              <button type="submit">
+                LOGOUT 
+              </button>
+            </form>
           </h1>
         @endauth
       
