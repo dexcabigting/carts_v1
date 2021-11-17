@@ -6,7 +6,6 @@
     
     <form wire:submit.prevent="update" enctype="multipart/form-data">
         @csrf
-
         <div class="overflow-y-auto px-5 h-96 ">
             <div class="flex flex-row divide-x-4 divide-gray-600 gap-5">
                 <div class="w-48">
@@ -117,8 +116,6 @@
                                         <x-input wire:model.lazy="addVariants.{{ $index }}.M" class="block mt-1 w-14 text-black" type="text" value="{{ old('M') }}" autofocus />
                                     </div>
                                 
-                            
-                                
                                     <div>
                                         <x-label for="L" :value="__('L')"/>
                                         <x-input wire:model.lazy="addVariants.{{ $index }}.L" class="block mt-1 w-14 text-black" type="text" value="{{ old('L') }}" autofocus />
@@ -168,11 +165,8 @@
                             </div>  
                         @endif  
                     </div>
-
                 </div>
             </div>
-
-            
         </div>
 
         <div class="flex justify-center px-5 mt-4 gap-5 items-center">
