@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\AboutUsController;
 
 // Livewire Users Components
 use App\Http\Livewire\Users\UsersIndex;
@@ -45,7 +45,7 @@ use App\Http\Livewire\Orders\OrdersIndex;
 Route::view('/', 'welcome')->name('welcome');
 
 // About Us
-Route::view('/about-us', 'about-us')->name('about-us');
+Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
 
 // Auth
 Route::middleware(['auth', 'verified'])->group(function () {
