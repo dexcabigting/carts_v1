@@ -11,7 +11,7 @@
                 <div class="flex justify-around">
                     <div>
                         <h2 class="font-semibold text-l leading-tight mb-4">
-                            {{ __('Category Info') }}
+                            {{ __('Product Category Info') }}
                         </h2>
                     </div>
                 </div>       
