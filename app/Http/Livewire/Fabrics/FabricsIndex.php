@@ -26,7 +26,7 @@ class FabricsIndex extends Component
         'closeEditModal',
         'closeDeleteModal',
         'cleanse',
-        'unsetCheckedProducts',
+        'unsetCheckedFabrics',
     ];
 
     public function mount()
@@ -109,7 +109,7 @@ class FabricsIndex extends Component
 
     public function openEditModal($id)
     {
-        $this->productId = $id;
+        $this->fabricId = $id;
 
         $this->editModal = true;
     }
@@ -121,7 +121,7 @@ class FabricsIndex extends Component
 
     public function openDeleteModal($id)
     {
-        $this->productId = $id;
+        $this->fabricId = $id;
 
         $this->deleteModal = true;
     }
@@ -133,7 +133,7 @@ class FabricsIndex extends Component
 
     public function cleanse()
     {
-        $this->checkedProducts = [];
+        $this->checkedFabrics = [];
 
         $this->selectAll = false;
     }
