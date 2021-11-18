@@ -10,47 +10,140 @@ class FabricsIndex extends Component
 {
     use WithPagination;
 
-    public $form = [
-        'name' => '',
-        'description' => '',
-    ];
+    public $checkedFabrics;
+    public $selectAll = false;
+    public $createModal = false;
+    public $editModal = false;
+    public $deleteModal = false;
+    public $fabricId;
+    public $search;
+    public $sortColumn = 'prd_name';
+    public $sortDirection = 'asc';
 
-    protected $rules = [
-        'form.name' => 'required|string',
-        'form.description' => 'required|string',
-    ];
-
-    protected $validationAttributes = [
-        'form.name' => 'fabric name',
-        'form.description' => 'fabric description',
+    protected $listeners = [
+        'refreshParent' => '$refresh',
+        'closeCreateModal',
+        'closeEditModal',
+        'closeDeleteModal',
+        'cleanse',
+        'unsetCheckedProducts',
     ];
 
     public function mount()
     {
-        $this->fabrics = Fabric::all();
+        $this->checkedFabrics = [];
+        $this->fabricId = [];
     }
 
     public function render()
     {
-        return view('livewire.fabrics.fabrics-index')->layout('layouts.app');
+        $fabrics = $this->fabrics->paginate(10);
+
+        return view('livewire.fabrics.fabrics-index', compact('fabrics'));
     }
 
-    public function addFabric()
+    public function getFabricsProperty()
     {
-        $this->validate();
+        $search = '%' . $this->search . '%';
 
-        Fabric::create([
-            'fab_name' => $this->form['name'],
-            'fab_description' => $this->form['description'],
-        ]);
+        $sortColumn = $this->sortColumn;
 
-        session()->flash('success', 'Fabric has been successfully created!');
+        $sortDirection = $this->sortDirection;
 
-        $this->form = [
-            'name' => '',
-            'description' => '',
-        ];
+        return Fabric::select('id', 'fab_name', 'fab_description', 'created_at')
+            ->where('fab_name', 'like', $search)
+            ->orderBy($sortColumn, $sortDirection);
+    }
 
-        $this->mount();
+    public function updatedSelectAll($value)
+    {
+        $search = '%' . $this->search . '%';
+
+        if ($value) {
+            $this->checkedFabrics = Fabric::where('fab_name', 'like', $search)
+                ->pluck('id')
+                ->map(fn ($item) => (string) $item)
+                ->flip()
+                ->map(fn ($item) => true)
+                ->toArray();
+        } else {
+            $this->checkedFabrics = [];
+        }
+    }
+
+    public function getCheckedKeysProperty()
+    {
+        return array_keys($this->checkedFabrics);
+    }
+
+    public function updatedCheckedFabrics()
+    {
+        $this->selectAll = false;
+
+        $this->checkedFabrics = array_filter($this->checkedFabrics);
+    }
+
+    public function updatedSearch()
+    {
+        if(is_array($this->checkedFabrics)) {
+            $this->checkedFabrics = [];
+
+            $this->selectAll = false;
+        }
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function openCreateModal()
+    {
+        $this->createModal = true;
+    }
+
+    public function closeCreateModal()
+    {
+        $this->createModal = false;
+    }
+
+    public function openEditModal($id)
+    {
+        $this->productId = $id;
+
+        $this->editModal = true;
+    }
+
+    public function closeEditModal()
+    {
+        $this->editModal = false;
+    }
+
+    public function openDeleteModal($id)
+    {
+        $this->productId = $id;
+
+        $this->deleteModal = true;
+    }
+
+    public function closeDeleteModal()
+    {
+        $this->deleteModal = false;
+    }
+
+    public function cleanse()
+    {
+        $this->checkedProducts = [];
+
+        $this->selectAll = false;
+    }
+
+    public function unsetCheckedFabrics($ids)
+    {
+        if (is_array($this->checkedFabrics)) {
+            foreach ($ids as $id) {
+                unset($this->checkedFabrics['$id']);
+            }
+        }
     }
 }
