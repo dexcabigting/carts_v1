@@ -12,12 +12,12 @@ class FabricsIndex extends Component
 
     public $checkedFabrics;
     public $selectAll = false;
-    public $createModal = false;
-    public $editModal = false;
-    public $deleteModal = false;
+    public $createModal = 0;
+    public $editModal = 0;
+    public $deleteModal = 0;
     public $fabricId;
     public $search;
-    public $sortColumn = 'prd_name';
+    public $sortColumn = 'fab_name';
     public $sortDirection = 'asc';
 
     protected $listeners = [
