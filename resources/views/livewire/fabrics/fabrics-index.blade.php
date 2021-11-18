@@ -1,7 +1,9 @@
 <div>
-   {{-- @if($createModal)
-        @livewire('products.products-create')
-    @elseif($editModal)
+    @if($createModal)
+        @livewire('fabrics.fabrics-create')
+    @endif
+
+    {{-- @elseif($editModal)
         @livewire('products.products-edit', ['id' => $productId])
     @elseif($deleteModal)
         @livewire('products.products-delete', ['id' => $this->productId])
