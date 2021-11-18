@@ -1,6 +1,8 @@
 <div>
     @if($createModal)
         @livewire('fabrics.fabrics-create')
+    @elseif($editModal)
+        @livewire('fabrics.fabrics-edit', ['id' => $fabricId])
     @endif
 
     {{-- @elseif($editModal)
