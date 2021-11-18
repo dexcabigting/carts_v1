@@ -109,7 +109,7 @@ class CategoriesIndex extends Component
 
     public function openEditModal($id)
     {
-        $this->fabricId = $id;
+        $this->categoryId = $id;
 
         $this->editModal = true;
     }
@@ -121,7 +121,7 @@ class CategoriesIndex extends Component
 
     public function openDeleteModal($id)
     {
-        $this->fabricId = $id;
+        $this->categoryId = $id;
 
         $this->deleteModal = true;
     }
