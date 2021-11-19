@@ -35,7 +35,7 @@ class UpdateCredentialsRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'phone' => ['required', 'string', 'unique:users', new PhoneNumber($this->service)],
+            'phone' => ['required', 'string', 'unique:users,phone,' . auth()->user()->id, new PhoneNumber($this->service)],
         ];
     }
 }
