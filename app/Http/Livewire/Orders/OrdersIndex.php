@@ -25,7 +25,7 @@ class OrdersIndex extends Component
         if(auth()->user()->role_id == 1) {
             return Order::all();
         } else {
-            return auth()->user()->orders()->where('status', 'pending')->withSum('order_items');
+            return auth()->user()->orders()->where('status', 'pending');
         }
     }
 }

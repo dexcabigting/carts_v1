@@ -23,9 +23,6 @@
                                         Invoice Number
                                     </th>
                                     <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Quantity
-                                    </th>
-                                    <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Amount
                                     </th>
                                     <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -51,12 +48,6 @@
                                                     {{ $order->invoice_number }}
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-
-                                    <td class="md:px-6 py-4 whitespace-nowrap text-center">
-                                        <div class="text-sm font-medium text-gray-900">
-                                            x{{ $order->order_items_count }}
                                         </div>
                                     </td>
 
