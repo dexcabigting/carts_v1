@@ -17,15 +17,15 @@ class UserSeeder extends Seeder
     {
         // User::factory(1)->isAdmin()->create();  
 
-        // UserAddress::factory(1)
-        //     ->adminAddress()
-        //     ->for(User::factory()->isAdmin())
-        //     ->create();
+        UserAddress::factory(1)
+            ->adminAddress()
+            ->for(User::factory()->isAdmin())
+            ->create();
 
-        // UserAddress::factory(1)
-        //     ->defaultUserAddress()
-        //     ->for(User::factory()->isDefaultUser())
-        //     ->create();
+        UserAddress::factory(1)
+            ->defaultUserAddress()
+            ->for(User::factory()->isDefaultUser())
+            ->create();
 
         User::factory(10)
             ->has(UserAddress::factory(2))
