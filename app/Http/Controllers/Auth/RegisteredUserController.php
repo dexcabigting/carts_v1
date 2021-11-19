@@ -71,7 +71,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        $user->addresses()->create([
+        $user->userAddresses()->create([
             'region' => $request->region,
             'province' => $request->province,
             'city' => $request->city,

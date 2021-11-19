@@ -101,7 +101,7 @@ class CheckoutIndex extends Component
 
         $this->cartQuantity = auth()->user()->userCartItems($this->carts)->count();
 
-        $this->userAddress = auth()->user()->addresses()->where('is_main_address', 1)->first();
+        $this->userAddress = auth()->user()->userAddresses()->where('is_main_address', 1)->first();
 
         $this->form = [
             'name' => auth()->user()->name,

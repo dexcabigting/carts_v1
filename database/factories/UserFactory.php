@@ -65,7 +65,7 @@ class UserFactory extends Factory
         });
     }
 
-    public function isUser()
+    public function isDefaultUser()
     {
         return $this->state(function (array $attributes) {
             return [
@@ -81,11 +81,11 @@ class UserFactory extends Factory
         });
     }
 
-	 public function asCustomer() {
-		 return $this->state(function ($attributes) {
-			return array_merge($attributes, [
-				"role_id" => Role::where("role", "Customer")->first()->id
-			]);
-		});
-	 }
+    // public function asCustomer() {
+    //     return $this->state(function ($attributes) {
+    //     return array_merge($attributes, [
+    //         "role_id" => Role::where("role", "Customer")->first()->id
+    //     ]);
+    // });
+    // }
 }

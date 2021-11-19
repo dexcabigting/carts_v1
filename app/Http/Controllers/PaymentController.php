@@ -10,7 +10,7 @@ class PaymentController extends Controller
     //
     public function index()
     {
-        $userAddress = auth()->user()->addresses()->where('is_main_address', 1)->first();
+        $userAddress = auth()->user()->userAddresses()->where('is_main_address', 1)->first();
 
         return view('payment.index', compact('userAddress'));
     }
