@@ -15,9 +15,10 @@
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
         <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        
 
         <form method="POST" action="{{ route('login') }}"  class="w-full max-w-sm lg:ml-24">
+        <x-auth-validation-errors class="mb-4" :errors="$errors" />
             @csrf
 
             <!-- Email Address -->
