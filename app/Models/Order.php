@@ -10,10 +10,9 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'invoice_number',
         'user_id',
-        'product_variant_id',
-        'amount',
+        'invoice_number',
+        'transaction_fee',
         'status',
     ];
 
@@ -22,13 +21,13 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function product_variant()
+    public function order_variants()
     {
-        return $this->belongsTo(ProductVariant::class);
+        return $this->hasMany(OrderVariant::class);
     }
 
     public function order_items()
     {
-        return $this->hasMany(OrderItem::class);
+        return $this->hasManyThrough(OrderVariant::class, OrderItem::class);
     }
 }

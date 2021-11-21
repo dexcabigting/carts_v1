@@ -15,16 +15,13 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('invoice_number');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('product_variant_id');
-            $table->float('amount');
+            $table->string('invoice_number');
+            $table->unsignedBigInteger('transaction_fee');
             $table->string('status');
             $table->timestamps();
 
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('product_variant_id')->references('id')->on('product_variants')->onDelete('cascade');
         });
     }
 
