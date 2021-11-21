@@ -25,6 +25,9 @@ class CreateTshirtDetailsTable extends Migration
             $table->longText('tshirt_color')->nullable();
             $table->longText('tshirt_pdf')->nullable();
             $table->float('custom_price')->default(0);
+            $table->boolean('is_approve')->default(false);
+            $table->longText('custom_note')->nullable();
+            $table->date('custom_estimate_delivery')->nullable();
             $table->date('created_date');
             $table->date('updated_date');
             $table->timestamps();
