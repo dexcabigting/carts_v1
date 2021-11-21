@@ -22,12 +22,27 @@ class TShirtController extends Controller
             'tshirt_type' => $request['tshirt_type'],
             'tshirt_color' => $request['tshirt_color'],
             'tshirt_pdf' => $request['tshirt_pdf'],
-            'custom_price' => $request['custom_price'],
+            'is_approve' => false,
             'created_date' => $currentDate,
             'updated_date' => $currentDate,
         ]);
 
-        session()->flash('success', 'User has been created successfully!'); 
+        session()->flash('success', 'created successfully!'); 
     }
 
+    public function update(Request $request)
+    {
+        $currentDate = date("Y-m-d");
+
+        TshirtDetails::where('id', $request['id'])
+            ->update([
+                'custom_note' => $request['custom_note'],
+                'custom_price' => $request['custom_price'],
+                'custom_estimate_delivery' => $request['custom_estimate_delivery'],
+                'updated_date' => $currentDate,
+                'is_approve' => true
+            ]);
+        
+        session()->flash('success', 'updated successfully!'); 
+    }
 }
