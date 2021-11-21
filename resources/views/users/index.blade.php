@@ -35,7 +35,8 @@
                    <!-- Order By -->
                     <div class="items-center ml-5 xl:ml-0">
                         <div class="font-medium text-gray-100 py-4">
-                            <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-base xl:text-2xl" />
+                        <div class="flex mx-2">
+                            <x-label :value="__('Order by')" class="text-gray-50 inline-block text-sm mx-1 xl:text-2xl" />
                             
                             <select wire:model="sortBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                 <option value="name">
@@ -55,6 +56,7 @@
                                     <x-label :value="__('Descending')" class="inline-block" />
                                 </option>
                             </select>
+                            </div>
                             </div>
                 
                     </div>
