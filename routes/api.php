@@ -22,3 +22,8 @@ Route::post(
     '/tshirt', 
     [\App\Http\Controllers\TShirtController::class, 'store']
 );
+
+Route::put(
+    '/tshirt', 
+    [\App\Http\Controllers\TShirtController::class, 'update']
+);

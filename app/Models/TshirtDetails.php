@@ -22,6 +22,10 @@ class TshirtDetails extends Model
         'tshirt_type',
         'tshirt_color',
         'tshirt_pdf',
+        'custom_price',
+        'is_approve',
+        'custom_note',
+        'custom_estimate_delivery',
         'created_date',
         'updated_date',
     ];
@@ -42,6 +46,10 @@ class TshirtDetails extends Model
         'tshirt_type' => 'string',
         'tshirt_type' => 'string',
         'tshirt_pdf' => 'string',
+        'custom_price' => 'float',
+        'is_approve' => 'boolean',
+        'custom_note' => 'string',
+        'custom_estimate_delivery' => 'date',
         'created_date' => 'date',
         'updated_date' => 'date',
     ];
