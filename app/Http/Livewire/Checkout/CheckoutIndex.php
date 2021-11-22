@@ -5,9 +5,13 @@ namespace App\Http\Livewire\Checkout;
 use Livewire\Component;
 use Luigel\Paymongo\Facades\Paymongo;
 use Illuminate\Support\Str;
+
 use App\Models\Order;
+use App\Models\OrderVariant;
+use App\Models\OrderItem;
 use App\Models\Cart;
 use App\Models\ProductStock;
+
 use LVR\CreditCard\CardNumber;
 use LVR\CreditCard\CardExpirationDate;
 
@@ -207,11 +211,13 @@ class CheckoutIndex extends Component
 
         $this->validate($rules);
         // Do this if user confirms the payment
+        $this->moveCartstoOrders();
+
         $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
 
         $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
 
-        $this->moveCartstoOrders();
+        // $this->moveCartstoOrders();
 
         $this->resetValidation();
 
@@ -283,26 +289,50 @@ class CheckoutIndex extends Component
 
     private function moveCartsToOrders()
     {
-        $carts = $this->carts;
+        // Dump something here.
 
-        $cartsToBeMoved = auth()->user()->userCarts($carts)
-                    ->withCount('cart_items')
-                    ->with(['product_variant' => function ($query) {
-                        $query->withSum('product', 'prd_price');
-                    }])
-                    ->with('cart_items')
-                    ->get();
+        // dd();
 
-        $invoiceNumber = 'EJ-Ezon-' . Str::upper(Str::random(3)) . '-' .  Str::upper(Str::random(3));
+        // Check if an orders record exists. 
+        // If yes, the latest record's primary id will be incremented to be the next record's invoice number.
+        // Otherwise, invoice number will start from 1.
+
+        $transactionFee = round((($this->amount - $this->discount) + 15) / ( (100-3.5) / 100 ) - ($this->amount - $this->discount), 2);
+
+        $ordersQuery = Order::query();
+
+        $checkIfOrdersExist = $ordersQuery->first();
+
+        if($checkIfOrdersExist) {
+            $invoiceNumber = "EJ-Ezon-" . Str::padLeft($ordersQuery->latest()->id + 1, 6, 0);
+        } else {
+            $invoiceNumber = "EJ-Ezon-" . Str::padLeft(1, 6, 0);
+        }
+
+        $newOrder = Order::create([
+            'invoice_number' => $invoiceNumber,
+            'user_id' => auth()->user()->id,
+            'transfaction_fee' => $transactionFee,
+            'status' => 'pending',
+        ]);
+
+        // Save the product variant(s), that is/are ordered by the user, on order_variants.
+        // While saving, the quantity of the product variant must be decremented according to the quantity ordered.
+        // The cart items will be moved to order_items .
+
+        $cartIds = $this->carts;
+
+        $cartsToBeMoved = auth()->user()->userCarts($cartIds)
+                        ->with(['product_variant.product:id,prd_price'])
+                        ->with('cart_items')
+                        ->get();
 
         foreach($cartsToBeMoved as $cartToBeMoved) {
 
-            $order = Order::create([
-                'invoice_number' => $invoiceNumber,
-                'user_id' => $cartToBeMoved->user_id,
+            $newOrderVariant = OrderVariant::create([
+                'order_id' => $newOrder->id,
                 'product_variant_id' => $cartToBeMoved->product_variant_id,
-                'amount' => $cartToBeMoved->product_variant->product_sum_prd_price * $cartToBeMoved->cart_items_count,
-                'status' => 'pending',
+                'amount' => $cartToBeMoved->product_variant->product->prd_price,
             ]);
 
             $productStock = ProductStock::where('product_variant_id', $cartToBeMoved->product_variant_id)->first();
@@ -313,7 +343,7 @@ class CheckoutIndex extends Component
             }
 
             foreach($cartToBeMoved->cart_items as $cartItem) {
-                $order->order_items()->create([
+                $newOrderVariant->order_items()->create([
                     'size' => $cartItem->size,
                     'surname' => $cartItem->surname,
                     'jersey_number' => $cartItem->jersey_number,
@@ -321,12 +351,11 @@ class CheckoutIndex extends Component
             }
         }
         
-        Cart::whereIn('id', $carts)->delete();
+        Cart::whereIn('id', $cartIds)->delete();
     }
 
     public function render()
     {
-        $transactionFee = $this->total;
-        return view('livewire.checkout.checkout-index', compact('transactionFee'))->layout('layouts.app-user');
+        return view('livewire.checkout.checkout-index')->layout('layouts.app-user');
     }
 }
