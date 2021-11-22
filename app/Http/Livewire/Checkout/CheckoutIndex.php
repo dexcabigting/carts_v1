@@ -207,17 +207,18 @@ class CheckoutIndex extends Component
     public function placeOrder()
     {
         // Re-validate whole form
+
         $rules = collect($this->rules())->collapse()->toArray();
 
         $this->validate($rules);
+
         // Do this if user confirms the payment
+
+        // $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
+
+        // $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
+
         $this->moveCartstoOrders();
-
-        $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
-
-        $successfulPayment = $paymentIntent->attach(session('paymentMethodId'));
-
-        // $this->moveCartstoOrders();
 
         $this->resetValidation();
 
@@ -290,13 +291,13 @@ class CheckoutIndex extends Component
     private function moveCartsToOrders()
     {
         // Dump something here.
-
+       
         // dd();
 
         // Check if an orders record exists. 
         // If yes, the latest record's primary id will be incremented to be the next record's invoice number.
         // Otherwise, invoice number will start from 1.
-
+        
         $transactionFee = round((($this->amount - $this->discount) + 15) / ( (100-3.5) / 100 ) - ($this->amount - $this->discount), 2);
 
         $ordersQuery = Order::query();
@@ -312,14 +313,14 @@ class CheckoutIndex extends Component
         $newOrder = Order::create([
             'invoice_number' => $invoiceNumber,
             'user_id' => auth()->user()->id,
-            'transfaction_fee' => $transactionFee,
+            'transaction_fee' => $transactionFee,
             'status' => 'pending',
         ]);
 
         // Save the product variant(s), that is/are ordered by the user, on order_variants.
         // While saving, the quantity of the product variant must be decremented according to the quantity ordered.
         // The cart items will be moved to order_items .
-
+        
         $cartIds = $this->carts;
 
         $cartsToBeMoved = auth()->user()->userCarts($cartIds)
