@@ -28,6 +28,6 @@ class Order extends Model
 
     public function order_items()
     {
-        return $this->hasManyThrough(OrderVariant::class, OrderItem::class);
+        return $this->hasManyThrough(OrderItem::class, OrderVariant::class);
     }
 }
