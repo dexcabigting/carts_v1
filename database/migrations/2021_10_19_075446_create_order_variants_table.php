@@ -17,7 +17,7 @@ class CreateOrderVariantsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_variant_id');
-            $table->float('amount');
+            $table->float('amount', 8, 2);
             $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
