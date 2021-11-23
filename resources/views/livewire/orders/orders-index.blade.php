@@ -1,6 +1,6 @@
 <div>
     @if($viewModal)
-        @livewire('orders.orders-view', [])
+        @livewire('orders.orders-view', ['id' => $orderId])
     @endif
 
     @if(auth()->user()->role_id == 1)

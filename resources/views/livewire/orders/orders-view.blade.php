@@ -6,7 +6,7 @@
     <div class="m-auto z-20">
             <div class="text-white mx-auto">
                 <div class="bg-white shadow-sm rounded-lg border-4 border-gray-500">
-                    <div class="bg-custom-blacki border-b border-gray-200">
+                    <div class="bg-custom-black border-b border-gray-200">
                         @if(auth()->user()->role_id == 1)
                             @include('orders.view-admin')
                         @else
