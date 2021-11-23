@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('invoice_number');
-            $table->unsignedBigInteger('transaction_fee');
+            $table->float('transaction_fee', 8, 2);
             $table->string('status');
             $table->timestamps();
 
