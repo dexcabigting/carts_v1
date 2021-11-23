@@ -7,6 +7,13 @@ use App\Models\Order;
 
 class OrdersIndex extends Component
 {
+    public $viewModal = false;
+    public $orderId;
+
+    protected $listeners = [
+        'closeViewModal',
+    ];
+
     public function render()
     {
         $orders = $this->orders->paginate(10);
@@ -14,12 +21,13 @@ class OrdersIndex extends Component
         // $orders = $this->orders->get();
 
         // dd($orders->toArray());
-
         if(auth()->user()->role_id == 1) {
-            return view('livewire.orders.orders-index', compact('orders'))->layout('layouts.app');
+            $layout = 'layouts.app';
         } else {    
-            return view('livewire.orders.orders-index-user', compact('orders'))->layout('layouts.app-user');
+            $layout = 'layouts.app-user';
         }
+ 
+        return view('livewire.orders.orders-index', compact('orders'))->layout($layout);
     }
 
     public function getOrdersProperty()
@@ -35,5 +43,17 @@ class OrdersIndex extends Component
                             ->where('user_id', auth()->user()->id)
                             ->withCount('order_items');              
         }
+    }
+
+    public function openViewModal($id)
+    {
+        $this->orderId = $id;
+
+        $this->viewModal = true;
+    }
+
+    public function closeViewModal()
+    {
+        $this->viewModal = false;
     }
 }
