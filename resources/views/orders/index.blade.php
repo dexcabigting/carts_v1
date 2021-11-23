@@ -1,6 +1,6 @@
 <div class="h-screen">
     <div class="pt-12 pb-6">
-        <div class="max-w-3xl mx-auto">
+        <div class="max-w-4xl mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-custom-blacki shadow-2xl text-6xl font-extrabold text-center text-gray-300 font-extraboldoverflow-x-auto">
                     My Orders
@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    <div class="max-w-3xl mx-auto">
+    <div class="max-w-4xl mx-auto">
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">
@@ -20,18 +20,30 @@
                                         No.
                                     </th>
                                     <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Invoice Number
+                                        Products
                                     </th>
                                     <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Amount
+                                        Quantity
+                                    </th>
+                                    <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Total Amount
+                                    </th>
+                                    <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Status
                                     </th>
                                     <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Actions
+                                    </th>
+                                    <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Date Ordered
                                     </th>
                                 </tr>
                             </thead>
 
                             <tbody class="bg-white divide-y divide-gray-200">
+                                @php
+                                    $total = 0;
+                                @endphp
                                 @forelse($orders as $index => $order)
                                 <tr>
                                     <td class="md:px-6 py-4 whitespace-nowrap">
@@ -42,10 +54,15 @@
 
                                     <td class="md:px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
-
                                             <div class="">
                                                 <div class="text-sm font-medium text-gray-900">
-                                                    {{ $order->invoice_number }}
+                                                    <ul>
+                                                        @foreach($order->order_variants as $order_variant)
+                                                            <li>
+                                                                {{ $order_variant->product_variant->product->prd_name. ': ' .$order_variant->product_variant->prd_var_name }}
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
                                                 </div>
                                             </div>
                                         </div>
@@ -53,7 +70,32 @@
 
                                     <td class="md:px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
-                                            &#8369;{{ $order->amount }}
+                                            x{{ $order->order_items_count }}
+                                        </div>
+                                    </td>
+
+                                    <td class="md:px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            @php
+                                                $amount = 0
+                                            @endphp
+                                                
+                                            @foreach($order->order_variants as $order_variant)
+                                                @php
+                                                    $amount = $amount + $order_variant->variant_total()
+                                                @endphp
+                                            @endforeach
+
+                                            &#8369;{{ number_format($amount = $amount + $order->transaction_fee, 2) }}
+                                            @php
+                                                $total = $total + $amount
+                                            @endphp
+                                        </div>
+                                    </td>
+
+                                    <td class="md:px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            {{ Str::ucfirst($order->status) }}
                                         </div>
                                     </td>
 
@@ -62,12 +104,19 @@
                                             <a href="">
                                                 <button type="button" class="p-2 bg-custom-violet hover:bg-purple-900 hover:text-purple-100 border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                                                     <span>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                         </svg>
                                                     </span>
                                                 </button>
                                             </a>
+                                        </div>
+                                    </td>
+
+                                    <td class="md:px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            {{ $order->created_at->diffForHumans() }}
                                         </div>
                                     </td>
                                 </tr>
@@ -83,23 +132,26 @@
                                 </tr>
                                 @endforelse
                                 <tr>
-                                    <td class="md:px-6 py-4 text-center">
+                                    <td class="md:px-6 py-4 text-center" colspan="2">
                                     </td>
 
-                                    <td class="md:px-6 py-4 text-right" colspan="3">
+                                    <td class="md:px-6 py-4 text-right">
                                         <div>
                                             <span class="font-semibold text-xl text-gray-800 leading-tight">
-                                                Total:
+                                                Total: 
                                             </span>
                                         </div>
                                     </td>
 
-                                    <td class="md:px-6 py-4 text-center">
+                                    <td class="md:px-6 py-4 text-left">
                                         <div>
                                             <span class="font-semibold text-xl text-gray-800 leading-tight">
-                                                &#8369;
+                                                &#8369;{{ number_format($total, 2) }}
                                             </span>
                                         </div>
+                                    </td>
+
+                                    <td class="md:px-6 py-4 text-center" colspan="3">
                                     </td>
                                 </tr>
                             </tbody>

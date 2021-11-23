@@ -29,4 +29,9 @@ class OrderVariant extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+    public function variant_total()
+    {
+        return $this->amount * $this->order_items()->count();
+    }
 }

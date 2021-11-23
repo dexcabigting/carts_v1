@@ -305,7 +305,7 @@ class CheckoutIndex extends Component
         $checkIfOrdersExist = $ordersQuery->first();
 
         if($checkIfOrdersExist) {
-            $invoiceNumber = "EJ-Ezon-" . Str::padLeft($ordersQuery->latest()->id + 1, 6, 0);
+            $invoiceNumber = "EJ-Ezon-" . Str::padLeft($ordersQuery->latest()->first()->id + 1, 6, 0);
         } else {
             $invoiceNumber = "EJ-Ezon-" . Str::padLeft(1, 6, 0);
         }

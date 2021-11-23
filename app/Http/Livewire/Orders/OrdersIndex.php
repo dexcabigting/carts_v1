@@ -9,7 +9,11 @@ class OrdersIndex extends Component
 {
     public function render()
     {
-        $orders = $this->orders->paginate(6);
+        $orders = $this->orders->paginate(10);
+
+        // $orders = $this->orders->get();
+
+        // dd($orders->toArray());
 
         if(auth()->user()->role_id == 1) {
             
@@ -25,7 +29,13 @@ class OrdersIndex extends Component
         if(auth()->user()->role_id == 1) {
             return Order::all();
         } else {
-            return auth()->user()->orders()->where('status', 'pending');
+            return Order::with(['order_variants:id,order_id,amount,product_variant_id', 
+                                'order_variants.product_variant' => function ($query) {
+                                    $query->select('id', 'product_id', 'prd_var_name')
+                                    ->with(['product:id,prd_name']);
+                            }])
+                            ->where('user_id', auth()->user()->id)
+                            ->withCount('order_items');              
         }
     }
 }
