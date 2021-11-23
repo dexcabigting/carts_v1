@@ -4,8 +4,8 @@
     @endif
 
     @if(auth()->user()->role_id == 1)
-        @include('orders.index-admin')
+        @include('orders.index-admin', ['orders' => $orders])
     @else
-        @include('orders.index-user')
+        @include('orders.index-user', ['orders' => $orders])
     @endif
 </div>
