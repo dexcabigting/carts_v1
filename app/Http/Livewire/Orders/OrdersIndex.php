@@ -16,11 +16,9 @@ class OrdersIndex extends Component
         // dd($orders->toArray());
 
         if(auth()->user()->role_id == 1) {
-            
             return view('livewire.orders.orders-index', compact('orders'))->layout('layouts.app');
-        } else {
-            
-            return view('livewire.orders.orders-index', compact('orders'))->layout('layouts.app-user');
+        } else {    
+            return view('livewire.orders.orders-index-user', compact('orders'))->layout('layouts.app-user');
         }
     }
 
