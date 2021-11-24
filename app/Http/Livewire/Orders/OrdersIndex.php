@@ -4,9 +4,12 @@ namespace App\Http\Livewire\Orders;
 
 use Livewire\Component;
 use App\Models\Order;
+use Livewire\WithPagination;
 
 class OrdersIndex extends Component
 {
+    use WithPagination;
+
     public $viewModal = false;
     public $orderId;
 
