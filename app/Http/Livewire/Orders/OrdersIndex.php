@@ -17,6 +17,7 @@ class OrdersIndex extends Component
     public $sortDirection;
 
     protected $listeners = [
+        'refreshParent' => '$refresh',
         'closeViewModal',
     ];
 
