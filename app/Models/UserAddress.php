@@ -17,6 +17,7 @@ class UserAddress extends Model
         'barangay',
         'home_address',
         'is_main_address',
+        'available_hours',
     ];
 
     public function user()
@@ -28,6 +29,7 @@ class UserAddress extends Model
             'barangay' => 'No address yet',
             'home_address' => 'No address yet',
             'is_main_address' => 'No address yet',
+            'available_hours' => 'No address yet',
         ]);
     }
 }
