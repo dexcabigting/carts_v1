@@ -33,7 +33,13 @@ class OrdersIndex extends Component
     public function getOrdersProperty()
     {
         if(auth()->user()->role_id == 1) {
-            return Order::all();
+            return Order::with(['user:id,name', 
+                                'order_variants:id,order_id,amount,product_variant_id', 
+                                'order_variants.product_variant' => function ($query) {
+                                    $query->select('id', 'product_id', 'prd_var_name')
+                                    ->with(['product:id,prd_name']);
+                            }])
+                            ->withCount('order_items');  
         } else {
             return Order::with(['order_variants:id,order_id,amount,product_variant_id', 
                                 'order_variants.product_variant' => function ($query) {

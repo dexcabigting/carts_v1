@@ -76,7 +76,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('categories', CategoriesIndex::class)->name('categories.index');
 
         // Orders Livewire Component
-        Route::get('orders', OrdersIndex::class)->name('orders.index');
+        Route::get('orders', OrdersIndex::class)->name('admin-orders.index');
         Route::get('products/customerlist', ProductsCustomerList::class)->name('products.customerlist');
        
     });
@@ -85,13 +85,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('user')->group(function () {
         // Shop Livewire Component
         Route::get('shop', ShopIndex::class)->name('shop.index');
-        Route::get('carts', CartsIndex::class)->name('carts.index');
+        Route::get('my-carts', CartsIndex::class)->name('carts.index');
 
         // Checkout Livewire Component
         Route::get('checkout/{ids}', CheckoutIndex::class)->name('checkout.index');
 
         // Orders Livewire Component
-        Route::get('orders', OrdersIndex::class)->name('orders.index');
+        Route::get('my-orders', OrdersIndex::class)->name('orders.index');
          //2d
         Route::get('products/customize', ProductsCustomize::class)->name('products.customize');
     });

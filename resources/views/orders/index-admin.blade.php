@@ -1,6 +1,6 @@
 <div class="h-screen">
     <div class="pt-12 pb-6">
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-5xl mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-custom-blacki shadow-2xl text-6xl font-extrabold text-center text-gray-300 font-extraboldoverflow-x-auto">
                     My Orders
@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    <div class="max-w-4xl mx-auto">
+    <div class="max-w-5xl mx-auto">
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">
@@ -18,6 +18,12 @@
                                 <tr>
                                     <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         No.
+                                    </th>
+                                    <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Invoice Number
+                                    </th>
+                                    <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Ordered By
                                     </th>
                                     <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Products
@@ -49,6 +55,18 @@
                                     <td class="md:px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
                                             {{ $orders->firstItem() + $index }}
+                                        </div>
+                                    </td>
+
+                                    <td class="md:px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            {{ $order->invoice_number }}
+                                        </div>
+                                    </td>
+
+                                    <td class="md:px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            {{ $order->user->name }}
                                         </div>
                                     </td>
 
@@ -132,7 +150,7 @@
                                 </tr>
                                 @endforelse
                                 <tr>
-                                    <td class="md:px-6 py-4 text-center" colspan="2">
+                                    <td class="md:px-6 py-4 text-center" colspan="4">
                                     </td>
 
                                     <td class="md:px-6 py-4 text-right">
