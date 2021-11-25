@@ -13,9 +13,7 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $userAddress = auth()->user()->userAddresses()->where('is_main_address', 1)->first();
-
-        return view('profile.index', compact('userAddress'));
+        return view('profile.index');
     }
 
     public function update_credentials(UpdateCredentialsRequest $request)
