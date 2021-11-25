@@ -28,7 +28,6 @@ class UserAddress extends Model
             'barangay' => 'No address yet',
             'home_address' => 'No address yet',
             'is_main_address' => 'No address yet',
-            'available_hours' => 'No address yet',
         ]);
     }
 }
