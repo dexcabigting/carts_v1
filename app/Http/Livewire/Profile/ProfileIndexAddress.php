@@ -9,6 +9,7 @@ class ProfileIndexAddress extends Component
 {
     public $userAddresses;
     public $selectedAddress;
+    public $createModal = false;
 
     protected $listeners = [
         'refreshParent' => '$refresh',
@@ -38,9 +39,9 @@ class ProfileIndexAddress extends Component
 
     public function setAsDefault()
     {
-        UserAddress::where('user_id', auth()->user()->id)
-                    ->where('is_main_address', 1)
-                    ->update(['is_main_address' => 0]);
+        auth()->user()->userAddresses()
+            ->where('is_main_address', 1)
+            ->update(['is_main_address' => 0]);
 
         $this->user_address->update(['is_main_address' => 1]);
 
@@ -52,5 +53,10 @@ class ProfileIndexAddress extends Component
     public function updatedSelectedAddress()
     {
         $this->dispatchBrowserEvent('loadRegions');
+    }
+
+    public function openCreateModal()
+    {
+        $this->createModal = true;
     }
 }
