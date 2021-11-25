@@ -13,6 +13,7 @@ class ProfileIndexAddress extends Component
 
     protected $listeners = [
         'refreshParent' => '$refresh',
+        'closeCreateModal',
     ];
 
     public function mount()
@@ -27,6 +28,8 @@ class ProfileIndexAddress extends Component
 
     public function render()
     {
+        $this->dispatchBrowserEvent('loadRegions');
+
         $userAddress = $this->user_address->first();
 
         return view('livewire.profile.profile-index-address', compact('userAddress'));
@@ -52,11 +55,20 @@ class ProfileIndexAddress extends Component
 
     public function updatedSelectedAddress()
     {
-        $this->dispatchBrowserEvent('loadRegions');
+        // $this->dispatchBrowserEvent('loadRegions');
     }
 
     public function openCreateModal()
     {
         $this->createModal = true;
+
+        // $this->dispatchBrowserEvent('loadRegions');
+    }
+
+    public function closeCreateModal()
+    {
+        $this->createModal = false;
+
+        // $this->dispatchBrowserEvent('loadRegions');
     }
 }
