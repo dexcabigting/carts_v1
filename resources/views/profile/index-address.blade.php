@@ -1,4 +1,6 @@
 <div class="pt-4">
+    <x-success-fail-message class="mb-4" />
+
     <h2 class="font-semibold text-xl text-gray-100 leading-tight mb-6">
         {{ __('Address') }}
     </h2>

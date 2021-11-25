@@ -47,6 +47,8 @@ class ProfileIndexAddress extends Component
         $this->user_address->update(['is_main_address' => 1]);
 
         $this->mount();
+
+        session()->flash('success', 'Address has been successfully set to default!');
     }
 
     public function updatedSelectedAddress()
