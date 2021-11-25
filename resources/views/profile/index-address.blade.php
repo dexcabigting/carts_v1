@@ -1,20 +1,30 @@
 <div class="pt-4">
     <x-success-fail-message class="mb-4" />
 
-    <h2 class="font-semibold text-xl text-gray-100 leading-tight mb-6">
-        {{ __('Address') }}
-    </h2>
-    
-    <div class="text-sm font-medium text-gray-900">
-        <select wire:model="selectedAddress">
-            @foreach($userAddresses as $index => $address)
-                <option value="{{ $address }}">
-                    Address {{ $index + 1 }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-                    
+    <div class="flex flex-col gap-5">
+        <div>
+            <h2 class="font-semibold text-xl text-gray-100 leading-tight">
+                {{ __('Address') }}
+            </h2>
+        </div>
+
+        <div>
+            <x-button class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500" type="button" wire:click="openCreateModal()">
+                {{ __('Create Address') }}
+            </x-button>
+        </div>
+        
+        
+        <div class="text-sm font-medium text-gray-900">
+            <select wire:model="selectedAddress">
+                @foreach($userAddresses as $index => $address)
+                    <option value="{{ $address }}">
+                        Address {{ $index + 1 }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+    </div>               
 
     <form>
         @csrf
@@ -41,7 +51,7 @@
             <div class="mt-4 ">
                 <x-label for="region" value="Region: {{ $userAddress->region ?? '' }}" />
                 <select class="rounded-lg lg:pr-16 pr-4 w-full" id="region" value="{{ $userAddress->region ?? '' }}" onchange="loadRegions()">
-                    <option>
+                    <option selected>
                         Region
                     </option>
                 </select>
