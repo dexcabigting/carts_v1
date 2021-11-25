@@ -22,8 +22,6 @@ class ProfileIndexAddress extends Component
 
         $this->userAddresses = auth()->user()->userAddresses()
                                 ->get()->pluck('id')->toArray();
-
-        // dd($this->selectedAddress, $this->addresses);
     }
 
     public function render()
