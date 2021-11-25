@@ -17,7 +17,6 @@ class UserAddress extends Model
         'barangay',
         'home_address',
         'is_main_address',
-        'available_hours',
     ];
 
     public function user()
