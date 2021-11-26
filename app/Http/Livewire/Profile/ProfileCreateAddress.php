@@ -34,6 +34,11 @@ class ProfileCreateAddress extends Component
         'form.is_main_address' => 'default',
     ];
 
+    public function mount()
+    {
+        
+    }
+
     public function render()
     {
         return view('livewire.profile.profile-create-address');
@@ -44,9 +49,9 @@ class ProfileCreateAddress extends Component
         $this->validate();
 
         if($this->form['is_main_address'] == 1) {
-            UserAddress::where('user_id', auth()->user()->id)
-                    ->where('is_main_address', 1)
-                    ->update(['is_main_address' => 0]);
+            auth()->user()->userAddresses()
+                ->where('is_main_address', 1)
+                ->update(['is_main_address' => 0]);
         }
 
         auth()->userAddresses()->create([

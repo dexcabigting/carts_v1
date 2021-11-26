@@ -86,55 +86,60 @@
     <script type="text/javascript">
         var my_handlers = {
             fill_provinces: function() {
-                var region_code = $(this).val();
-                $("#region-text").val($(this).find(`option[value=${region_code}]`).html());
+                var region_code = $("#region").val();
+                $("#region-text").val($("#region").find(`option[value=${region_code}]`).html());
                 $('#province').ph_locations('fetch_list', [{
                     "region_code": region_code
                 }]);
 
             },
             fill_cities: function() {
-                var province_code = $(this).val();
-                $("#province-text").val($(this).find(`option[value=${province_code}]`).html());
+                var province_code = $("#province").val();
+                $("#province-text").val($("#province").find(`option[value=${province_code}]`).html());
                 $('#city').ph_locations('fetch_list', [{
                     "province_code": province_code
                 }]);
             },
             fill_barangays: function() {
-                var city_code = $(this).val();
-                $("#city-text").val($(this).find(`option[value=${city_code}]`).html());
+                var city_code = $("#city").val();
+                $("#city-text").val($("#city").find(`option[value=${city_code}]`).html());
                 $('#barangay').ph_locations('fetch_list', [{
                     "city_code": city_code
                 }]);
                 // Automatically extract to barangay text because the user may thought that his/her barangay has already been selected.
-                const observer = new MutationObserver((children, observer) => {
-                    observer.disconnect();
-                    var selected_barangay_number = $("#barangay").val();
-                    var selected_barangay_name = $(`#barangay option[value=${selected_barangay_number}]`).html();
-                    $("#barangay-text").val(selected_barangay_name);
-                });
-                observer.observe(document.querySelector("#barangay"), {
-                    "childList": true
-                });
+                // const observer = new MutationObserver((children, observer) => {
+                //     observer.disconnect();
+                //     var selected_barangay_number = $("#barangay").val();
+                //     var selected_barangay_name = $(`#barangay option[value=${selected_barangay_number}]`).html();
+                //     $("#barangay-text").val(selected_barangay_name);
+                // });
+                // observer.observe(document.querySelector("#barangay"), {
+                //     "childList": true
+                // });
             },
             put_barangay: function() {
-                var barangay_code = $(this).val();
-                $("#barangay-text").val($(this).find(`option[value=${barangay_code}]`).html());
+                var barangay_code = $("#barangay").val();
+                $("#barangay-text").val($("#barangay").find(`option[value=${barangay_code}]`).html());
             }
         };
-        $(function() {
 
+        function observe(location, label, nextLocation) {
             const observer = new MutationObserver((children, observer) => {
                 observer.disconnect();
-                $("#region").prepend("<option value=\"label\"t>Region</option>");
-                $("#region").val("label");
-                // const options = $("#region > option");
-                // for (const i = 0; i < 
-
+                $(location).prepend("<option value=\"label\">"+label+"</option>");
+                $(location).val("label");
+                $(nextLocation+" option").attr("selected", true);
+                observe(location, label, nextLocation);
             });
-            observer.observe(document.querySelector("#region"), {
+            observer.observe(document.querySelector(location), {
                 "childList": true
             });
+        }
+
+        $(function() {
+            observe("#region", "Region", "#province");
+
+
             $('#region').on('change', my_handlers.fill_provinces);
             $('#province').on('change', my_handlers.fill_cities);
             $('#city').on('change', my_handlers.fill_barangays);

@@ -24,11 +24,9 @@
                 @endforeach
             </select>
         </div>
-    </div>               
+    </div>         
 
-    <form>
-        @csrf
-        <div class="mt-4">
+     <div class="mt-4">
             @if($userAddress->is_main_address == 1)
                 <x-input class="block mt-1 w-1/4" type="text" value="Default Address" disabled/>
             @else
@@ -39,23 +37,31 @@
                 </div>
             @endif
         </div>
+      
 
+    <form wire:submit.prevent="updateAddress">
+        @csrf
+       
         <div class="mt-4">
             <x-label class="text-xl mb-4 text-white  " for="home_address" :value="__('Home Address: ' . $userAddress->home_address )" />
 
-            <x-input id="home_address" class="block mt-1 w-full" type="text" placeholder="ex. Street Apartment no." name="home_address" value="{{ $userAddress->home_address ?? ''  }}" required />
+            <x-input class="block mt-1 w-full" type="text" placeholder="ex. Street Apartment no." wire:model="form.home_address"/>
+        </div>
+
+        <div class="text-white">
+            {{ $this->form['region'] }}
         </div>
 
         <!-- Address -->
         <div class="block md:flex fle-row">
             <div class="mt-4 ">
                 <x-label for="region" value="Region: {{ $userAddress->region ?? '' }}" />
-                <select class="rounded-lg lg:pr-16 pr-4 w-full" id="region" value="{{ $userAddress->region ?? '' }}" onchange="loadRegions()">
+                <select class="rounded-lg lg:pr-16 pr-4 w-full" id="region">
                     <option selected>
                         Region
                     </option>
                 </select>
-                <x-input id="region-text" type="hidden" name="region" value="{{ $userAddress->region ?? '' }}" />
+                <input wire:model="form.region" id="region-text" type="hidden"/>
             </div>
 
             <div class="mt-4 md:ml-4">
