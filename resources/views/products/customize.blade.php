@@ -73,6 +73,11 @@
 			 -moz-box-shadow:0 1px 3px rgba(0, 0, 0, 0.1);
 			 box-shadow:0 1px 3px rgba(0, 0, 0, 0.1);
 			}
+		.img-polaroid{
+			background-color: transparent !important;
+			border: none;
+			box-shadow: none;
+		}
 	 </style>
   </section> 
 
@@ -155,22 +160,23 @@
 							<div class="tab-pane" id="tab2">
 								<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
 									<div class="input-append">
-									<input class="span2" id="text-string" type="text" placeholder="add text here..."><button id="add-text" class="btn" title="Add text"><i class="icon-share-alt"></i></button>
+									<h3>Add Text Here	</h3>
+									<input class="span2" id="text-string" type="text" placeholder="Type here..."><button id="add-text" class="btn" title="Add text"><i class="icon-share-alt"></i></button>
 									<hr>
 									</div>
-									<div id="avatarlist">
+									<div class="" id="avatarlist">
 										<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_1.png')}}">
 										<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_2.png')}}">
 										<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_3.png')}}">
 										<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_4.png')}}">
 										<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_5.png')}}">
+										<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_12.png')}}">
 										<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_6.png')}}">
 										<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_7.png')}}">
 										<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_8.png')}}">
 										<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_9.png')}}">
 										<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_10.png')}}">
 										<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_11.png')}}">
-										<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_12.png')}}">
 										
 									
 									</div>	
