@@ -34,13 +34,15 @@ class ProfileIndexAddress extends Component
     protected $listeners = [
         'refreshParent' => '$refresh',
         'closeCreateModal',
+        'latestAddress',
     ];
 
     public function mount()
-    {
+    {         
         $this->selectedAddress = auth()->user()->userAddresses()
                                     ->where('is_main_address', 1)
-                                    ->first()->id;            
+                                    ->first()->id; 
+
         // dd($this->form['home_address']);
     }
 
@@ -75,14 +77,15 @@ class ProfileIndexAddress extends Component
 
         // $this->user_address->first()->refresh();
 
-        $this->render();
+        $this->mount();
 
         session()->flash('success', 'Address has been successfully set to default!');
     }
 
-    public function updatedSelectedAddress()
+    public function latestAddress()
     {
-        // $this->mount();
+        $this->selectedAddress = auth()->user()->userAddresses()
+            ->latest()->first()->id; 
     }
 
     public function updateAddress($formData)

@@ -67,10 +67,7 @@ class ProfileCreateAddress extends Component
 
         $this->clearFormFields();
 
-        $UserAddresses = UserAddress::where('user_id', auth()->user()->id)
-            ->where('is_main_address', 1)->first()->refresh();
-
-        $this->emit('refreshParent');
+        $this->emitUp('latestAddress');
 
         session()->flash('success', 'Address has been created successfully!'); 
     }
@@ -82,8 +79,6 @@ class ProfileCreateAddress extends Component
 
     public function closeCreateModal()
     {
-        $this->emitUp('refreshParent');
-
         $this->dispatchBrowserEvent('createModalDisplayNone');
 
         $this->emitUp('closeCreateModal');
