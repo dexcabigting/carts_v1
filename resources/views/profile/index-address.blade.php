@@ -1,5 +1,6 @@
 <div class="pt-4">
     <x-success-fail-message class="mb-4" />
+    <x-validation-errors class="mb-4" :errors="$errors" />
 
     <div class="flex flex-col gap-5">
         <div>
@@ -39,17 +40,13 @@
         </div>
       
 
-    <form wire:submit.prevent="updateAddress">
+    <form wire:submit.prevent="updateAddress(Object.fromEntries(new FormData($event.target)))">
         @csrf
        
         <div class="mt-4">
             <x-label class="text-xl mb-4 text-white  " for="home_address" :value="__('Home Address: ' . $userAddress->home_address )" />
 
-            <x-input class="block mt-1 w-full" type="text" placeholder="ex. Street Apartment no." wire:model="form.home_address"/>
-        </div>
-
-        <div class="text-white">
-            {{ $this->form['region'] }}
+            <x-input class="block mt-1 w-full" type="text" placeholder="ex. Street Apartment no." name="home_address" value="{{ $userAddress->home_address ?? '' }}"/>
         </div>
 
         <!-- Address -->
@@ -61,7 +58,7 @@
                         Region
                     </option>
                 </select>
-                <input wire:model="form.region" id="region-text" type="hidden"/>
+                <x-input id="region-text" type="hidden" name="region"/>
             </div>
 
             <div class="mt-4 md:ml-4">
@@ -71,7 +68,7 @@
                         <h1 class="px-12">Province</h1>
                     </option>
                 </select>
-                <x-input id="province-text" type="hidden" name="province" value="{{ $userAddress->province ?? '' }}" />
+                <x-input id="province-text" type="hidden" name="province"/>
             </div>
         </div>
 
@@ -83,7 +80,7 @@
                     City
                 </option>
             </select>
-            <x-input id="city-text" type="hidden" name="city" value="{{ $userAddress->city ?? '' }}" />
+            <x-input id="city-text" type="hidden" name="city"/>
         </div>
 
         <div class="mt-4">
@@ -93,16 +90,11 @@
                     Barangay
                 </option>
             </select>
-            <x-input id="barangay-text" type="hidden" name="barangay" value="{{ $userAddress->barangay ?? '' }}" />
-        </div>
-        
-        <div class="mt-4">
-            <x-label for="" value="Available Hours: {{ $userAddress->available_hours ?? '' }}" />
-            
-        </div>                            
+            <x-input id="barangay-text" type="hidden" name="barangay"/>
+        </div>                          
 
         <div class="flex items-center justify-end mt-4">
-            <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white w-full px-4 py-2 bg-custom-violet my-3">
+            <x-button type="submit" class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white w-full px-4 py-2 bg-custom-violet my-3">
                 {{ __('Update Address') }}
             </x-button>
         </div>

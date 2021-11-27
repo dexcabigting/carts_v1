@@ -12,12 +12,23 @@ class ProfileIndexAddress extends Component
     public $createModal = false;
     public $region;
     public $mountAddress;
-    public $form = [
-        'region' => '',
-        'province' => '',
-        'city' => '',
-        'barangay' => '',
-        'home_address' => '',
+
+    public $form;
+
+    protected $rules = [
+        'form.region' => 'required|string',
+        'form.province' => 'required|string',
+        'form.city' => 'required|string',
+        'form.barangay' => 'required|string',
+        'form.home_address' => 'required|string',
+    ];
+
+    protected $validationAttributes = [
+        'form.region' => 'region',
+        'form.province' => 'province',
+        'form.city' => 'city',
+        'form.barangay' => 'barangay',
+        'form.home_address' => 'home address',
     ];
 
     protected $listeners = [
@@ -31,29 +42,16 @@ class ProfileIndexAddress extends Component
                                     ->where('is_main_address', 1)
                                     ->first()->id;
 
-        $this->mountAddress = auth()->user()->userAddresses()
-            ->where('id', $this->selectedAddress)
-            ->first();
-
         $this->userAddresses = auth()->user()->userAddresses()
-                                ->get()->pluck('id')->toArray();
-
+                                ->get()->pluck('id')->toArray();             
         // dd($this->form['home_address']);
     }
 
     public function render()
     {
-        $this->dispatchBrowserEvent('loadRegions');
-
         $userAddress = $this->user_address->first();
 
-        $this->form = [
-            'region' => $userAddress->region,
-            'province' => $userAddress->province,
-            'city' => $userAddress->city,
-            'barangay' => $userAddress->barangay,
-            'home_address' => $this->form['home_address'] == "" ? $userAddress->home_address : $this->form['home_address'],
-        ];
+        $this->dispatchBrowserEvent('loadRegions');
 
         return view('livewire.profile.profile-index-address', compact('userAddress'));
     }
@@ -75,7 +73,9 @@ class ProfileIndexAddress extends Component
 
         // $this->emit('refreshParent');
 
-        $this->user_address->first()->refresh();
+        // $this->user_address->first()->refresh();
+
+        $this->render();
 
         session()->flash('success', 'Address has been successfully set to default!');
     }
@@ -85,22 +85,38 @@ class ProfileIndexAddress extends Component
         // $this->mount();
     }
 
-    public function updateAddress()
+    public function updateAddress($formData)
     {
-        dd($this->form['region']);
+        $this->form = [
+            'region' => $formData['region'],
+            'province' => $formData['province'],
+            'city' => $formData['city'],
+            'barangay' => $formData['barangay'],
+            'home_address' => $formData['home_address'],
+        ];
+
+        $this->validate();
+
+        $this->user_address->update([
+            'region' => $this->form['region'],
+            'province' => $this->form['province'],
+            'city' => $this->form['city'],
+            'barangay' => $this->form['barangay'],
+            'home_address' => $this->form['home_address'],
+        ]);
+
+        $this->render();
+
+        session()->flash('success', 'Address has been successfully updated!');     
     }
 
     public function openCreateModal()
     {
         $this->createModal = true;
-
-        // $this->dispatchBrowserEvent('loadRegions');
     }
 
     public function closeCreateModal()
     {
         $this->createModal = false;
-
-        // $this->dispatchBrowserEvent('loadRegions');
     }
 }
