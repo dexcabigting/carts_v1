@@ -10,6 +10,7 @@ class ProfileIndexAddress extends Component
     // public $userAddresses;
     public $selectedAddress;
     public $createModal = false;
+    public $deleteModal = false;
     public $region;
     public $mountAddress;
 
@@ -34,7 +35,9 @@ class ProfileIndexAddress extends Component
     protected $listeners = [
         'refreshParent' => '$refresh',
         'closeCreateModal',
+        'closeDeleteModal',
         'latestAddress',
+        'mount'
     ];
 
     public function mount()
@@ -121,5 +124,15 @@ class ProfileIndexAddress extends Component
     public function closeCreateModal()
     {
         $this->createModal = false;
+    }
+
+     public function openDeleteModal()
+    {
+        $this->deleteModal = true;
+    }
+
+    public function closeDeleteModal()
+    {
+        $this->deleteModal = false;
     }
 }

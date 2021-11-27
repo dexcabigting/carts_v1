@@ -10,7 +10,7 @@
         </div>
 
         <div>
-            <x-button class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500" type="button" wire:click="openCreateModal()">
+            <x-button type="button" wire:click="openCreateModal()" class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500">
                 {{ __('Create Address') }}
             </x-button>
         </div>
@@ -93,9 +93,13 @@
             <x-input id="barangay-text" type="hidden" name="barangay"/>
         </div>                          
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex flex-row mt-4 gap-5">
             <x-button type="submit" class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white w-full px-4 py-2 bg-custom-violet my-3">
                 {{ __('Update Address') }}
+            </x-button>
+
+            <x-button type="button" wire:click="openDeleteModal()" class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white w-full px-4 py-2 bg-custom-violet my-3">
+                {{ __('Delete Address') }}
             </x-button>
         </div>
 
