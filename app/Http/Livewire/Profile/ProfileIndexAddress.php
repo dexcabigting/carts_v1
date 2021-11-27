@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class ProfileIndexAddress extends Component
 {
-    public $userAddresses;
+    // public $userAddresses;
     public $selectedAddress;
     public $createModal = false;
     public $region;
@@ -40,10 +40,7 @@ class ProfileIndexAddress extends Component
     {
         $this->selectedAddress = auth()->user()->userAddresses()
                                     ->where('is_main_address', 1)
-                                    ->first()->id;
-
-        $this->userAddresses = auth()->user()->userAddresses()
-                                ->get()->pluck('id')->toArray();             
+                                    ->first()->id;            
         // dd($this->form['home_address']);
     }
 
@@ -51,9 +48,12 @@ class ProfileIndexAddress extends Component
     {
         $userAddress = $this->user_address->first();
 
+        $userAddresses = auth()->user()->userAddresses()
+                                ->get()->pluck('id')->toArray(); 
+
         $this->dispatchBrowserEvent('loadRegions');
 
-        return view('livewire.profile.profile-index-address', compact('userAddress'));
+        return view('livewire.profile.profile-index-address', compact('userAddress', 'userAddresses'));
     }
 
     public function getUserAddressProperty()
