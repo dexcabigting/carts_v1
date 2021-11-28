@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('prd_name')->unique();
             $table->string('prd_description');
-            $table->float('prd_price');
+            $table->float('prd_price', 8, 2);
             $table->timestamps();
         });
     }
