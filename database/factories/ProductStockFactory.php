@@ -23,14 +23,13 @@ class ProductStockFactory extends Factory
     public function definition()
     {
         return [
-            'product_id' => Product::factory()->create()->id,
             '2XS' => $this->faker->numberBetween(10, 100),
             'XS' => $this->faker->numberBetween(10, 100),
             'S' => $this->faker->numberBetween(10, 100),
             'M' => $this->faker->numberBetween(10, 100),
             'L' => $this->faker->numberBetween(10, 100),
             'XL' => $this->faker->numberBetween(10, 100),
-            'XL' => $this->faker->numberBetween(10, 100),
+            '2XL' => $this->faker->numberBetween(10, 100),
         ];
     }
 }
