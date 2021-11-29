@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\ProductStock;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,6 +21,7 @@ class JerseySeeder extends Seeder
     {
         $path = 'images/products/';
         $extension = '.jpg';
+        $category_id = Category::where('ctgr_name', 'Jersey')->first()->id;
 
         for($i = 1; $i <= 6; $i++) {
             $front_filename = $path . 'Variant 1-EJ EZON JERSEY '.$i.'-' . Str::random(10) . $extension;
@@ -29,6 +31,7 @@ class JerseySeeder extends Seeder
             Storage::copy('public/JERSEY TEMPLATES/TEMPLATE'.$i.'/BACK.jpg', 'public/' .  $back_filename);
 
             $products = Product::factory()->state([
+                'category_id' => $category_id,
                 'prd_name' => 'EJ EZON JERSEY '.$i,
             ])->has(
                 ProductVariant::factory()->state([
