@@ -28,6 +28,12 @@ class CategorySeeder extends Seeder
                 'created_At' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'ctgr_name' => 'Long Sleeves',
+                'ctgr_description' => 'Long sleeve T-shirts are as the name suggests,T-shirts with their sleeves extended to cover the entire arm up to the wrist.',
+                'created_At' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
         Category::insert($categories);
