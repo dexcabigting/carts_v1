@@ -19,6 +19,7 @@ class ProductSeeder extends Seeder
         $this->call([
             JerseySeeder::class,
             ShirtSeeder::class,
+            LongSleevesSeeder::class,
         ]);
     }
 }
