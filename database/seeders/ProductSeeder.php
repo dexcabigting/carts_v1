@@ -8,6 +8,7 @@ use App\Models\ProductVariant;
 use App\Models\ProductStock;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ProductSeeder extends Seeder
 {
@@ -22,26 +23,33 @@ class ProductSeeder extends Seeder
         // ProductStock::factory()->count(10)->create();
         // Product::latest()->first()->id
 
-        $path = 'images/products/';
-        $extension = '.jpeg';
+        // $path = pathinfo('images/products/plain_jersey.jpg');
 
-        $products = Product::factory()->count(3)->state(new Sequence(
-                    fn ($sequence) => [
-                        'prd_name' => 'Product '.$sequence->index + 1,]))
-                    ->create();
+        // $imagePath = $path['dirname'] . '/' . 'plain_jersey' . Str::random(30) . '.' . $path['extension'];
 
-        foreach($products as $product) {
-            $variants = ProductVariant::factory()->count(2)
-                            ->for($product)->state(new Sequence(
-                                fn ($sequence) => ['prd_var_name' => 'Variant ' .$sequence->index + 1,
-                                                    'front_view' => $path . 'Variant ' . $sequence->index + 1 . '-' . $product->prd_name . Str::random(10) . $extension,
-                                                    'back_view' => $path . 'Variant ' . $sequence->index + 1 . '-' . $product->prd_name . Str::random(10) . $extension,
-                                                    ]))
-                            ->create();
+        // Storage::copy('public/images/dummies/plain_jersey.jpg', 'public/' . $imagePath);
+
+        Storage::deleteDirectory('public/images');
         
-            foreach($variants as $variant) {
-                ProductStock::factory()->for($variant)->create();
-            }
+        $path = 'images/products/';
+        $extension = '.jpg';
+
+        for($i = 1; $i <= 6; $i++) {
+            $front_filename = $path . 'Variant 1-EJ EZON JERSEY '.$i.'-' . Str::random(10) . $extension;
+            $back_filename = $path . 'Variant 1-EJ EZON JERSEY '.$i.'-' . Str::random(10) . $extension;
+
+            Storage::copy('public/JERSEY TEMPLATES/TEMPLATE'.$i.'/FRONT.jpg', 'public/' .  $front_filename);
+            Storage::copy('public/JERSEY TEMPLATES/TEMPLATE'.$i.'/BACK.jpg', 'public/' .  $back_filename);
+
+            $products = Product::factory()->state([
+                'prd_name' => 'EJ EZON JERSEY '.$i,
+            ])->has(
+                ProductVariant::factory()->state([
+                    'prd_var_name' => 'Variant ' .$i,
+                    'front_view' => $front_filename,
+                    'back_view' => $back_filename,
+                ])->has(ProductStock::factory(), 'product_stock'), 'product_variants'
+            )->create();
         }
     }
 }

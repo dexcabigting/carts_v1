@@ -25,12 +25,6 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
-        // $path = pathinfo('images/products/plain_jersey.jpg');
-
-        // $imagePath = $path['dirname'] . '/' . 'plain_jersey' . Str::random(30) . '.' . $path['extension'];
-
-        // Storage::copy('public/images/dummies/plain_jersey.jpg', 'public/' . $imagePath);
-
         return [
             'category_id' => Category::all()->random(),
             'fabric_id' => Fabric::all()->random(),
