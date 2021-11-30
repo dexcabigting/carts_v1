@@ -48,7 +48,7 @@ class CheckoutIndex extends Component
             ],
             3 => [
                 'form.amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-                'form.type' => ['required', 'string', 'in:card,gcash'],
+                'form.type' => ['required', 'string', 'in:card,GCash'],
             ],
             4 => [
                 'form.card_number' => ['required', 'string',  new CardNumber],

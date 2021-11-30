@@ -108,7 +108,7 @@
                             </div> --}}
 
                             <div>
-                                <input wire:model="form.type" type="radio" value="gcash">
+                                <input wire:model="form.type" type="radio" value="GCash">
                                 <x-label class="inline" :value="__('GCash')" />
                             </div>
                         </div>
