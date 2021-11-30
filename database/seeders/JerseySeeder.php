@@ -27,8 +27,8 @@ class JerseySeeder extends Seeder
             $front_filename = $path . 'Variant 1-EJ EZON JERSEY '.$i.'-' . Str::random(10) . $extension;
             $back_filename = $path . 'Variant 1-EJ EZON JERSEY '.$i.'-' . Str::random(10) . $extension;
 
-            Storage::copy('public/JERSEY TEMPLATES/TEMPLATE'.$i.'/FRONT.jpg', 'public/' .  $front_filename);
-            Storage::copy('public/JERSEY TEMPLATES/TEMPLATE'.$i.'/BACK.jpg', 'public/' .  $back_filename);
+            Storage::disk('root')->copy('templates/JERSEY TEMPLATES/TEMPLATE'.$i.'/FRONT.jpg', 'app/public/' .  $front_filename);
+            Storage::disk('root')->copy('templates/JERSEY TEMPLATES/TEMPLATE'.$i.'/BACK.jpg', 'app/public/' .  $back_filename);
 
             $products = Product::factory()->state([
                 'category_id' => $category_id,
