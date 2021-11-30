@@ -27,8 +27,8 @@ class LongSleevesSeeder extends Seeder
             $front_filename = $path . 'Variant 1-EJ EZON LONG SLEEVES '.$i.'-' . Str::random(10) . $extension;
             $back_filename = $path . 'Variant 1-EJ EZON LONG SLEEVES '.$i.'-' . Str::random(10) . $extension;
 
-            Storage::copy('public/LONG SLEEVES TEMPLATES/TEMPLATE'.$i.'/FRONT.jpg', 'public/' .  $front_filename);
-            Storage::copy('public/LONG SLEEVES TEMPLATES/TEMPLATE'.$i.'/BACK.jpg', 'public/' .  $back_filename);
+            Storage::disk('root')->copy('templates/LONG SLEEVES TEMPLATES/TEMPLATE'.$i.'/FRONT.jpg', 'app/public/' .  $front_filename);
+            Storage::disk('root')->copy('templates/LONG SLEEVES TEMPLATES/TEMPLATE'.$i.'/BACK.jpg', 'app/public/' .  $back_filename);
 
             $products = Product::factory()->state([
                 'category_id' => $category_id,

@@ -142,7 +142,7 @@ slider.onmouseout = function() {
                     <div class="mx-12 flex flex-col xl:flex-row">
                         <div class="flex flex-col xl:flex-row items-center justify-center text-base font-medium text-gray-100 py-4 my-2 md:my-0">
                         <div class="flex flex-row">   
-                        <select wire:model="category" class="my-2 mx-2 text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                            <select wire:model="category" class="my-2 mx-2 text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                 <option value="All" selected>
                                     <x-label value="All categories" class="inline-block" />
                                 </option>
