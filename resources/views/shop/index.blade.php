@@ -1,29 +1,138 @@
 <div class="h-1/2 mt-4 2xl:mx-80 lg:mx-40">
-<div class="" id="slider">
-	<div id="line">
+    <div class="" id="slider">
+        <div id="line">
 
-	</div>
+        </div>
 
-	<ul class="h-1/2" id="move">
-		<li><img src="img/flyers2.jpg"></li>
-		<li><img src="img/flyers.jpg"></li>
-		<li><img src="img/NEW_JERSEY_SIZE_CHART.jpg"></li>
-		<li><img src="img/NEW_LONG_SLEEVE_SIZE_CHART.jpg"></li>
-		<li><img src="img/NEW_SHIRT_SIZE_CHART.jpg"></li>
-	</ul>
-	<div id="back">
-		<
-	</div>
-	<div id="forword">
-		>
-	</div>
-	<div id="dots">
-		
-	</div>
-	
+        <ul class="h-1/2" id="move">
+            <li><img src="img/flyers2.jpg"></li>
+            <li><img src="img/flyers.jpg"></li>
+            <li><img src="img/NEW_JERSEY_SIZE_CHART.jpg"></li>
+            <li><img src="img/NEW_LONG_SLEEVE_SIZE_CHART.jpg"></li>
+            <li><img src="img/NEW_SHIRT_SIZE_CHART.jpg"></li>
+        </ul>
+        <div id="back">
+            <
+        </div>
+        <div id="forword">
+            >
+        </div>
+        <div id="dots">
+            
+        </div>
+        
+    </div>
 </div>
-</div>
+<script>
+window.onload = function() {
 
+let slider = document.querySelector('#slider');
+let move = document.querySelector('#move');
+let moveLi = Array.from(document.querySelectorAll('#slider #move li'));
+let forword = document.querySelector('#slider #forword');
+let back = document.querySelector('#slider #back');
+let counter = 1;
+let time = 3000;
+let line = document.querySelector('#slider #line');
+let dots = document.querySelector('#slider #dots');
+let dot;
+
+for (i = 0; i < moveLi.length; i++) {
+
+    dot = document.createElement('li');
+    dots.appendChild(dot);
+    dot.value = i;
+}
+
+dot = dots.getElementsByTagName('li');
+
+line.style.animation = 'line ' + (time / 1000) + 's linear infinite';
+dot[0].classList.add('active');
+
+function moveUP() {
+
+    if (counter == moveLi.length) {
+
+        moveLi[0].style.marginLeft = '0%';
+        counter = 1;
+
+    } else if (counter >= 1) {
+
+        moveLi[0].style.marginLeft = '-' + counter * 100 + '%';
+        counter++;
+    } 
+
+    if (counter == 1) {
+
+        dot[moveLi.length - 1].classList.remove('active');
+        dot[0].classList.add('active');
+
+    } else if (counter > 1) {
+
+        dot[counter - 2].classList.remove('active');
+        dot[counter - 1].classList.add('active');
+
+    }
+
+}
+
+function moveDOWN() {
+
+    if (counter == 1) {
+
+        moveLi[0].style.marginLeft = '-' + (moveLi.length - 1) * 100 + '%';
+        counter = moveLi.length;
+        dot[0].classList.remove('active');
+        dot[moveLi.length - 1].classList.add('active');
+
+    } else if (counter <= moveLi.length) {
+
+        counter = counter - 2;
+        moveLi[0].style.marginLeft = '-' + counter * 100 + '%';   
+        counter++;
+
+        dot[counter].classList.remove('active');
+        dot[counter - 1].classList.add('active');
+
+    }  
+
+}
+
+for (i = 0; i < dot.length; i++) {
+
+    dot[i].addEventListener('click', function(e) {
+
+        dot[counter - 1].classList.remove('active');
+        counter = e.target.value + 1;
+        dot[e.target.value].classList.add('active');
+        moveLi[0].style.marginLeft = '-' + (counter - 1) * 100 + '%';
+
+    });
+
+}
+
+forword.onclick = moveUP;
+back.onclick = moveDOWN;
+
+let autoPlay = setInterval(moveUP, time);
+
+slider.onmouseover = function() {
+
+    autoPlay = clearInterval(autoPlay);
+    line.style.animation = '';
+
+}
+
+slider.onmouseout = function() {
+
+    autoPlay = setInterval(moveUP, time);
+    line.style.animation = 'line ' + (time / 1000) + 's linear infinite';
+
+}
+
+}
+
+</script>
 <div>
     <div class="pt-12 pb-6 md:px-24 lg:px-44">
         <div class="mx-2 md:max-w-6xl md:mx-auto">
