@@ -13,6 +13,8 @@ class Order extends Model
         'user_id',
         'user_address_id',
         'invoice_number',
+        'payment_method',
+        'payment_proof',
         'transaction_fee',
         'discount',
         'status',

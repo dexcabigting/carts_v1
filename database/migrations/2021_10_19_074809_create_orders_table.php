@@ -18,6 +18,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('user_address_id');
             $table->string('invoice_number');
+            $table->string('payment_method');
+            $table->string('payment_proof');
             $table->float('transaction_fee', 8, 2);
             $table->float('discount', 8, 2);
             $table->string('status');
