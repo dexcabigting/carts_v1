@@ -44,7 +44,7 @@ class CheckoutIndex extends Component
                 'form.barangay' => ['required', 'string', 'exists:user_addresses,barangay'],
                 'form.home_address' => ['required', 'string', 'exists:user_addresses,home_address'],
                 // 'form.postal_code' => ['required', 'string'],
-                'form.country' => ['required', 'string', 'in:PH'],
+                // 'form.country' => ['required', 'string', 'in:PH'],
             ],
             3 => [
                 'form.amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
@@ -132,11 +132,6 @@ class CheckoutIndex extends Component
         $this->form['barangay'] = $userAddress->barangay;
         $this->form['home_address'] = $userAddress->home_address;
 
-        //   'province' => Str::ucfirst(Str::lower($this->form['']province)),
-        //     'city' => ucwords(Str::lower($this->form['']city)),
-        //     'barangay' => $this->form['']barangay,
-        //     'home_address' => $this->form['']home_address,
-
         $userAddresses = auth()->user()->userAddresses()
                                 ->get()->pluck('id')->toArray(); 
 
@@ -186,7 +181,7 @@ class CheckoutIndex extends Component
         } else {
             $this->pages++;
             
-            $this->paymentMethod = 'card';
+            $this->paymentMethod = $this->form['type'];
         }
     }
 
