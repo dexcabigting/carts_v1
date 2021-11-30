@@ -169,87 +169,25 @@
                             </div>
                         </div>
                     </div>
-                    {{-- @if($paymentMethod == 'card')
-                    <div class="bg-white relative">
-                        <div class="w-3/4 bg-green-500 h-10">
-                        </div>
-                        <div class="text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
-                            Step 4: <span class="text-lg font-bold">Card Details</span>
-                        </div>
-                    </div>
-
-                    <div class>
-                        <x-label :value="__('Card Number')" />
-                        <x-input wire:model.lazy="form.card_number" placeholder="Enter card number" class="block mt-1 w-full" type="text" required />
-                    </div>
-
-                    <div class>
-                        <x-label :value="__('Expiration Date')" />
-                        <x-input wire:model.lazy="form.exp_date" placeholder="Enter expiration date" class="block mt-1 w-full" type="month" required />
-                    </div>
-
-                    <div class>
-                        <x-label :value="__('Card Verification Code')" />
-                        <x-input wire:model.lazy="form.cvc" placeholder="Enter cvc" class="block mt-1 w-full" type="text" required />
-                    </div>
-                    @endif --}}
                 @elseif($pages === 5)
                     <div class="bg-white relative">
                         <div class="w-4/4 bg-green-500 h-10">
                         </div>
                         <div class="text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
-                            Step 5: <span class="text-lg font-bold">Confirm your order details!</span>
+                            Step 5: <span class="text-lg font-bold">Proof of Payment</span>
                         </div>
                     </div>
 
-                    <div class="bg-white flex flex-col p-5 gap-2 rounded-lg">
-                        <div class="text-center font-bold">
-                            <h1>Order Details</h1>
+                    <div class="bg-white flex flex-col p-5 gap-5 rounded-lg">
+                        <div class="text-center text-xl">
+                            Please scan this QR code and upload your proof of payment.
                         </div>
 
-                        <div class="">
-                            <span class="font-semibold">Name:</span> {{ $this->form['name'] }}
-                        </div>
-
-                        <div class="">
-                            <span class="font-semibold">Email:</span> {{ $this->form['email'] }}
-                        </div>
-
-                        <div class="">
-                            <span class="font-semibold">Phone:</span> {{ $this->form['phone'] }}
-                        </div>
-
-                        <div class="flex flex-row gap-1">
-                            <div>
-                                <span class="font-semibold">Address: </divspan>
-                            </div>
-                            <div>
-                                {{ $this->form['home_address'] }}, {{ $this->form['barangay'] }}, {{ ucwords($this->form['city']) }}, {{ $this->form['province'] }}
-                            </div>                                      
-                        </div>
-
-                        {{-- <div class="">
-                            <span class="font-semibold">Postal Code:</span> {{ $this->form['postal_code'] }}
-                        </div> --}}
-
-                        <div class="mt-2">
-                            <span class="font-semibold">Payment Method:</span> {{ ucfirst($this->form['type']) }}
-                        </div>
-
-                        <div class="">
-                            <span class="font-semibold">Card Number:</span> {{ $this->form['card_number'] }}
-                        </div>
-
-                        <div class="">
-                            <span class="font-semibold">Expiration Date:</span> {{ $this->form['exp_date'] }}
-                        </div>
-
-                        <div class="mt-2">
-                            <span class="font-semibold">Amount to Pay:</span> &#8369;{{ number_format($this->total, 2) }}
+                        <div>
+                            <img src="{{ asset('images\GCash_QR_Sample.jpg') }}">
                         </div>
                     </div>
                 @endif
-
                 <div>
                     @if($pages === 1)
                         @if(count($userCarts) != 0)
