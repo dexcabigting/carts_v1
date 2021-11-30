@@ -1,6 +1,6 @@
 <div class="w-3/5">
     <div class="bg-custom-blacki max-w-auto overflow-hidden shadow-sm sm:rounded-lg p-5">
-        <form wire:submit.prevent="placeOrder">
+        <form wire:submit.prevent="placeOrder" enctype="multipart/form-data">
             <div class="flex flex-col gap-3">
                 <div class="text-xl font-extrabold text-center text-white">
                     Payment Process 
@@ -185,6 +185,11 @@
 
                         <div>
                             <img src="{{ asset('images\GCash_QR_Sample.jpg') }}">
+                        </div>
+
+                        <div class="">    
+                            <input type="file" wire:model="form.proof" />
+                            <div wire:loading wire:target="form.proof">Uploading...</div>
                         </div>
                     </div>
                 @endif

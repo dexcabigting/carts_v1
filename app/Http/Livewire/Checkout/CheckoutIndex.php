@@ -51,9 +51,7 @@ class CheckoutIndex extends Component
                 'form.type' => ['required', 'string', 'in:card,GCash'],
             ],
             5 => [
-                'form.card_number' => ['required', 'string',  new CardNumber],
-                'form.exp_date' => ['required', 'string', 'date_format:Y-m', new CardExpirationDate('Y-m')],
-                'form.cvc' => ['required', 'string', 'min:3', 'max:3'],
+                'form.proof' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             ], 
         ];
     }
