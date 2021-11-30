@@ -50,6 +50,16 @@
                             Step 2: <span class="text-lg font-bold">Confirm Address</span>
                         </div>
                     </div>
+
+                    <div class="text-sm font-medium text-gray-900">
+                        <select wire:model="selectedAddress">
+                            @foreach($userAddresses as $index => $address)
+                                <option value="{{ $address }}">
+                                    Address {{ $index + 1 }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
                     
                     <div class>
                         <x-label :value="__('Province')" />
@@ -71,10 +81,10 @@
                         <x-input wire:model="form.home_address" class="block mt-1 w-full " type="text" autofocus required />
                     </div>
 
-                    <div class>
+                    {{-- <div class>
                         <x-label :value="__('Postal Code')" />
                         <x-input wire:model="form.postal_code" class="block mt-1 w-full " type="text" autofocus required />
-                    </div>
+                    </div> --}}
                 @elseif($pages === 3)
                      <div class="bg-white relative">
                         <div class="w-2/4 bg-green-500 h-10">
@@ -156,9 +166,9 @@
                             </div>                                      
                         </div>
 
-                        <div class="">
+                        {{-- <div class="">
                             <span class="font-semibold">Postal Code:</span> {{ $this->form['postal_code'] }}
-                        </div>
+                        </div> --}}
 
                         <div class="mt-2">
                             <span class="font-semibold">Payment Method:</span> {{ ucfirst($this->form['type']) }}

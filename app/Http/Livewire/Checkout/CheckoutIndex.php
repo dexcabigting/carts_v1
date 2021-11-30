@@ -8,9 +8,9 @@ use Illuminate\Support\Str;
 
 use App\Models\Order;
 use App\Models\OrderVariant;
-use App\Models\OrderItem;
 use App\Models\Cart;
 use App\Models\ProductStock;
+use App\Models\UserAddress;
 
 use LVR\CreditCard\CardNumber;
 use LVR\CreditCard\CardExpirationDate;
@@ -21,7 +21,6 @@ class CheckoutIndex extends Component
     public $price;
     public $cartQuantity;
     public $carts = [];
-    public $userAddress;
     public $pages = 1;
     public $amount;
     public $form = [];
@@ -44,7 +43,7 @@ class CheckoutIndex extends Component
                 'form.city' => ['required', 'string', 'exists:user_addresses,city'],
                 'form.barangay' => ['required', 'string', 'exists:user_addresses,barangay'],
                 'form.home_address' => ['required', 'string', 'exists:user_addresses,home_address'],
-                'form.postal_code' => ['required', 'string'],
+                // 'form.postal_code' => ['required', 'string'],
                 'form.country' => ['required', 'string', 'in:PH'],
             ],
             3 => [
@@ -67,7 +66,7 @@ class CheckoutIndex extends Component
         'form.city' => 'city',
         'form.barangay' => 'barangay',
         'form.home_address' => 'home address',
-        'form.postal_code' => 'postal code',
+        // 'form.postal_code' => 'postal code',
         'form.amount' => 'amount',
         'form.type' => 'payment method',
         'form.card_number' => 'card number',
@@ -85,8 +84,6 @@ class CheckoutIndex extends Component
             $this->carts = [$this->carts];
         }
 
-        // Cart::findOrFail($this->carts);
-
         $this->userCarts = auth()->user()->userCarts($this->carts)->with('product_variant.product')->get();
 
         $this->discount = 0;
@@ -100,22 +97,23 @@ class CheckoutIndex extends Component
                 } else {
                 }
             }
-        }
-        //      
+        } 
 
         $this->cartQuantity = auth()->user()->userCartItems($this->carts)->count();
 
-        $this->userAddress = auth()->user()->userAddresses()->where('is_main_address', 1)->first();
+        $this->selectedAddress = auth()->user()->userAddresses()
+                                    ->where('is_main_address', 1)
+                                    ->first()->id; 
 
         $this->form = [
             'name' => auth()->user()->name,
             'email' => auth()->user()->email,
             'phone' => auth()->user()->phone,
-            'province' => Str::ucfirst(Str::lower($this->userAddress->province)),
-            'city' => ucwords(Str::lower($this->userAddress->city)),
-            'barangay' => $this->userAddress->barangay,
-            'home_address' => $this->userAddress->home_address,
-            'postal_code' => '',
+            'province' => '',
+            'city' => '',
+            'barangay' => '',
+            'home_address' => '',
+            // 'postal_code' => '',
             'country' => 'PH',
             'amount' => '',
             'type' => '',
@@ -123,6 +121,31 @@ class CheckoutIndex extends Component
             'exp_date' => '',
             'cvc' => '',
         ];
+    }
+
+    public function render()
+    {
+        $userAddress = $this->user_address->first();
+
+        $this->form['province'] = Str::ucfirst(Str::lower($userAddress->province));
+        $this->form['city'] = Str::ucfirst(Str::lower($userAddress->city));
+        $this->form['barangay'] = $userAddress->barangay;
+        $this->form['home_address'] = $userAddress->home_address;
+
+        //   'province' => Str::ucfirst(Str::lower($this->form['']province)),
+        //     'city' => ucwords(Str::lower($this->form['']city)),
+        //     'barangay' => $this->form['']barangay,
+        //     'home_address' => $this->form['']home_address,
+
+        $userAddresses = auth()->user()->userAddresses()
+                                ->get()->pluck('id')->toArray(); 
+
+        return view('livewire.checkout.checkout-index', compact('userAddress', 'userAddresses'))->layout('layouts.app-user');
+    }
+
+    public function getUserAddressProperty()
+    {
+        return UserAddress::where('id', $this->selectedAddress);
     }
 
     public function previousPage()
@@ -300,6 +323,8 @@ class CheckoutIndex extends Component
         
         $transactionFee = round((($this->amount - $this->discount) + 15) / ( (100-3.5) / 100 ) - ($this->amount - $this->discount), 2);
 
+        $discount = 0.00;
+        
         $ordersQuery = Order::query();
 
         $checkIfOrdersExist = $ordersQuery->first();
@@ -353,10 +378,5 @@ class CheckoutIndex extends Component
         }
         
         Cart::whereIn('id', $cartIds)->delete();
-    }
-
-    public function render()
-    {
-        return view('livewire.checkout.checkout-index')->layout('layouts.app-user');
     }
 }
