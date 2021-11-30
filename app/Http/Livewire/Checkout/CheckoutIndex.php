@@ -15,8 +15,12 @@ use App\Models\UserAddress;
 use LVR\CreditCard\CardNumber;
 use LVR\CreditCard\CardExpirationDate;
 
+use Livewire\WithFileUploads;
+
 class CheckoutIndex extends Component
 {
+    use WithFileUploads;
+
     public $userCarts;
     public $price;
     public $cartQuantity;
