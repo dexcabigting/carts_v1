@@ -351,7 +351,7 @@ class CheckoutIndex extends Component
             'invoice_number' => $invoiceNumber,
             'user_id' => auth()->user()->id,
             'transaction_fee' => $transactionFee,
-            'status' => 'pending',
+            'status' => 'Pending',
         ]);
 
         // Save the product variant(s), that is/are ordered by the user, on order_variants.
