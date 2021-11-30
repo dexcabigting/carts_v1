@@ -78,11 +78,6 @@ class ShopIndex extends Component
         $this->resetPage();
     }
 
-    // public function getQueryString()
-    // {
-    //     return [];
-    // }
-
     public function updatingSearch()
     {
         $this->resetPage();
