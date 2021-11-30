@@ -50,7 +50,7 @@ class CheckoutIndex extends Component
                 'form.amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
                 'form.type' => ['required', 'string', 'in:card,GCash'],
             ],
-            4 => [
+            5 => [
                 'form.card_number' => ['required', 'string',  new CardNumber],
                 'form.exp_date' => ['required', 'string', 'date_format:Y-m', new CardExpirationDate('Y-m')],
                 'form.cvc' => ['required', 'string', 'min:3', 'max:3'],
@@ -158,6 +158,8 @@ class CheckoutIndex extends Component
 
     public function previousPage()
     {
+        $this->resetValidation();
+
         $this->pages--;
     }
 
@@ -201,38 +203,38 @@ class CheckoutIndex extends Component
     public function gotoPageFive()
     {
         // Date will be validated here
-        $this->validate($this->rules()[$this->pages]);
+        // $this->validate($this->rules()[$this->pages]);
 
         $this->pages++;
 
-        $date = date_create_from_format('Y-m', $this->form['exp_date']);
-        $exp_year = date_format($date, 'y');
-        $exp_month = date_format($date, 'n');
+        // $date = date_create_from_format('Y-m', $this->form['exp_date']);
+        // $exp_year = date_format($date, 'y');
+        // $exp_month = date_format($date, 'n');
 
-        $amount = $this->form['amount'];
-        $this->paymentIntent($amount);
+        // $amount = $this->form['amount'];
+        // $this->paymentIntent($amount);
 
-        $type = $this->form['type'];
-        $details = [
-            'card_number' => $this->form['card_number'],
-            'exp_month' => $exp_month,
-            'exp_year' => $exp_year,
-            'cvc' => $this->form['cvc'],
-        ];
-        $address = [
-            'province' => $this->form['province'],
-            'city' => $this->form['city'],
-            'barangay' => $this->form['barangay'],
-            'home_address' => $this->form['home_address'],
-            'postal_code' => $this->form['postal_code'],
-            'country' => $this->form['country'],
-        ];
-        $info = [
-            'name' => $this->form['name'],
-            'email' => $this->form['email'],
-            'phone' => $this->form['phone'],
-        ];
-        $this->paymentMethod($type, $details, $address, $info);
+        // $type = $this->form['type'];
+        // $details = [
+        //     'card_number' => $this->form['card_number'],
+        //     'exp_month' => $exp_month,
+        //     'exp_year' => $exp_year,
+        //     'cvc' => $this->form['cvc'],
+        // ];
+        // $address = [
+        //     'province' => $this->form['province'],
+        //     'city' => $this->form['city'],
+        //     'barangay' => $this->form['barangay'],
+        //     'home_address' => $this->form['home_address'],
+        //     'postal_code' => $this->form['postal_code'],
+        //     'country' => $this->form['country'],
+        // ];
+        // $info = [
+        //     'name' => $this->form['name'],
+        //     'email' => $this->form['email'],
+        //     'phone' => $this->form['phone'],
+        // ];
+        // $this->paymentMethod($type, $details, $address, $info);
     }
 
     public function placeOrder()
@@ -264,8 +266,8 @@ class CheckoutIndex extends Component
 
     public function cancelPaymentIntent()
     {
-        $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
-        $cancelPaymentIntent = $paymentIntent->cancel();
+        // $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
+        // $cancelPaymentIntent = $paymentIntent->cancel();
 
         $this->resetValidation();
 
