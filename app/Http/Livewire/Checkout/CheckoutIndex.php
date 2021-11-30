@@ -20,15 +20,15 @@ class CheckoutIndex extends Component
     public $userCarts;
     public $price;
     public $cartQuantity;
-    public $carts = [];
     public $pages = 1;
     public $amount;
-    public $form = [];
     public $paymentMethod;
     public $total;
     public $isPaymentSuccessful = 0;
-
     public $discount;
+    public $carts = [];
+    public $form = [];
+    public $productsAndVariants = [];
 
     protected function rules()
     {
@@ -88,13 +88,24 @@ class CheckoutIndex extends Component
 
         $this->discount = 0;
 
-        foreach($this->userCarts as $item) {
+        // $this->productsAndVariants = [
+        //     0 => [
+        //         'product' => '',
+        //         'variant' => '',
+        //     ],
+        // ];
+
+        foreach($this->userCarts as $index => $item) {
             $sum = $item->cartItemSizes()->sum();
+
+            $this->productsAndVariants[$index]['product'] = $item->product_variant->product->prd_name;
+            $this->productsAndVariants[$index]['variant'] = $item->product_variant->prd_var_name;
 
             if($item->product_variant->product->category_id == 1) {
                 if($sum >= 10) {
                     $this->discount = $this->discount + (100 * $sum);
                 } else {
+                    $this->discount = 0.00;
                 }
             }
         } 
@@ -125,6 +136,8 @@ class CheckoutIndex extends Component
 
     public function render()
     {
+        // dd($this->productsAndVariants);
+
         $userAddress = $this->user_address->first();
 
         $this->form['province'] = Str::ucfirst(Str::lower($userAddress->province));

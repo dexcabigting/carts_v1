@@ -101,13 +101,75 @@
 
                     <div>
                         <x-label :value="__('Payment Method')" />
-                        <div class="flex gap-5 items-center p-1">
-                            <input wire:model.lazy="form.type" type="radio" class="form-radio" value="card" checked>
-                            <x-label class="inline" :value="__('Credit or Debit Card')" />
+                        <div class="flex flex-col gap-5 p-1">
+                            {{-- <div>
+                                <input wire:model="form.type" type="radio" value="card">
+                                <x-label class="inline" :value="__('Credit or Debit Card')" />
+                            </div> --}}
+
+                            <div>
+                                <input wire:model="form.type" type="radio" value="gcash">
+                                <x-label class="inline" :value="__('GCash')" />
+                            </div>
                         </div>
                     </div>
                 @elseif($pages === 4)
-                    @if($paymentMethod == 'card')
+                    <div class="bg-white relative">
+                        <div class="w-4/4 bg-green-500 h-10">
+                        </div>
+                        <div class="text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
+                            Step 4: <span class="text-lg font-bold">Confirm your order details!</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white flex flex-col p-5 gap-5 rounded-lg">
+                        <div class="text-center font-bold">
+                            <h1>Order Details</h1>
+                        </div>
+
+                        <div>
+                            <div class="">
+                                <span class="font-semibold">Name:</span> {{ $this->form['name'] }}
+                            </div>
+
+                            <div class="">
+                                <span class="font-semibold">Email:</span> {{ $this->form['email'] }}
+                            </div>
+
+                            <div class="">
+                                <span class="font-semibold">Phone:</span> {{ $this->form['phone'] }}
+                            </div>
+
+                            <div class="flex flex-row gap-1">
+                                <div>
+                                    <span class="font-semibold">Address: </divspan>
+                                </div>
+                                <div>
+                                    {{ $this->form['home_address'] }}, {{ $this->form['barangay'] }}, {{ ucwords($this->form['city']) }}, {{ $this->form['province'] }}
+                                </div>                                      
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span class="font-semibold">Product and Variant:</span>                               
+                                @foreach($productsAndVariants as $index => $item)
+                                    <div>{{ $productsAndVariants[$index]['product'] }} : {{ $productsAndVariants[$index]['variant'] }}</div>
+                                @endforeach                             
+                            </div>
+                        </div>
+
+                        <div>
+                            <div>
+                                <span class="font-semibold">Payment Method:</span> {{ ucfirst($this->form['type']) }}
+                            </div>
+
+                            <div>
+                                <span class="font-semibold">Amount to Pay:</span> &#8369;{{ number_format($this->total, 2) }}
+                            </div>
+                        </div>
+                    </div>
+                    {{-- @if($paymentMethod == 'card')
                     <div class="bg-white relative">
                         <div class="w-3/4 bg-green-500 h-10">
                         </div>
@@ -130,9 +192,9 @@
                         <x-label :value="__('Card Verification Code')" />
                         <x-input wire:model.lazy="form.cvc" placeholder="Enter cvc" class="block mt-1 w-full" type="text" required />
                     </div>
-                    @endif
+                    @endif --}}
                 @elseif($pages === 5)
-                   <div class="bg-white relative">
+                    <div class="bg-white relative">
                         <div class="w-4/4 bg-green-500 h-10">
                         </div>
                         <div class="text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
