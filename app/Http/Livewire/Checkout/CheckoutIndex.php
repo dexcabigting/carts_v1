@@ -241,7 +241,7 @@ class CheckoutIndex extends Component
 
         $this->validate($rules);
 
-        dd('hello');
+        // dd('hello');
 
         // Do this if user confirms the payment
 
@@ -323,14 +323,6 @@ class CheckoutIndex extends Component
     private function moveCartsToOrders()
     {
         // Dump something here.
-
-        $paymentProof = $this->form['proof'];
-
-        $newPaymentProofName = 'BUBU' . '-' . Str::random(10) . '.' . $paymentProof->extension();
-    
-        $paymentProofPath = $paymentProof->storeAs('/images/proofs_of_payment', $newPaymentProofName,'public');
-       
-        dd($paymentProofPath);
 
         // Check if an orders record exists. 
         // If yes, the latest record's primary id will be incremented to be the next record's invoice number.
