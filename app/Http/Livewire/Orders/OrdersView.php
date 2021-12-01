@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Orders;
 
+use App\Events\OrderStatusUpdated;
 use Livewire\Component;
 use App\Models\Order;
 
@@ -53,9 +54,15 @@ class OrdersView extends Component
 
     public function updateStatus()
     {
-        $this->userOrder->update([
+        $this->order->update([
             'status' => $this->selectedStatus,
         ]);
+
+        $order = $this->order->first();
+
+        event(new OrderStatusUpdated($order));
+
+        session()->flash('success', 'User has been notified!');
 
         $this->emitUp('refreshParent');
     }
