@@ -85,18 +85,18 @@ class CheckoutIndex extends Component
 
         $this->discount = 0;
 
-        // $this->productsAndVariants = [
-        //     0 => [
-        //         'product' => '',
-        //         'variant' => '',
-        //     ],
-        // ];
+        $this->productsAndVariants = [
+            0 => [
+                'product' => '',
+                'variant' => '',
+            ],
+        ];
 
         foreach($this->userCarts as $index => $item) {
             $sum = $item->cartItemSizes()->sum();
 
-            // $this->productsAndVariants[$index]['product'] = $item->product_variant->product->prd_name;
-            // $this->productsAndVariants[$index]['variant'] = $item->product_variant->prd_var_name;
+            $this->productsAndVariants[$index]['product'] = $item->product_variant->product->prd_name;
+            $this->productsAndVariants[$index]['variant'] = $item->product_variant->prd_var_name;
 
             if($item->product_variant->product->category_id == 1) {
                 if($sum >= 10) {
@@ -232,18 +232,16 @@ class CheckoutIndex extends Component
         // ];
         // $this->paymentMethod($type, $details, $address, $info);
     }
-    public function saveOrder()
-    {
-        dd('hello save');
-    }
 
     public function placeOrder()
     {
         // Re-validate whole form
-        dd('hello');
-        // $rules = collect($this->rules())->collapse()->toArray();
+        
+        $rules = collect($this->rules())->collapse()->toArray();
 
-        // $this->validate($rules);
+        $this->validate($rules);
+
+        dd('hello');
 
         // Do this if user confirms the payment
 
@@ -268,6 +266,7 @@ class CheckoutIndex extends Component
     {
         // $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
         // $cancelPaymentIntent = $paymentIntent->cancel();
+        $this->form['proof'] = null;
 
         $this->resetValidation();
 

@@ -1,6 +1,6 @@
 <div class="w-3/5">
     <div class="bg-custom-blacki max-w-auto overflow-hidden shadow-sm sm:rounded-lg p-5">
-        <form wire:submit.prevent="placeOrder">
+        <form wire:submit.prevent="placeOrder" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-col gap-3">
                 <div class="text-xl font-extrabold text-center text-white">
@@ -50,6 +50,16 @@
                         <div class="text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
                             Step 2: <span class="text-lg font-bold">Confirm Address</span>
                         </div>
+                    </div>
+
+                    <div class="text-sm font-medium text-gray-900">
+                        <select wire:model="selectedAddress">
+                            @foreach($userAddresses as $index => $address)
+                                <option value="{{ $address }}">
+                                    Address {{ $index + 1 }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     
                     <div>
@@ -125,6 +135,15 @@
                         </div>
 
                         <div>
+                            Product(s) and Variant(s)                               
+                            @foreach($productsAndVariants as $index => $item)
+                                <div>    
+                                    {{ $productsAndVariants[$index]['product'] }}: {{ $productsAndVariants[$index]['variant'] }}  
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <div>
                             Payment Method: {{ ucfirst($form['type']) }}
                         </div>
 
@@ -148,6 +167,12 @@
 
                         <div>
                             <img src="{{ asset('images\GCash_QR_Sample.jpg') }}" />
+                        </div>
+
+                        <div class="">   
+                            <x-label :value="__('Proof of Payment')"/> 
+                            <input type="file" wire:model="form.proof" />
+                            <div wire:loading wire:target="form.proof">Uploading...</div>
                         </div>
                     </div>    
                 @endif
