@@ -137,6 +137,17 @@ slider.onmouseout = function() {
     <div class="pt-12 pb-6 md:px-24 lg:px-44">
         <div class="mx-2 md:max-w-6xl md:mx-auto">
             <div class="shadow-xl overflow-hidden rounded-lg">
+
+                <div>
+                    @foreach(auth()->user()->notifications as $notification) 
+                        @if($notification->type == 'App\Notifications\OrderStatusUpdatedNotification')
+                            <div class="text-white">
+                                Your order # {{ $notification->data['invoice number'] }} is now {{ $notification->data['status'] }} 
+                            </div> 
+                        @endif
+                    @endforeach
+                </div>
+
                 <div class="block md:flex md:flex-row items-center md:justify-start lg:gap-5 p-6 bg-custom-blacki overflow-x-auto">
                     <!-- Category and Fabric filter -->
                     <div class="mx-12 flex flex-col xl:flex-row">
@@ -166,6 +177,7 @@ slider.onmouseout = function() {
                             </select>
                             </div> 
                             <div class="flex flex-col md:flex-row w-full md:-ml-8">
+
                     <div class=" text-white font-semibold lg:text-xl md:ml-12 text-sm my-4 md:my-0 md:text-center text-left">
                         Browse our products!
                     </div>
