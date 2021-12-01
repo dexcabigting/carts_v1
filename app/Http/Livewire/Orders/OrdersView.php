@@ -15,6 +15,7 @@ class OrdersView extends Component
     {
         $this->orderStatuses = [
             'Pending',
+            'Approved',
             'To ship',
             'Shipping',
             'Delivered',
@@ -46,7 +47,6 @@ class OrdersView extends Component
         ]);
 
         $this->emitUp('refreshParent');
-
 
     }
 
