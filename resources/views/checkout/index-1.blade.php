@@ -95,60 +95,43 @@
                         </div>
                     </div>
                 @elseif($pages === 4)
-                    
-                        <div class="bg-white relative">
-                            <div class="w-3/4 bg-green-500 h-10">
-                            </div>
-                            <div class="text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
-                                Step 4: <span class="text-lg font-bold">Confirm your order details!</span>
-                            </div>
+                    <div class="bg-white relative">
+                        <div class="w-3/4 bg-green-500 h-10">
+                        </div>
+                        <div class="text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
+                            Step 4: <span class="text-lg font-bold">Confirm your order details!</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-white flex flex-col p-5 gap-5 rounded-lg">
+                        <div class="text-center font-bold">
+                            <h1>Order Details</h1>
+                        </div>
+                        
+                        <div>
+                            Name: {{ $form['name'] }}
                         </div>
 
-                        <div class="bg-white flex flex-col p-5 gap-5 rounded-lg">
-                            <div class="text-center font-bold">
-                                <h1>Order Details</h1>
-                            </div>
+                        <div>
+                            Email: {{ $form['email'] }}
+                        </div>
 
-                            <div>
-                                <div>
-                                    <span class="font-semibold">Name:</span> {{ $form['name'] }}
-                                </div>
+                        <div>
+                            Phone: {{ $form['phone'] }}
+                        </div>
 
-                                <div>
-                                    <span class="font-semibold">Email:</span> {{ $form['email'] }}
-                                </div>
+                        <div>
+                            Address: {{ $form['home_address'] }}, {{ $form['barangay'] }}, {{ ucwords($form['city']) }}, {{ $form['province'] }}
+                        </div>
 
-                                <div>
-                                    <span class="font-semibold">Phone:</span> {{ $form['phone'] }}
-                                </div>
+                        <div>
+                            Payment Method: {{ ucfirst($form['type']) }}
+                        </div>
 
-                                <div class="flex flex-row gap-1">
-                                    <div>
-                                        <span class="font-semibold">Address: </span>
-                                    </div>
-                                    <div>
-                                        {{ $form['home_address'] }}, {{ $form['barangay'] }}, {{ ucwords($form['city']) }}, {{ $form['province'] }}
-                                    </div>                                      
-                                </div>
-                            </div>
-
-                            <div>
-                                <div>
-                                    <span class="font-semibold">Product and Variant:</span>                                                       
-                                </div>
-                            </div>
-
-                            <div>
-                                <div>
-                                    <span class="font-semibold">Payment Method:</span> {{ ucfirst($form['type']) }}
-                                </div>
-
-                                <div>
-                                    <span class="font-semibold">Amount to Pay:</span> &#8369;{{ number_format($total, 2) }}
-                                </div>
-                            </div>
-                        </div></div>
-                    
+                        <div>
+                            Amount to Pay: &#8369;{{ number_format($total, 2) }}
+                        </div>
+                    </div>    
                 @elseif($pages === 5)
                     <div class="bg-white relative">
                         <div class="w-4/4 bg-green-500 h-10">
@@ -164,21 +147,21 @@
                         </div>
 
                         <div>
-                            <img src="{{ asset('images\GCash_QR_Sample.jpg') }}">
+                            <img src="{{ asset('images\GCash_QR_Sample.jpg') }}" />
                         </div>
-                    </div>
+                    </div>    
                 @endif
                 <div>
                     @if($pages === 1)
                         @if(count($userCarts) != 0)
-                            <div class="text-right">
+                            <div wire:key="{{ $pages }}" class="text-right">
                                 <x-button wire:click.prevent="gotoPageTwo" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
                                     {{ __('Next') }}
                                 </x-button>
                             </div>
                         @endif
                     @elseif($pages === 2)
-                        <div class="flex justify-between">
+                        <div wire:key="{{ $pages }}" class="flex justify-between">
                             <x-button wire:click.prevent="previousPage" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
                                 {{ __('Back') }}
                             </x-button>
@@ -188,7 +171,7 @@
                             </x-button>
                         </div>
                     @elseif($pages === 3)
-                        <div class="flex justify-between">
+                        <div wire:key="{{ $pages }}" class="flex justify-between">
                             <x-button wire:click.prevent="previousPage" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
                                 {{ __('Back') }}
                             </x-button>
@@ -198,7 +181,7 @@
                             </x-button>
                         </div>
                     @elseif($pages === 4)
-                        <div class="flex justify-between">
+                        <div wire:key="{{ $pages }}" class="flex justify-between">
                             <x-button wire:click.prevent="previousPage" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
                                 {{ __('Back') }}
                             </x-button>
@@ -208,7 +191,7 @@
                             </x-button>
                         </div>
                     @elseif($pages === 5)
-                        <div class="flex justify-between">
+                        <div wire:key="{{ $pages }}" class="flex justify-between">
                             <x-button wire:click.prevent="cancelPaymentIntent" class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-lg font-bold text-white px-4 py-2 bg-custom-violet">
                                 {{ __('Cancel Payment') }}
                             </x-button>
