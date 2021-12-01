@@ -146,6 +146,26 @@
                             </td>
                         </tr>
 
+                        @if($userOrder->discount != 0.00)
+                        <tr>
+                            <td class="md:px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            Discount:
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <td class="md:px-6 py-4 whitespace-nowrap text-right" colspan="3">
+                                <div class="text-sm font-medium text-gray-900">
+                                    &#8369;{{ number_format($userOrder->discount, 2) }}
+                                </div>
+                            </td>
+                        </tr>
+                        @endif
+
                         <tr>
                             <td class="md:px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
@@ -215,11 +235,11 @@
                 </div>
 
                 <div class="mt-2">
-                    <span class="font-semibold">Payment Method:</span> 
+                    <span class="font-semibold">Payment Method:</span> {{ $userOrder->payment_method }}
                 </div>
 
                 <div class="mt-2">
-                    <span class="font-semibold">Amount Paid:</span> &#8369;
+                    <span class="font-semibold">Amount Paid:</span> &#8369;{{ number_format($subtotal + $userOrder->transaction_fee, 2) }}
                 </div>
             </div>
             @else
