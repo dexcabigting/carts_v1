@@ -1,10 +1,10 @@
 <div class="max-w-4xl mx-auto">
     <div class="">
         <div class="flex flex-col gap-5 p-5 align-middle inline-block ">
-            <div class="bg-custom-blacki text-xl font-extrabold text-center text-white p-5 sm:rounded-lg">
+            <div class="relative bg-custom-blacki text-xl font-extrabold text-center text-white p-5 sm:rounded-lg">
                 Order Details
-                <div class="float-right">
-                    <x-button class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500" type="button" wire:click="updateStatus()">
+                <div class="absolute top-0 right-0">
+                    <x-button class="m-3 hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500" type="button" wire:click="updateStatus()">
                         {{ __('Proof of Payment') }}
                     </x-button>
                 </div>
