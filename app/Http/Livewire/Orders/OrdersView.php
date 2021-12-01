@@ -11,6 +11,8 @@ class OrdersView extends Component
     public $orderId;
     public $orderStatuses;
     public $selectedStatus;
+    // public $orderDetails = 1;
+    public $proofOfPayment = 0;
 
     public function mount($id)
     {
@@ -53,6 +55,15 @@ class OrdersView extends Component
         ]);
 
         $this->emitUp('refreshParent');
+    }
+
+    public function proofOfPaymentOrCustomerInfo()
+    {
+        if($this->proofOfPayment == 0) {
+            $this->proofOfPayment = 1;
+        } else {
+            $this->proofOfPayment = 0;
+        }
     }
 
     public function closeViewModal()

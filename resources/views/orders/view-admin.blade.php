@@ -6,8 +6,12 @@
 
                 @if(auth()->user()->role_id == 1)
                     <div class="absolute top-0 right-0">
-                        <x-button class="m-3 hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500" type="button" wire:click="updateStatus()">
-                            {{ __('Proof of Payment') }}
+                        <x-button class="m-3 hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500" type="button" wire:click="proofOfPaymentOrCustomerInfo()">
+                            @if(!$proofOfPayment)
+                                {{ __('Proof of Payment') }}
+                            @else
+                                {{ __('Customer Info') }}
+                            @endif
                         </x-button>
                     </div>
                 @endif
@@ -188,6 +192,7 @@
                     </table>
                 </div>
 
+                @if(!$proofOfPayment)
                 <div class="bg-white flex flex-col p-5 gap-2 rounded-lg text-black">
                     <div class="">
                         <span class="font-semibold">Name:</span> {{ $userOrder->user->name }}
@@ -222,6 +227,11 @@
                         <span class="font-semibold">Amount Paid:</span> &#8369;
                     </div>
                 </div>
+                @else
+                <div>
+                    <img src="{{ Storage::url('public/' . $userOrder->payment_proof) }}" />
+                </div>
+                @endif
             </div>
             
             <div class="flex justify-center items-center gap-5"> 
