@@ -47,8 +47,6 @@ class CheckoutIndex extends Component
                 'form.city' => ['required', 'string', 'exists:user_addresses,city'],
                 'form.barangay' => ['required', 'string', 'exists:user_addresses,barangay'],
                 'form.home_address' => ['required', 'string', 'exists:user_addresses,home_address'],
-                // 'form.postal_code' => ['required', 'string'],
-                // 'form.country' => ['required', 'string', 'in:PH'],
             ],
             3 => [
                 'form.amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
@@ -68,12 +66,9 @@ class CheckoutIndex extends Component
         'form.city' => 'city',
         'form.barangay' => 'barangay',
         'form.home_address' => 'home address',
-        // 'form.postal_code' => 'postal code',
         'form.amount' => 'amount',
         'form.type' => 'payment method',
-        'form.card_number' => 'card number',
-        'form.exp_date' => 'expiration date',
-        'form.cvc' => 'card validation code',
+        'form.proof' => 'proof of payment',
     ];
 
     public function mount($ids)
@@ -100,8 +95,8 @@ class CheckoutIndex extends Component
         foreach($this->userCarts as $index => $item) {
             $sum = $item->cartItemSizes()->sum();
 
-            $this->productsAndVariants[$index]['product'] = $item->product_variant->product->prd_name;
-            $this->productsAndVariants[$index]['variant'] = $item->product_variant->prd_var_name;
+            // $this->productsAndVariants[$index]['product'] = $item->product_variant->product->prd_name;
+            // $this->productsAndVariants[$index]['variant'] = $item->product_variant->prd_var_name;
 
             if($item->product_variant->product->category_id == 1) {
                 if($sum >= 10) {
@@ -127,12 +122,10 @@ class CheckoutIndex extends Component
             'barangay' => '',
             'home_address' => '',
             // 'postal_code' => '',
-            'country' => 'PH',
+            // 'country' => 'PH',
             'amount' => '',
             'type' => '',
-            'card_number' => '',
-            'exp_date' => '',
-            'cvc' => '',
+            'proof' => '',
         ];
     }
 
@@ -146,6 +139,7 @@ class CheckoutIndex extends Component
         $this->form['city'] = Str::ucfirst(Str::lower($userAddress->city));
         $this->form['barangay'] = $userAddress->barangay;
         $this->form['home_address'] = $userAddress->home_address;
+        $this->form['amount'] = number_format($this->total, 2, ".", "");
 
         $userAddresses = auth()->user()->userAddresses()
                                 ->get()->pluck('id')->toArray(); 
@@ -206,7 +200,7 @@ class CheckoutIndex extends Component
     {
         // Date will be validated here
         // $this->validate($this->rules()[$this->pages]);
-
+        // dd($this->form);
         $this->pages++;
 
         // $date = date_create_from_format('Y-m', $this->form['exp_date']);
@@ -238,14 +232,18 @@ class CheckoutIndex extends Component
         // ];
         // $this->paymentMethod($type, $details, $address, $info);
     }
+    public function saveOrder()
+    {
+        dd('hello save');
+    }
 
     public function placeOrder()
     {
         // Re-validate whole form
+        dd('hello');
+        // $rules = collect($this->rules())->collapse()->toArray();
 
-        $rules = collect($this->rules())->collapse()->toArray();
-
-        $this->validate($rules);
+        // $this->validate($rules);
 
         // Do this if user confirms the payment
 
@@ -276,58 +274,64 @@ class CheckoutIndex extends Component
         $this->pages--;
     }
 
-    private function paymentIntent($amount)
-    {
-        $paymentIntent = Paymongo::paymentIntent()->create([
-            'amount' => $amount,
-            'payment_method_allowed' => [
-                'card'
-            ],
-            'payment_method_options' => [
-                'card' => [
-                    'request_three_d_secure' => 'automatic'
-                ]
-            ],
-            'description' => 'This is a test payment intent',
-            'statement_descriptor' => 'EJ Ezon Sportswear',
-            'currency' => "PHP",
-        ]);
+    // private function paymentIntent($amount)
+    // {
+    //     $paymentIntent = Paymongo::paymentIntent()->create([
+    //         'amount' => $amount,
+    //         'payment_method_allowed' => [
+    //             'card'
+    //         ],
+    //         'payment_method_options' => [
+    //             'card' => [
+    //                 'request_three_d_secure' => 'automatic'
+    //             ]
+    //         ],
+    //         'description' => 'This is a test payment intent',
+    //         'statement_descriptor' => 'EJ Ezon Sportswear',
+    //         'currency' => "PHP",
+    //     ]);
 
-        session(['paymentIntentId' => $paymentIntent->id]);
-    }
+    //     session(['paymentIntentId' => $paymentIntent->id]);
+    // }
 
-    private function paymentMethod($type, $details, $address, $info)
-    {
-        $paymentMethod = Paymongo::paymentMethod()->create([
-            'type' => $type,
-            'details' => [
-                'card_number' => $details['card_number'],
-                'exp_month' => +$details['exp_month'],
-                'exp_year' => +$details['exp_year'],
-                'cvc' => $details['cvc'],
-            ],
-            'billing' => [
-                'address' => [
-                    'line1' => $address['home_address'] . ' ' . $address['barangay'],
-                    'city' => $address['city'],
-                    'state' => $address['province'],
-                    'country' => $address['country'],
-                    'postal_code' => $address['postal_code'],
-                ],
-                'name' => $info['name'],
-                'email' => $info['email'],
-                'phone' => $info['phone'],
-            ],
-        ]);
+    // private function paymentMethod($type, $details, $address, $info)
+    // {
+    //     $paymentMethod = Paymongo::paymentMethod()->create([
+    //         'type' => $type,
+    //         'details' => [
+    //             'card_number' => $details['card_number'],
+    //             'exp_month' => +$details['exp_month'],
+    //             'exp_year' => +$details['exp_year'],
+    //             'cvc' => $details['cvc'],
+    //         ],
+    //         'billing' => [
+    //             'address' => [
+    //                 'line1' => $address['home_address'] . ' ' . $address['barangay'],
+    //                 'city' => $address['city'],
+    //                 'state' => $address['province'],
+    //                 'country' => $address['country'],
+    //                 'postal_code' => $address['postal_code'],
+    //             ],
+    //             'name' => $info['name'],
+    //             'email' => $info['email'],
+    //             'phone' => $info['phone'],
+    //         ],
+    //     ]);
 
-        session(['paymentMethodId' => $paymentMethod->id]);
-    }
+    //     session(['paymentMethodId' => $paymentMethod->id]);
+    // }
 
     private function moveCartsToOrders()
     {
         // Dump something here.
+
+        $paymentProof = $this->form['proof'];
+
+        $newPaymentProofName = 'BUBU' . '-' . Str::random(10) . '.' . $paymentProof->extension();
+    
+        $paymentProofPath = $paymentProof->storeAs('/images/proofs_of_payment', $newPaymentProofName,'public');
        
-        // dd();
+        dd($paymentProofPath);
 
         // Check if an orders record exists. 
         // If yes, the latest record's primary id will be incremented to be the next record's invoice number.
@@ -335,7 +339,7 @@ class CheckoutIndex extends Component
         
         $transactionFee = round((($this->amount - $this->discount) + 15) / ( (100-3.5) / 100 ) - ($this->amount - $this->discount), 2);
 
-        $discount = 0.00;
+        $discount = $this->discount;
         
         $ordersQuery = Order::query();
 
@@ -347,10 +351,20 @@ class CheckoutIndex extends Component
             $invoiceNumber = "EJ-Ezon-" . Str::padLeft(1, 6, 0);
         }
 
+        $paymentProof = $this->form['proof'];
+
+        $newPaymentProofName = $invoiceNumber . '-' . Str::random(10) . '.' . $paymentProof->extension();
+    
+        $paymentProofPath = $paymentProof->storeAs('/images/proofs_of_payment', $newPaymentProofName,'public');
+
         $newOrder = Order::create([
             'invoice_number' => $invoiceNumber,
             'user_id' => auth()->user()->id,
+            'user_address_id' => $this->selectedAddress,
+            'payment_method' => $this->form['type'],
+            'payment_proof' => $paymentProofPath,
             'transaction_fee' => $transactionFee,
+            'discount' => $discount,
             'status' => 'Pending',
         ]);
 

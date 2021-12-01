@@ -195,7 +195,7 @@
 
                     <div class="flex flex-row gap-1">
                         <div>
-                            <span class="font-semibold">Address: </divspan>
+                            <span class="font-semibold">Address: </span>
                         </div>
                         <div>
                             
