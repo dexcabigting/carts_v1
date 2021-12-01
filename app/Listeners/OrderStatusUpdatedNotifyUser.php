@@ -7,6 +7,9 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Models\User;
 
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\OrderStatusUpdatedNotification;
+
 class OrderStatusUpdatedNotifyUser
 {
     /**
@@ -29,5 +32,7 @@ class OrderStatusUpdatedNotifyUser
     {
         //
         $user = User::where('id', $event->order->user_id)->first();
+
+        Notification::send($user, new OrderStatusUpdatedNotification($event->order));
     }
 }
