@@ -1,5 +1,9 @@
 <div class="mx-auto">
     <div class="flex flex-col gap-5 p-5 align-middle inline-block ">
+        <div>
+            <x-success-fail-message />
+        </div>
+
         <div class="relative bg-custom-blacki text-xl font-extrabold text-center text-white p-5 sm:rounded-lg">
             Order Details
 
