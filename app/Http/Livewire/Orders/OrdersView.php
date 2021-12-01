@@ -38,14 +38,17 @@ class OrdersView extends Component
 
     public function getOrderProperty()
     {
-        return Order::where('id', $this->orderId)
+        // if(auth()->user()->role_id == 1) {
+            return Order::where('id', $this->orderId)
                             ->with(['user:id,name,email,phone', 
                                 'order_variants:id,order_id,amount,product_variant_id', 
                                 'order_variants.product_variant' => function ($query) {
                                     $query->select('id', 'product_id', 'prd_var_name')
                                     ->with(['product:id,prd_name']);
-                            }, 'order_variants.order_items'])
+                            }, 'user_address:id,province,city,barangay,home_address',   
+                             'order_variants.order_items'])
                             ->withCount('order_items');
+        // }
     }
 
     public function updateStatus()
