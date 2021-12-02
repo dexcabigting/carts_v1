@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\Order;
+// use App\Models\Order;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -15,14 +15,14 @@ class OrderStatusUpdated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $order;
+    // public $order;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Order $order)
+    public function __construct($order)
     {
         //
         $this->order = $order;
