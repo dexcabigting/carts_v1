@@ -16,9 +16,10 @@ class OrderCreatedNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($order)
     {
         //
+        $this->order = $order;
     }
 
     /**
@@ -29,7 +30,7 @@ class OrderCreatedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -55,7 +56,8 @@ class OrderCreatedNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'invoice number' => $this->order->invoice_number,
+            'user' => $this->order->user->name,
         ];
     }
 }
