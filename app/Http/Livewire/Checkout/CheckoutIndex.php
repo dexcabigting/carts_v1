@@ -17,6 +17,8 @@ use LVR\CreditCard\CardExpirationDate;
 
 use Livewire\WithFileUploads;
 
+use App\Events\OrderCreated;
+
 class CheckoutIndex extends Component
 {
     use WithFileUploads;
@@ -393,6 +395,10 @@ class CheckoutIndex extends Component
                 ]);
             }
         }
+
+        $order = $newOrder->load('user:id,name');
+
+        event(new OrderCreated($order));
         
         Cart::whereIn('id', $cartIds)->delete();
     }
