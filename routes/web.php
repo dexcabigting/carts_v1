@@ -30,6 +30,9 @@ use App\Http\Livewire\Checkout\CheckoutIndex;
 // Livewire Orders Component
 use App\Http\Livewire\Orders\OrdersIndex;
 
+// Livewire Notifications Component
+use App\Http\Livewire\Notifications\NotificationsIndex;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,6 +59,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('profile/password', [ProfileController::class, 'update_password'])->name('profile.update-password');
     Route::put('profile/address', [ProfileController::class, 'update_address'])->name('profile.update-address');
 
+    // Notifications
+    Route::get('notifications', NotificationsIndex::class)->name('notifications.index');
+    
     // Admin
     Route::middleware('admin')->group(function () {
         // Dashboard
