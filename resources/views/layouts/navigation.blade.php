@@ -90,6 +90,10 @@
                             {{ __('My Profile') }}
                         </x-dropdown-link>
 
+                        <x-dropdown-link :href="route('notifications.index')" class="font-semibold bg-custom-blacki text-white hover:text-gray-100 focus:text-gray-100 hover:bg-purple-900 focus:bg-custom-violet">
+                            {{ __('Notifications') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -162,6 +166,10 @@
                 <!-- My Profile -->
                 <x-responsive-nav-link :href="route('profile.index')">
                     {{ __('My Profile') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('notifications.index')">
+                    {{ __('Notifications') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
