@@ -15,18 +15,13 @@ class NotificationsIndex extends Component
 
     public function getNotificationsProperty()
     {
-        $auth = auth()->user();
-
-        if($auth->role_id == 1) {
-            return $auth->unreadNotifications->where('type', 'App\Notifications\OrderCreatedNotification')->get();
-        } else {
-            return $auth->unreadNotifications;
-        }
-            
+        return auth()->user()->unreadNotifications;
     }
 
-    public function markAsRead()
+    public function markAsRead($id)
     {
-
+        $this->notifications->where('id', $id)->update([
+                                                    'read_at' => now(),
+                                                ]);
     }
 }
