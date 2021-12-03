@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Notifications;
 
 use Livewire\Component;
 
-class NotificationIndex extends Component
+class NotificationsIndex extends Component
 {
     public function render()
     {
         $notifications = $this->notifications;
 
-        return view('livewire.notification-index', compact('notifications'));
+        return view('livewire.notifications.notifications-index', compact('notifications'));
     }
 
     public function getNotificationsProperty()
