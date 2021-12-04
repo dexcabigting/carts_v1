@@ -27,7 +27,7 @@ class NotificationsIndex extends Component
         } else {    
 
             $layout = 'layouts.app-user';
-            
+
         }
 
         $notificationType = $this->notificationType;
@@ -47,6 +47,8 @@ class NotificationsIndex extends Component
         $this->notificationId = $id;
 
         $this->notification->markAsRead(); 
+
+        $this->emit('markedAsRead', auth()->user()->unreadNotifications()->count());
     }
 
     public function delete($id)

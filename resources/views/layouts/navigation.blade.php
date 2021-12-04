@@ -79,8 +79,8 @@
                             </svg>
                         </a>
                     </div>
-                    <div class="rounded-full h-10 w-10 bg-custom-violet text-center align-middle">
-                        {{ count(auth()->user()->unreadNotifications) }}
+                    <div>
+                        @livewire('notifications.notifications-counter')
                     </div>                    
                 </div>
                 <img src="{{ asset('/img/Group 19.png') }}" alt="" class="rounded-full w-10 h-10 mx-4 border-4 border-custom-violet">
