@@ -1,14 +1,5 @@
 <div class="h-screen">
     <div class="pt-12 pb-6">
-        <div>
-            @foreach(auth()->user()->notifications as $notification) 
-                @if($notification->type == 'App\Notifications\OrderCreatedNotification')
-                    <div class="text-white">
-                        {{ $notification->data['user'] }} created order {{ $notification->data['invoice number'] }} {{ $notification->created_at->diffForhumans() }} 
-                    </div> 
-                @endif
-            @endforeach
-        </div>
         <div class="max-w-5xl mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="flex flex-row gap-5 p-6 bg-custom-blacki shadow-2xl overflow-x-auto">
