@@ -3,10 +3,13 @@
 namespace App\Http\Livewire\Notifications;
 
 use Livewire\Component;
-use Illuminate\View\View;
+use Livewire\WithPagination;
+use Illuminate\Notifications\DatabaseNotification;
 
 class NotificationsIndex extends Component
 {
+    use WithPagination;
+
     public $notificationType;
 
     protected $listeners = [
@@ -18,7 +21,7 @@ class NotificationsIndex extends Component
         $this->notificationType = 'unreadNotifications';
     }
 
-    public function render(): View
+    public function render()
     {
         if(auth()->user()->role_id == 1) {
             $layout = 'layouts.app';
@@ -26,7 +29,9 @@ class NotificationsIndex extends Component
             $layout = 'layouts.app-user';
         }
 
-        $notifications = $this->auth_notifications;
+        $notificationType = $this->notificationType;
+
+        $notifications = auth()->user()->$notificationType()->paginate(10);
 
         return view('livewire.notifications.notifications-index', compact('notifications'))->layout($layout);
     }
@@ -35,20 +40,20 @@ class NotificationsIndex extends Component
     {
         $notificationType = $this->notificationType;
 
-        return auth()->user()->$notificationType;
+        return auth()->user()->$notificationType();
     }
 
     public function markAsRead($id)
     {
         $this->auth_notifications->where('id', $id)->markAsRead(); 
 
-        $this->emit('refresh');
+        // $this->emit('refresh');
     }
 
     public function delete($id)
     {
         auth()->user()->unreadNotifications()->where('id', $id)->delete(); 
 
-        $this->emit('refresh');
+        // $this->emit('refresh');
     }
 }

@@ -53,5 +53,8 @@
                 You have no notifications.
             </div>      
         @endforelse
+        <div class="text-sm font-medium text-gray-900">
+            {{ $notifications->links() }}
+        </div>
     </div>
 </div>
