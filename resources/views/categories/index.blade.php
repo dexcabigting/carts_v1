@@ -1,15 +1,17 @@
-<div class="h-screen lg:ml-40 lg:mt-12">
-     <div class="pt-12 pb-5">
-        <div class="max-w-6xl mx-auto">
-            <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex flex-row gap-5 p-6 bg-custom-blacki shadow-2xl overflow-x-auto">
-                    <div class="">
-                        <x-button class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3" wire:click="openCreateModal()">
+<div class="h-screen pt-20 lg:pt-40 xl:pl-2 2xl:pl-56 w-full flex flex-col">
+     <div class="flex items-center justify-center">
+        <div class="w-full">
+            <div class="inline-flex">
+                <div class="inline-flex ml-6 lg:ml-2 xl:ml-2 2xl:ml-0 mb-4 px-11 p-7 xl:px-11 bg-custom-blacki shadow-2xl overflow-x-auto">
+                <div class="flex flex-col md:flex-row items-center justify-between">
+                    <div class="flex flex-row">
+                    <div class="mx-1">
+                        <x-button class="rounded-sm hover:bg-purple-900 hover:text-purple-100 text-sm lg:text-xl font-semibold text-white py-3 px-2 lg:py-2 bg-custom-violet my-3" wire:click="openCreateModal()">
                             {{ __('Create Product Category') }}
                         </x-button>
                     </div>
 
-                    <div class="">
+                    <div class="mx-1">
                         <button wire:click.prevent="openDeleteModal(@json($this->checked_keys))" type="button" {{ (!$checkedCategories) ?  'disabled' : null }} class="rounded-sm hover:bg-red-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedCategories) cursor-not-allowed @endif">
                             {{ __('Bulk Delete') }}
                             @if ($checkedCategories)
@@ -17,11 +19,11 @@
                             @endif
                         </button>
                     </div>
-
+                    </div>
                     <!-- Order By -->
-                    <div class="px-4">
+                    <div class="xl:px-4">
                         <div class="flex flex-col xl:flex-row text-sm font-medium text-gray-100 py-4">
-                            <div class="w-1/3">
+                            <div class="w-full px-1 py-2 md:p-0">
                                 <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-base 2xl:text-xl" />
                             </div>
 
@@ -47,12 +49,12 @@
                                 </select>
                             </div>
                         </div>
-
+</div>
 
                     </div>
 
                     <!-- Search Bar -->
-                    <div class="col-span-2 lg:col-span-2 grid items-center align-center relative lg:w-64">
+                    <div class="hidden col-span-2 lg:col-span-2 md:grid items-center align-center relative lg:w-64">
                         <x-input class="h-9 pr-10" type="search" wire:model="search" autofocus />
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-custom-violet absolute right-0" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
@@ -63,7 +65,7 @@
         </div>
     </div>
 
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-md lg:max-w-5xl xl:max-w-6xl 2xl:ml-0 lg:ml-1  ml-6">
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">

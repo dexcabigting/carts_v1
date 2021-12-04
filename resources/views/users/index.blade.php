@@ -1,10 +1,10 @@
-<div class ="h-1/2 md:ml-8 lg:ml-8 xl:ml-16 2xl:ml-52 lg:mt-12 2xl:mt-24 mt-12 md:w-auto lg:max-w-4xl 2xl:max-w-6xl">
-    <div class="pt-12 pb-5 ">
-        <div class="md:max-w-6xl md:mx-auto">
-            <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg mx-2 block w-full">
-                <div class="flex flex-row md:gap-5 md:p-6 p-3 bg-custom-blacki overflow-x-auto ">
-                <div class="flex flex-col md:flex-row ">
-                    <div class="flex md:flex-row mx-12 md:m-0">
+<div class ="h-screen items-center pt-14 2xl:pt-40 lg:pt-20 xl:pl-24 2xl:pl-72 w-full flex flex-col">
+    <div class="flex flex-col items-center justify-center">
+        <div class="w-full">
+            <div class="inline-flex ">
+                <div class="inline-flex ml-6 lg:ml-0 p-7 px-9 md:px-16 2xl:px-7 bg-custom-blacki shadow-2xl overflow-x-auto">
+                <div class="flex flex-col md:flex-row items-center justify-between">
+                    <div class="flex mx-12 md:m-0">
                     <div>
                         <a href="{{ route('users.create') }}">
                             <x-button class="mx-2 hover:bg-purple-900 hover:text-purple-100 text-sm 2xl:text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
@@ -24,20 +24,16 @@
                         </button>
                     </div>
 
-                    <!-- Search Bar -->
-                    <div class="hidden col-span-2 lg:col-span-2 md:grid items-center align-center relative lg:w-64">
-                        <x-input class="h-9 pr-10" type="search" wire:model="search" autofocus />
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-indigo-300 absolute right-0" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M8 4a4 4 0mx-24 w-full 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
+                  
                     </div>
                    <!-- Order By -->
-                    <div class="items-center ml-5 xl:ml-0">
+                    <div class="xl:ml-0">
                         <div class="font-medium text-gray-100 py-4">
-                        <div class="flex mx-2">
-                            <x-label :value="__('Order by')" class="text-gray-50 inline-block text-sm mx-1 xl:text-2xl" />
-                            
+                        <div class="flex flex-col items-center justify-items-center lg:flex-row mx-2">
+                            <div class="mb-4 lg:mt-0">
+                            <x-label :value="__('Order by')" class="text-gray-50 inline-block font-bold text-sm mx-1 xl:text-xl" />
+                            </div>
+                            <div class="inline-flex">
                             <select wire:model="sortBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                 <option value="name">
                                         <x-label :value="__('Name')" class="inline-block" />
@@ -58,21 +54,30 @@
                             </select>
                             </div>
                             </div>
-                
+                            </div>
+                            </div>  
                     </div>
-                </div>
+                      <!-- Search Bar -->
+                      
+                      <div class="hidden col-span-2 lg:col-span-2 md:grid items-center align-center relative lg:w-64">
+                        <x-input class="h-9 pr-10" type="search" wire:model="search" autofocus />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-custom-violet absolute right-0" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                
             </div>
         </div>
     </div>
 
 
-    <div class="xl:max-w-6xl mx-auto w-full max-w-4xl">
+    <div class="max-w-md lg:max-w-none lg:ml-0 ml-4">
         <div class="flex flex-col">
-            <div class="my-2 overflow-x-auto">
+            <div class="my-2 overflow-auto">
                 <div class="py-2 align-middle inline-block min-w-full">
                     <div class="shadow overflow-hidden  border-gray-200 sm:rounded-lg">
-                        <table class="table-auto min-w-full divide-y divide-gray-200 border-4 border-gray-500">
-                        <thead class="bg-custom-blacki">
+                        <table class="table-auto max-w-full divide-y divide-gray-200 border-4 border-gray-500">
+                        <thead class="bg-custom-black">
                             <tr>
                                 <th scope="col" class="md:px-6 px-2 py-3 float-left">
                                     <div>
@@ -102,7 +107,7 @@
                             </tr>
                         </thead>
 
-                        <tbody class="bg-custom-blacki divide-y divide-gray-200">
+                        <tbody class="bg-custom-blacki divide-y divide-gray-200 overflow-auto">
                             @forelse ($users as $index => $user)
                             <tr>
                                 <td class="md:px-6 px-2 py-4" wire:key="user-{{ $loop->index }}">
@@ -118,7 +123,7 @@
                                     </div>
                                 </td>
 
-                                <td class="md:px-6 px-2 py-4 whitespace-nowrap">
+                                <td class="md:px-6 px-2 py-4 whitespace-nowrap ">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 h-10 w-10">
                                             <img class="lg:h-10 lg:w-10 w-5 h-5 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
@@ -219,5 +224,5 @@
             </div>
         </div>
     </div>
-
+</div>
 </div>

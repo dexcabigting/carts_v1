@@ -15,7 +15,7 @@
                 <div class="py-2 align-middle inline-block min-w-full">
                     <div class="shadow overflow-hidden  border-gray-200 mx-2 rounded-lg">
                         <table class="table-auto min-w-full divide-y divide-gray-200">
-                            <thead class="bg-custom-blacki">
+                            <thead class="bg-custom-black">
                                 <tr>
                                     <th scope="col" class="md:px-2 py-3 float-left">
                                         <div class="px-4">
