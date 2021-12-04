@@ -4,7 +4,9 @@
             <div class="bg-custom-blacki overflow-hidden shadow-sm rounded-lg mx-2">
                 <div class="p-6 bg-custom-blacki shadow-2xl text-6xl font-extrabold text-center text-gray-300 font-extraboldoverflow-x-auto">
                     My Notifications
-                    {{ count($notifications) }} 
+                    @if(!$notifications->isEmpty())
+                        {{ count($notifications) }} 
+                    @endif
                 </div>
             </div>
         </div>
