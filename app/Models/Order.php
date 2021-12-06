@@ -11,14 +11,23 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
+        'user_address_id',
         'invoice_number',
+        'payment_method',
+        'payment_proof',
         'transaction_fee',
+        'discount',
         'status',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function user_address()
+    {
+        return $this->belongsTo(UserAddress::class);
     }
 
     public function order_variants()

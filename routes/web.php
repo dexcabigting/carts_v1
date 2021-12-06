@@ -30,6 +30,9 @@ use App\Http\Livewire\Checkout\CheckoutIndex;
 // Livewire Orders Component
 use App\Http\Livewire\Orders\OrdersIndex;
 
+// Livewire Notifications Component
+use App\Http\Livewire\Notifications\NotificationsIndex;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -56,6 +59,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('profile/password', [ProfileController::class, 'update_password'])->name('profile.update-password');
     Route::put('profile/address', [ProfileController::class, 'update_address'])->name('profile.update-address');
 
+    // Notifications
+    Route::get('notifications', NotificationsIndex::class)->name('notifications.index');
+    
     // Admin
     Route::middleware('admin')->group(function () {
         // Dashboard
@@ -76,7 +82,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('categories', CategoriesIndex::class)->name('categories.index');
 
         // Orders Livewire Component
-        Route::get('orders', OrdersIndex::class)->name('orders.index');
+        Route::get('orders', OrdersIndex::class)->name('admin-orders.index');
         Route::get('products/customerlist', ProductsCustomerList::class)->name('products.customerlist');
        
     });
@@ -85,13 +91,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('user')->group(function () {
         // Shop Livewire Component
         Route::get('shop', ShopIndex::class)->name('shop.index');
-        Route::get('carts', CartsIndex::class)->name('carts.index');
+        Route::get('my-carts', CartsIndex::class)->name('carts.index');
 
         // Checkout Livewire Component
         Route::get('checkout/{ids}', CheckoutIndex::class)->name('checkout.index');
 
         // Orders Livewire Component
-        Route::get('orders', OrdersIndex::class)->name('orders.index');
+        Route::get('my-orders', OrdersIndex::class)->name('orders.index');
          //2d
         Route::get('products/customize', ProductsCustomize::class)->name('products.customize');
     });

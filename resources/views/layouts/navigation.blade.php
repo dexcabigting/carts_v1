@@ -48,6 +48,13 @@
                     {{ __('Category Management') }}
                 </x-nav-link>
 
+                <x-nav-link class="block w-full px-4 py-2 mt-2 text-sm font-semibold text-gray-100 bg-transparent hover:text-gray-100 focus:text-gray-100 hover:bg-purple-900 focus:bg-custom-violet" :href="route('admin-orders.index')" :active="request()->routeIs('admin-orders.index')">
+                    <div class="mx-4">
+                        <svg class="w-6 h-6 fill-current text-gray-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.47,7.37s0,0,0-.08l-.06-.15a.71.71,0,0,0-.07-.09.94.94,0,0,0-.09-.12l-.09-.07L20,6.78l-7.5-4.63a1,1,0,0,0-1.06,0L4,6.78l-.09.08-.09.07a.94.94,0,0,0-.09.12.71.71,0,0,0-.07.09l-.06.15s0,0,0,.08a1.15,1.15,0,0,0,0,.26v8.74a1,1,0,0,0,.47.85l7.5,4.63h0a.47.47,0,0,0,.15.06s.05,0,.08,0a.86.86,0,0,0,.52,0s.05,0,.08,0a.47.47,0,0,0,.15-.06h0L20,17.22a1,1,0,0,0,.47-.85V7.63A1.15,1.15,0,0,0,20.47,7.37ZM11,19.21l-5.5-3.4V9.43L11,12.82Zm1-8.12L6.4,7.63,12,4.18l5.6,3.45Zm6.5,4.72L13,19.21V12.82l5.5-3.39Z"/></svg>
+                    </div>
+                    {{ __('Order Management') }}
+                </x-nav-link>
+
                 <x-nav-link class="block w-full px-4 py-2 mt-2 text-sm font-semibold text-gray-100 bg-transparent hover:text-gray-100 focus:text-gray-100 hover:bg-purple-900 focus:bg-custom-violet" :href="route('products.customerlist')" :active="request()->routeIs('products.customerlist')">
                     <div class="mx-4">
                         <svg class="w-6 h-6 fill-current text-gray-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.47,7.37s0,0,0-.08l-.06-.15a.71.71,0,0,0-.07-.09.94.94,0,0,0-.09-.12l-.09-.07L20,6.78l-7.5-4.63a1,1,0,0,0-1.06,0L4,6.78l-.09.08-.09.07a.94.94,0,0,0-.09.12.71.71,0,0,0-.07.09l-.06.15s0,0,0,.08a1.15,1.15,0,0,0,0,.26v8.74a1,1,0,0,0,.47.85l7.5,4.63h0a.47.47,0,0,0,.15.06s.05,0,.08,0a.86.86,0,0,0,.52,0s.05,0,.08,0a.47.47,0,0,0,.15-.06h0L20,17.22a1,1,0,0,0,.47-.85V7.63A1.15,1.15,0,0,0,20.47,7.37ZM11,19.21l-5.5-3.4V9.43L11,12.82Zm1-8.12L6.4,7.63,12,4.18l5.6,3.45Zm6.5,4.72L13,19.21V12.82l5.5-3.39Z"/></svg>
@@ -64,6 +71,18 @@
         <div class="flex justify-between h-16">
             <!-- Settings Dropdown -->
             <div class="my-8 sm:flex sm:items-center sm:ml-6 text hidden lg:inline-flex">
+                <div class="flex flex-row text-white"> 
+                    <div>
+                        <a href="{{ route('notifications.index') }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />    
+                            </svg>
+                        </a>
+                    </div>
+                    <div>
+                        @livewire('notifications.notifications-counter')
+                    </div>                    
+                </div>
                 <img src="{{ asset('/img/Group 19.png') }}" alt="" class="rounded-full w-10 h-10 mx-4 border-4 border-custom-violet">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -81,6 +100,10 @@
                         <!-- My Profile -->
                         <x-dropdown-link :href="route('profile.index')" class="font-semibold bg-custom-blacki text-white hover:text-gray-100 focus:text-gray-100 hover:bg-purple-900 focus:bg-custom-violet">
                             {{ __('My Profile') }}
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('notifications.index')" class="font-semibold bg-custom-blacki text-white hover:text-gray-100 focus:text-gray-100 hover:bg-purple-900 focus:bg-custom-violet">
+                            {{ __('Notifications') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -134,6 +157,10 @@
                 {{ __('Category Management') }}
             </x-responsive-nav-link>
 
+            <x-responsive-nav-link :href="route('admin-orders.index')" :active="request()->routeIs('admin-orders.index')">
+                {{ __('Order Management') }}
+            </x-responsive-nav-link>
+
             <x-responsive-nav-link :href="route('products.customerlist')" :active="request()->routeIs('products.customerlist')">
                 {{ __('Custom Management') }}
             </x-responsive-nav-link>
@@ -151,6 +178,10 @@
                 <!-- My Profile -->
                 <x-responsive-nav-link :href="route('profile.index')">
                     {{ __('My Profile') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('notifications.index')">
+                    {{ __('Notifications') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->

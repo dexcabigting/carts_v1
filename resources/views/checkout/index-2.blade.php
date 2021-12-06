@@ -29,10 +29,10 @@
                     @forelse($userCarts as $userCart)
 
                         @foreach($userCart->cartItemSizes() as $key => $value)
-                            <tr>
+                            <tr >
                                 @if($loop->first)
                                     <td class="md:px-6 py-4 whitespace-nowrap">
-                                        <div>
+                                        <div wire:key="{{ $loop->index }}">
                                             <span class="font-semibold text-xl text-gray-800 leading-tight">
                                                 {{ $userCart->product_variant->product->prd_name }}: {{ $userCart->product_variant->prd_var_name }}
                                                 @php($price = $userCart->product_variant->product->prd_price)

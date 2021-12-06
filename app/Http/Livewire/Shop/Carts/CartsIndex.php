@@ -79,7 +79,7 @@ class CartsIndex extends Component
 
     public function openDeleteCartModal($id)
     {
-        dd($this->cartId = $id);
+        $this->cartId = $id;
 
         $this->cartDeleteModal = true;
     }

@@ -20,7 +20,7 @@ class ProductStock extends Model
         '2XL',
     ];
 
-    public function product_variant()
+    public function productVariant()
     {
         return $this->belongsTo(ProductVariant::class);
     }

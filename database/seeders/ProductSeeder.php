@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\ProductStock;
+use Illuminate\Support\Facades\Storage;
 
 class ProductSeeder extends Seeder
 {
@@ -14,7 +14,12 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        //
-        ProductStock::factory()->count(10)->create();
+        Storage::deleteDirectory('public/images');
+
+        $this->call([
+            JerseySeeder::class,
+            ShirtSeeder::class,
+            LongSleevesSeeder::class,
+        ]);
     }
 }

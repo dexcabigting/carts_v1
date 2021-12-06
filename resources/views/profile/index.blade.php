@@ -41,76 +41,10 @@
                         </form>
                     </div>
 
-                    <div class="pt-4">
-                    <h2 class="font-semibold text-xl text-gray-100 leading-tight mb-6">
-                            {{ __('Address') }}
-                        </h2>                      
-
-                        <form method="POST" action="{{ route('profile.update-address') }}">
-                            @method('PUT')
-                            @csrf
-
-                             <div class="mt-4">
-                                <x-label class="text-xl mb-4 text-white  " for="home_address" :value="__('Home Address')" />
-
-                                <x-input id="home_address" class="block mt-1 w-full" type="text" placeholder="ex. Street Apartment no." name="home_address" value="{{ $userAddress->home_address ?? ''  }}" required />
-                            </div>
-
-                            <!-- Address -->
-                            <div class="block md:flex fle-row">
-                            <div class="mt-4 ">
-                                <x-label for="region" value="{{ $userAddress->region ?? '' }}" />
-                                <select class="rounded-lg lg:pr-16 pr-4 w-full" id="region" value="{{ $userAddress->region ?? '' }}">
-                                    <option>
-                                        Region
-                                    </option>
-                                </select>
-                                <x-input id="region-text" type="hidden" name="region" value="{{ $userAddress->region ?? '' }}" />
-                            </div>
-
-                            <div class="mt-4 md:ml-4">
-                                <x-label for="province" value="{{ $userAddress->province ?? '' }}" />
-                                <select class="rounded-lg md:pr-20 w-full md:w-auto" id="province">
-                                    <option>
-                                        <h1 class="px-12">Province</h1>
-                                    </option>
-                                </select>
-                                <x-input id="province-text" type="hidden" name="province" value="{{ $userAddress->province ?? '' }}" />
-                            </div>
-                            </div>
-
-                            
-                            <div class="mt-4">
-                                <x-label for="city" value="{{ $userAddress->city ?? '' }}" />
-                                <select class="rounded-lg w-full" id="city">
-                                    <option>
-                                        City
-                                    </option>
-                                </select>
-                                <x-input id="city-text" type="hidden" name="city" value="{{ $userAddress->city ?? '' }}" />
-                            </div>
-
-                            <div class="mt-4">
-                                <x-label for="barangay" value="{{ $userAddress->barangay ?? '' }}" />
-                                <select class="rounded-lg w-full" name="barangay" id="barangay">
-                                    <option>
-                                        Barangay
-                                    </option>
-                                </select>
-                                <x-input id="barangay-text" type="hidden" name="barangay" value="{{ $userAddress->barangay ?? '' }}" />
-                            </div>
-                            
-                            
-
-                            <div class="flex items-center justify-end mt-4">
-                                <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white w-full px-4 py-2 bg-custom-violet my-3">
-                                    {{ __('Update Address') }}
-                                </x-button>
-                            </div>
-
-                        </form>
+                    <div>
+                        @livewire('profile.profile-index-address')
                     </div>
-
+                    
                     <div class="pt-4">
                         <h2 class="font-semibold text-xl text-gray-100 leading-tight mb-4">
                             {{ __('Password') }}
@@ -152,55 +86,60 @@
     <script type="text/javascript">
         var my_handlers = {
             fill_provinces: function() {
-                var region_code = $(this).val();
-                $("#region-text").val($(this).find(`option[value=${region_code}]`).html());
+                var region_code = $("#region").val();
+                $("#region-text").val($("#region").find(`option[value=${region_code}]`).html());
                 $('#province').ph_locations('fetch_list', [{
                     "region_code": region_code
                 }]);
 
             },
             fill_cities: function() {
-                var province_code = $(this).val();
-                $("#province-text").val($(this).find(`option[value=${province_code}]`).html());
+                var province_code = $("#province").val();
+                $("#province-text").val($("#province").find(`option[value=${province_code}]`).html());
                 $('#city').ph_locations('fetch_list', [{
                     "province_code": province_code
                 }]);
             },
             fill_barangays: function() {
-                var city_code = $(this).val();
-                $("#city-text").val($(this).find(`option[value=${city_code}]`).html());
+                var city_code = $("#city").val();
+                $("#city-text").val($("#city").find(`option[value=${city_code}]`).html());
                 $('#barangay').ph_locations('fetch_list', [{
                     "city_code": city_code
                 }]);
                 // Automatically extract to barangay text because the user may thought that his/her barangay has already been selected.
-                const observer = new MutationObserver((children, observer) => {
-                    observer.disconnect();
-                    var selected_barangay_number = $("#barangay").val();
-                    var selected_barangay_name = $(`#barangay option[value=${selected_barangay_number}]`).html();
-                    $("#barangay-text").val(selected_barangay_name);
-                });
-                observer.observe(document.querySelector("#barangay"), {
-                    "childList": true
-                });
+                // const observer = new MutationObserver((children, observer) => {
+                //     observer.disconnect();
+                //     var selected_barangay_number = $("#barangay").val();
+                //     var selected_barangay_name = $(`#barangay option[value=${selected_barangay_number}]`).html();
+                //     $("#barangay-text").val(selected_barangay_name);
+                // });
+                // observer.observe(document.querySelector("#barangay"), {
+                //     "childList": true
+                // });
             },
             put_barangay: function() {
-                var barangay_code = $(this).val();
-                $("#barangay-text").val($(this).find(`option[value=${barangay_code}]`).html());
+                var barangay_code = $("#barangay").val();
+                $("#barangay-text").val($("#barangay").find(`option[value=${barangay_code}]`).html());
             }
         };
-        $(function() {
 
+        function observe(location, label, nextLocation) {
             const observer = new MutationObserver((children, observer) => {
                 observer.disconnect();
-                $("#region").prepend("<option value=\"label\"t>Region</option>");
-                $("#region").val("label");
-                // const options = $("#region > option");
-                // for (const i = 0; i < 
-
+                $(location).prepend("<option value=\"label\">"+label+"</option>");
+                $(location).val("label");
+                $(nextLocation+" option").attr("selected", true);
+                observe(location, label, nextLocation);
             });
-            observer.observe(document.querySelector("#region"), {
+            observer.observe(document.querySelector(location), {
                 "childList": true
             });
+        }
+
+        $(function() {
+            observe("#region", "Region", "#province");
+
+
             $('#region').on('change', my_handlers.fill_provinces);
             $('#province').on('change', my_handlers.fill_cities);
             $('#city').on('change', my_handlers.fill_barangays);
@@ -223,6 +162,12 @@
             //     $("#region").prepend("<option value=\"label\"t>Region</option>");
             //     $("#region").val("label");
             // }, 500);
+        });
+    </script>
+
+    <script>
+        window.addEventListener('loadRegions', function () {
+            $('#region').ph_locations('fetch_list');
         });
     </script>
 </x-app-user-layout>

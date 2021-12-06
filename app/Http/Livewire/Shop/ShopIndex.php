@@ -59,13 +59,23 @@ class ShopIndex extends Component
         $categories = $categories->pluck('id')->toArray();
         $fabrics = $fabrics->pluck('id')->toArray();
 
-        $category = is_string($category) && $category != 'All' ? [$category] : $categories;
-        $fabric = is_string($fabric) && $fabric != 'All' ? [$fabric] : $fabrics;
+        $category = is_string($category) && $category != 'All' ? [+$category] : $categories;
+        $fabric = is_string($fabric) && $fabric != 'All' ? [+$fabric] : $fabrics;
 
         return Product::with('product_variants', 'category', 'fabric')
             ->where('prd_name', 'like', $search)
-            ->whereIn('category_id', $category)
+            ->whereIn('products.category_id', $category)
             ->whereIn('fabric_id', $fabric);
+    }
+
+    public function updatingCategory()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFabric()
+    {
+        $this->resetPage();
     }
 
     public function updatingSearch()

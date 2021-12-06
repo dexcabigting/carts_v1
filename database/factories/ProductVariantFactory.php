@@ -23,9 +23,9 @@ class ProductVariantFactory extends Factory
     public function definition()
     {
         return [
-            "prd_var_name" => Str::random(30),
-            "front_view" => Str::random(30),
-            "back_view" => Str::random(30)
+            'prd_var_name' => Str::random(30),
+            'front_view' => Str::random(30),
+            'back_view' => Str::random(30),
         ];
     }
 }

@@ -8,28 +8,33 @@ use Illuminate\Support\Str;
 
 use App\Models\Order;
 use App\Models\OrderVariant;
-use App\Models\OrderItem;
 use App\Models\Cart;
 use App\Models\ProductStock;
+use App\Models\UserAddress;
 
 use LVR\CreditCard\CardNumber;
 use LVR\CreditCard\CardExpirationDate;
 
+use Livewire\WithFileUploads;
+
+use App\Events\OrderCreated;
+
 class CheckoutIndex extends Component
 {
+    use WithFileUploads;
+
     public $userCarts;
     public $price;
     public $cartQuantity;
-    public $carts = [];
-    public $userAddress;
     public $pages = 1;
     public $amount;
-    public $form = [];
     public $paymentMethod;
     public $total;
     public $isPaymentSuccessful = 0;
-
     public $discount;
+    public $carts = [];
+    public $form = [];
+    public $productsAndVariants = [];
 
     protected function rules()
     {
@@ -44,17 +49,13 @@ class CheckoutIndex extends Component
                 'form.city' => ['required', 'string', 'exists:user_addresses,city'],
                 'form.barangay' => ['required', 'string', 'exists:user_addresses,barangay'],
                 'form.home_address' => ['required', 'string', 'exists:user_addresses,home_address'],
-                'form.postal_code' => ['required', 'string'],
-                'form.country' => ['required', 'string', 'in:PH'],
             ],
             3 => [
                 'form.amount' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-                'form.type' => ['required', 'string', 'in:card,gcash'],
+                'form.type' => ['required', 'string', 'in:card,GCash'],
             ],
-            4 => [
-                'form.card_number' => ['required', 'string',  new CardNumber],
-                'form.exp_date' => ['required', 'string', 'date_format:Y-m', new CardExpirationDate('Y-m')],
-                'form.cvc' => ['required', 'string', 'min:3', 'max:3'],
+            5 => [
+                'form.proof' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             ], 
         ];
     }
@@ -67,12 +68,9 @@ class CheckoutIndex extends Component
         'form.city' => 'city',
         'form.barangay' => 'barangay',
         'form.home_address' => 'home address',
-        'form.postal_code' => 'postal code',
         'form.amount' => 'amount',
         'form.type' => 'payment method',
-        'form.card_number' => 'card number',
-        'form.exp_date' => 'expiration date',
-        'form.cvc' => 'card validation code',
+        'form.proof' => 'proof of payment',
     ];
 
     public function mount($ids)
@@ -85,48 +83,81 @@ class CheckoutIndex extends Component
             $this->carts = [$this->carts];
         }
 
-        // Cart::findOrFail($this->carts);
-
         $this->userCarts = auth()->user()->userCarts($this->carts)->with('product_variant.product')->get();
 
         $this->discount = 0;
 
-        foreach($this->userCarts as $item) {
+        $this->productsAndVariants = [
+            0 => [
+                'product' => '',
+                'variant' => '',
+            ],
+        ];
+
+        foreach($this->userCarts as $index => $item) {
             $sum = $item->cartItemSizes()->sum();
+
+            $this->productsAndVariants[$index]['product'] = $item->product_variant->product->prd_name;
+            $this->productsAndVariants[$index]['variant'] = $item->product_variant->prd_var_name;
 
             if($item->product_variant->product->category_id == 1) {
                 if($sum >= 10) {
                     $this->discount = $this->discount + (100 * $sum);
                 } else {
+                    $this->discount = 0.00;
                 }
             }
-        }
-        //      
+        } 
 
         $this->cartQuantity = auth()->user()->userCartItems($this->carts)->count();
 
-        $this->userAddress = auth()->user()->userAddresses()->where('is_main_address', 1)->first();
+        $this->selectedAddress = auth()->user()->userAddresses()
+                                    ->where('is_main_address', 1)
+                                    ->first()->id; 
 
         $this->form = [
             'name' => auth()->user()->name,
             'email' => auth()->user()->email,
             'phone' => auth()->user()->phone,
-            'province' => Str::ucfirst(Str::lower($this->userAddress->province)),
-            'city' => ucwords(Str::lower($this->userAddress->city)),
-            'barangay' => $this->userAddress->barangay,
-            'home_address' => $this->userAddress->home_address,
-            'postal_code' => '',
-            'country' => 'PH',
+            'province' => '',
+            'city' => '',
+            'barangay' => '',
+            'home_address' => '',
+            // 'postal_code' => '',
+            // 'country' => 'PH',
             'amount' => '',
             'type' => '',
-            'card_number' => '',
-            'exp_date' => '',
-            'cvc' => '',
+            'proof' => '',
         ];
+    }
+
+    public function render()
+    {
+        // dd($this->productsAndVariants);
+
+        $userAddress = $this->user_address->first();
+
+        $this->form['province'] = Str::ucfirst(Str::lower($userAddress->province));
+        $this->form['city'] = Str::ucfirst(Str::lower($userAddress->city));
+        $this->form['barangay'] = $userAddress->barangay;
+        $this->form['home_address'] = $userAddress->home_address;
+        $this->form['amount'] = number_format($this->total, 2, ".", "");
+
+        $userAddresses = auth()->user()->userAddresses()
+                                ->get()->pluck('id')->toArray(); 
+
+        return view('livewire.checkout.checkout-index', compact('userAddress', 'userAddresses'))->layout('layouts.app-user');
+    }
+
+    public function getUserAddressProperty()
+    {
+        return UserAddress::where('id', $this->selectedAddress);
     }
 
     public function previousPage()
     {
+        $this->resetValidation();
+
         $this->pages--;
     }
 
@@ -163,54 +194,56 @@ class CheckoutIndex extends Component
         } else {
             $this->pages++;
             
-            $this->paymentMethod = 'card';
+            $this->paymentMethod = $this->form['type'];
         }
     }
 
     public function gotoPageFive()
     {
         // Date will be validated here
-        $this->validate($this->rules()[$this->pages]);
-
+        // $this->validate($this->rules()[$this->pages]);
+        // dd($this->form);
         $this->pages++;
 
-        $date = date_create_from_format('Y-m', $this->form['exp_date']);
-        $exp_year = date_format($date, 'y');
-        $exp_month = date_format($date, 'n');
+        // $date = date_create_from_format('Y-m', $this->form['exp_date']);
+        // $exp_year = date_format($date, 'y');
+        // $exp_month = date_format($date, 'n');
 
-        $amount = $this->form['amount'];
-        $this->paymentIntent($amount);
+        // $amount = $this->form['amount'];
+        // $this->paymentIntent($amount);
 
-        $type = $this->form['type'];
-        $details = [
-            'card_number' => $this->form['card_number'],
-            'exp_month' => $exp_month,
-            'exp_year' => $exp_year,
-            'cvc' => $this->form['cvc'],
-        ];
-        $address = [
-            'province' => $this->form['province'],
-            'city' => $this->form['city'],
-            'barangay' => $this->form['barangay'],
-            'home_address' => $this->form['home_address'],
-            'postal_code' => $this->form['postal_code'],
-            'country' => $this->form['country'],
-        ];
-        $info = [
-            'name' => $this->form['name'],
-            'email' => $this->form['email'],
-            'phone' => $this->form['phone'],
-        ];
-        $this->paymentMethod($type, $details, $address, $info);
+        // $type = $this->form['type'];
+        // $details = [
+        //     'card_number' => $this->form['card_number'],
+        //     'exp_month' => $exp_month,
+        //     'exp_year' => $exp_year,
+        //     'cvc' => $this->form['cvc'],
+        // ];
+        // $address = [
+        //     'province' => $this->form['province'],
+        //     'city' => $this->form['city'],
+        //     'barangay' => $this->form['barangay'],
+        //     'home_address' => $this->form['home_address'],
+        //     'postal_code' => $this->form['postal_code'],
+        //     'country' => $this->form['country'],
+        // ];
+        // $info = [
+        //     'name' => $this->form['name'],
+        //     'email' => $this->form['email'],
+        //     'phone' => $this->form['phone'],
+        // ];
+        // $this->paymentMethod($type, $details, $address, $info);
     }
 
     public function placeOrder()
     {
         // Re-validate whole form
-
+        
         $rules = collect($this->rules())->collapse()->toArray();
 
         $this->validate($rules);
+
+        // dd('hello');
 
         // Do this if user confirms the payment
 
@@ -233,66 +266,65 @@ class CheckoutIndex extends Component
 
     public function cancelPaymentIntent()
     {
-        $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
-        $cancelPaymentIntent = $paymentIntent->cancel();
+        // $paymentIntent = Paymongo::paymentIntent()->find(session('paymentIntentId'));
+        // $cancelPaymentIntent = $paymentIntent->cancel();
+        $this->form['proof'] = null;
 
         $this->resetValidation();
 
         $this->pages--;
     }
 
-    private function paymentIntent($amount)
-    {
-        $paymentIntent = Paymongo::paymentIntent()->create([
-            'amount' => $amount,
-            'payment_method_allowed' => [
-                'card'
-            ],
-            'payment_method_options' => [
-                'card' => [
-                    'request_three_d_secure' => 'automatic'
-                ]
-            ],
-            'description' => 'This is a test payment intent',
-            'statement_descriptor' => 'EJ Ezon Sportswear',
-            'currency' => "PHP",
-        ]);
+    // private function paymentIntent($amount)
+    // {
+    //     $paymentIntent = Paymongo::paymentIntent()->create([
+    //         'amount' => $amount,
+    //         'payment_method_allowed' => [
+    //             'card'
+    //         ],
+    //         'payment_method_options' => [
+    //             'card' => [
+    //                 'request_three_d_secure' => 'automatic'
+    //             ]
+    //         ],
+    //         'description' => 'This is a test payment intent',
+    //         'statement_descriptor' => 'EJ Ezon Sportswear',
+    //         'currency' => "PHP",
+    //     ]);
 
-        session(['paymentIntentId' => $paymentIntent->id]);
-    }
+    //     session(['paymentIntentId' => $paymentIntent->id]);
+    // }
 
-    private function paymentMethod($type, $details, $address, $info)
-    {
-        $paymentMethod = Paymongo::paymentMethod()->create([
-            'type' => $type,
-            'details' => [
-                'card_number' => $details['card_number'],
-                'exp_month' => +$details['exp_month'],
-                'exp_year' => +$details['exp_year'],
-                'cvc' => $details['cvc'],
-            ],
-            'billing' => [
-                'address' => [
-                    'line1' => $address['home_address'] . ' ' . $address['barangay'],
-                    'city' => $address['city'],
-                    'state' => $address['province'],
-                    'country' => $address['country'],
-                    'postal_code' => $address['postal_code'],
-                ],
-                'name' => $info['name'],
-                'email' => $info['email'],
-                'phone' => $info['phone'],
-            ],
-        ]);
+    // private function paymentMethod($type, $details, $address, $info)
+    // {
+    //     $paymentMethod = Paymongo::paymentMethod()->create([
+    //         'type' => $type,
+    //         'details' => [
+    //             'card_number' => $details['card_number'],
+    //             'exp_month' => +$details['exp_month'],
+    //             'exp_year' => +$details['exp_year'],
+    //             'cvc' => $details['cvc'],
+    //         ],
+    //         'billing' => [
+    //             'address' => [
+    //                 'line1' => $address['home_address'] . ' ' . $address['barangay'],
+    //                 'city' => $address['city'],
+    //                 'state' => $address['province'],
+    //                 'country' => $address['country'],
+    //                 'postal_code' => $address['postal_code'],
+    //             ],
+    //             'name' => $info['name'],
+    //             'email' => $info['email'],
+    //             'phone' => $info['phone'],
+    //         ],
+    //     ]);
 
-        session(['paymentMethodId' => $paymentMethod->id]);
-    }
+    //     session(['paymentMethodId' => $paymentMethod->id]);
+    // }
 
     private function moveCartsToOrders()
     {
         // Dump something here.
-       
-        // dd();
 
         // Check if an orders record exists. 
         // If yes, the latest record's primary id will be incremented to be the next record's invoice number.
@@ -300,6 +332,8 @@ class CheckoutIndex extends Component
         
         $transactionFee = round((($this->amount - $this->discount) + 15) / ( (100-3.5) / 100 ) - ($this->amount - $this->discount), 2);
 
+        $discount = $this->discount;
+        
         $ordersQuery = Order::query();
 
         $checkIfOrdersExist = $ordersQuery->first();
@@ -310,11 +344,21 @@ class CheckoutIndex extends Component
             $invoiceNumber = "EJ-Ezon-" . Str::padLeft(1, 6, 0);
         }
 
+        $paymentProof = $this->form['proof'];
+
+        $newPaymentProofName = $invoiceNumber . '-' . Str::random(10) . '.' . $paymentProof->extension();
+    
+        $paymentProofPath = $paymentProof->storeAs('/images/proofs_of_payment', $newPaymentProofName,'public');
+
         $newOrder = Order::create([
             'invoice_number' => $invoiceNumber,
             'user_id' => auth()->user()->id,
+            'user_address_id' => $this->selectedAddress,
+            'payment_method' => $this->form['type'],
+            'payment_proof' => $paymentProofPath,
             'transaction_fee' => $transactionFee,
-            'status' => 'pending',
+            'discount' => $discount,
+            'status' => 'Pending',
         ]);
 
         // Save the product variant(s), that is/are ordered by the user, on order_variants.
@@ -351,12 +395,11 @@ class CheckoutIndex extends Component
                 ]);
             }
         }
+
+        $order = $newOrder->load('user:id,name');
+
+        event(new OrderCreated($order));
         
         Cart::whereIn('id', $cartIds)->delete();
-    }
-
-    public function render()
-    {
-        return view('livewire.checkout.checkout-index')->layout('layouts.app-user');
     }
 }
