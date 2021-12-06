@@ -5,8 +5,8 @@
 
     <div class="m-auto z-20">
         <div class="max-w-lg mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white shadow-sm rounded-lg border-2 border-transparent">
-                <div class="p-6 bg-white border-b border-gray-200">
+            <div class="shadow-sm bg-custom-blacki rounded-lg border-2 border-transparent">
+                <div class="p-6 bg-custom-blacki">
                     @include('products.delete')
                 </div>
             </div>

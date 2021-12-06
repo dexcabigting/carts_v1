@@ -1,4 +1,5 @@
-<div class="h-1/2 mt-4 2xl:mx-80 lg:mx-40">
+<div class="flex flex-col justify-center items-center">
+<div class="h-1/2 mt-4 2xl:mx-96 xl:mx-48 lg:mx-24">
 <div class="" id="slider">
 	<div id="line">
 
@@ -10,7 +11,7 @@
 		<li><img src="img/NEW_JERSEY_SIZE_CHART.jpg"></li>
 		<li><img src="img/NEW_LONG_SLEEVE_SIZE_CHART.jpg"></li>
 		<li><img src="img/NEW_SHIRT_SIZE_CHART.jpg"></li>
-	</ul>
+	</ul> 
 	<div id="back">
 		<
 	</div>
@@ -25,12 +26,12 @@
 </div>
 
 <div>
-    <div class="pt-12 pb-6 md:px-24 lg:px-44">
-        <div class="mx-2 md:max-w-6xl md:mx-auto">
+    <div class="pt-12 pb-6 lg:px-24">
+        <div class="mx-2 w-full md:mx-auto">
             <div class="shadow-xl overflow-hidden rounded-lg">
-                <div class="block md:flex md:flex-row items-center md:justify-start lg:gap-5 p-6 bg-custom-blacki overflow-x-auto">
+                <div class="block md:flex md:flex-row items-center md:justify-center lg:gap-2 p-6 bg-custom-blacki overflow-x-auto">
                     <!-- Category and Fabric filter -->
-                    <div class="mx-12 flex flex-col xl:flex-row">
+                    <div class="px-12 flex flex-col xl:flex-row">
                         <div class="flex flex-col xl:flex-row items-center justify-center text-base font-medium text-gray-100 py-4 my-2 md:my-0">
                         <div class="flex flex-row">   
                         <select wire:model="category" class="my-2 mx-2 text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
@@ -56,8 +57,8 @@
                                 @endforeach
                             </select>
                             </div> 
-                            <div class="flex flex-col md:flex-row w-full md:-ml-8">
-                    <div class=" text-white font-semibold lg:text-xl md:ml-12 text-sm my-4 md:my-0 md:text-center text-left">
+                            <div class="flex flex-col md:flex-row w-full ml-10">
+                    <div class=" text-white font-semibold lg:text-xl text-sm my-4 md:my-0 text-center md:text-left">
                         Browse our products!
                     </div>
 
@@ -78,7 +79,7 @@
             </div>
         </div>
     </div>
-
+</div>
     <div class="my-12 pb-6 w-full justify-center items-center flex">
         <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-6xl md:mx-24 lg:mx-42 mx-4 xl:mx-auto">
             @forelse ($products as $product)
@@ -87,7 +88,7 @@
                 <div class="p-5 bg-white m-auto rounded-lg relative">
                     <img class="bg-black py-2 px-2 h-10 w-10 absolute top-0 right-0 rounded-tr-md" src="img/Group 12.svg">
                     <div class="flex-none m-auto p-10 bg-white shadow-2xl">
-                        <img class="h-40 w-40" src="{{ Storage::url('public/' . $product->product_variants->first()->front_view) }}" />
+                        <img class="h-40 w-40" src="{{ Storage::url('public/'.$product->product_variants->first()->front_view) }}" />
                     </div>
 
                     <div class="text-black text-2xl absolute bottom-5 right-5">

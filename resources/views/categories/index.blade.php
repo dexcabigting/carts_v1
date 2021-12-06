@@ -23,7 +23,7 @@
                     <!-- Order By -->
                     <div class="xl:px-4">
                         <div class="flex flex-col xl:flex-row text-sm font-medium text-gray-100 py-4">
-                            <div class="w-full px-1 py-2 md:p-0">
+                            <div class="mx-2">
                                 <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-base 2xl:text-xl" />
                             </div>
 

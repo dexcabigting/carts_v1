@@ -36,7 +36,6 @@
            
         </button>
         <div x-show="showMenu">
-            
             <nav class="flex flex-col">
                 <a href="#" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
                     HOME
@@ -132,7 +131,6 @@
         </div>
     </div>
   </section>
-       
         
 
             <div class="relative flex justify-center items-center md:-mt-24 py-24">
