@@ -19,7 +19,9 @@ class SalesIndex extends Component
     {
         return OrderVariant::select('product_variant_id', 
                                     DB::raw('sum(amount) as amount'), 
-                                    DB::raw('count(*) as variant'),)
+                                    DB::raw('count(*) as variant'),
+                                    DB::raw('max(created_at) as latest'),
+                                    DB::raw('min(created_at) as earliest'))
                             ->groupBy('product_variant_id')
                             ->with(['product_variant' => function ($query) {
                                 $query->select('id', 'product_id', 'prd_var_name')
@@ -27,6 +29,8 @@ class SalesIndex extends Component
                                         $query->select('id', 'prd_name');
                                     }]);
                             }])
+                            ->whereDate('created_at', '>=', '2021-12-06')
+                            ->whereDate('created_at', '<=', '2021-12-07')
                             ->get()->toArray();
     }
 }
