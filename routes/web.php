@@ -33,6 +33,9 @@ use App\Http\Livewire\Orders\OrdersIndex;
 // Livewire Notifications Component
 use App\Http\Livewire\Notifications\NotificationsIndex;
 
+// Livewire Sales Component
+use App\Http\Livewire\Sales\SalesIndex;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -84,6 +87,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Orders Livewire Component
         Route::get('orders', OrdersIndex::class)->name('admin-orders.index');
         Route::get('products/customerlist', ProductsCustomerList::class)->name('products.customerlist');
+
+        // Sales Livewire Component
+        Route::get('sales', SalesIndex::class)->name('sales.index');
        
     });
 
