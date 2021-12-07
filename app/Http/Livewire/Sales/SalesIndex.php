@@ -8,6 +8,6 @@ class SalesIndex extends Component
 {
     public function render()
     {
-        return view('livewire.sales.sales-index');
+        return view('livewire.sales.sales-index')->layout('layouts.app');
     }
 }
