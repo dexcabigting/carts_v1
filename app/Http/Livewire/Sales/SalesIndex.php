@@ -20,8 +20,8 @@ class SalesIndex extends Component
         return OrderVariant::select('product_variant_id', 
                                     DB::raw('sum(amount) as amount'), 
                                     DB::raw('count(*) as variant'),
-                                    DB::raw('max(created_at) as latest'),
-                                    DB::raw('min(created_at) as earliest'))
+                                    DB::raw('min(created_at) as earliest'),
+                                    DB::raw('max(created_at) as latest'))
                             ->groupBy('product_variant_id')
                             ->with(['product_variant' => function ($query) {
                                 $query->select('id', 'product_id', 'prd_var_name')
