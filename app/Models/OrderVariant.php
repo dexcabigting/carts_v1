@@ -15,6 +15,13 @@ class OrderVariant extends Model
         'amount',
     ];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'earliest',
+        'latest',
+];
+
     public function order()
     {
         return $this->belongsTo(Order::class);
