@@ -37,6 +37,20 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                </div>
+
+                                <div>
+                                    <!-- Product Filter -->
+                                    <select wire:model="productId" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                        <option value="%%">
+                                                <x-label :value="__('Product')" class="inline-block" />
+                                        </option>
+                                        @foreach($products as $product)
+                                            <option value="{{ $product['id'] }}">
+                                                <x-label value="{{ $product['prd_name'] }}" class="inline-block" />
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>                                
                             </div>
                         </div>
@@ -64,9 +78,9 @@
                                     <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         No.
                                     </th>
-                                    {{--<th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Product
-                                    </th>--}}
+                                    </th>
                                     <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Variant
                                     </th>
@@ -92,6 +106,12 @@
                                     <td class="md:px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
                                             {{ $sales->firstItem() + $index }}
+                                        </div>
+                                    </td>
+
+                                    <td class="md:px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            {{ $sale->product_variant->product->prd_name }}
                                         </div>
                                     </td>
 
@@ -129,7 +149,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td class="md:px-6 py-4 text-center" colspan="5">
+                                    <td class="md:px-6 py-4 text-center" colspan="6">
                                         <div>
                                             <span class=" text-2xl font-semibold text-gray-400 leading-tight">
                                                 {{ __('There are no sales!') }}
@@ -139,7 +159,7 @@
                                 </tr>
                                 @endforelse
                                 <tr>
-                                    <td class="md:px-6 py-4 text-center" colspan="2">
+                                    <td class="md:px-6 py-4 text-center" colspan="3">
                                     </td>
 
                                     <td class="md:px-6 py-4 text-right">

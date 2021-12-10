@@ -8,6 +8,7 @@ use Livewire\WithPagination;
 // use App\Models\Order;
 use App\Models\Category;
 use App\Models\Fabric;
+use App\Models\Product;
 use App\Models\OrderVariant;
 
 use Illuminate\Support\Facades\DB;
@@ -23,6 +24,7 @@ class SalesIndex extends Component
     public $productVariantId = '%%';
     public $categories;
     public $fabrics;
+    // public $products;
 
     public function mount()
     {
@@ -38,7 +40,9 @@ class SalesIndex extends Component
         // dd($this->sales->get()->toArray());
         $sales = $this->sales->paginate(10);
 
-        return view('livewire.sales.sales-index', compact('sales'))->layout('layouts.app');
+        $products = $this->products->get()->toArray();
+
+        return view('livewire.sales.sales-index', compact('sales', 'products'))->layout('layouts.app');
     }
 
     public function getSalesProperty()
@@ -50,7 +54,8 @@ class SalesIndex extends Component
                             DB::raw('max(created_at) as latest'))
                     ->groupBy('product_variant_id')
                     ->with(['product_variant' => function ($query) {
-                            $query->select('id', 'product_id', 'prd_var_name');
+                            $query->select('id', 'product_id', 'prd_var_name')
+                                    ->with(['product:id,prd_name']);
                         }])
                     ->whereHas('product_variant', function ($query) {
                             $query->whereHas('product', function ($query) {
@@ -62,8 +67,15 @@ class SalesIndex extends Component
                     ->where('product_variant_id', 'like', $this->productVariantId);                    
     }
 
+    public function getProductsProperty()
+    {
+        return Product::select('id', 'prd_name')
+                ->where('category_id', 'like', $this->categoryId)
+                ->where('fabric_id', 'like', $this->fabricId);
+    }
+
     public function resetFilter()
     {
-        $this->reset(['categoryId', 'fabricId']);
+        $this->reset(['categoryId', 'fabricId', 'productId']);
     }
 }
