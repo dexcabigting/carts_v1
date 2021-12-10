@@ -1,38 +1,24 @@
 <div class="h-screen">
-    {{--<div class="pt-12 pb-6">
+    <div class="pt-12 pb-6">
         <div class="max-w-5xl mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="flex flex-row gap-5 p-6 bg-custom-blacki shadow-2xl overflow-x-auto">
-                     <!-- Order By -->
+                    <!-- Filter By -->
                     <div class="px-4">
                         <div class="flex flex-col xl:flex-row text-sm font-medium text-gray-100 py-4">
                             <div class="w-1/3">
-                                <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-base 2xl:text-xl" />
+                                <x-label :value="__('Filter by')" class="font-semibold text-gray-50 inline-block text-base 2xl:text-xl" />
                             </div>
 
                             <div class="flex flex-row">
-                                <select wire:model="sortColumn" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                    <option value="name">
-                                        <x-label :value="__('Customer Name')" class="inline-block" />
-                                    </option>
 
-                                    <option value="invoice_number">
-                                        <x-label :value="__('Invoice Number')" class="inline-block" />
-                                    </option>
-
-                                    <option value="created_at">
-                                        <x-label :value="__('Date Created')" class="inline-block" />
-                                    </option>
-                                </select>
-
-                                <select wire:model="sortDirection" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
-                                    <option value="asc">
-                                        <x-label :value="__('Ascending')" class="inline-block" />
-                                    </option>
-
-                                    <option value="desc">
-                                        <x-label :value="__('Descending')" class="inline-block" />
-                                    </option>
+                                <!-- Category Filter -->
+                                <select wire:model="categoryId" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                    @foreach($categories as $category)
+                                        <option value="{{ $category['id'] }}">
+                                            <x-label value="{{ $category['ctgr_name'] }}" class="inline-block" />
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -48,7 +34,7 @@
                 </div>
             </div>
         </div>
-    </div>--}}
+    </div>
 
     <div class="max-w-5xl mx-auto">
         <div class="flex flex-col">
@@ -126,7 +112,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td class="md:px-6 py-4 text-center" colspan="4">
+                                    <td class="md:px-6 py-4 text-center" colspan="5">
                                         <div>
                                             <span class=" text-2xl font-semibold text-gray-400 leading-tight">
                                                 {{ __('There are no sales!') }}
