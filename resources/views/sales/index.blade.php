@@ -85,6 +85,12 @@
                                         Variant
                                     </th>
                                     <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Category
+                                    </th>
+                                    <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Fabric
+                                    </th>
+                                    <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Quantity
                                     </th>
                                     <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -123,6 +129,18 @@
 
                                     <td class="md:px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
+                                            {{ $sale->product_variant->product->category->ctgr_name }}
+                                        </div>
+                                    </td>
+
+                                    <td class="md:px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            {{ $sale->product_variant->product->fabric->fab_name }}
+                                        </div>
+                                    </td>
+
+                                    <td class="md:px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">
                                             x{{ $sale->quantity }}
                                         </div>
                                     </td>
@@ -149,7 +167,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td class="md:px-6 py-4 text-center" colspan="6">
+                                    <td class="md:px-6 py-4 text-center" colspan="8">
                                         <div>
                                             <span class=" text-2xl font-semibold text-gray-400 leading-tight">
                                                 {{ __('There are no sales!') }}
@@ -159,7 +177,7 @@
                                 </tr>
                                 @endforelse
                                 <tr>
-                                    <td class="md:px-6 py-4 text-center" colspan="3">
+                                    <td class="md:px-6 py-4 text-center" colspan="5">
                                     </td>
 
                                     <td class="md:px-6 py-4 text-right">

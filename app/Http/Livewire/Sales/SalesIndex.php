@@ -55,7 +55,10 @@ class SalesIndex extends Component
                     ->groupBy('product_variant_id')
                     ->with(['product_variant' => function ($query) {
                             $query->select('id', 'product_id', 'prd_var_name')
-                                    ->with(['product:id,prd_name']);
+                                ->with(['product' => function ($query) {
+                                            $query->select('id', 'prd_name', 'category_id', 'fabric_id')
+                                                ->with(['category:id,ctgr_name', 'fabric:id,fab_name']);
+                                        }]);
                         }])
                     ->whereHas('product_variant', function ($query) {
                             $query->whereHas('product', function ($query) {
