@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 
 // use App\Models\Order;
 use App\Models\Category;
+use App\Models\Fabric;
 use App\Models\OrderVariant;
 
 use Illuminate\Support\Facades\DB;
@@ -26,13 +27,16 @@ class SalesIndex extends Component
     {
         $this->categories = Category::select('id', 'ctgr_name')->get()->toArray();
 
-        // dd($this->categories);
+        $this->fabrics = Fabric::select('id', 'fab_name')->get()->toArray();
+
+        // dd($this->fabrics);
     }
 
     public function render()
     {
         // dd($this->sales->get()->toArray());
         $sales = $this->sales->paginate(10);
+
         return view('livewire.sales.sales-index', compact('sales'))->layout('layouts.app');
     }
 
@@ -59,6 +63,6 @@ class SalesIndex extends Component
 
     public function resetFilter()
     {
-        $this->reset(['categoryId']);
+        $this->reset(['categoryId', 'fabricId']);
     }
 }

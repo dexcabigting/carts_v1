@@ -11,17 +11,33 @@
                             </div>
 
                             <div class="flex flex-row">
-                                <!-- Category Filter -->
-                                <select wire:model="categoryId" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
-                                    <option value="%%">
-                                            <x-label :value="__('Category')" class="inline-block" />
-                                    </option>
-                                    @foreach($categories as $category)
-                                        <option value="{{ $category['id'] }}">
-                                            <x-label value="{{ $category['ctgr_name'] }}" class="inline-block" />
+                                <div>
+                                    <!-- Category Filter -->
+                                    <select wire:model="categoryId" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                        <option value="%%">
+                                                <x-label :value="__('Category')" class="inline-block" />
                                         </option>
-                                    @endforeach
-                                </select>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category['id'] }}">
+                                                <x-label value="{{ $category['ctgr_name'] }}" class="inline-block" />
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <!-- Fabric Filter -->
+                                    <select wire:model="fabricId" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                        <option value="%%">
+                                                <x-label :value="__('Fabric')" class="inline-block" />
+                                        </option>
+                                        @foreach($fabrics as $fabric)
+                                            <option value="{{ $fabric['id'] }}">
+                                                <x-label value="{{ $fabric['fab_name'] }}" class="inline-block" />
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>                                
                             </div>
                         </div>
                     </div>
