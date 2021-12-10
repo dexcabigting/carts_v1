@@ -22,6 +22,7 @@ class SalesIndex extends Component
     public $productId = '%%';
     public $productVariantId = '%%';
     public $categories;
+    public $fabrics;
 
     public function mount()
     {
