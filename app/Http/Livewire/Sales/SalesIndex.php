@@ -56,4 +56,9 @@ class SalesIndex extends Component
                         })
                     ->where('product_variant_id', 'like', $this->productVariantId);                    
     }
+
+    public function resetFilter()
+    {
+        $this->reset(['categoryId']);
+    }
 }

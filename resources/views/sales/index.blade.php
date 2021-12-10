@@ -26,12 +26,11 @@
                         </div>
                     </div>
 
-                    <!-- Search Bar -->
-                    <div class="col-span-2 lg:col-span-2 grid items-center align-center relative lg:w-64">
-                        <x-input class="h-9 pr-10" type="search" wire:model="search" autofocus />
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-custom-violet absolute right-0" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
-                        </svg>
+                    <!-- Reset Filter Button -->
+                    <div>
+                        <x-button type="button" wire:click="resetFilter()" class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500">
+                            {{ __('Reset Filter') }}
+                        </x-button>
                     </div>
                 </div>
             </div>
