@@ -12,6 +12,7 @@ use App\Models\Product;
 use App\Models\OrderVariant;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 
 class SalesIndex extends Component
@@ -25,6 +26,9 @@ class SalesIndex extends Component
     public $categories;
     public $fabrics;
     public $sortDirection = 'asc';
+    public $startDate = '';
+    public $endDate = '';
+    
     // public $products;
 
     public function mount()
@@ -33,7 +37,7 @@ class SalesIndex extends Component
 
         $this->fabrics = Fabric::select('id', 'fab_name')->get()->toArray();
 
-        // dd($this->fabrics);
+        $this->resetDates();
     }
 
     public function render()
@@ -69,7 +73,9 @@ class SalesIndex extends Component
                                     })
                                 ->where('product_id', 'like', $this->productId);
                         })
-                    ->where('product_variant_id', 'like', $this->productVariantId);                    
+                    ->where('product_variant_id', 'like', $this->productVariantId)
+                    ->where('created_at', '>=', $this->startDate)
+                    ->where('created_at', '<=', Carbon::parse($this->endDate)->addDay(1)->toDateString());                    
     }
 
     public function getProductsProperty()
@@ -85,5 +91,25 @@ class SalesIndex extends Component
     public function resetFilter()
     {
         $this->reset(['categoryId', 'fabricId', 'productId']);
+
+        $this->resetDates();
+    }
+
+    private function resetDates()
+    {
+        $start = OrderVariant::oldest()->first('created_at')->toArray();
+
+        $end = OrderVariant::latest()->first('created_at')->toArray();
+
+        if(empty($start) && empty($end)) {
+            $this->startDate = now()->toDateString();
+
+            $this->endDate = now()->toDateString();
+        } else {
+            $this->startDate = Carbon::parse($start['created_at'])->toDateString();
+
+            $this->endDate = Carbon::parse($end['created_at'])->toDateString();
+        }
+        // dd($this->startDate,  $this->endDate);
     }
 }

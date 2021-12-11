@@ -2,87 +2,103 @@
     <div class="pt-12 pb-6">
         <div class="max-w-5xl mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex flex-row gap-5 p-6 bg-custom-blacki shadow-2xl overflow-x-auto">
+                <div class="flex flex-col gap-5 p-6 bg-custom-blacki shadow-2xl overflow-x-auto">
                     <!-- Filter By -->
-                    <div class="px-4">
-                        <div class="flex flex-col xl:flex-row text-sm font-medium text-gray-100 py-4">
-                            <div class="w-1/3">
-                                <x-label :value="__('Filter by')" class="font-semibold text-gray-50 inline-block text-base 2xl:text-xl" />
-                            </div>
-
-                            <div class="flex flex-row">
-                                <div>
-                                    <!-- Category Filter -->
-                                    <select wire:model="categoryId" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
-                                        <option value="%%">
-                                                <x-label :value="__('Category')" class="inline-block" />
-                                        </option>
-                                        @foreach($categories as $category)
-                                            <option value="{{ $category['id'] }}">
-                                                <x-label value="{{ $category['ctgr_name'] }}" class="inline-block" />
-                                            </option>
-                                        @endforeach
-                                    </select>
+                    <div class="flex flex-row">
+                        <div class="px-4">
+                            <div class="flex flex-col xl:flex-row text-sm font-medium text-gray-100 py-4">
+                                <div class="w-1/3">
+                                    <x-label :value="__('Filter by')" class="font-semibold text-gray-50 inline-block text-base 2xl:text-xl" />
                                 </div>
 
-                                <div>
-                                    <!-- Fabric Filter -->
-                                    <select wire:model="fabricId" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
-                                        <option value="%%">
-                                                <x-label :value="__('Fabric')" class="inline-block" />
-                                        </option>
-                                        @foreach($fabrics as $fabric)
-                                            <option value="{{ $fabric['id'] }}">
-                                                <x-label value="{{ $fabric['fab_name'] }}" class="inline-block" />
+                                <div class="flex flex-row">
+                                    <div>
+                                        <!-- Category Filter -->
+                                        <select wire:model="categoryId" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                            <option value="%%">
+                                                    <x-label :value="__('Category')" class="inline-block" />
                                             </option>
-                                        @endforeach
-                                    </select>
+                                            @foreach($categories as $category)
+                                                <option value="{{ $category['id'] }}">
+                                                    <x-label value="{{ $category['ctgr_name'] }}" class="inline-block" />
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <!-- Fabric Filter -->
+                                        <select wire:model="fabricId" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                            <option value="%%">
+                                                    <x-label :value="__('Fabric')" class="inline-block" />
+                                            </option>
+                                            @foreach($fabrics as $fabric)
+                                                <option value="{{ $fabric['id'] }}">
+                                                    <x-label value="{{ $fabric['fab_name'] }}" class="inline-block" />
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <!-- Product Filter -->
+                                        <select wire:model="productId" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                            <option value="%%">
+                                                    <x-label :value="__('Product')" class="inline-block" />
+                                            </option>
+                                            @foreach($products as $product)
+                                                <option value="{{ $product['id'] }}">
+                                                    <x-label value="{{ $product['prd_name'] }}" class="inline-block" />
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>                                
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Order By -->
+                        <div class="px-4">
+                            <div class="flex flex-col xl:flex-row text-sm font-medium text-gray-100 py-4">
+                                <div class="w-1/3">
+                                    <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-base 2xl:text-xl" />
                                 </div>
 
-                                <div>
-                                    <!-- Product Filter -->
-                                    <select wire:model="productId" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
-                                        <option value="%%">
-                                                <x-label :value="__('Product')" class="inline-block" />
-                                        </option>
-                                        @foreach($products as $product)
-                                            <option value="{{ $product['id'] }}">
-                                                <x-label value="{{ $product['prd_name'] }}" class="inline-block" />
+                                <div class="flex flex-row">
+                                    <div>
+                                        <select wire:model="sortDirection" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                            <option value="asc">
+                                                    <x-label :value="__('Ascending')" class="inline-block" />
                                             </option>
-                                        @endforeach
-                                    </select>
-                                </div>                                
+                                            <option value="desc">
+                                                    <x-label :value="__('Descending')" class="inline-block" />
+                                            </option>
+                                        </select>
+                                    </div>                               
+                                </div>
                             </div>
+                        </div>
+
+                        <!-- Reset Filter Button -->
+                        <div>
+                            <x-button type="button" wire:click="resetFilter()" class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500">
+                                {{ __('Reset Filter') }}
+                            </x-button>
                         </div>
                     </div>
 
-                    <!-- Order By -->
-                    <div class="px-4">
-                        <div class="flex flex-col xl:flex-row text-sm font-medium text-gray-100 py-4">
-                            <div class="w-1/3">
-                                <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-base 2xl:text-xl" />
-                            </div>
+                    <div class="flex flex-row text-sm font-medium text-gray-100">
+                        <div>
+                            <x-label :value="__('Start Date')" class="inline-block" />
 
-                            <div class="flex flex-row">
-                                <div>
-                                    <select wire:model="sortDirection" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
-                                        <option value="asc">
-                                                <x-label :value="__('Ascending')" class="inline-block" />
-                                        </option>
-                                        <option value="desc">
-                                                <x-label :value="__('Descending')" class="inline-block" />
-                                        </option>
-                                    </select>
-                                </div>                               
-                            </div>
+                            <input class="bg-white text-black" wire:model="startDate" type="date" min="2021-01-01">
                         </div>
-                    </div>
 
-                    <!-- Reset Filter Button -->
-                    <div>
-                        <x-button type="button" wire:click="resetFilter()" class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500">
-                            {{ __('Reset Filter') }}
-                        </x-button>
+                        <div>
+                            <x-label :value="__('End Date')" class="inline-block" />
+
+                            <input class="bg-white text-black" wire:model="endDate" type="date">
+                        </div>
                     </div>
                 </div>
             </div>
