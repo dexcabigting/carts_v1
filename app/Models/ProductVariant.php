@@ -35,4 +35,9 @@ class ProductVariant extends Model
     {
         return $this->carts()->where('user_id', auth()->id())->exists();
     }
+
+    public function order_variants()
+    {
+        return $this->hasMany(OrderVariant::class);
+    }
 }
