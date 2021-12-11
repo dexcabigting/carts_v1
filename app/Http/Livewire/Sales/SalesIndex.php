@@ -74,7 +74,10 @@ class SalesIndex extends Component
     {
         return Product::select('id', 'prd_name')
                 ->where('category_id', 'like', $this->categoryId)
-                ->where('fabric_id', 'like', $this->fabricId);
+                ->where('fabric_id', 'like', $this->fabricId)
+                ->whereHas('product_variants', function ($query) {
+                    $query->whereHas('order_variants');   
+                });
     }
 
     public function resetFilter()
