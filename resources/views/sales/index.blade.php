@@ -56,6 +56,28 @@
                         </div>
                     </div>
 
+                    <!-- Order By -->
+                    <div class="px-4">
+                        <div class="flex flex-col xl:flex-row text-sm font-medium text-gray-100 py-4">
+                            <div class="w-1/3">
+                                <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-base 2xl:text-xl" />
+                            </div>
+
+                            <div class="flex flex-row">
+                                <div>
+                                    <select wire:model="sortDirection" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                        <option value="asc">
+                                                <x-label :value="__('Ascending')" class="inline-block" />
+                                        </option>
+                                        <option value="desc">
+                                                <x-label :value="__('Descending')" class="inline-block" />
+                                        </option>
+                                    </select>
+                                </div>                               
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Reset Filter Button -->
                     <div>
                         <x-button type="button" wire:click="resetFilter()" class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500">

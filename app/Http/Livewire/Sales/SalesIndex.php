@@ -24,6 +24,7 @@ class SalesIndex extends Component
     public $productVariantId = '%%';
     public $categories;
     public $fabrics;
+    public $sortDirection = 'asc';
     // public $products;
 
     public function mount()
@@ -53,6 +54,7 @@ class SalesIndex extends Component
                             DB::raw('min(created_at) as earliest'),
                             DB::raw('max(created_at) as latest'))
                     ->groupBy('product_variant_id')
+                    ->orderBy('amount', $this->sortDirection)
                     ->with(['product_variant' => function ($query) {
                             $query->select('id', 'product_id', 'prd_var_name')
                                 ->with(['product' => function ($query) {
