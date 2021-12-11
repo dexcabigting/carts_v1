@@ -2,7 +2,7 @@
     <div class="flex items-center justify-center">
         <div class="w-full">
             <div class="inline-flex">
-                <div class="inline-flex ml-6 lg:ml-0 mb-4 p-6 bg-custom-blacki shadow-2xl overflow-x-auto">
+                <div class="inline-flex mx-2 lg:ml-0 mb-4 p-4 bg-custom-blacki shadow-2xl overflow-x-auto">
                 <div class="flex flex-col md:flex-row items-center justify-between">
                     <div class="flex flex-row">
                     <div class="mx-1">
@@ -24,7 +24,7 @@
                     <div class="px-4">
                         <div class="flex flex-col items-center justify-items-center lg:flex-row mx-2">
                             <div class="mx-2">
-                            <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-base - ml-2" />
+                            <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-base -ml-2" />
                             </div>
                             <div>
                                 <div class="flex flex-row">
@@ -78,11 +78,11 @@
         </div>
     </div>
 
-    <div class="max-w-md lg:max-w-none lg:ml-0 ml-6 overflow-scroll lg:overflow-auto">
+    <div class="max-w-md lg:max-w-none lg:ml-0 ml-6 overflow-scroll ">
         <div class="flex flex-col">
-            <div class="my-2 overflow-x-auto">
+            <div class="my-2 ">
                 <div class="py-2">
-                    <div class="shadow overflow-hidden sm:rounded-lg">
+                    <div class="shadow  sm:rounded-lg">
                         <table class="table-auto min-w-full divide-y divide-gray-200 border-4 border-gray-500">
                             <thead class="bg-custom-blacki ">
                                 <tr>
@@ -215,7 +215,7 @@
         </div>
     </div>
 
-    <div class="pb-12">
+    <div class="flex items-center">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="mt-4">
                 {{ $products->onEachSide(5)->links() }}

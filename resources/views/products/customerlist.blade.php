@@ -1,4 +1,4 @@
-<div class="h-auto lg:pl-3 xl:pl-20 2xl:pl-80 lg:mt-5">
+<div class="h-screen lg:pl-3 xl:pl-20 2xl:pl-80 lg:mt-5">
     <div class="pt-12 pb-5">
         <div class="max-w-6xl mx-auto">
             <!-- <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">

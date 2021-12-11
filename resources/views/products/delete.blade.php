@@ -10,7 +10,7 @@
             @endif 
         </h2>
     
-        <div class="flex mt-4 gap-5 ">
+        <div class="flex justify-center items-center mt-4 gap-5 ">
             <div class="bg-custom-violet text-xl text-white">
                 <x-button class="font-bold px-6 py-2" type="button" wire:click.prevent="deleteProducts()">
                     {{ __('Yes') }}

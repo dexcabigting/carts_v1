@@ -56,7 +56,7 @@ function moveUP() {
         moveLi[0].style.marginLeft = '0%';
         counter = 1;
 
-    } else if (counter >= 1) {
+    } else if (counter >= 1) { 
 
         moveLi[0].style.marginLeft = '-' + counter * 100 + '%';
         counter++;
@@ -114,18 +114,18 @@ for (i = 0; i < dot.length; i++) {
 forword.onclick = moveUP;
 back.onclick = moveDOWN;
 
-let autoPlay = setInterval(moveUP, time);
+// let autoPlay = setInterval(moveUP, time);
 
 slider.onmouseover = function() {
 
-    autoPlay = clearInterval(autoPlay);
+    // autoPlay = clearInterval(autoPlay);
     line.style.animation = '';
 
 }
 
 slider.onmouseout = function() {
 
-    autoPlay = setInterval(moveUP, time);
+    // autoPlay = setInterval(moveUP, time);
     line.style.animation = 'line ' + (time / 1000) + 's linear infinite';
 
 }
@@ -134,10 +134,10 @@ slider.onmouseout = function() {
 
 </script>
 <div>
-    <div class="pt-12 pb-6 lg:px-24">
-        <div class="mx-2 w-full md:mx-auto">
+    <div class="items-center lg:mx-40 2xl:mx-80">
+        <div class="mx-2 md:mx-auto">
             <div class="shadow-xl overflow-hidden rounded-lg">
-                <div class="block md:flex md:flex-row items-center md:justify-center lg:gap-2 p-6 bg-custom-blacki overflow-x-auto">
+                <div class="block md:flex md:flex-row items-center md:justify-center p-6 bg-custom-blacki overflow-x-auto">
                     <!-- Category and Fabric filter -->
                     <div class="px-12 flex flex-col xl:flex-row">
                         <div class="flex flex-col xl:flex-row items-center justify-center text-base font-medium text-gray-100 py-4 my-2 md:my-0">

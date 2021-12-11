@@ -2,7 +2,7 @@
     <x-success-fail-message />
 
     @if($promptDelete)
-    <h2 class="font-semibold text-l text-gray-800 leading-tight mb-4">
+    <h2 class="font-semibold text-l text-gray-100 leading-tight mb-4">
         @if (count($carts) == 1)
         {{ __('Are you sure you want to delete this cart?') }}
         @else
@@ -10,15 +10,15 @@
         @endif
     </h2>
 
-    <div class="flex mt-4 gap-5 ">
+    <div class="flex items-center justify-center mt-4 gap-5 text-white text-xl">
         <div>
-            <x-button type="button" wire:click.prevent="deleteCarts()">
+            <x-button class="bg-custom-violet py-2 px-8 font-bold " type="button" wire:click.prevent="deleteCarts()">
                 {{ __('Yes') }}
             </x-button>
         </div>
 
         <div>
-            <x-button type="button" wire:click.prevent="closeDeleteCartModal()">
+            <x-button class="bg-red-500 py-2 px-4 font-bold " type="button" wire:click.prevent="closeDeleteCartModal()">
                 {{ __('Cancel') }}
             </x-button>
         </div>

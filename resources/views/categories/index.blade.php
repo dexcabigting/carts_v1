@@ -2,7 +2,7 @@
      <div class="flex items-center justify-center">
         <div class="w-full">
             <div class="inline-flex">
-                <div class="inline-flex ml-6 lg:ml-2 xl:ml-2 2xl:ml-0 mb-4 px-11 p-7 xl:px-11 bg-custom-blacki shadow-2xl overflow-x-auto">
+                <div class="inline-flex ml-5 lg:ml-2 xl:ml-2 2xl:ml-0 mb-4 px-11 p-7 xl:px-11 bg-custom-blacki shadow-2xl overflow-x-auto">
                 <div class="flex flex-col md:flex-row items-center justify-between">
                     <div class="flex flex-row">
                     <div class="mx-1">
@@ -65,7 +65,7 @@
         </div>
     </div>
 
-    <div class="max-w-md lg:max-w-5xl xl:max-w-6xl 2xl:ml-0 lg:ml-1  ml-6">
+    <div class="max-w-md lg:max-w-5xl xl:max-w-6xl 2xl:ml-0 lg:ml-1  ml-5">
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">

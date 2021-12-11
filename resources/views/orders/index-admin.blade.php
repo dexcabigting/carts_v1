@@ -1,16 +1,16 @@
-<div class="h-screen">
+<div class="h-screen pt-20 lg:pl-16 lg:pt-24  2xl:pl-72 w-full flex flex-col">
     <div class="pt-12 pb-6">
-        <div class="max-w-5xl mx-auto">
+        <div class="max-w-md lg:ml-0 ml-4 lg:max-w-5xl mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex flex-row gap-5 p-6 bg-custom-blacki shadow-2xl overflow-x-auto">
+                <div class="flex items-center justify-center flex-col md:flex-row gap-5 p-6 bg-custom-blacki shadow-2xl overflow-x-auto">
                      <!-- Order By -->
                     <div class="px-4">
                         <div class="flex flex-col xl:flex-row text-sm font-medium text-gray-100 py-4">
-                            <div class="w-1/3">
+                            <div class="w-1/3 mx-2">
                                 <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-base 2xl:text-xl" />
                             </div>
 
-                            <div class="flex flex-row">
+                            <div class="flex xl:flex-row">
                                 <select wire:model="sortColumn" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                     <option value="name">
                                         <x-label :value="__('Customer Name')" class="inline-block" />
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class="max-w-5xl mx-auto">
+    <div class="max-w-md lg:max-w-4xl xl:max-w-5xl lg:ml-0 ml-4 lg:overflow-auto">
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">
