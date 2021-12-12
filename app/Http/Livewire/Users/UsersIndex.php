@@ -13,7 +13,7 @@ class UsersIndex extends Component
 
     public $checkedUsers;
     public $userId;
-    public $selectAll = 0;
+    public $selectAll = false;
     public $search;
     public $sortBy = 'name';
     public $orderBy = 'asc';
