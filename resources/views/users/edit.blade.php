@@ -10,15 +10,18 @@
         @csrf
 
         <div>
-            <x-label for="name" :value="__('Name')"/>
-            <x-input wire:model="form.name"
-            id="name" class="block mt-1 w-full text-black" type="text" name="name" autofocus required />
+            <x-label :value="__('Name')"/>
+            <x-input wire:model="form.name" class="block mt-1 w-full text-black" type="text" autofocus required />
         </div>
 
         <div class="mt-4">
-            <x-label for="email" :value="__('Email')" />
-            <x-input wire:model="form.email"
-            id="email" class="block mt-1 w-full text-black" type="email" name="email" required />
+            <x-label :value="__('Email')" />
+            <x-input wire:model="form.email" class="block mt-1 w-full text-black" type="email" required />
+        </div>
+
+        <div class="mt-4">
+            <x-label :value="__('Phone')" />
+            <x-input wire:model="form.phone" class="block mt-1 w-full text-black" type="text" required />
         </div>
 
         <div class="flex mt-4 gap-5 justify-center">
