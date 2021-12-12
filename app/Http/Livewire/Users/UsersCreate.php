@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Users;
 use Livewire\Component;
 
 use App\Models\User;
+use App\Models\Role;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -22,6 +23,7 @@ class UsersCreate extends Component
         'password' => '',
         'password_confirmation' => '',
     ];
+    public $roles = [];
 
     protected function rules()
     {
@@ -43,7 +45,10 @@ class UsersCreate extends Component
         'form.password_confirmation' => 'confirm password',
     ];
 
-
+    public function mount()
+    {
+        $this->roles = Role::get(['id', 'role'])->toArray();
+    }
 
     public function render()
     {
