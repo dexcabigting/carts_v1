@@ -12,22 +12,22 @@
 
             <div class="text-gray-900">
                 <x-label  for="name" :value="__('Name')"/>
-                <x-input wire:model="form.name" id="name" class="block mt-1 w-full " type="text" name="name" value="{{ old('name') }}" autofocus required />
+                <x-input wire:model="form.name" id="name" class="block mt-1 w-full text-black" type="text" name="name" value="{{ old('name') }}" autofocus required />
             </div>
 
             <div class="mt-4">
                 <x-label for="email" :value="__('Email')" />
-                <x-input wire:model="form.email" id="email" class="block mt-1 w-full" type="email" name="email" value="{{ old('email') }}" required />
+                <x-input wire:model="form.email" id="email" class="block mt-1 w-full text-black" type="email" name="email" value="{{ old('email') }}" required />
             </div>
 
             <div class="mt-4">
                 <x-label for="phone" :value="__('Phone')" />
-                <x-input wire:model="form.phone" id="phone" class="block mt-1 w-full" type="text" name="phone" value="{{ old('phone') }}" required />
+                <x-input wire:model="form.phone" id="phone" class="block mt-1 w-full text-black" type="text" name="phone" value="{{ old('phone') }}" required />
             </div>
 
             <div class="mt-4">
                 <x-label for="password" :value="__('Password')" />
-                <x-input wire:model="form.password" id="password" class="block mt-1 w-full"
+                <x-input wire:model="form.password" id="password" class="block mt-1 w-full text-black"
                                 type="password"
                                 name="password"
                                 required autocomplete="new-password" />
@@ -35,7 +35,7 @@
 
             <div class="mt-4">
                 <x-label for="password_confirmation" :value="__('Confirm Password')" />
-                <x-input wire:model="form.password_confirmation" id="password_confirmation" class="block mt-1 w-full"
+                <x-input wire:model="form.password_confirmation" id="password_confirmation" class="block mt-1 w-full text-black"
                                 type="password"
                                 name="password_confirmation" required />
             </div>
