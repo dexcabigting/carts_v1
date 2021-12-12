@@ -15,7 +15,7 @@ class UsersIndex extends Component
     public $userId;
     public $selectAll = 0;
     public $search;
-    public $sortBy = 'Name';
+    public $sortBy = 'name';
     public $orderBy = 'asc';
     public $deleteModal = 0;
 
@@ -129,5 +129,10 @@ class UsersIndex extends Component
 
 				$this->selectAll = false;
         }
+    }
+
+    public function resetFilter()
+    {
+        $this->reset(['sortBy', 'orderBy']);
     }
 }
