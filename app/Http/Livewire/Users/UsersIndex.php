@@ -3,8 +3,10 @@
 namespace App\Http\Livewire\Users;
 
 use Livewire\Component;
+
 use App\Models\User;
 use App\Models\Role;
+
 use Livewire\WithPagination;
 
 class UsersIndex extends Component
@@ -18,11 +20,13 @@ class UsersIndex extends Component
     public $sortBy = 'name';
     public $orderBy = 'asc';
     public $createModal = false;
+    public $editModal = false;
     public $deleteModal = false;
 
     protected $listeners = [
         'refreshParent' => '$refresh',
         'closeCreateModal',
+        'closeEditModal',
         'closeDeleteModal',
         'cleanse',
         'unsetCheckedUsers',
@@ -110,6 +114,18 @@ class UsersIndex extends Component
     public function closeCreateModal()
     {
         $this->createModal = false;
+    }
+
+    public function openEditModal($id)
+    {
+        $this->userId = $id;
+
+        $this->editModal = true;
+    }
+
+    public function closeEditModal()
+    {
+        $this->editModal = false;
     }
 
     public function openDeleteModal($id)

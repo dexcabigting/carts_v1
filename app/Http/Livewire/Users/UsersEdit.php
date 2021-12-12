@@ -3,10 +3,12 @@
 namespace App\Http\Livewire\Users;
 
 use Livewire\Component;
+
 use App\Models\User;
+
 use App\Service\Twilio\PhoneNumberLookupService;
+
 use App\Rules\PhoneNumber;
-use Illuminate\Support\Facades\App;
 
 class UsersEdit extends Component
 {
@@ -17,6 +19,7 @@ class UsersEdit extends Component
         'email' => '',
         'phone' => '',
     ];
+
     protected function rules()
     {   
         $service = app()->make(PhoneNumberLookupService::class);
@@ -36,8 +39,6 @@ class UsersEdit extends Component
 
     public function mount(User $id)
     {
-
-
         $this->form = $id;
 
         $this->user = $id;
@@ -62,6 +63,15 @@ class UsersEdit extends Component
             'phone' => $this->form['phone'],
         ]);
 
+        $this->emitUp('refreshParent');
+
         session()->flash('success', 'User has been updated successfully!');
+    }
+
+    public function closeEditModal()
+    {
+        $this->dispatchBrowserEvent('editModalDisplayNone');
+        
+        $this->emitUp('closeEditModal');
     }
 }
