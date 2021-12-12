@@ -139,7 +139,7 @@ class UsersIndex extends Component
                 unset($this->checkedUsers["$id"]);
             }
 
-				$this->selectAll = false;
+            $this->selectAll = false;
         }
     }
 
