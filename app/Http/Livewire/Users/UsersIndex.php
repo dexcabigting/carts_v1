@@ -17,6 +17,7 @@ class UsersIndex extends Component
     public $search;
     public $sortBy = 'name';
     public $orderBy = 'asc';
+    public $createModal = 0;
     public $deleteModal = 0;
 
     protected $listeners = [
@@ -98,6 +99,16 @@ class UsersIndex extends Component
     public function updatingSearch()
     {
         $this->resetPage();
+    }
+
+    public function openCreateModal()
+    {
+        $this->createModal = true;
+    }
+
+    public function closeCreateModal()
+    {
+        $this->createModal = false;
     }
 
     public function openDeleteModal($id)

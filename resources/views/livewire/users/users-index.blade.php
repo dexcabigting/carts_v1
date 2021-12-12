@@ -1,11 +1,8 @@
 <div>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Users') }}
-        </h2>
-    </x-slot>
 
-    @if($deleteModal)
+    @if($createModal)
+        @livewire('users.users-create')
+    @elseif($deleteModal)
         @livewire('users.users-delete', ['id' => $userId])   
     @endif
 

@@ -6,11 +6,9 @@
                 <div class="flex flex-col md:flex-row items-center justify-between">
                     <div class="flex mx-12 md:m-0">
                     <div>
-                        <a href="{{ route('users.create') }}">
-                            <x-button class="mx-2 hover:bg-purple-900 hover:text-purple-100 text-sm 2xl:text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
-                                {{ __('Create User') }}
-                            </x-button>
-                        </a>
+                        <x-button wire:click.prevent="openCreateModal()" class="mx-2 hover:bg-purple-900 hover:text-purple-100 text-sm 2xl:text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
+                            {{ __('Create User') }}
+                        </x-button>
                     </div>
 
                     <div class="">

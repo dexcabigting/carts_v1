@@ -3,10 +3,14 @@
 namespace App\Http\Livewire\Users;
 
 use Livewire\Component;
+
 use App\Models\User;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+
 use App\Service\Twilio\PhoneNumberLookupService;
+
 use App\Rules\PhoneNumber;
 
 class UsersCreate extends Component
@@ -61,12 +65,16 @@ class UsersCreate extends Component
             'password' => Hash::make($this->form['password']),
         ]);
 
-        $this->form['name'] = '';
-        $this->form['email'] = '';
-        $this->form['phone'] = '';
-        $this->form['password'] = '';
-        $this->form['password_confirmation'] = '';
+        $this->reset(['form']);
+
+        $this->emitUp('refreshParent');
 
         session()->flash('success', 'User has been created successfully!'); 
+    }
+
+    public function closeCreateModal()
+    {
+        $this->dispatchBrowserEvent('createModalDisplayNone');
+        $this->emitUp('closeCreateModal');
     }
 }
