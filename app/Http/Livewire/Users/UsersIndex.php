@@ -17,11 +17,12 @@ class UsersIndex extends Component
     public $search;
     public $sortBy = 'name';
     public $orderBy = 'asc';
-    public $createModal = 0;
-    public $deleteModal = 0;
+    public $createModal = false;
+    public $deleteModal = false;
 
     protected $listeners = [
         'refreshParent' => '$refresh',
+        'closeCreateModal',
         'closeDeleteModal',
         'cleanse',
         'unsetCheckedUsers',
