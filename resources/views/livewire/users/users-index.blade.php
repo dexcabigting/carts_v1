@@ -1,5 +1,4 @@
 <div>
-
     @if($createModal)
         @livewire('users.users-create')
     @elseif($deleteModal)
