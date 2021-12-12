@@ -7,7 +7,7 @@
             {{ __('User Credentials') }}
         </h2>
 
-        <form class="bg-custom-blacki w-96" method="POST" wire:submit.prevent="store">
+        <form class="bg-custom-blacki w-96" wire:submit.prevent="store">
             @csrf
 
             <div class="text-gray-900">
