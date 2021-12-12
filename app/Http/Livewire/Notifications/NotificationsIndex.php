@@ -12,27 +12,31 @@ class NotificationsIndex extends Component
 
     public $notificationType;
     public $notificationId;
+    public $isAdmin;
+    public $layout;
 
     public function mount()
     {
         $this->notificationType = 'unreadNotifications';
+
+        if(auth()->user()->role_id == 1) {
+            $this->isAdmin = true;
+
+            $this->layout = 'layouts.app';
+        } else {    
+            $this->isAdmin = false;
+
+            $this->layout = 'layouts.app-user';
+        }
     }
 
     public function render()
     {
-        if(auth()->user()->role_id == 1) {
-
-            $layout = 'layouts.app';
-
-        } else {    
-
-            $layout = 'layouts.app-user';
-
-        }
-
         $notificationType = $this->notificationType;
 
         $notifications = auth()->user()->$notificationType()->paginate(10);
+
+        $layout = $this->layout;
 
         return view('livewire.notifications.notifications-index', compact('notifications'))->layout($layout);
     }
