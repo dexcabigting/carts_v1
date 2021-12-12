@@ -5,7 +5,7 @@
     <div class="flex flex-col bg-custom-blacki justify-center items-center">
         <div>
             <h2 class="font-semibold text-xl text-gray-100 leading-tight">
-                {{ __('User Credentials') }} {{ $form['role'] }}
+                {{ __('User Credentials') }} {{ $form['verify_email'] }}
             </h2>
         </div>
 
@@ -42,14 +42,26 @@
                                     name="password_confirmation" required />
                 </div>
 
-                <div class="">
-                    <x-label :value="__('Role')" />
-                    @foreach($roles as $role)
-                        <div wire:key="{{ $loop->index }}-role">
-                            <input wire:model="form.role" type="radio" value="{{ $role['id'] }}" required/>
-                            <span>{{ $role['role'] }}</span>
-                        </div>
-                    @endforeach
+                <div class="flex flex-row gap-5">
+                    <div class="w-1/2">
+                        <x-label :value="__('Role')" />
+                        @foreach($roles as $role)
+                            <div wire:key="{{ $loop->index }}-role">
+                                <input wire:model="form.role" type="radio" value="{{ $role['id'] }}" required/>
+                                <span>{{ $role['role'] }}</span>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="w-1/2">
+                        <x-label :value="__('Verify Email?')" />
+                        @foreach($yesOrNo as $option)
+                            <div wire:key="{{ $loop->index }}-option">
+                                <input wire:model="form.verify_email" type="radio" value="{{ $option }}" required/>
+                                <span>{{ $option }}</span>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
 
                 <div class="flex gap-5 justify-center">

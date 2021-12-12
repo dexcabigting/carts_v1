@@ -23,8 +23,10 @@ class UsersCreate extends Component
         'password' => '',
         'password_confirmation' => '',
         'role' => '',
+        'verify_email' => '',
     ];
     public $roles = [];
+    public $yesOrNo = [];
 
     protected function rules()
     {
@@ -35,7 +37,8 @@ class UsersCreate extends Component
             'form.email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'form.phone' => ['required', 'string', 'unique:users,phone', new PhoneNumber($service)],
             'form.password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'form.role' => ['required', 'exists:roles,id']
+            'form.role' => ['required', 'exists:roles,id'],
+            'form.verify_email' => ['required', 'in:Yes,No']
         ];
     }
     
@@ -45,12 +48,17 @@ class UsersCreate extends Component
         'form.phone' => 'phone number',
         'form.password' => 'password',
         'form.password_confirmation' => 'confirm password',
-        'form.role' => 'role'
+        'form.role' => 'role',
+        'form.verify_email' => 'verify email',
     ];
 
     public function mount()
     {
         $this->roles = Role::get(['id', 'role'])->toArray();
+
+        $this->yesOrNo = ['Yes', 'No'];
+
+        // dd($this->yesOrNo);
     }
 
     public function render()
@@ -60,7 +68,7 @@ class UsersCreate extends Component
 
     public function store()
     {
-        dd($this->form);
+        // dd(($this->form['verify_email'] == "Yes") ? now() : null);
         $phone = preg_replace('/^(09)(\d+)/', '639$2', $this->form['phone']);
 
         $this->form['phone'] = $phone;
@@ -72,7 +80,8 @@ class UsersCreate extends Component
             'email' => $this->form['email'],
             'phone' => $this->form['phone'],
             'password' => Hash::make($this->form['password']),
-            'role_id' => $this->form['role']
+            'role_id' => $this->form['role'],
+            'email_verified_at' => ($this->form['verify_email'] == "Yes") ? now() : null
         ]);
 
         $this->reset(['form']);
