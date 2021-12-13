@@ -24,6 +24,12 @@ class UsersCreate extends Component
         'password_confirmation' => '',
         'role' => '',
         'verify_email' => '',
+        'region' => '',
+        'province' => '',
+        'city' => '',
+        'barangay' => '',
+        'home_address' => '',
+        'is_main_address' => ''
     ];
     public $roles = [];
     public $yesOrNo = [];
@@ -38,7 +44,13 @@ class UsersCreate extends Component
             'form.phone' => ['required', 'string', 'unique:users,phone', new PhoneNumber($service)],
             'form.password' => ['required', 'confirmed', Rules\Password::defaults()],
             'form.role' => ['required', 'exists:roles,id'],
-            'form.verify_email' => ['required', 'in:Yes,No']
+            'form.verify_email' => ['required', 'in:Yes,No'],
+            'form.region' => ['required', 'string'],
+            'form.province' => ['required', 'string'],
+            'form.city' => ['required', 'string'],
+            'form.barangay' => ['required', 'string'],
+            'form.home_address' => ['required', 'string'],
+            'form.is_main_address' => ['required', 'string']
         ];
     }
     
@@ -50,6 +62,12 @@ class UsersCreate extends Component
         'form.password_confirmation' => 'confirm password',
         'form.role' => 'role',
         'form.verify_email' => 'verify email',
+        'form.region' => 'region',
+        'form.province' => 'province',
+        'form.city' => 'city',
+        'form.barangay' => 'barangay',
+        'form.home_address' => 'home address',
+        'form.is_main_address' => 'default'
     ];
 
     public function mount()
@@ -66,22 +84,43 @@ class UsersCreate extends Component
         return view('livewire.users.users-create');
     }
 
-    public function store()
+    public function store($formData)
     {
-        // dd(($this->form['verify_email'] == "Yes") ? now() : null);
         $phone = preg_replace('/^(09)(\d+)/', '639$2', $this->form['phone']);
 
         $this->form['phone'] = $phone;
 
+        $this->form['region'] = $formData['create_region'];
+        $this->form['province'] = $formData['create_province'];
+        $this->form['city'] = $formData['create_city'];
+        $this->form['barangay'] = $formData['create_barangay'];
+        $this->form['home_address'] = $formData['create_home_address'];
+        $this->form['is_main_address'] = $formData['is_main_address'];
+
         $this->validate();
         
-        User::create([
+        $user = User::create([
             'name' => $this->form['name'],
             'email' => $this->form['email'],
             'phone' => $this->form['phone'],
             'password' => Hash::make($this->form['password']),
             'role_id' => $this->form['role'],
             'email_verified_at' => ($this->form['verify_email'] == "Yes") ? now() : null
+        ]);
+
+        if($this->form['is_main_address'] == "1") {
+            $user->userAddresses()
+                ->where('is_main_address', 1)
+                ->update(['is_main_address' => 0]);
+        }
+
+        $user->userAddresses()->create([
+            'region' => $this->form['region'],
+            'province' => $this->form['province'],
+            'city' => $this->form['city'],
+            'barangay' => $this->form['barangay'],
+            'home_address' => $this->form['home_address'],
+            'is_main_address' => $this->form['is_main_address'],
         ]);
 
         $this->reset(['form']);
