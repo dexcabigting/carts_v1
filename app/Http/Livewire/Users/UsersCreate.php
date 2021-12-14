@@ -82,6 +82,8 @@ class UsersCreate extends Component
         $this->yesOrNo = ['Yes', 'No'];
 
         $this->regions = Region::get(['name', 'region_id'])->toArray();
+
+        $this->selectedRegion = $this->regions[0]['region_id'];
     }
 
     public function render()
