@@ -77,7 +77,7 @@
                     <div class="block md:flex fle-row">
                         <div class="mt-4 ">
                             <x-label :value="__('Region')" />
-                            <select class="text-black rounded-lg lg:pr-16 pr-4 w-full">
+                            <select wire:model="selectedRegion" class="text-black rounded-lg lg:pr-16 pr-4 w-full">
                                 @foreach($regions as $region)
                                     <option value="{{ $region['region_id'] }}">
                                         {{ $region['name'] }}
@@ -89,9 +89,11 @@
                         <div class="mt-4 md:ml-4">
                             <x-label :value="__('Province')" />
                             <select class="text-black rounded-lg md:pr-20 w-full md:w-auto" id="create_province">
-                                <option>
-                                    <h1 class="px-12">Province</h1>
-                                </option>
+                                @foreach($provinces as $province)
+                                    <option value="{{ $province['province_id'] }}">
+                                        {{ $province['name'] }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

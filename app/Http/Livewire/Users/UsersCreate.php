@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Role;
 
 use Yajra\Address\Entities\Region;
+use Yajra\Address\Entities\Province;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -36,6 +37,7 @@ class UsersCreate extends Component
     public $roles = [];
     public $yesOrNo = [];
     public $regions = [];
+    public $selectedRegion = '';
 
     protected function rules()
     {
@@ -84,12 +86,22 @@ class UsersCreate extends Component
 
     public function render()
     {
-        return view('livewire.users.users-create');
+        $provinces = $this->provinces->toArray();
+
+        return view('livewire.users.users-create', compact('provinces'));
     }
 
-    public function hydrate()
+    public function getProvincesProperty()
     {
-        $this->dispatchBrowserEvent('loadRegions');
+        return Province::where('region_id', $this->selectedRegion)
+            ->get(['name', 'region_id', 'province_id']);
+    }
+
+    public function getCitiesProperty()
+    {
+        return City::where('region_id', $this->selectedRegion)
+            ->where('province_id', $this->selectedRegion)
+            ->get(['name', 'region_id', 'province_id', 'city_id']);
     }
 
     public function store($formData)
