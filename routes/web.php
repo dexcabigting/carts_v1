@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AboutUsController;
 
@@ -35,6 +36,9 @@ use App\Http\Livewire\Notifications\NotificationsIndex;
 // Livewire Sales Component
 use App\Http\Livewire\Sales\SalesIndex;
 
+// For Testing
+use App\Http\Controllers\TestController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,7 +51,7 @@ use App\Http\Livewire\Sales\SalesIndex;
 */
 
 // Landing Page
-Route::view('/', 'welcome')->name('welcome');
+Route::get('/test', [TestController::class, 'index']);
 
 // About Us
 Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
