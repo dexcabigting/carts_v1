@@ -7,6 +7,8 @@ use Livewire\Component;
 use App\Models\User;
 use App\Models\Role;
 
+use Yajra\Address\Entities\Region;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
@@ -33,6 +35,7 @@ class UsersCreate extends Component
     ];
     public $roles = [];
     public $yesOrNo = [];
+    public $regions = [];
 
     protected function rules()
     {
@@ -75,6 +78,8 @@ class UsersCreate extends Component
         $this->roles = Role::get(['id', 'role'])->toArray();
 
         $this->yesOrNo = ['Yes', 'No'];
+
+        $this->regions = Region::get(['name', 'region_id'])->toArray();
     }
 
     public function render()

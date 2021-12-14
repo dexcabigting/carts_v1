@@ -76,23 +76,23 @@
                     <!-- Address -->
                     <div class="block md:flex fle-row">
                         <div class="mt-4 ">
-                            <x-label for="create_region" :value="__('Region')" />
-                            <select class="text-black rounded-lg lg:pr-16 pr-4 w-full" id="create_region">
-                                <option selected>
-                                    Region
-                                </option>
+                            <x-label :value="__('Region')" />
+                            <select class="text-black rounded-lg lg:pr-16 pr-4 w-full">
+                                @foreach($regions as $region)
+                                    <option value="{{ $region['region_id'] }}">
+                                        {{ $region['name'] }}
+                                    </option>
+                                @endforeach
                             </select>
-                            <x-input id="create_region-text" name="create_region" type="hidden" />
                         </div>
 
                         <div class="mt-4 md:ml-4">
-                            <x-label for="create_province" :value="__('Home Address')" />
+                            <x-label :value="__('Province')" />
                             <select class="text-black rounded-lg md:pr-20 w-full md:w-auto" id="create_province">
                                 <option>
                                     <h1 class="px-12">Province</h1>
                                 </option>
                             </select>
-                            <x-input id="create_province-text" name="create_province" type="hidden" />
                         </div>
                     </div>
                     
