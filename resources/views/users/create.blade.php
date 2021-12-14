@@ -15,17 +15,17 @@
                 <div class="flex flex-col gap-5">
                     <div class="text-gray-900">
                         <x-label  for="name" :value="__('Name')"/>
-                        <x-input wire:model.defer="form.name" id="name" class="block mt-1 w-full text-black" type="text" name="name" value="{{ old('form.name') }}" autofocus required />
+                        <x-input wire:model.defer="form.name" id="name" class="block mt-1 w-full text-black" type="text" name="name" autofocus required />
                     </div>
 
                     <div class="">
                         <x-label for="email" :value="__('Email')" />
-                        <x-input wire:model.defer="form.email" id="email" class="block mt-1 w-full text-black" type="email" name="email" value="{{ old('email') }}" required />
+                        <x-input wire:model.defer="form.email" id="email" class="block mt-1 w-full text-black" type="email" name="email" required />
                     </div>
 
                     <div class="">
                         <x-label for="phone" :value="__('Phone')" />
-                        <x-input wire:model.defer="form.phone" id="phone" class="block mt-1 w-full text-black" type="text" name="phone" value="{{ old('phone') }}" required />
+                        <x-input wire:model.defer="form.phone" id="phone" class="block mt-1 w-full text-black" type="text" name="phone" required />
                     </div>
 
                     <div class="">
@@ -57,7 +57,7 @@
                         <div class="w-1/2">
                             <x-label :value="__('Verify Email?')" />
                             @foreach($yesOrNo as $option)
-                                <div>
+                                <div wire:key="{{ $loop->index }}-option">
                                     <input name="verify_email" type="radio" value="{{ $option }}" required/>
                                     <span>{{ $option }}</span>
                                 </div>
@@ -70,7 +70,7 @@
                     <div>
                         <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
 
-                        <x-input id="home_address" class="block mt-1 w-full text-black" type="text" name="create_home_address" placeholder="ex. Street Apartment no." />
+                        <x-input wire:model.defer="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street Apartment no." />
                     </div>
 
                     <!-- Address -->

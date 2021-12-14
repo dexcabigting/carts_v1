@@ -55,10 +55,10 @@ class UsersCreate extends Component
             'form.password' => ['required', 'confirmed', Rules\Password::defaults()],
             'form.role_id' => ['required', 'exists:roles,id'],
             'form.verify_email' => ['required', 'in:Yes,No'],
-            'form.region' => ['required', 'string'],
-            'form.province' => ['required', 'string'],
-            'form.city' => ['required', 'string'],
-            'form.barangay' => ['required', 'string'],
+            'form.region' => ['required', 'string', 'exists:regions,name'],
+            'form.province' => ['required', 'string', 'exists:provinces,name'],
+            'form.city' => ['required', 'string', 'exists:cities,name'],
+            'form.barangay' => ['required', 'string', 'exists:barangays,name'],
             'form.home_address' => ['required', 'string'],
             'form.is_main_address' => ['required', 'string']
         ];
@@ -119,17 +119,36 @@ class UsersCreate extends Component
             ->get(['id', 'name']);
     }
 
+    public function getRegionProperty()
+    {
+        return Region::where('region_id', $this->selectedRegion)->first('name');
+    }
+
+    public function getProvinceProperty()
+    {
+        return Province::where('province_id', $this->selectedProvince)->first('name');
+    }
+
+    public function getCityProperty()
+    {
+        return City::where('city_id', $this->selectedCity)->first('name');
+    }
+
+    public function getBarangayProperty()
+    {
+        return Barangay::where('id', $this->selectedBarangay)->first('name');
+    }
+
     public function store($formData)
     {
         $phone = preg_replace('/^(09)(\d+)/', '639$2', $this->form['phone']);
 
         $this->form['phone'] = $phone;
 
-        $this->form['region'] = $formData['create_region'];
-        $this->form['province'] = $formData['create_province'];
-        $this->form['city'] = $formData['create_city'];
-        $this->form['barangay'] = $formData['create_barangay'];
-        $this->form['home_address'] = $formData['create_home_address'];
+        $this->form['region'] = $this->region->name;
+        $this->form['province'] = $this->province->name;
+        $this->form['city'] = $this->city->name;
+        $this->form['barangay'] = $this->barangay->name;
         $this->form['is_main_address'] = $formData['is_main_address'];
 
         $this->form['verify_email'] = $formData['verify_email'];
@@ -138,7 +157,7 @@ class UsersCreate extends Component
 
         $this->validate();
 
-        dd($this->form);
+        // dd($this->form);
         
         $user = User::create([
             'name' => $this->form['name'],
@@ -164,7 +183,7 @@ class UsersCreate extends Component
             'is_main_address' => $this->form['is_main_address'],
         ]);
 
-        $this->reset(['form']);
+        $this->reset(['form', 'selectedRegion', 'selectedProvince', 'selectedCity', 'selectedBarangay']);
 
         $this->emitUp('refreshParent');
 
