@@ -78,6 +78,9 @@
                         <div class="mt-4 ">
                             <x-label :value="__('Region')" />
                             <select wire:model="selectedRegion" class="text-black rounded-lg lg:pr-16 pr-4 w-full">
+                                <option value="" selected="selected">
+                                    Region
+                                </option>
                                 @foreach($regions as $region)
                                     <option value="{{ $region['region_id'] }}">
                                         {{ $region['name'] }}
@@ -88,7 +91,10 @@
 
                         <div class="mt-4 md:ml-4">
                             <x-label :value="__('Province')" />
-                            <select class="text-black rounded-lg md:pr-20 w-full md:w-auto" id="create_province">
+                            <select wire:model="selectedProvince" class="text-black rounded-lg md:pr-20 w-full md:w-auto" id="create_province">
+                                <option value="" selected="selected">
+                                    Province
+                                </option>
                                 @foreach($provinces as $province)
                                     <option value="{{ $province['province_id'] }}">
                                         {{ $province['name'] }}
@@ -99,13 +105,17 @@
                     </div>
                     
                     <div class="mt-4">
-                        <x-label for="create_city" :value="__('City')" />
-                        <select class="text-black rounded-lg w-full" id="create_city">
-                            <option>
+                        <x-label :value="__('City')" />
+                        <select class="text-black rounded-lg w-full">
+                            <option value="" selected="selected">
                                 City
                             </option>
+                             @foreach($cities as $city)
+                                <option value="{{ $city['city_id'] }}">
+                                    {{ $city['name'] }}
+                                </option>
+                            @endforeach
                         </select>
-                        <x-input id="create_city-text" name="create_city" type="hidden" />
                     </div>
 
                     <div class="mt-4">
@@ -145,82 +155,4 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    var my_handlers = {
-        fill_provinces: function() {
-            var region_code = $(this).val();
-            $("#create_region-text").val($(this).find(`option[value=${region_code}]`).html());
-            $('#create_province').ph_locations('fetch_list', [{
-                "region_code": region_code
-            }]);
-
-        },
-        fill_cities: function() {
-            var province_code = $(this).val();
-            $("#create_province-text").val($(this).find(`option[value=${province_code}]`).html());
-            $('#create_city').ph_locations('fetch_list', [{
-                "province_code": province_code
-            }]);
-        },
-        fill_barangays: function() {
-            var city_code = $(this).val();
-            $("#create_city-text").val($(this).find(`option[value=${city_code}]`).html());
-            $('#create_barangay').ph_locations('fetch_list', [{
-                "city_code": city_code
-            }]);
-            // Automatically extract to create_barangay text because the user may thought that his/her create_barangay has already been selected.
-            const observer = new MutationObserver((children, observer) => {
-                observer.disconnect();
-                var selected_barangay_number = $("#create_barangay").val();
-                var selected_barangay_name = $(`#create_barangay option[value=${selected_barangay_number}]`).html();
-                $("#create_barangay-text").val(selected_barangay_name);
-            });
-            observer.observe(document.querySelector("#create_barangay"), {
-                "childList": true
-            });
-        },
-        put_barangay: function() {
-            var barangay_code = $(this).val();
-            $("#create_barangay-text").val($(this).find(`option[value=${barangay_code}]`).html());
-        }
-    };
-    $(function() {
-
-        const observer = new MutationObserver((children, observer) => {
-            observer.disconnect();
-            $("#create_region").prepend("<option value=\"label\"t>Region</option>");
-            $("#create_region").val("label");
-            // const options = $("#create_region > option");
-            // for (const i = 0; i < 
-
-        });
-        observer.observe(document.querySelector("#create_region"), {
-            "childList": true
-        });
-        $('#create_region').on('change', my_handlers.fill_provinces);
-        $('#create_province').on('change', my_handlers.fill_cities);
-        $('#create_city').on('change', my_handlers.fill_barangays);
-        $('#create_barangay').on('change', my_handlers.put_barangay);
-        $('#create_region').ph_locations({
-            'location_type': 'regions'
-        });
-        $('#create_province').ph_locations({
-            'location_type': 'provinces'
-        });
-        $('#create_city').ph_locations({
-            'location_type': 'cities'
-        });
-        $('#create_barangay').ph_locations({
-            'location_type': 'barangays'
-        });
-        $('#create_region').ph_locations('fetch_list');
-
-    });
-</script>
-
-<script>
-    window.addEventListener('loadRegions', function () {
-        $('#create_region').ph_locations('fetch_list');
-    });
-</script>
     
