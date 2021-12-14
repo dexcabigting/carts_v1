@@ -106,7 +106,7 @@
                     
                     <div class="mt-4">
                         <x-label :value="__('City')" />
-                        <select class="text-black rounded-lg w-full">
+                        <select wire:model="selectedCity" class="text-black rounded-lg w-full">
                             <option value="" selected="selected">
                                 City
                             </option>

@@ -10,6 +10,7 @@ use App\Models\Role;
 use Yajra\Address\Entities\Region;
 use Yajra\Address\Entities\Province;
 use Yajra\Address\Entities\City;
+use Yajra\Address\Entities\Barangay;
 
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -40,6 +41,7 @@ class UsersCreate extends Component
     public $regions = [];
     public $selectedRegion = '';
     public $selectedProvince = '';
+    public $selectedCity = '';
 
     protected function rules()
     {
