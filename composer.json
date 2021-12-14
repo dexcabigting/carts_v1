@@ -16,7 +16,8 @@
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.6",
         "luigel/laravel-paymongo": "^1.3",
-        "twilio/sdk": "^6.28"
+        "twilio/sdk": "^6.28",
+        "yajra/laravel-address": "^0.6.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
