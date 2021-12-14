@@ -15,22 +15,22 @@
                 <div class="flex flex-col gap-5">
                     <div class="text-gray-900">
                         <x-label  for="name" :value="__('Name')"/>
-                        <x-input wire:model="form.name" id="name" class="block mt-1 w-full text-black" type="text" name="name" value="{{ old('name') }}" autofocus required />
+                        <x-input wire:model.defer="form.name" id="name" class="block mt-1 w-full text-black" type="text" name="name" value="{{ old('form.name') }}" autofocus required />
                     </div>
 
                     <div class="">
                         <x-label for="email" :value="__('Email')" />
-                        <x-input wire:model="form.email" id="email" class="block mt-1 w-full text-black" type="email" name="email" value="{{ old('email') }}" required />
+                        <x-input wire:model.defer="form.email" id="email" class="block mt-1 w-full text-black" type="email" name="email" value="{{ old('email') }}" required />
                     </div>
 
                     <div class="">
                         <x-label for="phone" :value="__('Phone')" />
-                        <x-input wire:model="form.phone" id="phone" class="block mt-1 w-full text-black" type="text" name="phone" value="{{ old('phone') }}" required />
+                        <x-input wire:model.defer="form.phone" id="phone" class="block mt-1 w-full text-black" type="text" name="phone" value="{{ old('phone') }}" required />
                     </div>
 
                     <div class="">
                         <x-label for="password" :value="__('Password')" />
-                        <x-input wire:model="form.password" id="password" class="block mt-1 w-full text-black"
+                        <x-input wire:model.defer="form.password" id="password" class="block mt-1 w-full text-black"
                                         type="password"
                                         name="password"
                                         required autocomplete="new-password" />
@@ -38,7 +38,7 @@
 
                     <div class="">
                         <x-label for="password_confirmation" :value="__('Confirm Password')" />
-                        <x-input wire:model="form.password_confirmation" id="password_confirmation" class="block mt-1 w-full text-black"
+                        <x-input wire:model.defer="form.password_confirmation" id="password_confirmation" class="block mt-1 w-full text-black"
                                         type="password"
                                         name="password_confirmation" required />
                     </div>
@@ -48,7 +48,7 @@
                             <x-label :value="__('Role')" />
                             @foreach($roles as $role)
                                 <div wire:key="{{ $loop->index }}-role">
-                                    <input wire:model="form.role" type="radio" value="{{ $role['id'] }}" required/>
+                                    <input name="role_id" type="radio" value="{{ $role['id'] }}" required/>
                                     <span>{{ $role['role'] }}</span>
                                 </div>
                             @endforeach
@@ -57,8 +57,8 @@
                         <div class="w-1/2">
                             <x-label :value="__('Verify Email?')" />
                             @foreach($yesOrNo as $option)
-                                <div wire:key="{{ $loop->index }}-option">
-                                    <input wire:model="form.verify_email" type="radio" value="{{ $option }}" required/>
+                                <div>
+                                    <input name="verify_email" type="radio" value="{{ $option }}" required/>
                                     <span>{{ $option }}</span>
                                 </div>
                             @endforeach
@@ -213,6 +213,12 @@
         });
         $('#create_region').ph_locations('fetch_list');
 
+    });
+</script>
+
+<script>
+    window.addEventListener('loadRegions', function () {
+        $('#create_region').ph_locations('fetch_list');
     });
 </script>
     

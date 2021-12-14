@@ -22,7 +22,7 @@ class UsersCreate extends Component
         'phone' => '',
         'password' => '',
         'password_confirmation' => '',
-        'role' => '',
+        'role_id' => '',
         'verify_email' => '',
         'region' => '',
         'province' => '',
@@ -43,7 +43,7 @@ class UsersCreate extends Component
             'form.email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'form.phone' => ['required', 'string', 'unique:users,phone', new PhoneNumber($service)],
             'form.password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'form.role' => ['required', 'exists:roles,id'],
+            'form.role_id' => ['required', 'exists:roles,id'],
             'form.verify_email' => ['required', 'in:Yes,No'],
             'form.region' => ['required', 'string'],
             'form.province' => ['required', 'string'],
@@ -60,7 +60,7 @@ class UsersCreate extends Component
         'form.phone' => 'phone number',
         'form.password' => 'password',
         'form.password_confirmation' => 'confirm password',
-        'form.role' => 'role',
+        'form.role_id' => 'role_id',
         'form.verify_email' => 'verify email',
         'form.region' => 'region',
         'form.province' => 'province',
@@ -75,13 +75,16 @@ class UsersCreate extends Component
         $this->roles = Role::get(['id', 'role'])->toArray();
 
         $this->yesOrNo = ['Yes', 'No'];
-
-        // dd($this->yesOrNo);
     }
 
     public function render()
     {
         return view('livewire.users.users-create');
+    }
+
+    public function hydrate()
+    {
+        $this->dispatchBrowserEvent('loadRegions');
     }
 
     public function store($formData)
@@ -97,14 +100,20 @@ class UsersCreate extends Component
         $this->form['home_address'] = $formData['create_home_address'];
         $this->form['is_main_address'] = $formData['is_main_address'];
 
+        $this->form['verify_email'] = $formData['verify_email'];
+
+        $this->form['role_id'] = $formData['role_id'];
+
         $this->validate();
+
+        dd($this->form);
         
         $user = User::create([
             'name' => $this->form['name'],
             'email' => $this->form['email'],
             'phone' => $this->form['phone'],
             'password' => Hash::make($this->form['password']),
-            'role_id' => $this->form['role'],
+            'role_id' => $this->form['role_id'],
             'email_verified_at' => ($this->form['verify_email'] == "Yes") ? now() : null
         ]);
 
