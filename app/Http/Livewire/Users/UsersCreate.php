@@ -42,6 +42,7 @@ class UsersCreate extends Component
     public $selectedRegion = '';
     public $selectedProvince = '';
     public $selectedCity = '';
+    public $selectedBarangay = '';
 
     protected function rules()
     {
@@ -92,12 +93,9 @@ class UsersCreate extends Component
     {
         $provinces = $this->provinces->toArray();
         $cities = $this->cities->toArray();
+        $barangays = $this->barangays->toArray();
 
-        // $this->selectedProvince = $;
-
-        // dd($this->selectedProvince);
-
-        return view('livewire.users.users-create', compact('provinces', 'cities'));
+        return view('livewire.users.users-create', compact('provinces', 'cities', 'barangays'));
     }
 
     public function getProvincesProperty()
@@ -111,6 +109,14 @@ class UsersCreate extends Component
         return City::where('region_id', $this->selectedRegion)
             ->where('province_id', $this->selectedProvince)
             ->get(['name', 'region_id', 'province_id', 'city_id']);
+    }
+
+    public function getBarangaysProperty()
+    {
+        return Barangay::where('region_id', $this->selectedRegion)
+            ->where('province_id', $this->selectedProvince)
+            ->where('city_id', $this->selectedCity)
+            ->get(['id', 'name']);
     }
 
     public function store($formData)

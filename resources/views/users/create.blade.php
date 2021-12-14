@@ -120,12 +120,16 @@
 
                     <div class="mt-4">
                         <x-label for="create_barangay" :value="__('Barangay')"  />
-                        <select class="text-black rounded-lg w-full" id="create_barangay">
-                            <option>
+                        <select wire:model="selectedBarangay" class="text-black rounded-lg w-full">
+                            <option value="" selected="selected">
                                 Barangay
                             </option>
+                             @foreach($barangays as $barangay)
+                                <option value="{{ $barangay['id'] }}">
+                                    {{ $barangay['name'] }}
+                                </option>
+                            @endforeach
                         </select>
-                        <x-input id="create_barangay-text" name="create_barangay" type="hidden" />
                     </div>
 
                     <div class="mt-4">
