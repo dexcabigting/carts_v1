@@ -50,6 +50,8 @@ use App\Http\Controllers\TestController;
 |
 */
 
+Route::view('/', 'welcome');
+
 // Landing Page
 Route::get('/test', [TestController::class, 'index']);
 
