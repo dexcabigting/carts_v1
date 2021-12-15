@@ -174,6 +174,6 @@ class UsersIndex extends Component
 
     public function resetFilter()
     {
-        $this->reset(['sortBy', 'orderBy']);
+        $this->reset(['sortBy', 'orderBy', 'query']);
     }
 }
