@@ -87,6 +87,7 @@ class UsersIndex extends Component
             $this->checkedUsers = $query
                 // ->join('roles', 'roles.id', '=', 'role_id')
                 // ->where('roles.role', '=', 'Customer')
+                ->where('role_id', Role::where('role', '=', 'Customer')->first()->id)
                 ->where($sortBy, 'like', $search)
                 ->pluck('id')
                 ->map(fn ($item) => (string) $item)
@@ -122,6 +123,10 @@ class UsersIndex extends Component
     public function updatingQuery()
     {
         $this->resetPage();
+
+        $this->checkedUsers = [];
+
+        $this->selectAll = false;
     }
 
     public function openCreateModal()
