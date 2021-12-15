@@ -36,8 +36,6 @@ class UsersDelete extends Component
             $users->each->delete();
         }
             
-        
-
         $this->emitUp('unsetCheckedUsers', $this->users);
 
         $this->emitUp('cleanse');
