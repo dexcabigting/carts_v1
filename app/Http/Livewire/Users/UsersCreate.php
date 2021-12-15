@@ -34,7 +34,6 @@ class UsersCreate extends Component
         'city' => '',
         'barangay' => '',
         'home_address' => '',
-        'is_main_address' => ''
     ];
     public $roles = [];
     public $yesOrNo = [];
@@ -59,8 +58,7 @@ class UsersCreate extends Component
             'form.province' => ['required', 'string', 'exists:provinces,name'],
             'form.city' => ['required', 'string', 'exists:cities,name'],
             'form.barangay' => ['required', 'string', 'exists:barangays,name'],
-            'form.home_address' => ['required', 'string'],
-            'form.is_main_address' => ['required', 'string']
+            'form.home_address' => ['required', 'string']
         ];
     }
     
@@ -77,7 +75,6 @@ class UsersCreate extends Component
         'form.city' => 'city',
         'form.barangay' => 'barangay',
         'form.home_address' => 'home address',
-        'form.is_main_address' => 'default'
     ];
 
     public function mount()
@@ -149,7 +146,6 @@ class UsersCreate extends Component
         $this->form['province'] = $this->province->name;
         $this->form['city'] = $this->city->name;
         $this->form['barangay'] = $this->barangay->name;
-        $this->form['is_main_address'] = $formData['is_main_address'];
 
         $this->form['verify_email'] = $formData['verify_email'];
 
@@ -168,19 +164,13 @@ class UsersCreate extends Component
             'email_verified_at' => ($this->form['verify_email'] == "Yes") ? now() : null
         ]);
 
-        if($this->form['is_main_address'] == "1") {
-            $user->userAddresses()
-                ->where('is_main_address', 1)
-                ->update(['is_main_address' => 0]);
-        }
-
         $user->userAddresses()->create([
             'region' => $this->form['region'],
             'province' => $this->form['province'],
             'city' => $this->form['city'],
             'barangay' => $this->form['barangay'],
             'home_address' => $this->form['home_address'],
-            'is_main_address' => $this->form['is_main_address'],
+            'is_main_address' => 1,
         ]);
 
         $this->reset(['form', 'selectedRegion', 'selectedProvince', 'selectedCity', 'selectedBarangay']);

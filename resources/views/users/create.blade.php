@@ -131,14 +131,6 @@
                             @endforeach
                         </select>
                     </div>
-
-                    <div class="mt-4">
-                        <x-label :value="__('Set as Default')"  />
-                            <input type="radio" name="is_main_address" value="1" checked/>
-                            <label>Yes</label><br>
-                            <input type="radio" name="is_main_address" value="0" />
-                            <label >No</label><br>
-                    </div>
                 </div>
             </div>
 
