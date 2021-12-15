@@ -11,16 +11,29 @@
                         </x-button>
                     </div>
 
-                    <div class="">
-                        <button wire:click.prevent="openDeleteModal(@json($this->checked_keys))"
-                            type="button" {{ (!$checkedUsers) ?  'disabled' : null }}
-                            class="mx-2 hover:bg-red-900 hover:text-purple-100 text-sm 2xl:text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedUsers) cursor-not-allowed @endif">
-                            {{ __('Bulk Delete') }} 
-                            @if ($checkedUsers)
-                                ({{ count($checkedUsers) }})
-                            @endif
-                        </button>
-                    </div>
+                    @if($query != 'users')
+                        <div class="">
+                            <button wire:click.prevent="openDeleteModal(@json($this->checked_keys))"
+                                type="button" {{ (!$checkedUsers) ?  'disabled' : null }}
+                                class="px-4 py-2 my-3 bg-green-600 border border-transparent text-sm 2xl:text-xl font-semibold text-white hover:bg-green-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedUsers) cursor-not-allowed @endif">
+                                {{ __('Bulk Restore') }} 
+                                @if ($checkedUsers)
+                                    ({{ count($checkedUsers) }})
+                                @endif
+                            </button>
+                        </div>
+                    @else
+                        <div class="">
+                            <button wire:click.prevent="restoreUsers(@json($this->checked_keys))"
+                                type="button" {{ (!$checkedUsers) ?  'disabled' : null }}
+                                class="mx-2 hover:bg-red-900 hover:text-purple-100 text-sm 2xl:text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedUsers) cursor-not-allowed @endif">
+                                {{ __('Bulk Delete') }} 
+                                @if ($checkedUsers)
+                                    ({{ count($checkedUsers) }})
+                                @endif
+                            </button>
+                        </div>
+                    @endif
 
                   
                     </div>
@@ -195,7 +208,7 @@
 
                                 <td class="flex md:px-6 px-2 py-4 whitespace-nowrap">
                                     @if(!$user->trashed())
-                                        <div>
+                                        <div wire:key="{{ $loop->index }}-edit">
                                             <button wire:click.prevent="openEditModal({{ $user->id }})" class="p-2 bg-green-600 border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                                                 <span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
@@ -207,7 +220,7 @@
                                             </button>
                                         </div>
 
-                                        <div>
+                                        <div wire:key="{{ $loop->index }}-delete">
                                             <button wire:click.prevent="openDeleteModal({{ $user->id }})" class="p-2 border border-transparent font-semibold text-xs bg-red-600 text-white uppercase tracking-normal hover:bg-red-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                                                 <span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
@@ -218,14 +231,14 @@
                                             </button>
                                         </div>
                                     @else
-                                        <div>
+                                        <div wire:key="{{ $loop->index }}-restore">
                                             <button wire:click.prevent="restoreUser({{ $user->id }})" class="p-2 bg-green-600 border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                                                 <span>
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
                                                         <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                                                         <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
                                                     </svg>
-                                                    {{ __('Restored') }}
+                                                    {{ __('Restore') }}
                                                 </span>
                                             </button>
                                         </div>
