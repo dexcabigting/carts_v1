@@ -2,13 +2,29 @@
     <x-success-fail-message />
 
     @if($promptDelete)   
-        <h2 class="font-semibold text-l text-gray-100 leading-tight mb-4">
+        <div>
+            <h1 class="font-semibold text-xl text-gray-100 leading-tight mb-4">
+                WARNING
+            </h1>
+        </div>
+         
+        <div class="font-semibold text-l text-gray-100 leading-tight mb-4">
             @if(count($users) == 1)
-                {{ __('Are you sure you want to delete this user?') }}
+                <div>
+                    This user's transactions will be affected.
+                </div>
+                <div>
+                    Are you sure you want to delete this user?
+                </div>
             @else
-                {{ __('Are you sure you want to delete these users?') }}
+                <div>
+                    These users' transactions will be affected.
+                </div>
+                <div>
+                    Are you sure you want to delete these users?
+                </div>
             @endif 
-        </h2>
+        </div>
     
         <div class="flex mt-4 gap-5 justify-center">
             <div>
