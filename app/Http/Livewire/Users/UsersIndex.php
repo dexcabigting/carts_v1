@@ -119,6 +119,11 @@ class UsersIndex extends Component
         $this->resetPage();
     }
 
+    public function updatingQuery()
+    {
+        $this->resetPage();
+    }
+
     public function openCreateModal()
     {
         $this->createModal = true;
@@ -175,5 +180,31 @@ class UsersIndex extends Component
     public function resetFilter()
     {
         $this->reset(['sortBy', 'orderBy', 'query']);
+    }
+
+    public function restoreUser($id)
+    {
+        // dd('Hello ' . $id);
+
+        $user = User::onlyTrashed()->findOrFail($id);
+
+        $user->restore();
+
+        $user->userAddresses()->onlyTrashed()->restore();
+
+        $this->emit('unsetCheckedUsers', [$id]);
+
+        $this->emit('cleanse');
+    }
+
+    public function restoreUsers()
+    {
+        $userIds = $this->checked_keys;
+
+        dd($userIds);
+
+        $this->emit('unsetCheckedUsers', $userIds);
+
+        $this->emit('cleanse');
     }
 }

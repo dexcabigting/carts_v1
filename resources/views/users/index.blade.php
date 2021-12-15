@@ -12,8 +12,8 @@
                     </div>
 
                     @if($query != 'users')
-                        <div class="">
-                            <button wire:click.prevent="openDeleteModal(@json($this->checked_keys))"
+                        <div wire:key="{{ $query }}" class="">
+                            <button wire:click.prevent="restoreUsers()"
                                 type="button" {{ (!$checkedUsers) ?  'disabled' : null }}
                                 class="px-4 py-2 my-3 bg-green-600 border border-transparent text-sm 2xl:text-xl font-semibold text-white hover:bg-green-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedUsers) cursor-not-allowed @endif">
                                 {{ __('Bulk Restore') }} 
@@ -23,8 +23,8 @@
                             </button>
                         </div>
                     @else
-                        <div class="">
-                            <button wire:click.prevent="restoreUsers(@json($this->checked_keys))"
+                        <div wire:key="{{ $query }}" class="">
+                            <button wire:click.prevent="openDeleteModal(@json($this->checked_keys))"
                                 type="button" {{ (!$checkedUsers) ?  'disabled' : null }}
                                 class="mx-2 hover:bg-red-900 hover:text-purple-100 text-sm 2xl:text-xl font-semibold text-white px-4 py-2 bg-red-600 my-3 disabled:opacity-25 transition ease-in-out duration-150 @if (!$checkedUsers) cursor-not-allowed @endif">
                                 {{ __('Bulk Delete') }} 
