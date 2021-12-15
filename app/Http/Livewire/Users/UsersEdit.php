@@ -6,6 +6,11 @@ use Livewire\Component;
 
 use App\Models\User;
 
+use Yajra\Address\Entities\Region;
+use Yajra\Address\Entities\Province;
+use Yajra\Address\Entities\City;
+use Yajra\Address\Entities\Barangay;
+
 use App\Service\Twilio\PhoneNumberLookupService;
 
 use App\Rules\PhoneNumber;
@@ -14,11 +19,8 @@ class UsersEdit extends Component
 {
     public $user;
 
-    public $form = [
-        'name' => '',
-        'email' => '',
-        'phone' => '',
-    ];
+    public $form = [];
+    public $selectedAddress;
 
     protected function rules()
     {   
@@ -42,6 +44,10 @@ class UsersEdit extends Component
         $this->form = $id;
 
         $this->user = $id;
+
+        $this->selectedAddress = $this->user->userAddresses()
+                                    ->where('is_main_address', 1)
+                                    ->first()->id; 
     }
 
     public function render()
