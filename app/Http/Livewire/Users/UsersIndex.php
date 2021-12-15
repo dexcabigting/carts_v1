@@ -85,10 +85,10 @@ class UsersIndex extends Component
 
         if ($value) {
             $this->checkedUsers = $query
-                ->join('roles', 'roles.id', '=', 'role_id')
-                ->where('roles.role', '=', 'Customer')
+                // ->join('roles', 'roles.id', '=', 'role_id')
+                // ->where('roles.role', '=', 'Customer')
                 ->where($sortBy, 'like', $search)
-                ->pluck('users.id')
+                ->pluck('id')
                 ->map(fn ($item) => (string) $item)
                 ->flip()
                 ->map(fn ($item) => true)
@@ -201,7 +201,12 @@ class UsersIndex extends Component
     {
         $userIds = $this->checked_keys;
 
-        dd($userIds);
+        $users = User::onlyTrashed()->whereIn('id', $userIds)->get();
+
+        $users->each(function ($user) {
+            $user->restore();
+            $user->userAddresses()->onlyTrashed()->restore();
+        }); 
 
         $this->emit('unsetCheckedUsers', $userIds);
 
