@@ -5,7 +5,7 @@
     <div class="flex flex-col bg-custom-blacki justify-center items-center">
         <div>
             <h2 class="font-semibold text-xl text-gray-100 leading-tight">
-                {{ __('User Credentials') }} {{ $form['verify_email'] }}
+                {{ __('User Credentials') }} 
             </h2>
         </div>
 
