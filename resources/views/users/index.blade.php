@@ -24,36 +24,60 @@
 
                   
                     </div>
-                   <!-- Order By -->
+
+                    <!-- Order By -->
                     <div class="xl:ml-0">
                         <div class="font-medium text-gray-100 py-4">
-                        <div class="flex flex-col items-center justify-items-center lg:flex-row mx-2">
-                            <div class="mx-2">
-                            <x-label :value="__('Order by')" class="text-gray-50 inline-block font-bold text-sm mx-1 xl:text-xl" />
-                            </div>
-                            <div class="inline-flex">
-                            <select wire:model="sortBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
-                                <option value="name">
-                                        <x-label :value="__('Name')" class="inline-block" />
-                                </option>
+                            <div class="flex flex-col items-center justify-items-center lg:flex-row mx-2">
+                                <div class="mx-2">
+                                <x-label :value="__('Order By')" class="text-gray-50 inline-block font-bold text-sm mx-1 xl:text-xl" />
+                                </div>
+                                <div class="inline-flex">
+                                    <select wire:model="sortBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                        <option value="name">
+                                                <x-label :value="__('Name')" class="inline-block" />
+                                        </option>
 
-                                <option value="created_at">
-                                    <x-label :value="__('Date Created')" class="inline-block" />
-                                </option>
-                            </select>
-                            <select wire:model="orderBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
-                                <option value="asc">
-                                    <x-label :value="__('Ascending')" class="inline-block" />
-                                </option>
+                                        <option value="created_at">
+                                            <x-label :value="__('Date Created')" class="inline-block" />
+                                        </option>
+                                    </select>
+                                    <select wire:model="orderBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                        <option value="asc">
+                                            <x-label :value="__('Ascending')" class="inline-block" />
+                                        </option>
 
-                                <option value="desc">
-                                    <x-label :value="__('Descending')" class="inline-block" />
-                                </option>
-                            </select>
+                                        <option value="desc">
+                                            <x-label :value="__('Descending')" class="inline-block" />
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Users -->
+                    <div class="xl:ml-0">
+                        <div class="font-medium text-gray-100 py-4">
+                            <div class="flex flex-col items-center justify-items-center lg:flex-row mx-2">
+                                <div class="mx-2">
+                                <x-label :value="__('Users')" class="text-gray-50 inline-block font-bold text-sm mx-1 xl:text-xl" />
+                                </div>
+                                <div class="inline-flex">
+                                    <select wire:model="query" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                        <option value="users">
+                                                <x-label :value="__('Users')" class="inline-block" />
+                                        </option>
+
+                                        <option value="deletedUsers">
+                                            <x-label :value="__('Deleted Users')" class="inline-block" />
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
-                            </div>
-                            </div>  
+                        </div>
+                    </div>   
+
                     </div>
                       <!-- Search Bar -->
                       

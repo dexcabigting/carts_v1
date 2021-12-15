@@ -22,6 +22,7 @@ class UsersIndex extends Component
     public $createModal = false;
     public $editModal = false;
     public $deleteModal = false;
+    public $query = 'users';
 
     protected $listeners = [
         'refreshParent' => '$refresh',
@@ -53,7 +54,13 @@ class UsersIndex extends Component
 
         $orderBy = $this->orderBy;
 
-        return User::with('role')
+        if($this->query == 'users') {
+            $query = User::with('role');
+        } elseif($this->query == 'deletedUsers') {
+            $query = User::onlyTrashed()->with('role');
+        }
+
+        return $query
             ->where('role_id', Role::where('role', '=', 'Customer')->first()->id)
             ->where('name', 'like', $search)
             ->orderBy($sortBy, $orderBy);
@@ -70,8 +77,14 @@ class UsersIndex extends Component
 
         $sortBy = $this->sortBy;
 
+        if($this->query == 'users') {
+            $query = User::with('role');
+        } elseif($this->query == 'deletedUsers') {
+            $query = User::onlyTrashed()->with('role');
+        }
+
         if ($value) {
-            $this->checkedUsers = User::with('role')
+            $this->checkedUsers = $query
                 ->join('roles', 'roles.id', '=', 'role_id')
                 ->where('roles.role', '=', 'Customer')
                 ->where($sortBy, 'like', $search)
