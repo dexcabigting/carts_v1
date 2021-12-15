@@ -56,7 +56,7 @@ class UsersIndex extends Component
 
         if($this->query == 'users') {
             $query = User::with('role');
-        } elseif($this->query == 'deletedUsers') {
+        } else {
             $query = User::onlyTrashed()->with('role');
         }
 
@@ -79,7 +79,7 @@ class UsersIndex extends Component
 
         if($this->query == 'users') {
             $query = User::with('role');
-        } elseif($this->query == 'deletedUsers') {
+        } else {
             $query = User::onlyTrashed()->with('role');
         }
 
