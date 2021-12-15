@@ -82,6 +82,7 @@ class UsersEdit extends Component
             'email' => $id->email,
             'phone' => $id->phone,
             'role_id' => $id->role_id,
+            // 'home_address' => '',
         ];
 
         $this->user = $id;
@@ -89,12 +90,31 @@ class UsersEdit extends Component
         $this->selectedAddress = $this->user->userAddresses()
                                     ->where('is_main_address', 1)
                                     ->first()->id; 
+        
+        $this->address = $this->user->userAddresses()
+                                    ->where('is_main_address', 1)
+                                    ->first();
+
+        $this->selectedRegion = Region::where('name', $this->address->region)->first()->region_id;
+        $this->selectedProvince = Province::where('name', $this->address->province)->first()->province_id;
+        $this->selectedCity = City::where('name', $this->address->city)->first()->city_id;
+        $this->selectedBarangay = Barangay::where('name', $this->address->barangay)->first()->id;
 
         $this->roles = Role::get(['id', 'role'])->toArray();
 
         $this->yesOrNo = ['Yes', 'No'];
 
         $this->regions = Region::get(['name', 'region_id'])->toArray();
+    }
+
+    public function updatedSelectedAddress()
+    {
+        $userAddress = $this->user_address->first();
+
+        $this->selectedRegion = Region::where('name', $userAddress->region)->first()->region_id;
+        $this->selectedProvince = Province::where('name', $userAddress->province)->first()->province_id;
+        $this->selectedCity = City::where('name', $userAddress->city)->first()->city_id;
+        $this->selectedBarangay = Barangay::where('name', $userAddress->barangay)->first()->id;
     }
 
     public function render()
@@ -104,14 +124,11 @@ class UsersEdit extends Component
         $userAddresses = $this->user->userAddresses()
                                 ->get()->pluck('id')->toArray();
 
-        $this->selectedRegion = Region::where('name', $userAddress->region)->first()->region_id;
-        $this->selectedProvince = Province::where('name', $userAddress->province)->first()->province_id;
-        $this->selectedCity = City::where('name', $userAddress->city)->first()->city_id;
-        $this->selectedBarangay = Barangay::where('name', $userAddress->barangay)->first()->id;
-
         $provinces = $this->provinces->toArray();
         $cities = $this->cities->toArray();
         $barangays = $this->barangays->toArray();
+
+        $this->form['home_address'] = $userAddress->home_address;
 
         return view('livewire.users.users-edit', compact('userAddress', 'userAddresses', 'provinces', 'cities', 'barangays'));
     }
