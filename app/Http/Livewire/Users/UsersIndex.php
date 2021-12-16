@@ -23,6 +23,7 @@ class UsersIndex extends Component
     public $editModal = false;
     public $deleteModal = false;
     public $query = 'users';
+    public $disabled = 'disabled';
 
     protected $listeners = [
         'refreshParent' => '$refresh',

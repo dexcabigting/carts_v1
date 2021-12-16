@@ -153,7 +153,7 @@
                             <tr>
                                 <td class="md:px-6 px-2 py-4" wire:key="user-{{ $loop->index }}">
                                     <div>
-                                        <input type="checkbox" wire:model="checkedUsers.{{ $user->id }}"
+                                        <input @if($user->role_id == 1) {{ $disabled }} @endif type="checkbox" wire:model="checkedUsers.{{ $user->id }}"
                                         class="rounded border-gray-400 text-indigo-600 shadow-sm focus:border-indigo-400 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                     </div>
                                 </td>

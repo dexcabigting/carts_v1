@@ -244,6 +244,10 @@ class UsersEdit extends Component
 
         $this->emitUp('refreshParent');
 
+        if($this->form['role_id'] == 1) {
+            $this->emitUp('unsetCheckedUsers', [$this->user->id]);
+        }
+
         session()->flash('success', 'User has been updated successfully!');
     }
 
