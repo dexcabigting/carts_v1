@@ -12,6 +12,7 @@ use Yajra\Address\Entities\Region;
 use Yajra\Address\Entities\Province;
 use Yajra\Address\Entities\City;
 use Yajra\Address\Entities\Barangay;
+use Illuminate\Support\Arr;
 
 use App\Service\Twilio\PhoneNumberLookupService;
 
@@ -95,10 +96,11 @@ class UsersEdit extends Component
                                     ->where('is_main_address', 1)
                                     ->first();
 
-        $this->selectedRegion = Region::where('name', $this->address->region)->first()->region_id;
-        $this->selectedProvince = Province::where('name', $this->address->province)->first()->province_id;
-        $this->selectedCity = City::where('name', $this->address->city)->first()->city_id;
-        $this->selectedBarangay = Barangay::where('name', $this->address->barangay)->first()->id;
+        $this->selectedRegion = $this->regionId($this->address->region);
+        $this->selectedProvince = $this->provinceId($this->address->province);
+        $this->selectedCity = $this->cityId($this->address->city);
+        $this->selectedBarangay = $this->barangayId($this->address->barangay);
+        
 
         $this->roles = Role::get(['id', 'role'])->toArray();
 
@@ -109,12 +111,27 @@ class UsersEdit extends Component
 
     public function updatedSelectedAddress()
     {
+        // $this->reset(['selectedRegion', 'selectedProvince', '', '']);
+
         $userAddress = $this->user_address->first();
 
-        $this->selectedRegion = Region::where('name', $userAddress->region)->first()->region_id;
-        $this->selectedProvince = Province::where('name', $userAddress->province)->first()->province_id;
-        $this->selectedCity = City::where('name', $userAddress->city)->first()->city_id;
-        $this->selectedBarangay = Barangay::where('name', $userAddress->barangay)->first()->id;
+        $this->selectedRegion = $this->regionId($userAddress->region);
+    }
+
+    public function regionId($name) {
+        return Region::where('name', $name)->first()->region_id;
+    }
+
+    public function provinceId($name) {
+        return Province::where('name', $name)->first()->province_id;
+    }
+
+    public function cityId($name) {
+        return City::where('name', $name)->first()->city_id;
+    }
+
+    public function barangayId($name) {
+        return Barangay::where('name', $name)->first()->id;
     }
 
     public function render()
@@ -127,10 +144,13 @@ class UsersEdit extends Component
         $provinces = $this->provinces->toArray();
         $cities = $this->cities->toArray();
         $barangays = $this->barangays->toArray();
+        $selected = 'selected';
+
+        // array_unshift($provinces, ['id' => '', 'name' => 'Province', 'province_id' => '']);
 
         $this->form['home_address'] = $userAddress->home_address;
 
-        return view('livewire.users.users-edit', compact('userAddress', 'userAddresses', 'provinces', 'cities', 'barangays'));
+        return view('livewire.users.users-edit', compact('userAddress', 'userAddresses', 'provinces', 'cities', 'barangays', 'selected'));
     }
 
     public function getUserAddressProperty()
@@ -203,5 +223,22 @@ class UsersEdit extends Component
         $this->dispatchBrowserEvent('editModalDisplayNone');
         
         $this->emitUp('closeEditModal');
+    }
+
+    public function updatingSelectedRegion($region)
+    {
+        $this->selectedProvince = Province::where('region_id', $region)->first()->province_id;
+        $this->updatingSelectedProvince($this->selectedProvince);
+    }
+
+    public function updatingSelectedProvince($province)
+    {
+        $this->selectedCity = City::where('province_id', $province)->first()->city_id;
+        $this->updatingSelectedCity($this->selectedCity);
+    }
+
+    public function updatingSelectedCity($city)
+    {
+        $this->selectedBarangay = Barangay::where('city_id', $city)->first()->id;
     }
 }

@@ -91,7 +91,7 @@
 
                         <div class="mt-4 md:ml-4">
                             <x-label :value="__('Province')" />
-                            <select wire:model="selectedProvince" class="text-black rounded-lg md:pr-20 w-full md:w-auto" id="create_province">
+                            <select wire:model="selectedProvince" class="text-black rounded-lg md:pr-20 w-full md:w-auto">
                                 <option value="" selected="selected">
                                     Province
                                 </option>

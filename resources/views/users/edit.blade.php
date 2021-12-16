@@ -55,13 +55,13 @@
                     <div class="text-sm font-medium text-gray-900">
                         <select wire:model="selectedAddress">
                             @foreach($userAddresses as $index => $address)
-                                <option value="{{ $address }}">
+                                <option wire:key="{{ $loop->index }}-address" value="{{ $address }}">
                                     Address {{ $index + 1 }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
-                    
+
                     <div>
                         <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
 
@@ -69,15 +69,12 @@
                     </div>
 
                     <!-- Address -->
-                    <div class="block md:flex fle-row">
+                    <div class="block md:flex flex-row">
                         <div class="mt-4 ">
                             <x-label :value="__('Region')" />
                             <select wire:model="selectedRegion" class="text-black rounded-lg lg:pr-16 pr-4 w-full">
-                                <option value="" selected="selected">
-                                    Region
-                                </option>
                                 @foreach($regions as $region)
-                                    <option value="{{ $region['region_id'] }}">
+                                    <option wire:key="{{ $loop->index }}-region" value="{{ $region['region_id'] }}">
                                         {{ $region['name'] }}
                                     </option>
                                 @endforeach
@@ -87,11 +84,8 @@
                         <div class="mt-4 md:ml-4">
                             <x-label :value="__('Province')" />
                             <select wire:model="selectedProvince" class="text-black rounded-lg md:pr-20 w-full md:w-auto" id="create_province">
-                                <option value="" selected="selected">
-                                    Province
-                                </option>
                                 @foreach($provinces as $province)
-                                    <option value="{{ $province['province_id'] }}">
+                                    <option wire:key="{{ $loop->index }}-province" value="{{ $province['province_id'] }}" @if($province['province_id'] == '') selected="selected" @endif>
                                         {{ $province['name'] }}
                                     </option>
                                 @endforeach
@@ -102,11 +96,8 @@
                     <div class="mt-4">
                         <x-label :value="__('City')" />
                         <select wire:model="selectedCity" class="text-black rounded-lg w-full">
-                            <option value="" selected="selected">
-                                City
-                            </option>
-                             @foreach($cities as $city)
-                                <option value="{{ $city['city_id'] }}">
+                            @foreach($cities as $city)
+                                <option wire:key="{{ $loop->index }}-city" value="{{ $city['city_id'] }}">
                                     {{ $city['name'] }}
                                 </option>
                             @endforeach
@@ -116,11 +107,8 @@
                     <div class="mt-4">
                         <x-label for="create_barangay" :value="__('Barangay')"  />
                         <select wire:model="selectedBarangay" class="text-black rounded-lg w-full">
-                            <option value="" selected="selected">
-                                Barangay
-                            </option>
                              @foreach($barangays as $barangay)
-                                <option value="{{ $barangay['id'] }}">
+                                <option wire:key="{{ $loop->index }}-barangay" value="{{ $barangay['id'] }}">
                                     {{ $barangay['name'] }}
                                 </option>
                             @endforeach
@@ -128,11 +116,13 @@
                     </div>
 
                     <div class="mt-4">
+                        @if($userAddress->is_main_address == false)
                         <x-label :value="__('Set as Default')"  />
                             <input type="radio" name="is_main_address" value="1" checked/>
                             <label>Yes</label><br>
                             <input type="radio" name="is_main_address" value="0" />
                             <label >No</label><br>
+                        @endif
                     </div>
                 </div>
             </div>
