@@ -261,14 +261,16 @@ class UsersEdit extends Component
         $this->selectedBarangay = "";
     }
 
-    // public function updatingSelectedProvince($province)
-    // {
-    //     $this->selectedCity = City::where('province_id', $province)->first()->city_id;
-    //     $this->updatingSelectedCity($this->selectedCity);
-    // }
+    public function setAsDefault()
+    {
+        $this->user->userAddresses()
+            ->where('is_main_address', 1)
+            ->update(['is_main_address' => 0]);
 
-    // public function updatingSelectedCity($city)
-    // {
-    //     $this->selectedBarangay = Barangay::where('city_id', $city)->first()->id;
-    // }
+        $this->user_address->update(['is_main_address' => 1]);
+
+        $this->mount($this->user->id);
+
+        session()->flash('success', 'Address has been successfully set to default!');
+    }
 }
