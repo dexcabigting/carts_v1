@@ -34,6 +34,7 @@ class UsersEdit extends Component
         'home_address' => '',
         'is_main_address' => ''
     ];
+    public $userAddresses = [];
     public $selectedAddress;
     public $roles = [];
     public $yesOrNo = [];
@@ -78,15 +79,10 @@ class UsersEdit extends Component
 
     public function mount(User $id)
     {
-        $this->form = [
-            'name' => $id->name,
-            'email' => $id->email,
-            'phone' => $id->phone,
-            'role_id' => $id->role_id,
-            // 'home_address' => '',
-        ];
-
         $this->user = $id;
+
+        $this->userAddresses = $this->user->userAddresses()
+                                ->get()->pluck('id')->toArray();
 
         $this->selectedAddress = $this->user->userAddresses()
                                     ->where('is_main_address', 1)
@@ -107,15 +103,26 @@ class UsersEdit extends Component
         $this->yesOrNo = ['Yes', 'No'];
 
         $this->regions = Region::get(['name', 'region_id'])->toArray();
+
+        $this->form = [
+            'name' => $id->name,
+            'email' => $id->email,
+            'phone' => $id->phone,
+            'role_id' => $id->role_id,
+            'home_address' => $this->address->home_address,
+        ];
     }
 
     public function updatedSelectedAddress()
     {
-        // $this->reset(['selectedRegion', 'selectedProvince', '', '']);
+        $this->address  = $this->user_address->first();
 
-        $userAddress = $this->user_address->first();
+        $this->selectedRegion = $this->regionId($this->address->region);
+        $this->selectedProvince = $this->provinceId($this->address->province);
+        $this->selectedCity = $this->cityId($this->address->city);
+        $this->selectedBarangay = $this->barangayId($this->address->barangay);
 
-        $this->selectedRegion = $this->regionId($userAddress->region);
+        $this->form['home_address'] = $this->address->home_address;
     }
 
     public function regionId($name) {
@@ -136,21 +143,11 @@ class UsersEdit extends Component
 
     public function render()
     {
-        $userAddress = $this->user_address->first();
-
-        $userAddresses = $this->user->userAddresses()
-                                ->get()->pluck('id')->toArray();
-
         $provinces = $this->provinces->toArray();
         $cities = $this->cities->toArray();
         $barangays = $this->barangays->toArray();
-        $selected = 'selected';
 
-        // array_unshift($provinces, ['id' => '', 'name' => 'Province', 'province_id' => '']);
-
-        $this->form['home_address'] = $userAddress->home_address;
-
-        return view('livewire.users.users-edit', compact('userAddress', 'userAddresses', 'provinces', 'cities', 'barangays', 'selected'));
+        return view('livewire.users.users-edit', compact('provinces', 'cities', 'barangays'));
     }
 
     public function getUserAddressProperty()
@@ -225,20 +222,20 @@ class UsersEdit extends Component
         $this->emitUp('closeEditModal');
     }
 
-    public function updatingSelectedRegion($region)
-    {
-        $this->selectedProvince = Province::where('region_id', $region)->first()->province_id;
-        $this->updatingSelectedProvince($this->selectedProvince);
-    }
+    // public function updatingSelectedRegion($region)
+    // {
+    //     $this->selectedProvince = Province::where('region_id', $region)->first()->province_id;
+    //     $this->updatingSelectedProvince($this->selectedProvince);
+    // }
 
-    public function updatingSelectedProvince($province)
-    {
-        $this->selectedCity = City::where('province_id', $province)->first()->city_id;
-        $this->updatingSelectedCity($this->selectedCity);
-    }
+    // public function updatingSelectedProvince($province)
+    // {
+    //     $this->selectedCity = City::where('province_id', $province)->first()->city_id;
+    //     $this->updatingSelectedCity($this->selectedCity);
+    // }
 
-    public function updatingSelectedCity($city)
-    {
-        $this->selectedBarangay = Barangay::where('city_id', $city)->first()->id;
-    }
+    // public function updatingSelectedCity($city)
+    // {
+    //     $this->selectedBarangay = Barangay::where('city_id', $city)->first()->id;
+    // }
 }
