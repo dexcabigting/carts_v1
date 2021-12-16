@@ -269,7 +269,7 @@ class UsersEdit extends Component
 
         $this->user_address->update(['is_main_address' => 1]);
 
-        $this->mount($this->user->id);
+        $this->mount($this->user);
 
         session()->flash('success', 'Address has been successfully set to default!');
     }
@@ -278,7 +278,7 @@ class UsersEdit extends Component
     {
         $this->user->update(['email_verified_at' => now()]);
 
-        $this->mount($this->user->id);
+        $this->mount($this->user);
 
         session()->flash('success', 'Email has been successfully verified!');
     }
