@@ -39,15 +39,13 @@
                             @endforeach
                         </div>
 
-                        <div class="w-1/2">
-                            <x-label :value="__('Verify Email?')" />
-                            @foreach($yesOrNo as $option)
-                                <div wire:key="{{ $loop->index }}-option">
-                                    <input name="verify_email" type="radio" value="{{ $option }}" required/>
-                                    <span>{{ $option }}</span>
-                                </div>
-                            @endforeach
-                        </div>
+                        @if(empty($user->email_verified_at))
+                            <div class="w-1/2">
+                                <x-button wire:click.prevent="verifyEmail()" type="button" class="bg-red-500 text-gray-100 text-xl font-bold px-4 py-2">
+                                    {{ __('Verify Email') }}
+                                </x-button>
+                            </div>
+                        @endif
                     </div>  
                 </div>
 
