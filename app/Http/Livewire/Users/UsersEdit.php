@@ -58,13 +58,11 @@ class UsersEdit extends Component
             'form.email' => 'required|string|email|max:255|unique:users,email,' . $this->user->id,
             'form.phone' => ['required', 'string', 'unique:users,phone,' . $this->user->id, new PhoneNumber($service)],
             'form.role_id' => ['required', 'exists:roles,id'],
-            'form.verify_email' => ['required', 'in:Yes,No'],
             'form.region' => ['required', 'string', 'exists:regions,name'],
             'form.province' => ['required', 'string', 'exists:provinces,name'],
             'form.city' => ['required', 'string', 'exists:cities,name'],
             'form.barangay' => ['required', 'string', 'exists:barangays,name'],
             'form.home_address' => ['required', 'string'],
-            'form.is_main_address' => ['required', 'string']
         ];
     }
 
@@ -73,16 +71,14 @@ class UsersEdit extends Component
         'form.email' => 'email address',
         'form.phone' => 'phone number',
         'form.role_id' => 'role_id',
-        'form.verify_email' => 'verify email',
         'form.region' => 'region',
         'form.province' => 'province',
         'form.city' => 'city',
         'form.barangay' => 'barangay',
         'form.home_address' => 'home address',
-        'form.is_main_address' => 'default'
     ];
 
-    public function mount(User $id)
+    public function mount(User $id, $selectedAddress = null)
     {
         $this->user = $id;
 
@@ -90,7 +86,7 @@ class UsersEdit extends Component
                                 ->get()->pluck('id')->toArray();
 
         $this->selectedAddress = $this->user->userAddresses()
-                                    ->where('is_main_address', 1)
+                                    ->where('is_main_address', (is_null($selectedAddress)) ? 1 : $selectedAddress)
                                     ->first()->id; 
         
         $this->address = $this->user->userAddresses()
@@ -214,13 +210,37 @@ class UsersEdit extends Component
 
         $this->form['phone'] = $phone;
 
+        $this->form['region'] = (empty($this->selectedRegion)) ? "" : $this->region->name;
+        $this->form['province'] = (empty($this->selectedProvince)) ? "" : $this->province->name;
+        $this->form['city'] = (empty($this->selectedCity)) ? "" : $this->city->name;
+        $this->form['barangay'] = (empty($this->selectedBarangay)) ? "" : $this->barangay->name;
+
         $this->validate();
 
-        $this->user->update([
-            'name' => $this->form['name'],
-            'email' => $this->form['email'],
-            'phone' => $this->form['phone'],
+        if($this->user->phone != $phone) {
+            $this->user->update([
+                'name' => $this->form['name'],
+                'email' => $this->form['email'],
+                'phone' => $this->form['phone'],
+                'role_id' => $this->form['role_id']
+            ]);
+        } else {
+            $this->user->update([
+                'name' => $this->form['name'],
+                'email' => $this->form['email'],
+                'role_id' => $this->form['role_id']
+            ]); 
+        }
+
+        $this->user_address->update([
+            'region' => $this->form['region'],
+            'province' => $this->form['province'],
+            'city' => $this->form['city'],
+            'barangay' => $this->form['barangay'],
+            'home_address' => $this->form['home_address'],
         ]);
+
+        // $this->mount($this->user, $this->selectedAddress);
 
         $this->emitUp('refreshParent');
 
