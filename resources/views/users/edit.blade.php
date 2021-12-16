@@ -9,7 +9,7 @@
             </h2>
         </div>
 
-        <form class="bg-custom-blacki" wire:submit.prevent="update(Object.fromEntries(new FormData($event.target)))">
+        <form class="bg-custom-blacki" wire:submit.prevent="update">
             @csrf
             <div class="flex flex-row gap-5">
                 <div class="flex flex-col gap-5">
@@ -82,7 +82,7 @@
                             </select>
                         </div>
 
-                        @if(!is_null($selectedRegion))
+                        @if(!empty($selectedRegion))
                             <div class="mt-4 md:ml-4">
                                 <x-label :value="__('Province')" />
                                 <select wire:model="selectedProvince" class="text-black rounded-lg md:pr-20 w-full md:w-auto" id="create_province">
@@ -97,7 +97,7 @@
                         @endif
                     </div>
                     
-                    @if(!is_null($selectedProvince))
+                    @if(!empty($selectedProvince))
                         <div class="mt-4">
                             <x-label :value="__('City')" />
                             <select wire:model="selectedCity" class="text-black rounded-lg w-full">
@@ -111,7 +111,7 @@
                         </div>
                     @endif
 
-                    @if(!is_null($selectedCity))
+                    @if(!empty($selectedCity))
                     <div class="mt-4">
                         <x-label for="create_barangay" :value="__('Barangay')"  />
                         <select wire:model="selectedBarangay" class="text-black rounded-lg w-full">
@@ -125,9 +125,8 @@
                     </div>
                     @endif
 
-
                     <div class="mt-4">
-                        @if($this->address->is_main_address == 0)
+                        @if(!$isDefaultAddress)
                         <x-label :value="__('Set as Default')"  />
                             <input type="radio" name="is_main_address" value="1" checked/>
                             <label>Yes</label><br>

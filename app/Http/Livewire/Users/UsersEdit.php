@@ -34,15 +34,20 @@ class UsersEdit extends Component
         'home_address' => '',
         'is_main_address' => ''
     ];
+    public $address = null;
+    public $isDefaultAddress = true;
     public $userAddresses = [];
     public $selectedAddress;
     public $roles = [];
     public $yesOrNo = [];
     public $regions = [];
-    public $selectedRegion = '';
-    public $selectedProvince = '';
-    public $selectedCity = '';
-    public $selectedBarangay = '';
+    public $provinces = [];
+    public $cities = [];
+    public $barangays = [];
+    public $selectedRegion = null;
+    public $selectedProvince = null;
+    public $selectedCity = null;
+    public $selectedBarangay = null;
 
     protected function rules()
     {   
@@ -92,12 +97,17 @@ class UsersEdit extends Component
                                     ->where('is_main_address', 1)
                                     ->first();
 
+        $this->isDefaultAddress = $this->address->is_main_address;
+
         $this->selectedRegion = $this->regionId($this->address->region);
         $this->selectedProvince = $this->provinceId($this->address->province);
         $this->selectedCity = $this->cityId($this->address->city);
         $this->selectedBarangay = $this->barangayId($this->address->barangay);
-        
 
+        $this->provinces = $this->province_list->toArray();
+        $this->cities = $this->city_list->toArray();
+        $this->barangays = $this->barangay_list->toArray();
+        
         $this->roles = Role::get(['id', 'role'])->toArray();
 
         $this->yesOrNo = ['Yes', 'No'];
@@ -117,10 +127,16 @@ class UsersEdit extends Component
     {
         $this->address  = $this->user_address->first();
 
+        $this->isDefaultAddress = $this->address->is_main_address;
+
         $this->selectedRegion = $this->regionId($this->address->region);
         $this->selectedProvince = $this->provinceId($this->address->province);
         $this->selectedCity = $this->cityId($this->address->city);
         $this->selectedBarangay = $this->barangayId($this->address->barangay);
+
+        $this->provinces = $this->province_list->toArray();
+        $this->cities = $this->city_list->toArray();
+        $this->barangays = $this->barangay_list->toArray();
 
         $this->form['home_address'] = $this->address->home_address;
     }
@@ -143,11 +159,7 @@ class UsersEdit extends Component
 
     public function render()
     {
-        $provinces = $this->provinces->toArray();
-        $cities = $this->cities->toArray();
-        $barangays = $this->barangays->toArray();
-
-        return view('livewire.users.users-edit', compact('provinces', 'cities', 'barangays'));
+        return view('livewire.users.users-edit');
     }
 
     public function getUserAddressProperty()
@@ -155,20 +167,20 @@ class UsersEdit extends Component
         return UserAddress::where('id', $this->selectedAddress);
     }
 
-    public function getProvincesProperty()
+    public function getProvinceListProperty()
     {
         return Province::where('region_id', $this->selectedRegion)
             ->get(['name', 'region_id', 'province_id']);
     }
 
-    public function getCitiesProperty()
+    public function getCityListProperty()
     {
         return City::where('region_id', $this->selectedRegion)
             ->where('province_id', $this->selectedProvince)
             ->get(['name', 'region_id', 'province_id', 'city_id']);
     }
 
-    public function getBarangaysProperty()
+    public function getBarangayListProperty()
     {
         return Barangay::where('region_id', $this->selectedRegion)
             ->where('province_id', $this->selectedProvince)
@@ -222,11 +234,32 @@ class UsersEdit extends Component
         $this->emitUp('closeEditModal');
     }
 
-    // public function updatingSelectedRegion($region)
-    // {
-    //     $this->selectedProvince = Province::where('region_id', $region)->first()->province_id;
-    //     $this->updatingSelectedProvince($this->selectedProvince);
-    // }
+    public function updatedSelectedRegion()
+    {
+        $this->provinces = $this->province_list->toArray();
+        $this->selectedProvince = ""; 
+        $this->selectedCity = "";
+        $this->selectedBarangay = "";
+    }
+
+    public function updatedSelectedProvince($province)
+    {
+        if(!empty($province)) {
+            $this->cities = $this->city_list->toArray();
+        }
+
+        $this->selectedCity = "";
+        $this->selectedBarangay = "";
+    }
+
+    public function updatedSelectedCity($city)
+    {
+        if(!empty($city)) {
+            $this->barangays = $this->barangay_list->toArray();
+        }
+
+        $this->selectedBarangay = "";
+    }
 
     // public function updatingSelectedProvince($province)
     // {
