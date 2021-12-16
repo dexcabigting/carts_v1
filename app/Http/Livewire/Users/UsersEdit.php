@@ -273,4 +273,13 @@ class UsersEdit extends Component
 
         session()->flash('success', 'Address has been successfully set to default!');
     }
+
+    public function verifyEmail()
+    {
+        $this->user->update(['email_verified_at' => now()]);
+
+        $this->mount($this->user->id);
+
+        session()->flash('success', 'Email has been successfully verified!');
+    }
 }
