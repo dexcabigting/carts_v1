@@ -280,6 +280,8 @@ class UsersEdit extends Component
 
         $this->mount($this->user);
 
+        $this->emitUp('refreshParent');
+
         session()->flash('success', 'Email has been successfully verified!');
     }
 }
