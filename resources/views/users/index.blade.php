@@ -181,7 +181,7 @@
                                 </td>
 
                                 <td class="md:px-6 px-2 py-4 whitespace-nowrap">
-                                    @if ($user->email_verified_at == !null)
+                                    @if($user->email_verified_at == !null)
                                     <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                             <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -199,7 +199,11 @@
                                 </td>
 
                                 <td class="md:px-6 px-2 py-4 whitespace-nowrap">
-                                    @if ($user->role_id == 2)
+                                    @if($user->role_id == 1)
+                                    <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-custom-violet text-white">
+                                        {{ $user->role->role }}
+                                    </span>
+                                    @else
                                     <span class="p-2 inline-flex text-sm leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                                         {{ $user->role->role }}
                                     </span>
@@ -220,6 +224,7 @@
                                             </button>
                                         </div>
 
+                                        @if($user->role_id != 1)
                                         <div wire:key="{{ $loop->index }}-delete">
                                             <button wire:click.prevent="openDeleteModal({{ $user->id }})" class="p-2 border border-transparent font-semibold text-xs bg-red-600 text-white uppercase tracking-normal hover:bg-red-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                                                 <span>
@@ -230,6 +235,7 @@
                                                 </span>
                                             </button>
                                         </div>
+                                        @endif
                                     @else
                                         <div wire:key="{{ $loop->index }}-restore">
                                             <button wire:click.prevent="restoreUser({{ $user->id }})" class="p-2 bg-green-600 border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">

@@ -61,8 +61,8 @@ class UsersIndex extends Component
         }
 
         return $query
-            ->where('role_id', Role::where('role', '=', 'Customer')->first()->id)
             ->where('name', 'like', $search)
+            ->where('id', '!=',  auth()->user()->id)
             ->orderBy($sortBy, $orderBy);
     }
 
@@ -89,6 +89,7 @@ class UsersIndex extends Component
                 // ->where('roles.role', '=', 'Customer')
                 ->where('role_id', Role::where('role', '=', 'Customer')->first()->id)
                 ->where($sortBy, 'like', $search)
+                // ->where('id', '!=',  auth()->user()->id)
                 ->pluck('id')
                 ->map(fn ($item) => (string) $item)
                 ->flip()
