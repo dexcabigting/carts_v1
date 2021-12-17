@@ -217,7 +217,7 @@ class UsersEdit extends Component
         if(!empty($this->barangays)) {
             $this->form['barangay'] = (empty($this->selectedBarangay)) ? "" : $this->barangay->name;
         } elseif(empty($this->barangays)) {
-            $this->form['barangay'] = 'N/A';
+            $this->form['barangay'] = (!empty($this->selectedCity) && empty($this->selectedBarangay)) ? 'N/A' : "" ;
         }
         
 
