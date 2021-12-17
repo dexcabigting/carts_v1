@@ -78,7 +78,7 @@
                         <div class="mt-4 ">
                             <x-label :value="__('Region')" />
                             <select wire:model="selectedRegion" class="text-black rounded-lg lg:pr-16 pr-4 w-full">
-                                <option value="" selected="selected">
+                                <option value="" selected>
                                     Region
                                 </option>
                                 @foreach($regions as $region)
@@ -89,25 +89,28 @@
                             </select>
                         </div>
 
-                        <div class="mt-4 md:ml-4">
-                            <x-label :value="__('Province')" />
-                            <select wire:model="selectedProvince" class="text-black rounded-lg md:pr-20 w-full md:w-auto">
-                                <option value="" selected="selected">
-                                    Province
-                                </option>
-                                @foreach($provinces as $province)
-                                    <option value="{{ $province['province_id'] }}">
-                                        {{ $province['name'] }}
+                        @if(!empty($selectedRegion))
+                            <div class="mt-4 md:ml-4">
+                                <x-label :value="__('Province')" />
+                                <select wire:model="selectedProvince" class="text-black rounded-lg md:pr-20 w-full md:w-auto">
+                                    <option value="" selected>
+                                        Province
                                     </option>
-                                @endforeach
-                            </select>
-                        </div>
+                                    @foreach($provinces as $province)
+                                        <option value="{{ $province['province_id'] }}">
+                                            {{ $province['name'] }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @endif
                     </div>
                     
+                    @if(!empty($selectedProvince))
                     <div class="mt-4">
                         <x-label :value="__('City')" />
                         <select wire:model="selectedCity" class="text-black rounded-lg w-full">
-                            <option value="" selected="selected">
+                            <option value="" selected>
                                 City
                             </option>
                              @foreach($cities as $city)
@@ -117,20 +120,27 @@
                             @endforeach
                         </select>
                     </div>
+                    @endif
 
-                    <div class="mt-4">
-                        <x-label for="create_barangay" :value="__('Barangay')"  />
-                        <select wire:model="selectedBarangay" class="text-black rounded-lg w-full">
-                            <option value="" selected="selected">
-                                Barangay
-                            </option>
-                             @foreach($barangays as $barangay)
-                                <option value="{{ $barangay['id'] }}">
-                                    {{ $barangay['name'] }}
+                    @if(!empty($selectedCity) && !empty($barangays))
+                        <div class="mt-4">
+                            <x-label for="create_barangay" :value="__('Barangay')"  />
+                            <select wire:model="selectedBarangay" class="text-black rounded-lg w-full">
+                                <option value="" selected>
+                                    Barangay
                                 </option>
-                            @endforeach
-                        </select>
-                    </div>
+                                @foreach($barangays as $barangay)
+                                    <option value="{{ $barangay['id'] }}">
+                                        {{ $barangay['name'] }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @elseif(!empty($selectedCity) && empty($barangays))
+                        <div class="mt-4">
+                            <x-label value="This city has no barangays." />
+                        </div>
+                    @endif
                 </div>
             </div>
 

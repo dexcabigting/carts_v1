@@ -38,10 +38,13 @@ class UsersCreate extends Component
     public $roles = [];
     public $yesOrNo = [];
     public $regions = [];
-    public $selectedRegion = '';
-    public $selectedProvince = '';
-    public $selectedCity = '';
-    public $selectedBarangay = '';
+    public $provinces = [];
+    public $cities = [];
+    public $barangays = [];
+    public $selectedRegion = "";
+    public $selectedProvince = "";
+    public $selectedCity = "";
+    public $selectedBarangay = "";
 
     protected function rules()
     {
@@ -88,27 +91,23 @@ class UsersCreate extends Component
 
     public function render()
     {
-        $provinces = $this->provinces->toArray();
-        $cities = $this->cities->toArray();
-        $barangays = $this->barangays->toArray();
-
-        return view('livewire.users.users-create', compact('provinces', 'cities', 'barangays'));
+        return view('livewire.users.users-create');
     }
 
-    public function getProvincesProperty()
+    public function getProvinceListProperty()
     {
         return Province::where('region_id', $this->selectedRegion)
             ->get(['name', 'region_id', 'province_id']);
     }
 
-    public function getCitiesProperty()
+    public function getCityListProperty()
     {
         return City::where('region_id', $this->selectedRegion)
             ->where('province_id', $this->selectedProvince)
             ->get(['name', 'region_id', 'province_id', 'city_id']);
     }
 
-    public function getBarangaysProperty()
+    public function getBarangayListProperty()
     {
         return Barangay::where('region_id', $this->selectedRegion)
             ->where('province_id', $this->selectedProvince)
@@ -145,7 +144,12 @@ class UsersCreate extends Component
         $this->form['region'] = $this->region->name;
         $this->form['province'] = $this->province->name;
         $this->form['city'] = $this->city->name;
-        $this->form['barangay'] = $this->barangay->name;
+
+        if(!empty($this->barangays)) {
+            $this->form['barangay'] = (empty($this->selectedBarangay)) ? "" : $this->barangay->name;
+        } elseif(empty($this->barangays)) {
+            $this->form['barangay'] = 'N/A';
+        }
 
         $this->form['verify_email'] = $formData['verify_email'];
 
@@ -173,7 +177,7 @@ class UsersCreate extends Component
             'is_main_address' => 1,
         ]);
 
-        $this->reset(['form', 'selectedRegion', 'selectedProvince', 'selectedCity', 'selectedBarangay']);
+        $this->reset(['form', 'selectedRegion', 'selectedProvince', 'selectedCity', 'selectedBarangay', 'provinces', 'cities', 'barangays']);
 
         $this->emitUp('refreshParent');
 
@@ -184,5 +188,32 @@ class UsersCreate extends Component
     {
         $this->dispatchBrowserEvent('createModalDisplayNone');
         $this->emitUp('closeCreateModal');
+    }
+
+    public function updatedSelectedRegion()
+    {
+        $this->provinces = $this->province_list->toArray();
+        $this->selectedProvince = ""; 
+        $this->selectedCity = "";
+        $this->selectedBarangay = "";
+    }
+
+    public function updatedSelectedProvince($province)
+    {
+        if(!empty($province)) {
+            $this->cities = $this->city_list->toArray();
+        }
+
+        $this->selectedCity = "";
+        $this->selectedBarangay = "";
+    }
+
+    public function updatedSelectedCity($city)
+    {
+        if(!empty($city)) {
+            $this->barangays = $this->barangay_list->toArray();
+        }
+
+        $this->selectedBarangay = "";
     }
 }
