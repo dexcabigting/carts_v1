@@ -109,18 +109,22 @@
                         </div>
                     @endif
 
-                    @if(!empty($selectedCity))
-                    <div class="mt-4">
-                        <x-label for="create_barangay" :value="__('Barangay')"  />
-                        <select wire:model="selectedBarangay" class="text-black rounded-lg w-full">
-                            <option value="" selected>Select Barangay</option>
-                            @foreach($barangays as $barangay)
-                                <option wire:key="{{ $loop->index }}-barangay" value="{{ $barangay['id'] }}">
-                                    {{ $barangay['name'] }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                    @if(!empty($selectedCity) && !empty($barangays))
+                        <div class="mt-4">
+                            <x-label :value="__('Barangay')"  />
+                            <select wire:model="selectedBarangay" class="text-black rounded-lg w-full">
+                                <option value="" selected>Select Barangay</option>
+                                @foreach($barangays as $barangay)
+                                    <option wire:key="{{ $loop->index }}-barangay" value="{{ $barangay['id'] }}">
+                                        {{ $barangay['name'] }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @elseif(!empty($selectedCity) && empty($barangays))
+                        <div class="mt-4">
+                            <x-label value="This city has no barangays." />
+                        </div>
                     @endif
 
                     @if(!$isDefaultAddress)
