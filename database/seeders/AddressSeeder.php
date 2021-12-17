@@ -16,6 +16,7 @@ class AddressSeeder extends Seeder
         //
         $this->call([
             \AddressSeeder::class,
+            BarangaySeeder::class,
         ]);
     }
 }
