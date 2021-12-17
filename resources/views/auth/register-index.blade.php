@@ -5,34 +5,30 @@
             <!-- Validation Errors -->
             <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-            <form class="w-full max-w-lg" >
+            <form class="w-full max-w-lg" wire:submit.prevent="store">
                 @csrf
 
                 <!-- Name -->
                 <div>
                     <x-label class="text-xl text-purple-100  " for="name" :value="__('Name')" />
-
                     <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
                 </div>
 
                 <!-- Email Address -->
                 <div class="mt-4">
                     <x-label class="text-xl text-purple-100  " for="email" :value="__('Email')" />
-
                     <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
                 </div>
 
                 <!-- Phone -->
                 <div class="mt-4">
                     <x-label class="text-xl text-purple-100  " for="phone" :value="__('Phone')" />
-
                     <x-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" required />
                 </div>
 
                 <!-- Address -->
                 <div class="mt-4">
                     <x-label class="text-xl text-purple-100  " for="home_address" :value="__('Home Address')" />
-
                     <x-input id="home_address" class="block mt-1 w-full" type="text" name="home_address" :value="old('home_address')" required />
                 </div>
                 <div class="mt-4">

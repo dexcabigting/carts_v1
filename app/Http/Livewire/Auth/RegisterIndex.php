@@ -10,4 +10,9 @@ class RegisterIndex extends Component
     {
         return view('livewire.auth.register-index')->layout('layouts.guest');
     }
+
+    public function store()
+    {
+        
+    }
 }
