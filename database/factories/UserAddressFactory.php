@@ -23,11 +23,11 @@ class UserAddressFactory extends Factory
     public function definition()
     {
         return [
-            'region' => $this->faker->sentence(2),
-            'province' => $this->faker->sentence(2),
-            'city' => $this->faker->sentence(2),
-            'barangay' => $this->faker->sentence(2),
-            'home_address' => $this->faker->sentence(2),
+            'region' => 'Region III (Central Luzon)',
+            'province' => 'Pampanga',
+            'city' => 'Mabalacat City',
+            'barangay' => 'Paralayunan',
+            'home_address' => '187 ' . $this->faker->sentence(2),
             'is_main_address' => 1,
         ];
     }
@@ -36,11 +36,11 @@ class UserAddressFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'region' => 'Region III',
+                'region' => 'Region III (Central Luzon)',
                 'province' => 'Pampanga',
                 'city' => 'Mabalacat City',
                 'barangay' => 'Mabiga',
-                'home_address' => 'Rivera',
+                'home_address' => 'MacArthur Highway',
                 'is_main_address' => 1,
             ];
         });
