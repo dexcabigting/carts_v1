@@ -8,6 +8,6 @@ class RegisterIndex extends Component
 {
     public function render()
     {
-        return view('livewire.auth.register-index')->layout('guest');
+        return view('livewire.auth.register-index')->layout('layouts.guest');
     }
 }
