@@ -141,14 +141,14 @@ class UsersCreate extends Component
 
         $this->form['phone'] = $phone;
 
-        $this->form['region'] = $this->region->name;
-        $this->form['province'] = $this->province->name;
-        $this->form['city'] = $this->city->name;
+        $this->form['region'] = (empty($this->selectedRegion)) ? "" : $this->region->name;
+        $this->form['province'] = (empty($this->selectedProvince)) ? "" : $this->province->name;
+        $this->form['city'] = (empty($this->selectedCity)) ? "" : $this->city->name;
 
         if(!empty($this->barangays)) {
             $this->form['barangay'] = (empty($this->selectedBarangay)) ? "" : $this->barangay->name;
         } elseif(empty($this->barangays)) {
-            $this->form['barangay'] = 'N/A';
+            $this->form['barangay'] = (!empty($this->selectedCity) && empty($this->selectedBarangay)) ? 'N/A' : "" ;
         }
 
         $this->form['verify_email'] = $formData['verify_email'];
