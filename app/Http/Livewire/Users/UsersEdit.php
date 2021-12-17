@@ -213,7 +213,13 @@ class UsersEdit extends Component
         $this->form['region'] = (empty($this->selectedRegion)) ? "" : $this->region->name;
         $this->form['province'] = (empty($this->selectedProvince)) ? "" : $this->province->name;
         $this->form['city'] = (empty($this->selectedCity)) ? "" : $this->city->name;
-        $this->form['barangay'] = (empty($this->selectedBarangay)) ? "" : $this->barangay->name;
+
+        if(!empty($this->barangays)) {
+            $this->form['barangay'] = (empty($this->selectedBarangay)) ? "" : $this->barangay->name;
+        } elseif(empty($this->barangays)) {
+            $this->form['barangay'] = 'N/A';
+        }
+        
 
         $this->validate();
 
