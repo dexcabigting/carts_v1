@@ -37,7 +37,7 @@ use App\Http\Livewire\Notifications\NotificationsIndex;
 use App\Http\Livewire\Sales\SalesIndex;
 
 // Livewire Profile Component
-use App\Http\Livewire\Sales\ProfileIndex;
+use App\Http\Livewire\Profile\ProfileIndex;
 
 // For Testing
 use App\Http\Controllers\TestController;
