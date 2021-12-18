@@ -12,8 +12,7 @@
                             {{ __('Credentials') }}
                         </h2>
 
-                        <form method="POST" action="{{ route('profile.update-credentials') }}">
-                            @method('PUT')
+                        <form>
                             @csrf
 
                             <div class>
