@@ -11,17 +11,17 @@
 
         <div class>
             <x-label :value="__('Name')" />
-            <x-input class="block mt-1 w-full text-black" type="text" autofocus required />
+            <x-input wire:model.defer="form.name" class="block mt-1 w-full text-black" type="text" autofocus required />
         </div>
 
         <div class="mt-4">
             <x-label :value="__('Email')" />
-            <x-input class="block mt-1 w-full" type="email" required />
+            <x-input wire:model.defer="form.email" class="block mt-1 w-full" type="email" required />
         </div>
 
         <div class="mt-4">
             <x-label :value="__('Phone')" />
-            <x-input class="block mt-1 w-full" type="text" required />
+            <x-input wire:model.defer="form.phone" class="block mt-1 w-full" type="text" required />
         </div>
 
         <div class="flex items-center justify-end mt-4">
