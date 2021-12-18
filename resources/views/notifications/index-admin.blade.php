@@ -26,9 +26,15 @@
 
         @forelse($notifications as $notification)
             <div wire:key="{{ $loop->index }}-admin-user-notif" class="lg:ml-9 flex flex-row p-1  text-black bg-green-200 border-4 border-green-500 rounded-md">
-                <div class="p-2 px-2 lg:px-32">
-                    {{ $notification['data']['user'] }} has ordered {{ $notification['data']['invoice number'] }}   
-                </div>
+                @if($notification['type'] == 'App\Notifications\OrderCreatedNotification') 
+                    <div class="p-2 px-2 lg:px-32">
+                        {{ $notification['data']['user'] }} has ordered {{ $notification['data']['invoice number'] }}   
+                    </div>
+                @elseif($notification['type'] == 'App\Notifications\RegisteredNotification')
+                    <div class="p-2 px-2 lg:px-32">
+                        {{ $notification['data']['name'] }} ({{ $notification['data']['email'] }}) has registered {{ $notification['created_at']->diffForHumans() }}   
+                    </div>
+                @endif
                 
                 <div class="flex flex-row gap-5 ml-24 xl:ml-32">
                     @if($notificationType != 'readNotifications')
