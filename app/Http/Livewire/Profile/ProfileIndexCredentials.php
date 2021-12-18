@@ -52,11 +52,17 @@ class ProfileIndexCredentials extends Component
 
         $this->validate();
 
+        $oldName = $this->user->name;
+
         $this->user->update([
             'name' => $this->form['name'],
             'email' => $this->form['email'],
             'phone' => $this->form['phone'],
         ]);
+
+        if($oldName != $this->form['name']) {
+            $this->emit('updatedName', $oldName);
+        }
 
         $this->user->refresh();
 
