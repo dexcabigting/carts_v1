@@ -6,7 +6,7 @@
         {{ __('Credentials') }}
     </h2>
 
-    <form>
+    <form wire:submit.prevent="updateCredentials">
         @csrf
 
         <div class>

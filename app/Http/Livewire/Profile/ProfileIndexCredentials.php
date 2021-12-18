@@ -10,6 +10,7 @@ use App\Rules\PhoneNumber;
 
 class ProfileIndexCredentials extends Component
 {
+    public $user;
     public $form = [
         'name' => '',
         'email' => '',
@@ -22,24 +23,43 @@ class ProfileIndexCredentials extends Component
         
         return [
             'form.name' => ['required', 'string', 'max:255'],
-            'form.email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'form.phone' => ['required', 'string', 'unique:users,phone', new PhoneNumber($service)],
+            'form.email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $this->user->id],
+            'form.phone' => ['required', 'string', 'unique:users,phone,' . $this->user->id, new PhoneNumber($service)]
         ];
     }
 
     public function mount()
     {
-        $user = auth()->user();
+        $this->user = auth()->user();
 
         $this->form = [
-            'name' => $user->name,
-            'email' => $user->email,
-            'phone' => $user->phone
+            'name' => $this->user->name,
+            'email' => $this->user->email,
+            'phone' => $this->user->phone
         ];
     }
 
     public function render()
     {
         return view('livewire.profile.profile-index-credentials');
+    }
+
+    public function updateCredentials()
+    {
+        $phone = preg_replace( '/^(09)(\d+)/', '639$2', $this->form['phone']);
+
+        $this->form['phone'] = $phone;
+
+        $this->validate();
+
+        $this->user->update([
+            'name' => $this->form['name'],
+            'email' => $this->form['email'],
+            'phone' => $this->form['phone'],
+        ]);
+
+        $this->user->refresh();
+
+        session()->flash('success', 'Credentials have been successfully updated!');  
     }
 }
