@@ -36,6 +36,9 @@ use App\Http\Livewire\Notifications\NotificationsIndex;
 // Livewire Sales Component
 use App\Http\Livewire\Sales\SalesIndex;
 
+// Livewire Profile Component
+use App\Http\Livewire\Sales\ProfileIndex;
+
 // For Testing
 use App\Http\Controllers\TestController;
 
@@ -63,10 +66,7 @@ Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');
 Route::middleware(['auth', 'verified'])->group(function () {
 
     // Profile
-    Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::put('profile/credentials', [ProfileController::class, 'update_credentials'])->name('profile.update-credentials');
-    Route::put('profile/password', [ProfileController::class, 'update_password'])->name('profile.update-password');
-    Route::put('profile/address', [ProfileController::class, 'update_address'])->name('profile.update-address');
+    Route::get('profile', ProfileIndex::class)->name('profile.index');
 
     // Notifications
     Route::get('notifications', NotificationsIndex::class)->name('notifications.index');
