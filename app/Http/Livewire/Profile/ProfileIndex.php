@@ -8,6 +8,7 @@ class ProfileIndex extends Component
 {
     public function render()
     {
-        return view('livewire.profile.profile-index');
+        $layout = (auth()->user()->role_id == 1) ? 'layouts.app' : 'layouts.app-user';
+        return view('livewire.profile.profile-index')->layout($layout);
     }
 }
