@@ -53,6 +53,7 @@ class ProfileIndexCredentials extends Component
         $this->validate();
 
         $oldName = $this->user->name;
+        $oldEmail = $this->user->email;
 
         $this->user->update([
             'name' => $this->form['name'],
@@ -61,7 +62,11 @@ class ProfileIndexCredentials extends Component
         ]);
 
         if($oldName != $this->form['name']) {
-            $this->emit('updatedName', $oldName);
+            $this->emit('updatedName', $this->form['name']);
+        }
+
+        if($oldName != $this->form['name'] && $oldEmail != $this->form['email']) {
+            $this->emit('updatedNameAndEmail', $this->form['name'], $this->form['email']);
         }
 
         $this->user->refresh();

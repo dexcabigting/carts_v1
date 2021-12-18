@@ -1,3 +1,6 @@
 <div>
-    {{-- Nothing in the world is as soft and yielding as water. --}}
+    <div class="px-4">
+        <div class="font-medium text-base text-gray-800">{{ $name }}</div>
+        <div class="font-medium text-sm text-gray-500">{{ $email }}</div>
+    </div>
 </div>
