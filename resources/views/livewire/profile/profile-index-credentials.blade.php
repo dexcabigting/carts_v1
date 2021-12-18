@@ -1,3 +1,3 @@
 <div>
-    {{-- Be like water. --}}
+    @include('profile.index-credentials')
 </div>
