@@ -48,8 +48,7 @@
                             {{ __('Password') }}
                         </h2>
 
-                        <form method="POST" action="{{ route('profile.update-password') }}">
-                            @method('PUT')
+                        <form>
                             @csrf
 
                             <div class="mt-4">
