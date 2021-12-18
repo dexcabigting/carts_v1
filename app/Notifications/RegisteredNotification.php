@@ -16,9 +16,10 @@ class RegisteredNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
         //
+        $this->user = $user;
     }
 
     /**
@@ -29,7 +30,7 @@ class RegisteredNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -56,6 +57,8 @@ class RegisteredNotification extends Notification
     {
         return [
             //
+            'name' => $this->user->name,
+            'email' => $this->user->email
         ];
     }
 }
