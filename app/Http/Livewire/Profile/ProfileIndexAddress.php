@@ -82,7 +82,7 @@ class ProfileIndexAddress extends Component
         $this->selectedCity = $this->cityId($this->address->city);
         $this->selectedBarangay = $this->barangayId($this->address->barangay);
 
-        // dd($this->selectedBarangay, $this->address->barangay);
+        $this->form['home_address'] = $this->address->home_address;
 
         $this->provinces = $this->province_list->toArray();
         $this->cities = $this->city_list->toArray();
