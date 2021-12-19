@@ -141,4 +141,9 @@ class ShopIndex extends Component
     {
         $this->cartModal = false;
     }    
+
+    public function resetFilter()
+    {
+        $this->reset(['search', 'min', 'max', 'category', 'fabric', 'sortBy', 'orderBy']);
+    }
 }
