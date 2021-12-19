@@ -54,15 +54,15 @@ class UsersEdit extends Component
         $service = app()->make(PhoneNumberLookupService::class);
         
         return [
-            'form.name' => 'required|string|max:255',
-            'form.email' => 'required|string|email|max:255|unique:users,email,' . $this->user->id,
+            'form.name' => ['required', 'string', 'max:255'],
+            'form.email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $this->user->id],
             'form.phone' => ['required', 'string', 'unique:users,phone,' . $this->user->id, new PhoneNumber($service)],
             'form.role_id' => ['required', 'exists:roles,id'],
             'form.region' => ['required', 'string', 'exists:regions,name'],
             'form.province' => ['required', 'string', 'exists:provinces,name'],
             'form.city' => ['required', 'string', 'exists:cities,name'],
             'form.barangay' => ['required', 'string', 'exists:barangays,name'],
-            'form.home_address' => ['required', 'string'],
+            'form.home_address' => ['required', 'string', 'max:100'],
         ];
     }
 
