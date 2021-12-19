@@ -204,12 +204,6 @@ class ProfileIndexAddress extends Component
         session()->flash('success', 'Address has been successfully set to default!');
     }
 
-    public function latestAddress()
-    {
-        $this->userAddresses = auth()->user()->userAddresses()
-                                ->get()->pluck('id')->toArray(); 
-    }
-
     public function updateAddress()
     {
         $this->form['region'] = (empty($this->selectedRegion)) ? "" : $this->region->name;
