@@ -67,19 +67,13 @@
                 </div>
 
                 <div>
-                    <div>
-                        <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
-
-                        <x-input wire:model.defer="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street Apartment no." />
-                    </div>
-
                     <!-- Address -->
                     <div class="block md:flex fle-row">
                         <div class="mt-4 ">
                             <x-label :value="__('Region')" />
                             <select wire:model="selectedRegion" class="text-black rounded-lg lg:pr-16 pr-4 w-full">
                                 <option value="" selected>
-                                    Region
+                                    Select Region
                                 </option>
                                 @foreach($regions as $region)
                                     <option value="{{ $region['region_id'] }}">
@@ -94,7 +88,7 @@
                                 <x-label :value="__('Province')" />
                                 <select wire:model="selectedProvince" class="text-black rounded-lg md:pr-20 w-full md:w-auto">
                                     <option value="" selected>
-                                        Province
+                                        Select Province
                                     </option>
                                     @foreach($provinces as $province)
                                         <option value="{{ $province['province_id'] }}">
@@ -111,7 +105,7 @@
                         <x-label :value="__('City')" />
                         <select wire:model="selectedCity" class="text-black rounded-lg w-full">
                             <option value="" selected>
-                                City
+                                Select City
                             </option>
                              @foreach($cities as $city)
                                 <option value="{{ $city['city_id'] }}">
@@ -127,7 +121,7 @@
                             <x-label for="create_barangay" :value="__('Barangay')"  />
                             <select wire:model="selectedBarangay" class="text-black rounded-lg w-full">
                                 <option value="" selected>
-                                    Barangay
+                                    Select Barangay
                                 </option>
                                 @foreach($barangays as $barangay)
                                     <option value="{{ $barangay['id'] }}">
@@ -139,6 +133,18 @@
                     @elseif(!empty($selectedCity) && empty($barangays))
                         <div class="mt-4">
                             <x-label value="This city has no barangays." />
+                        </div>
+
+                        <div wire:key="home_address-1" class="mt-4">
+                            <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
+                            <x-input wire:model="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
+                        </div>
+                    @endif
+
+                    @if(!empty($selectedRegion) && !empty($selectedProvince) && !empty($selectedCity) && !empty($selectedBarangay))
+                        <div wire:key="home_address-2" class="mt-4">
+                            <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
+                            <x-input wire:model="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
                         </div>
                     @endif
                 </div>
