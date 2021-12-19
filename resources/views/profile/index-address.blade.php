@@ -40,68 +40,62 @@
     </div>
       
 
-    <form wire:submit.prevent="updateAddress(Object.fromEntries(new FormData($event.target)))">
+    <form wire:submit.prevent="updateAddress">
         @csrf
        
         <div class="mt-4">
-            <x-label class="text-xl mb-4 text-white  " for="home_address" :value="__('Home Address: ' . $userAddress->home_address )" />
-
-            <x-input class="block mt-1 w-full" type="text" placeholder="ex. Street Apartment no." name="home_address" value="{{ $userAddress->home_address ?? '' }}"/>
+            <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
+            <x-input class="block mt-1 w-full" type="text" placeholder="ex. Street/Apartment no." />
         </div>
 
         <!-- Address -->
         <div class="block md:flex fle-row">
             <div class="mt-4 ">
-                <x-label for="region" value="Region: {{ $userAddress->region ?? '' }}" />
-                <select class="rounded-lg lg:pr-16 pr-4 w-full" id="region">
+                <x-label :value="__('Region')" />
+                <select class="rounded-lg lg:pr-16 pr-4 w-full">
                     <option selected>
                         Region
                     </option>
                 </select>
-                <x-input id="region-text" type="hidden" name="region"/>
             </div>
 
             <div class="mt-4 md:ml-4">
-                <x-label for="province" value="Province: {{ Str::ucfirst(Str::lower($userAddress->province)) ?? '' }}" />
-                <select class="rounded-lg md:pr-20 w-full md:w-auto" id="province">
+                <x-label :value="__('Province')" />
+                <select class="rounded-lg md:pr-20 w-full md:w-auto">
                     <option>
                         <h1 class="px-12">Province</h1>
                     </option>
                 </select>
-                <x-input id="province-text" type="hidden" name="province"/>
             </div>
         </div>
 
         
         <div class="mt-4">
-            <x-label for="city" value="City: {{ Str::ucfirst(Str::lower($userAddress->city)) ?? '' }}" />
-            <select class="rounded-lg w-full" id="city">
+            <x-label :value="__('City')" />
+            <select class="rounded-lg w-full">
                 <option>
                     City
                 </option>
             </select>
-            <x-input id="city-text" type="hidden" name="city"/>
         </div>
 
         <div class="mt-4">
-            <x-label for="barangay" value="Barangay: {{ $userAddress->barangay ?? '' }}" />
+            <x-label :value="__('Barangay')" />
             <select class="rounded-lg w-full" name="barangay" id="barangay">
                 <option>
                     Barangay
                 </option>
             </select>
-            <x-input id="barangay-text" type="hidden" name="barangay"/>
         </div>                          
 
         <div class="flex flex-row mt-4 gap-5">
-            <x-button type="submit" class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white w-full px-4 py-2 bg-custom-violet my-3">
+            <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white w-full px-4 py-2 bg-custom-violet my-3">
                 {{ __('Update Address') }}
             </x-button>
 
-            <x-button type="button" wire:click="openDeleteModal()" class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white w-full px-4 py-2 bg-custom-violet my-3">
+            <x-button type="button" wire:click.prevent="openDeleteModal()" class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white w-full px-4 py-2 bg-custom-violet my-3">
                 {{ __('Delete Address') }}
             </x-button>
         </div>
-
     </form>
 </div>
