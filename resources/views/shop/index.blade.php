@@ -138,34 +138,57 @@ slider.onmouseout = function() {
         <div class="mx-2 md:mx-auto">
             <div class="shadow-xl overflow-hidden rounded-lg">
                 <div class="block md:flex md:flex-row items-center md:justify-center p-6 bg-custom-blacki overflow-x-auto">
-                    <!-- Category and Fabric filter -->
+                    <!-- Filters -->
                     <div class="px-12 flex flex-col xl:flex-row">
                         <div class="flex flex-col xl:flex-row items-center justify-center text-base font-medium text-gray-100 py-4 my-2 md:my-0">
-                        <div class="flex flex-row">   
-                            <select wire:model="category" class="my-2 mx-2 text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
-                                <option value="All" selected>
-                                    <x-label value="All categories" class="inline-block" />
-                                </option>
-                                @foreach($categories as $category)
+                            <div class="flex flex-row">   
+                                <select wire:model="category" class="my-2 mx-2 text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                    <option value="All" selected>
+                                        <x-label value="All categories" class="inline-block" />
+                                    </option>
+                                    @foreach($categories as $category)
 
-                                <option value="{{ $category->id }}">
-                                    <x-label value="{{ $category->ctgr_name }}" class="inline-block" />
-                                </option>
-                                @endforeach
-                            </select>
+                                    <option value="{{ $category->id }}">
+                                        <x-label value="{{ $category->ctgr_name }}" class="inline-block" />
+                                    </option>
+                                    @endforeach
+                                </select>
 
-                            <select wire:model="fabric" class="my-2 mx-2 text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
-                                <option value="All" selected>
-                                    <x-label value="All fabrics" class="inline-block" />
-                                </option>
-                                @foreach($fabrics as $fabric)
-                                <option value="{{ $fabric->id }}">
-                                    <x-label value="{{ $fabric->fab_name }}" class="inline-block" />
-                                </option>
-                                @endforeach
-                            </select>
+                                <select wire:model="fabric" class="my-2 mx-2 text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                    <option value="All" selected>
+                                        <x-label value="All fabrics" class="inline-block" />
+                                    </option>
+                                    @foreach($fabrics as $fabric)
+                                    <option value="{{ $fabric->id }}">
+                                        <x-label value="{{ $fabric->fab_name }}" class="inline-block" />
+                                    </option>
+                                    @endforeach
+                                </select>
+
+                                <div>
+                                    <x-label :value="__('Minimum Price')" class="text-gray-50 inline-block font-bold text-sm mx-1 xl:text-xl" />
+                                    <input wire:model="min" type="text" class="text-black"/>
+                                </div>
+
+                                <div>
+                                    <x-label :value="__('Maximum Price')" class="text-gray-50 inline-block font-bold text-sm mx-1 xl:text-xl" />
+                                    <input wire:model="max" type="text" class="text-black"/>
+                                </div>
+
+                                {{--<div class="">
+                                    <x-label :value="__('Order By')" class="text-gray-50 inline-block font-bold text-sm mx-1 xl:text-xl" />
+                                </div>
+                                <select wire:model="sortBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                    <option value="name">
+                                            <x-label :value="__('Name')" class="inline-block" />
+                                    </option>
+
+                                    <option value="created_at">
+                                        <x-label :value="__('Date Created')" class="inline-block" />
+                                    </option>
+                                </select>--}}
                             </div> 
-                            <div class="flex flex-col md:flex-row w-full md:-ml-8">
+                        <div class="flex flex-col md:flex-row w-full md:-ml-8">
 
                     <div class=" text-white font-semibold lg:text-xl md:ml-12 text-sm my-4 md:my-0 md:text-center text-left">
                         Browse our products!

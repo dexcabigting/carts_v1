@@ -20,6 +20,8 @@ class ShopIndex extends Component
     public $categories = [];
     public $fabrics = [];
     public $cartModal = false;
+    public $min = null;
+    public $max = null;
 
     protected $listeners = [
         'openCartModal',
@@ -43,6 +45,9 @@ class ShopIndex extends Component
     {
         $search = '%' . $this->search . '%';
 
+        $min = (empty($this->min)) ? 00.00 : $this->min;
+        $max = (empty($this->max)) ? 999999999.99 : $this->max;
+
         $category = $this->category;
         $fabric = $this->fabric;
 
@@ -64,6 +69,7 @@ class ShopIndex extends Component
 
         return Product::with('product_variants', 'category', 'fabric')
             ->where('prd_name', 'like', $search)
+            ->whereBetween('prd_price', [$min, $max])
             ->whereIn('products.category_id', $category)
             ->whereIn('fabric_id', $fabric);
     }
@@ -79,6 +85,16 @@ class ShopIndex extends Component
     }
 
     public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingMin()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingMax()
     {
         $this->resetPage();
     }
