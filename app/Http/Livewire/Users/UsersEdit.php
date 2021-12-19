@@ -142,15 +142,30 @@ class UsersEdit extends Component
     }
 
     public function provinceId($name) {
-        return Province::where('name', $name)->first()->province_id;
+        return Province::where('name', $name)
+                    ->where('region_id', $this->selectedRegion)
+                    ->first()->province_id;
     }
 
     public function cityId($name) {
-        return City::where('name', $name)->first()->city_id;
+        return City::where('name', $name)
+                    ->where('region_id', $this->selectedRegion)
+                    ->where('province_id', $this->selectedProvince)
+                    ->first()->city_id;
     }
 
     public function barangayId($name) {
-        return Barangay::where('name', $name)->first()->id;
+        $cityId = $this->selectedCity;
+
+        $barangay =  Barangay::where('name', $name)
+                    ->where('region_id', $this->selectedRegion)
+                    ->where('province_id', $this->selectedProvince)
+                    ->when($cityId, function ($query, $cityId) {
+                        return $query->where('city_id', $cityId);
+                    })
+                    ->first();
+
+        return ($barangay == null) ? Barangay::where('name', 'N/A')->first()->id : $barangay->id;
     }
 
     public function render()
@@ -261,6 +276,7 @@ class UsersEdit extends Component
         $this->selectedProvince = ""; 
         $this->selectedCity = "";
         $this->selectedBarangay = "";
+        $this->form['home_address'] = "";
     }
 
     public function updatedSelectedProvince($province)
@@ -271,6 +287,7 @@ class UsersEdit extends Component
 
         $this->selectedCity = "";
         $this->selectedBarangay = "";
+        $this->form['home_address'] = "";
     }
 
     public function updatedSelectedCity($city)
@@ -280,6 +297,7 @@ class UsersEdit extends Component
         }
 
         $this->selectedBarangay = "";
+        $this->form['home_address'] = "";
     }
 
     public function setAsDefault()

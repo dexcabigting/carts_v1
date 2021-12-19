@@ -60,12 +60,6 @@
                         </select>
                     </div>
 
-                    <div>
-                        <x-label class="text-xl text-white" :value="__('Home Address')" />
-
-                        <x-input wire:model.defer="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street Apartment no." />
-                    </div>
-
                     <!-- Address -->
                     <div class="block md:flex flex-row">
                         <div class="">
@@ -125,7 +119,19 @@
                         <div class="mt-4">
                             <x-label value="This city has no barangays." />
                         </div>
+
+                        <div wire:key="home_address-1" class="mt-4">
+                            <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
+                            <x-input wire:model="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
+                        </div>
                     @endif
+
+                    @if(!empty($selectedRegion) && !empty($selectedProvince) && !empty($selectedCity) && !empty($selectedBarangay))
+                        <div wire:key="home_address-2" class="mt-4">
+                            <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
+                            <x-input wire:model="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
+                        </div>
+                    @endif 
 
                     @if(!$isDefaultAddress)
                     <div class="mt-4">
