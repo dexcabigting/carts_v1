@@ -5,11 +5,6 @@
     <form wire:submit.prevent="storeAddress">
         @csrf
 
-        <div>
-            <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
-            <x-input wire:model="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
-        </div>
-
         <!-- Address -->
         <div class="block md:flex flex-row">
             <div class="mt-4 ">
@@ -77,9 +72,21 @@
             <div class="mt-4">
                 <x-label value="This city has no barangays." />
             </div>
+
+            <div wire:key="home_address-1" class="mt-4">
+                <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
+                <x-input wire:model="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
+            </div>
         @endif
 
-        <div wire:key="2123-asdaqw" class="mt-4">
+        @if(!empty($selectedRegion) && !empty($selectedProvince) && !empty($selectedCity) && !empty($selectedBarangay))
+            <div wire:key="home_address-2" class="mt-4">
+                <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
+                <x-input wire:model="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
+            </div>
+        @endif
+
+        <div class="mt-4">
             <x-label :value="__('Set as Default')" />
             <div>
                 <input wire:model="form.is_main_address" type="radio" value="1"/>
