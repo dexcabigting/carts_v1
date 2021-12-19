@@ -22,6 +22,8 @@ class ShopIndex extends Component
     public $cartModal = false;
     public $min = null;
     public $max = null;
+    public $sortBy = 'prd_name';
+    public $orderBy = 'asc';
 
     protected $listeners = [
         'openCartModal',
@@ -48,6 +50,9 @@ class ShopIndex extends Component
         $min = (empty($this->min)) ? 00.00 : $this->min;
         $max = (empty($this->max)) ? 999999999.99 : $this->max;
 
+        $sortBy = $this->sortBy;
+        $orderBy = $this->orderBy;
+
         $category = $this->category;
         $fabric = $this->fabric;
 
@@ -71,7 +76,8 @@ class ShopIndex extends Component
             ->where('prd_name', 'like', $search)
             ->whereBetween('prd_price', [$min, $max])
             ->whereIn('products.category_id', $category)
-            ->whereIn('fabric_id', $fabric);
+            ->whereIn('fabric_id', $fabric)
+            ->orderBy($sortBy, $orderBy);
     }
 
     public function updatingCategory()

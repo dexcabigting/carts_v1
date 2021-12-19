@@ -165,34 +165,33 @@ slider.onmouseout = function() {
                                     @endforeach
                                 </select>
 
-                                <div>
-                                    <x-label :value="__('Minimum Price')" class="text-gray-50 inline-block font-bold text-sm mx-1 xl:text-xl" />
-                                    <input wire:model.debounce.500ms="min" type="text" class="text-black"/>
-                                </div>
-
-                                <div>
-                                    <x-label :value="__('Maximum Price')" class="text-gray-50 inline-block font-bold text-sm mx-1 xl:text-xl" />
-                                    <input wire:model.debounce.500ms="max" type="text" class="text-black"/>
-                                </div>
-
-                                {{--<div class="">
-                                    <x-label :value="__('Order By')" class="text-gray-50 inline-block font-bold text-sm mx-1 xl:text-xl" />
-                                </div>
-                                <select wire:model="sortBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
-                                    <option value="name">
-                                            <x-label :value="__('Name')" class="inline-block" />
+                                <select wire:model="sortBy" class="my-2 mx-2 text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                    <option value="prd_name">
+                                        <x-label value="Name" class="inline-block" />
                                     </option>
-
-                                    <option value="created_at">
-                                        <x-label :value="__('Date Created')" class="inline-block" />
+                                    <option value="prd_price">
+                                        <x-label value="Price" class="inline-block" />
                                     </option>
-                                </select>--}}
+                                </select>
+
+                                <select wire:model="orderBy" class="my-2 mx-2 text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                    <<option value="asc">
+                                        <x-label value="Ascending" class="inline-block" />
+                                    </option>
+                                    <option value="desc">
+                                        <x-label value="Descending" class="inline-block" />
+                                    </option>
+                                </select>
+
+                                <div>
+                                    <input wire:model.debounce.500ms="min" placeholder="Minimum Price" type="text" class="text-black w-32"/>
+                                </div>
+
+                                <div>
+                                    <input wire:model.debounce.500ms="max" placeholder="Maximum Price" type="text" class="text-black w-32"/>
+                                </div>
                             </div> 
                         <div class="flex flex-col md:flex-row w-full md:-ml-8">
-
-                    <div class=" text-white font-semibold lg:text-xl md:ml-12 text-sm my-4 md:my-0 md:text-center text-left">
-                        Browse our products!
-                    </div>
 
                     <!-- Search Bar -->
                     <div class="text-black md:ml-24 md:col-span-2 lg:col-span-2 grid lg:items-center lg:align-center relative md:w-64 xl:w-72 2xl:w-96">
