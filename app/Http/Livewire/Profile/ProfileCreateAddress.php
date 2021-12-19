@@ -85,8 +85,8 @@ class ProfileCreateAddress extends Component
         ]);
 
         $this->reset(['form', 'selectedRegion', 'selectedProvince', 'selectedCity', 'selectedBarangay', 'provinces', 'cities', 'barangays']);
-
-        $this->emitUp('latestAddress');
+        
+        $this->emitUp('mountProfileIndex');
 
         session()->flash('success', 'Address has been created successfully!'); 
     }
