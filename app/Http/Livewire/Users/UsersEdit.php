@@ -220,24 +220,15 @@ class UsersEdit extends Component
             $this->form['barangay'] = (!empty($this->selectedCity) && empty($this->selectedBarangay)) ? 'N/A' : "" ;
         }
         
-
         $this->validate();
 
-        if($this->user->phone != $phone) {
-            $this->user->update([
-                'name' => $this->form['name'],
-                'email' => $this->form['email'],
-                'phone' => $this->form['phone'],
-                'role_id' => $this->form['role_id']
-            ]);
-        } else {
-            $this->user->update([
-                'name' => $this->form['name'],
-                'email' => $this->form['email'],
-                'role_id' => $this->form['role_id']
-            ]); 
-        }
-
+        $this->user->update([
+            'name' => $this->form['name'],
+            'email' => $this->form['email'],
+            'phone' => $this->form['phone'],
+            'role_id' => $this->form['role_id']
+        ]); 
+    
         $this->user_address->update([
             'region' => $this->form['region'],
             'province' => $this->form['province'],
