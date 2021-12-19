@@ -42,11 +42,6 @@
 
     <form wire:submit.prevent="updateAddress">
         @csrf
-       
-        <div class="mt-4">
-            <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
-            <x-input wire:model.defer="form.home_address" class="block mt-1 w-full" type="text" placeholder="ex. Street/Apartment no." />
-        </div>
 
         <!-- Address -->
         <div class="block md:flex fle-row">
@@ -107,7 +102,19 @@
             <div class="mt-4">
                 <x-label value="This city has no barangays." />
             </div>
-        @endif                          
+
+            <div wire:key="home_address-1" class="mt-4">
+                <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
+                <x-input wire:model="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
+            </div>
+        @endif      
+
+        @if(!empty($selectedRegion) && !empty($selectedProvince) && !empty($selectedCity) && !empty($selectedBarangay))
+            <div wire:key="home_address-2" class="mt-4">
+                <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
+                <x-input wire:model="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
+            </div>
+        @endif                    
 
         <div class="flex flex-row mt-4 gap-5">
             <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white w-full px-4 py-2 bg-custom-violet my-3">

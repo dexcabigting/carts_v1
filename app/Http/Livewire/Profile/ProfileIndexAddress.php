@@ -235,6 +235,7 @@ class ProfileIndexAddress extends Component
         $this->selectedProvince = ""; 
         $this->selectedCity = "";
         $this->selectedBarangay = "";
+        $this->form['home_address'] = "";
     }
 
     public function updatedSelectedProvince($province)
@@ -245,6 +246,7 @@ class ProfileIndexAddress extends Component
 
         $this->selectedCity = "";
         $this->selectedBarangay = "";
+        $this->form['home_address'] = "";
     }
 
     public function updatedSelectedCity($city)
@@ -254,6 +256,7 @@ class ProfileIndexAddress extends Component
         }
 
         $this->selectedBarangay = "";
+        $this->form['home_address'] = "";
     }
 
     public function openCreateModal()
