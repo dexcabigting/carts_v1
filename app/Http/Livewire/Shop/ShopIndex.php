@@ -89,12 +89,12 @@ class ShopIndex extends Component
         $this->resetPage();
     }
 
-    public function updatingMin()
+    public function updatedMin()
     {
         $this->resetPage();
     }
 
-    public function updatingMax()
+    public function updatedMax()
     {
         $this->resetPage();
     }
