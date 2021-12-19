@@ -16,7 +16,7 @@
                 <x-label :value="__('Region')" />
                 <select wire:model="selectedRegion" class="text-black rounded-lg lg:pr-16 pr-4 w-full">
                     <option value="" selected>
-                        Region
+                        Select Region
                     </option>
                     @foreach($regions as $region)
                         <option wire:key="{{ $loop->index }}-region" value="{{ $region['region_id'] }}">
@@ -31,7 +31,7 @@
                     <x-label :value="__('Province')" />
                     <select wire:model="selectedProvince" class="text-black rounded-lg md:pr-20 w-full md:w-auto">
                        <option value="" selected>
-                            Province
+                            Select Province 
                         </option>
                         @foreach($provinces as $province)
                             <option wire:key="{{ $loop->index }}-province" value="{{ $province['province_id'] }}">
@@ -48,7 +48,7 @@
                 <x-label :value="__('City')" />
                 <select wire:model="selectedCity" class="text-black rounded-lg w-full">
                     <option value="" selected>
-                        City
+                        Select City 
                     </option>
                     @foreach($cities as $city)
                     <option wire:key="{{ $loop->index }}-city" value="{{ $city['city_id'] }}">
@@ -64,7 +64,7 @@
                 <x-label :value="__('Barangay')"  />
                 <select wire:model="selectedBarangay" class="text-black rounded-lg w-full">
                     <option value="" selected>
-                        Barangay
+                        Select Barangay
                     </option>
                     @foreach($barangays as $barangay)
                         <option wire:key="{{ $loop->index }}-barangay" value="{{ $barangay['id'] }}">
