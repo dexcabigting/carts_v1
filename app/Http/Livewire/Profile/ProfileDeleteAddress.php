@@ -35,7 +35,7 @@ class ProfileDeleteAddress extends Component
         UserAddress::where('user_id', auth()->user()->id)
             ->where('is_main_address', 1)->first()->refresh();
 
-        $this->emitUp('mount');
+        $this->emitUp('mountProfileIndex');
 
         session()->flash('success', 'Address has been successfully deleted!');
 
