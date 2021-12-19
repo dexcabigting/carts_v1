@@ -28,16 +28,16 @@
     </div>         
 
      <div class="mt-4">
-            @if($userAddress->is_main_address == 1)
-                <x-input class="block mt-1 w-1/4" type="text" value="Default Address" disabled/>
-            @else
-                <div>
-                    <x-button class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500" type="button" wire:click="setAsDefault()">
-                        {{ __('Set as Default') }}
-                    </x-button>
-                </div>
-            @endif
-        </div>
+        @if($userAddress->is_main_address == 1)
+            <x-input class="block mt-1 w-1/4" type="text" value="Default Address" disabled/>
+        @else
+            <div>
+                <x-button class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500" type="button" wire:click="setAsDefault()">
+                    {{ __('Set as Default') }}
+                </x-button>
+            </div>
+        @endif
+    </div>
       
 
     <form wire:submit.prevent="updateAddress(Object.fromEntries(new FormData($event.target)))">
