@@ -167,12 +167,12 @@ slider.onmouseout = function() {
 
                                 <div>
                                     <x-label :value="__('Minimum Price')" class="text-gray-50 inline-block font-bold text-sm mx-1 xl:text-xl" />
-                                    <input wire:model="min" type="text" class="text-black"/>
+                                    <input wire:model.debounce.500ms="min" type="text" class="text-black"/>
                                 </div>
 
                                 <div>
                                     <x-label :value="__('Maximum Price')" class="text-gray-50 inline-block font-bold text-sm mx-1 xl:text-xl" />
-                                    <input wire:model="max" type="text" class="text-black"/>
+                                    <input wire:model.debounce.500ms="max" type="text" class="text-black"/>
                                 </div>
 
                                 {{--<div class="">
@@ -196,7 +196,7 @@ slider.onmouseout = function() {
 
                     <!-- Search Bar -->
                     <div class="text-black md:ml-24 md:col-span-2 lg:col-span-2 grid lg:items-center lg:align-center relative md:w-64 xl:w-72 2xl:w-96">
-                        <x-input class="h-9 lg:pr-10 pr-4" type="search" wire:model="search" autofocus />
+                        <x-input class="h-9 lg:pr-10 pr-4" type="search" wire:model.debounce.500ms="search" autofocus />
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-indigo-300 absolute right-0" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                         </svg>
@@ -270,6 +270,11 @@ slider.onmouseout = function() {
                 </div>
             </div>
             @endforelse
+            <div wire:loading wire:target="max" class="flex justify-center items-center w-full ">
+                <div class="text-gray-400 font-bold text-2xl md:text-4xl text-center">
+                    <h1>Loading...</h1>
+                </div>
+            </div>
         </div>
     </div>
 
