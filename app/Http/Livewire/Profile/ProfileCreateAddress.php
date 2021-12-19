@@ -32,7 +32,7 @@ class ProfileCreateAddress extends Component
         'form.province' => 'required|string|exists:provinces,name',
         'form.city' => 'required|string|exists:cities,name',
         'form.barangay' => 'required|string|exists:barangays,name',
-        'form.home_address' => 'required|string',
+        'form.home_address' => 'required|string|max:100',
         'form.is_main_address' => 'required|boolean',
     ];
 
