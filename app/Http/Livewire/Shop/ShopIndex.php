@@ -72,7 +72,24 @@ class ShopIndex extends Component
         $category = is_string($category) && $category != 'All' ? [+$category] : $categories;
         $fabric = is_string($fabric) && $fabric != 'All' ? [+$fabric] : $fabrics;
 
+        $sizes = [
+            '2XS',
+            'XS',
+            'S',
+            'M',
+            'L',
+            'XL',
+            '2XL'
+        ];
+
         return Product::with('product_variants', 'category', 'fabric')
+            ->whereHas('product_variants', function ($query) use($sizes) {
+                $query->whereHas('product_stock', function ($query) use($sizes){
+                    foreach($sizes as $size) {
+                        $query->where($size, '!=', 0);
+                    }
+                });
+            })
             ->where('prd_name', 'like', $search)
             ->whereBetween('prd_price', [$min, $max])
             ->whereIn('products.category_id', $category)
