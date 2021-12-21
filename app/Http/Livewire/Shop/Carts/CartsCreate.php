@@ -81,6 +81,13 @@ class CartsCreate extends Component
         return view('livewire.shop.carts.carts-create', compact('stocks', 'variant', 'variants'));
     }
 
+    public function hydrate()
+    {
+        if(!empty($this->getErrorBag())) {
+            $this->resetErrorBag();
+        }
+    }
+
     public function getQueryString()
     {
         return [];
@@ -171,13 +178,7 @@ class CartsCreate extends Component
             $flash = "Cart has been created successfully!";
         }
 
-        $this->addItems = [
-            [
-                'size' => '',
-                'surname' => '',
-                'jersey_number' => '',
-            ]
-        ];                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+        $this->reset(['addItems']);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 
         $this->totalAmount  = $this->productPrice;
 
@@ -190,9 +191,9 @@ class CartsCreate extends Component
             session()->flash('fail', 'Only 15 items are allowed!');
         } else {
             $this->addItems[] = [
-                'size' => '',
-                'surname' => '',
-                'jersey_number' => '',
+                'size' => "",
+                'surname' => "",
+                'jersey_number' => "",
             ];
 
             $this->totalAmount = $this->totalAmount + $this->productPrice;
@@ -211,13 +212,7 @@ class CartsCreate extends Component
 
     public function closeCartModal()
     {
-        $this->addItems = [
-            [
-                'size' => '',
-                'surname' => '',
-                'jersey_number' => '',
-            ]
-        ];
+        $this->reset(['addItems']);
 
         $this->dispatchBrowserEvent('cartModalDisplayNone');
 
