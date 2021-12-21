@@ -58,8 +58,6 @@ class CartsCommentIndex extends Component
                                 }, 
                                 'user:id,name']);
 
-        dd($comment);
-
         event(new ProductVariantCommentCreated($comment));
 
         $this->reset('userComment');
