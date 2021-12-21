@@ -40,6 +40,8 @@ class ShopIndex extends Component
     {
         $products = $this->products->paginate(6);
 
+        // dd($this->products->get()->toArray());
+
         return view('livewire.shop.shop-index', compact('products'))->layout('layouts.app-user');
     }
 
@@ -48,7 +50,7 @@ class ShopIndex extends Component
         $search = '%' . $this->search . '%';
 
         $min = (empty($this->min)) ? 00.00 : $this->min;
-        $max = (empty($this->max)) ? 999999999.99 : $this->max;
+        $max = (empty($this->max)) ? 99999999.99 : $this->max;
 
         $sortBy = $this->sortBy;
         $orderBy = $this->orderBy;
@@ -82,11 +84,11 @@ class ShopIndex extends Component
             '2XL'
         ];
 
-        return Product::with('product_variants', 'category', 'fabric')
+        return Product::with('category', 'fabric')
             ->whereHas('product_variants', function ($query) use($sizes) {
-                $query->whereHas('product_stock', function ($query) use($sizes){
+                $query->whereDoesntHave('product_stock', function ($query) use($sizes){
                     foreach($sizes as $size) {
-                        $query->where($size, '!=', 0);
+                        $query->where($size, '=', 0);
                     }
                 });
             })
