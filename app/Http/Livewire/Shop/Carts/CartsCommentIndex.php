@@ -59,7 +59,7 @@ class CartsCommentIndex extends Component
     {
         $this->commentId = $id;
 
-        $this->wireSubmit = "comment";
+        $this->wireSubmit = "editComment";
 
         $this->buttonText = "Update";
 
@@ -76,7 +76,7 @@ class CartsCommentIndex extends Component
             'comment' => $this->userComment
         ]);
 
-        $this->reset(['commentId', 'userComment', 'wireSubmit', 'buttonText']);
+        $this->resetProperties();
 
         session()->flash('success', 'Comment has been successfully updated!');
     }
@@ -89,9 +89,18 @@ class CartsCommentIndex extends Component
 
     //     session()->flash('success', 'Comment has been successfully deleted!');
     // }
+    public function cancelEdit()
+    {
+        $this->resetProperties();
+    }
 
     public function getCommentProperty()
     {
         return ProductVariantComment::where('id', $this->commentId);
+    }
+
+    protected function resetProperties()
+    {
+        $this->reset(['commentId', 'userComment', 'wireSubmit', 'buttonText']);
     }
 }

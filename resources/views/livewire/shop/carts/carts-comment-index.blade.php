@@ -15,8 +15,11 @@
                     </div>
                     <div wire:key="{{ $loop->index }}-comment-edit" class="float-right">
                         @if($comment->user_id == auth()->user()->id)
-                            <x-button wire:click="enableEdit({{ $comment->id }},  '{{ $comment->comment }}' )" type="button" class="bg-custom-violet text-md p-1">
+                            <x-button wire:click.prevent="enableEdit({{ $comment->id }},  '{{ $comment->comment }}' )" type="button" class="bg-custom-violet text-md p-1">
                                 {{ __('Edit') }}
+                            </x-button>
+                            <x-button wire:click.prevent="deleteComment({{ $comment->id }})" type="button" class="bg-red-500 text-md p-1">
+                                {{ __('Delete') }}
                             </x-button>
                         @endif
                     </div>
@@ -36,10 +39,10 @@
                 <input wire:model.defer="userComment" class="text-black w-full h-10" type="textarea"/>
             </div>
 
-            <div class="mt-4 flex flex-row">
-                @if(!empty($editCommentId))
+            <div class="mt-4 flex flex-row gap-5">
+                @if(!empty($commentId))
                 <div wire:key="{{ mt_rand(000, 999) }}-cancel">
-                    <x-button class="bg-red-500 text-2xl py-2 font-bold px-12">
+                    <x-button wire:click.prevent="cancelEdit" class="bg-red-500 text-2xl py-2 font-bold px-12">
                         {{ __('Cancel') }}
                     </x-button>
                 </div>
