@@ -40,6 +40,8 @@ class CartsCommentIndex extends Component
             'comment' => $this->userComment
         ]);
 
+        $this->reset('userComment');
+
         session()->flash('success', 'Comment has been successfully added!');
     }
 

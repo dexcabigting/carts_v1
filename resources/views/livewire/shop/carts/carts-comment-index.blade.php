@@ -1,11 +1,13 @@
 <div class="flex flex-col gap-5 p-5">
-    <div>
+    <div class="flex flex-col gap-5">
         @forelse($comments as $comment)
-            <div class="flex flex-row gap-5">
-                <div>{{ $comment->user->name }}</div>
-                <div class="flex flex-row gap-5">
-                    <div>{{ $comment->comment }}</div>
-                    <div>{{ $comment->created_at->diffForHumans() }}</div>
+            <div wire:key="{{ $loop->index }}-comment" class="flex flex-row gap-5">
+                <div class="w-full">
+                    <div class="flex justify-between">
+                        <x-label value="{{ $comment->user->name }}" />
+                        <x-label value="{{ $comment->created_at->diffForHumans() }}" />
+                    </div>
+                    <input value="{{ $comment->comment }}" class="text-black h-10 w-full" type="textarea"/>
                 </div>
             </div>
         @empty
