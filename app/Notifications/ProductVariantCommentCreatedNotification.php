@@ -11,14 +11,17 @@ class ProductVariantCommentCreatedNotification extends Notification
 {
     use Queueable;
 
+    public $comment;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($comment)
     {
         //
+        $this->comment = $comment;
     }
 
     /**
@@ -29,7 +32,7 @@ class ProductVariantCommentCreatedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -56,6 +59,9 @@ class ProductVariantCommentCreatedNotification extends Notification
     {
         return [
             //
+            'user' => $this->order->user->name,
+            'product' => $this->order->product_variant->product->prd_name,
+            'product_variant' => $this->order->product_variant->prd_var_name
         ];
     }
 }
