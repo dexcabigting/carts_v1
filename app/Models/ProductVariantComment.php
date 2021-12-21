@@ -14,4 +14,14 @@ class ProductVariantComment extends Model
         'user_id',
         'comment'
     ];
+
+    public function product_variant()
+    {
+        return $this->belongsTo(ProductVariant::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

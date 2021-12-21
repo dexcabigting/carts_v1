@@ -40,4 +40,9 @@ class ProductVariant extends Model
     {
         return $this->hasMany(OrderVariant::class);
     }
+
+    public function product_variant_comments()
+    {
+        return $this->hasMany(ProductVariantComment::class);
+    }
 }

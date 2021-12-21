@@ -102,4 +102,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
+    public function product_variant_comments()
+    {
+        return $this->hasMany(ProductVariantComment::class);
+    }
 }
