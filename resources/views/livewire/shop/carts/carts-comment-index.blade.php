@@ -27,7 +27,9 @@
             </div>
         @empty
             <div>
-                This variant has no comments yet.
+                @if(empty($commentId))
+                    This variant has no comments yet.
+                @endif
             </div>
         @endforelse
     </div>

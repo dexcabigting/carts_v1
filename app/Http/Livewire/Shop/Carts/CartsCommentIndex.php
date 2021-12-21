@@ -81,14 +81,21 @@ class CartsCommentIndex extends Component
         session()->flash('success', 'Comment has been successfully updated!');
     }
 
-    // public function deleteComment($id)
-    // {
-    //     $this->commentId = $id;
+    public function deleteComment($id)
+    {
+        if(!empty($this->commentId) && !empty($this->userComment) && ($this->wireSubmit == "editComment") && ($this->buttonText == "Update")) {
+            $this->resetProperties();
+        }
 
-    //     $this->comment->delete();
+        $this->commentId = $id;
 
-    //     session()->flash('success', 'Comment has been successfully deleted!');
-    // }
+        $this->comment->delete();
+
+        $this->reset(['commentId']);
+
+        session()->flash('success', 'Comment has been successfully deleted!');
+    }
+
     public function cancelEdit()
     {
         $this->resetProperties();
