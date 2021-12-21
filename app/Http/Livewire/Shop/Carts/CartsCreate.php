@@ -14,7 +14,13 @@ class CartsCreate extends Component
     use WithPagination;
 
     public $product;
-    public $addItems;
+    public $addItems = [
+        [
+            'size' => "",
+            'surname' => "",
+            'jersey_number' => "",
+        ]
+    ];
     public $totalAmount;
     public $productPrice;
     public $selectVariant;
@@ -30,8 +36,8 @@ class CartsCreate extends Component
     ];
 
     protected $rules = [
-        'addItems.*.size' => 'required|string',
-        'addItems.*.surname' => 'required|string',
+        'addItems.*.size' => 'required|string|in:2XS,XS,S,M,L,XL,2XL',
+        'addItems.*.surname' => 'required|string|regex:/^[a-zA-Z ]*$/',
         'addItems.*.jersey_number' => 'required|numeric|min:1|max:99',
     ];
 
@@ -43,23 +49,23 @@ class CartsCreate extends Component
 
     public function mount(Product $id)
     {
+        $sizes = $this->SIZES;
+
         $this->product = $id->load(['category','fabric']);
 
-        $this->productVariants = ProductVariant::where('product_id', $this->product->id)->select('id','prd_var_name')->get();    
+        $this->productVariants = ProductVariant::where('product_id', $this->product->id)
+                                ->whereDoesntHave('product_stock', function ($query) use($sizes) {
+                                    foreach($sizes as $size) {
+                                        $query->where($size, '=', 0);
+                                    }
+                                })
+                                ->select('id','prd_var_name')->get();    
 
         $this->selectVariant = $this->productVariants[0]['id'];
 
         $this->category = $this->product->category->ctgr_name;
 
         $this->productPrice =  $this->product->prd_price;
-
-        $this->addItems = [
-            [
-                'size' => '',
-                'surname' => '',
-                'jersey_number' => '',
-            ]
-        ];
 
         $this->totalAmount  = $this->totalAmount + $this->productPrice;
     }
@@ -87,7 +93,14 @@ class CartsCreate extends Component
 
     public function getVariantsProperty()
     {
-        return ProductVariant::where('product_id', $this->product->id);
+        $sizes = $this->SIZES;
+
+        return ProductVariant::where('product_id', $this->product->id)
+                    ->whereDoesntHave('product_stock', function ($query) use($sizes) {
+                                    foreach($sizes as $size) {
+                                        $query->where($size, '=', 0);
+                                    }
+                                });
     }
 
     public function getVariantStocksProperty()
