@@ -13,9 +13,9 @@
                     <div>
                         <input value="{{ $comment->comment }}" class="text-black h-10 w-full" type="textarea"/>
                     </div>
-                    <div class="float-right">
+                    <div wire:key="{{ $loop->index }}-comment-edit" class="float-right">
                         @if($comment->user_id == auth()->user()->id)
-                            <x-button class="bg-custom-violet text-md p-1">
+                            <x-button wire:click="enableEdit({{ $comment->id }},  '{{ $comment->comment }}' )" type="button" class="bg-custom-violet text-md p-1">
                                 {{ __('Edit') }}
                             </x-button>
                         @endif
@@ -30,7 +30,7 @@
     </div>
 
     <div>
-        <form wire:submit.prevent="addComment">
+        <form wire:submit.prevent="{{ $wireSubmit }}">
             <div>
                 <x-label :value="__('Comment')" />
                 <input wire:model.defer="userComment" class="text-black w-full h-10" type="textarea"/>
@@ -38,7 +38,7 @@
 
             <div class="mt-4">
                 <x-button class="bg-custom-violet text-2xl py-2 font-bold px-6">
-                    {{ __('Add Comment') }}
+                    {{ $buttonText }}
                 </x-button>
             </div>
         </form>
