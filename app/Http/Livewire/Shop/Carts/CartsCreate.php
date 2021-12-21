@@ -42,9 +42,9 @@ class CartsCreate extends Component
     ];
 
     protected $validationAttributes = [
-        'addItems.*.size' => 'Jersey Size',
-        'addItems.*.surname' => 'Jersey Surname',
-        'addItems.*.jersey_number' => 'Jersey Number',
+        'addItems.*.size' => 'jersey size',
+        'addItems.*.surname' => 'jersey surname',
+        'addItems.*.jersey_number' => 'jersey number',
     ];
 
     public function mount(Product $id)
