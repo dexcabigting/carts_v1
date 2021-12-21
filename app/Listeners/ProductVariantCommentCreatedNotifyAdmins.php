@@ -4,8 +4,13 @@ namespace App\Listeners;
 
 use App\Events\ProductVariantCommentCreated;
 
+use App\Models\User;
+
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\ProductVariantCommentCreatedNotification;
 
 class ProductVariantCommentCreatedNotifyAdmins
 {
@@ -28,5 +33,8 @@ class ProductVariantCommentCreatedNotifyAdmins
     public function handle(ProductVariantCommentCreated $event)
     {
         //
+        $admins = User::where('role_id', 1)->get();
+
+        Notification::send($admins, new ProductVariantCommentCreatedNotification($event->comment));
     }
 }
