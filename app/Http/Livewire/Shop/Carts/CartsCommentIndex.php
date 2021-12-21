@@ -13,17 +13,19 @@ class CartsCommentIndex extends Component
     public $userComment = "";
 
     protected $rules = [
-        'comment' => 'required|string|max:150'
+        'userComment' => 'required|string|max:150'
     ];
 
     public function mount($variantId)
     {
-        $this->$variantId = $variantId;
+        // dd($variantId);
+
+        $this->variantId = $variantId;
     }
 
     public function render()
     {
-        $comments = $this->comments->get()->toArray();
+        $comments = $this->comments->get();
 
         return view('livewire.shop.carts.carts-comment-index', compact('comments'));
     }
@@ -33,6 +35,7 @@ class CartsCommentIndex extends Component
         $this->validate();
 
         ProductVariantComment::create([
+            'product_variant_id' => $this->variantId,
             'user_id' => auth()->user()->id,
             'comment' => $this->userComment
         ]);
@@ -40,34 +43,34 @@ class CartsCommentIndex extends Component
         session()->flash('success', 'Comment has been successfully added!');
     }
 
-    public function editComment($id)
-    {
-        $this->validate();
+    // public function editComment($id)
+    // {
+    //     $this->validate();
 
-        $this->commentId = $id;
+    //     $this->commentId = $id;
 
-        $comment = $this->comment->findorFail();
+    //     $comment = $this->comment->findorFail();
         
-        $comment->update([
-            'comment' => $this->userComment
-        ]);
+    //     $comment->update([
+    //         'comment' => $this->userComment
+    //     ]);
 
-        session()->flash('success', 'Comment has been successfully updated!');
-    }
+    //     session()->flash('success', 'Comment has been successfully updated!');
+    // }
 
-    public function deleteComment($id)
-    {
-        $this->commentId = $id;
+    // public function deleteComment($id)
+    // {
+    //     $this->commentId = $id;
 
-        $this->comment->delete();
+    //     $this->comment->delete();
 
-        session()->flash('success', 'Comment has been successfully deleted!');
-    }
+    //     session()->flash('success', 'Comment has been successfully deleted!');
+    // }
 
-    public function getCommentProperty()
-    {
-        return ProductVariantComment::where('id', $this->commentId);
-    }
+    // public function getCommentProperty()
+    // {
+    //     return ProductVariantComment::where('id', $this->commentId);
+    // }
 
     public function getCommentsProperty()
     {

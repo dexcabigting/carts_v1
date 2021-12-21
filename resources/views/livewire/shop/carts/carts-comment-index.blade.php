@@ -19,7 +19,7 @@
         <form wire:submit.prevent="addComment">
             <div>
                 <x-label :value="__('Comment')" />
-                <input wire:model.defer="comment" class="text-black w-full h-10" type="textarea"/>
+                <input wire:model.defer="userComment" class="text-black w-full h-10" type="textarea"/>
             </div>
 
             <div class="mt-4">
