@@ -61,7 +61,8 @@ class ProductVariantCommentCreatedNotification extends Notification
             //
             'user' => $this->order->user->name,
             'product' => $this->order->product_variant->product->prd_name,
-            'product variant' => $this->order->product_variant->prd_var_name
+            'product variant' => $this->order->product_variant->prd_var_name,
+            'comment' => $this->comment->comment,
         ];
     }
 }
