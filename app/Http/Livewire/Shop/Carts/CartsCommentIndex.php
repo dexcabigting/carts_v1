@@ -10,7 +10,6 @@ class CartsCommentIndex extends Component
 {
     public $variantId = null;
     public $commentId = null;
-    public $editCommentId = null;
     public $userComment = "";
     public $wireSubmit = "addComment";
     public $buttonText = "Add Comment";
@@ -37,7 +36,7 @@ class CartsCommentIndex extends Component
     public function getCommentsProperty()
     {
         return ProductVariantComment::where('product_variant_id', $this->variantId)
-                                        ->where('id', '!=', $this->editCommentId)
+                                        ->where('id', '!=', $this->commentId)
                                         ->with('user:id,name');
     }
 
@@ -58,9 +57,9 @@ class CartsCommentIndex extends Component
 
     public function enableEdit(int $id, string $comment)
     {
-        $this->editCommentId = $id;
+        $this->commentId = $id;
 
-        $this->wireSubmit = "editComment";
+        $this->wireSubmit = "comment";
 
         $this->buttonText = "Update";
 
@@ -71,15 +70,13 @@ class CartsCommentIndex extends Component
     {
         $this->validate();
 
-        $this->commentId = $this->editCommentId;
-
         $comment = $this->comment->first();
         
         $comment->update([
             'comment' => $this->userComment
         ]);
 
-        $this->reset(['commentId', 'editCommentId', 'userComment', 'wireSubmit', 'buttonText']);
+        $this->reset(['commentId', 'userComment', 'wireSubmit', 'buttonText']);
 
         session()->flash('success', 'Comment has been successfully updated!');
     }
