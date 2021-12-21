@@ -6,6 +6,8 @@ use Livewire\Component;
 
 use App\Models\ProductVariantComment;
 
+use App\Events\ProductVariantCommentCreated;
+
 class CartsCommentIndex extends Component
 {
     public $variantId = null;
@@ -44,11 +46,21 @@ class CartsCommentIndex extends Component
     {
         $this->validate();
 
-        ProductVariantComment::create([
+        $comment = ProductVariantComment::create([
             'product_variant_id' => $this->variantId,
             'user_id' => auth()->user()->id,
             'comment' => $this->userComment
         ]);
+
+        $comment = $comment->load(['product_variant' => function ($query) {
+                                    $query->select('id', 'prd_var_name', 'product_id')
+                                        ->with(['product:id,prd_name']);
+                                }, 
+                                'user:id,name']);
+
+        dd($comment);
+
+        event(new ProductVariantCommentCreated($comment));
 
         $this->reset('userComment');
 
