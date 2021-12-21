@@ -5,9 +5,17 @@
     <div class="p-5 m-auto z-20">
         <div class="flex flex-row gap-5">
             <div class="text-white w-1/3">
-                <div class="bg-white shadow-sm rounded-lg border-4 border-gray-500">
-                    <div class="bg-custom-blacki border-b border-gray-200">
-                        @include('shop.carts.create-1')
+                <div class="flex flex-col gap-5">
+                    <div class="bg-white shadow-sm rounded-lg border-4 border-gray-500">                   
+                        <div class="bg-custom-blacki border-b border-gray-200">
+                            @include('shop.carts.create-1')
+                        </div>
+                    </div>
+
+                    <div class="bg-white shadow-sm rounded-lg border-4 border-gray-500">                   
+                        <div class="bg-custom-blacki border-b border-gray-200">
+                            @livewire('shop.carts.carts-comment-index', ['variantId' => $selectVariant])
+                        </div>
                     </div>
                 </div>
             </div>

@@ -8,7 +8,7 @@ use App\Models\ProductVariantComment;
 
 class CartsCommentIndex extends Component
 {
-    public $id = null;
+    public $variantId = null;
     public $commentId = null;
     public $userComment = "";
 
@@ -16,9 +16,9 @@ class CartsCommentIndex extends Component
         'comment' => 'required|string|max:150'
     ];
 
-    public function mount($id)
+    public function mount($variantId)
     {
-        $this->id = $id;
+        $this->$variantId = $variantId;
     }
 
     public function render()
@@ -71,6 +71,7 @@ class CartsCommentIndex extends Component
 
     public function getCommentsProperty()
     {
-        return ProductVariantComment::where('product_variant_id', $this->id);
+        return ProductVariantComment::where('product_variant_id', $this->variantId)
+                                        ->with('user:id,name');
     }
 }
