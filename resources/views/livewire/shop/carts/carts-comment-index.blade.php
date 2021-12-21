@@ -38,13 +38,13 @@
 
             <div class="mt-4 flex flex-row">
                 @if(!empty($editCommentId))
-                <div wire:key="ejpoiakk-cancel">
+                <div wire:key="{{ mt_rand(000, 999) }}-cancel">
                     <x-button class="bg-red-500 text-2xl py-2 font-bold px-12">
                         {{ __('Cancel') }}
                     </x-button>
                 </div>
                 @endif
-                <div wire:key="ejpoiakk-update">
+                <div wire:key="{{ mt_rand(000, 999) }}-update">
                     <x-button class="bg-custom-violet text-2xl py-2 font-bold px-6">
                         {{ $buttonText }}
                     </x-button>
