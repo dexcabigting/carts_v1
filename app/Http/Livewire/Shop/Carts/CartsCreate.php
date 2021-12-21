@@ -37,8 +37,8 @@ class CartsCreate extends Component
 
     protected $rules = [
         'addItems.*.size' => 'required|string|in:2XS,XS,S,M,L,XL,2XL',
-        'addItems.*.surname' => 'required|string|regex:/^[a-zA-Z ]*$/',
-        'addItems.*.jersey_number' => 'required|numeric|min:1|max:99',
+        'addItems.*.surname' => 'required|string|regex:/^[a-zA-Z ]*$/|max:20',
+        'addItems.*.jersey_number' => 'required|numeric|max:99',
     ];
 
     protected $validationAttributes = [
