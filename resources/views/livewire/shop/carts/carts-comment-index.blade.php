@@ -10,7 +10,16 @@
                         <x-label value="{{ $comment->user->name }}" />
                         <x-label value="{{ $comment->created_at->diffForHumans() }}" />
                     </div>
-                    <input value="{{ $comment->comment }}" class="text-black h-10 w-full" type="textarea"/>
+                    <div>
+                        <input value="{{ $comment->comment }}" class="text-black h-10 w-full" type="textarea"/>
+                    </div>
+                    <div class="float-right">
+                        @if($comment->user_id == auth()->user()->id)
+                            <x-button class="bg-custom-violet text-md p-1">
+                                {{ __('Edit') }}
+                            </x-button>
+                        @endif
+                    </div>
                 </div>
             </div>
         @empty
