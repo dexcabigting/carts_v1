@@ -62,7 +62,7 @@ class CartsCommentIndex extends Component
 
         $this->wireSubmit = "editComment";
 
-        $this->buttonText = "Update Comment";
+        $this->buttonText = "Update";
 
         $this->userComment = $comment;
     }
