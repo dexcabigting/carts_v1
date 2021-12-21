@@ -1,4 +1,7 @@
 <div class="flex flex-col gap-5 p-5">
+    <x-success-fail-message />
+    <x-validation-errors :errors="$errors" />
+
     <div class="flex flex-col gap-5">
         @forelse($comments as $comment)
             <div wire:key="{{ $loop->index }}-comment" class="flex flex-row gap-5">
