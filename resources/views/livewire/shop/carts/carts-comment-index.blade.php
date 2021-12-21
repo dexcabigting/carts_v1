@@ -36,10 +36,19 @@
                 <input wire:model.defer="userComment" class="text-black w-full h-10" type="textarea"/>
             </div>
 
-            <div class="mt-4">
-                <x-button class="bg-custom-violet text-2xl py-2 font-bold px-6">
-                    {{ $buttonText }}
-                </x-button>
+            <div class="mt-4 flex flex-row">
+                @if(!empty($editCommentId))
+                <div wire:key="ejpoiakk-cancel">
+                    <x-button class="bg-red-500 text-2xl py-2 font-bold px-12">
+                        {{ __('Cancel') }}
+                    </x-button>
+                </div>
+                @endif
+                <div wire:key="ejpoiakk-update">
+                    <x-button class="bg-custom-violet text-2xl py-2 font-bold px-6">
+                        {{ $buttonText }}
+                    </x-button>
+                </div>
             </div>
         </form>
     </div>
