@@ -13,6 +13,9 @@ use App\Events\OrderStatusUpdated;
 use App\Listeners\OrderStatusUpdatedNotifyUser;
 use App\Events\OrderCreated;
 use App\Listeners\OrderCreatedNotifyAdmins;
+use App\Events\ProductVariantCommentCreated;
+use App\Listeners\ProductVariantCommentCreatedNotifyAdmins;
+use App\Models\ProductVariantComment;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -32,6 +35,9 @@ class EventServiceProvider extends ServiceProvider
         OrderCreated::class => [
             OrderCreatedNotifyAdmins::class,
         ],
+        ProductVariantCommentCreated::class => [
+            ProductVariantCommentCreatedNotifyAdmins::class,
+        ]
     ];
 
     /**

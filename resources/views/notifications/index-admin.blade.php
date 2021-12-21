@@ -34,6 +34,10 @@
                     <div class="p-2 px-2 lg:px-32">
                         {{ $notification['data']['name'] }} ({{ $notification['data']['email'] }}) has registered {{ $notification['created_at']->diffForHumans() }}   
                     </div>
+                @elseif($notification['type'] == 'App\Notifications\ProductVariantCommentCreatedNotification')
+                <div class="p-2 px-2 lg:px-32">
+                    {{ $notification['data']['user'] }} commented on {{ $notification['data']['product'] }}:{{ $notification['data']['product variant'] }} "{{ $notification['data']['comment'] }}" {{ $notification['created_at']->diffForHumans() }}   
+                </div>
                 @endif
                 
                 <div class="flex flex-row gap-5 ml-24 xl:ml-32">
