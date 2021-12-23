@@ -156,31 +156,12 @@ class ProductsCreate extends Component
 
         $this->emitUp('refreshParent');
 
-        session()->flash('success', 'Product has been created successfully!'); 
+        session()->flash('success', 'Product has been successfully created!'); 
     }
 
     public function clearFormFields()
     {
-        $this->form['prd_name'] = '';
-        $this->form['prd_description'] = '';
-        $this->form['prd_price'] = '';
-        $this->form['category_id'] = '';
-        $this->form['fabric_id'] = '';
-
-        $this->addVariants = [
-            [
-                'prd_var_name' => '',
-                'front_view' => null,
-                'back_view' => null,
-                '2XS'  => '',
-                'XS'  => '',
-                'S'  => '',
-                'M'  => '',
-                'L'  => '',
-                'XL'  => '',
-                '2XL'  => '',
-            ]
-        ];
+        $this->reset(['form', 'addVariants']);
     }
 
     public function addMore()
@@ -189,16 +170,16 @@ class ProductsCreate extends Component
             session()->flash('fail', 'Only 5 variants are allowed!'); 
         } else {
             $this->addVariants[] = [
-                'prd_var_name' => '',
+                'prd_var_name' => "0",
                 'front_view' => null,
                 'back_view' => null,
-                '2XS'  => '',
-                'XS'  => '',
-                'S'  => '',
-                'M'  => '',
-                'L'  => '',
-                'XL'  => '',
-                '2XL'  => '',
+                '2XS'  => "0",
+                'XS'  => "0",
+                'S'  => "0",
+                'M'  => "0",
+                'L'  => "0",
+                'XL'  => "0",
+                '2XL'  => "0",
             ];
         }
     }
