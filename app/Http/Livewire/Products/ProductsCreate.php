@@ -53,13 +53,13 @@ class ProductsCreate extends Component
             'addVariants.*.prd_var_name' => ['required', 'string', 'max:100', 'regex:/^([A-Z0-9]+ ?)+$/i'],
             'addVariants.*.front_view' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'addVariants.*.back_view' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            'addVariants.*.2XS'  => ['required_without_all:addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL', 'integer', 'max:999'],
-            'addVariants.*.XS'  => ['required_without_all:addVariants.*.2XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL', 'integer', 'max:999'],
-            'addVariants.*.S'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL', 'integer', 'max:999'],
-            'addVariants.*.M'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL', 'integer', 'max:999'],
-            'addVariants.*.L'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.XL,addVariants.*.2XL', 'integer', 'max:999'],
-            'addVariants.*.XL'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.2XL', 'integer', 'max:999'],
-            'addVariants.*.2XL'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL', 'integer', 'max:999'],
+            'addVariants.*.2XS'  => ['required_without_all:addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL', 'integer', 'min:1', 'max:999'],
+            'addVariants.*.XS'  => ['required_without_all:addVariants.*.2XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL', 'integer', 'min:1', 'max:999'],
+            'addVariants.*.S'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL', 'integer', 'min:1', 'max:999'],
+            'addVariants.*.M'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL', 'integer', 'min:1', 'max:999'],
+            'addVariants.*.L'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.XL,addVariants.*.2XL', 'integer', 'min:1', 'max:999'],
+            'addVariants.*.XL'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.2XL', 'integer', 'min:1', 'max:999'],
+            'addVariants.*.2XL'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL', 'integer', 'min:1', 'max:999'],
         ];
     }
 
