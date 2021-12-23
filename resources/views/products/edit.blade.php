@@ -72,7 +72,7 @@
                         </div>
 
                         @foreach($addVariants as $index => $addVariant)
-                            <div class="flex gap-5 pb-3">
+                            <div wire:key="{{ $loop->index }}-variant-number" class="flex gap-5 pb-3">
                                 <input type="hidden" wire:model.defer="addVariants.{{ $index }}.id">
 
                                 <div wire:key="{{ $loop->index }}-variant-name">    
