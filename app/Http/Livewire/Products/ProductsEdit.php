@@ -304,17 +304,17 @@ class ProductsEdit extends Component
             session()->flash('fail', 'Only 5 variants are allowed!'); 
         } else {
             $this->addVariants[] = [
-                'id' => null,
-                'prd_var_name' => '',
+                'id' => "",
+                'prd_var_name' => "",
                 'front_view' => null,
                 'back_view' => null,
-                '2XS'  => '',
-                'XS'  => '',
-                'S'  => '',
-                'M'  => '',
-                'L'  => '',
-                'XL'  => '',
-                '2XL'  => '',
+                '2XS'  => "",
+                'XS'  => "",
+                'S'  => "",
+                'M'  => "",
+                'L'  => "",
+                'XL'  => "",
+                '2XL'  => "",
             ];
         }
     }
