@@ -52,22 +52,22 @@ class ProductsEdit extends Component
     protected function rules()
     {
         return [
-            'form.prd_name' => ['required', 'string', 'max:100', 'unique:products,prd_name,' . $this->product->id],
+            'form.prd_name' => ['required', 'string', 'max:100', 'unique:products,prd_name,' . $this->product->id, 'regex:/^([A-Z0-9]+ ?)+$/i'],
             'form.category_id' => ['required', 'string', 'max:100', 'exists:categories,id'],
             'form.fabric_id' => ['required', 'string', 'max:100', 'exists:fabrics,id'],
             'form.prd_description' => ['required', 'string', 'max:100'],
             'form.prd_price' => ['required', 'numeric', 'regex:/^\d+(\.\d{2})?$/'],
             'addVariants.*.id' => ['nullable', 'integer'],
-            'addVariants.*.prd_var_name' => ['required', 'string', 'max:100'],
+            'addVariants.*.prd_var_name' => ['required', 'string', 'max:100', 'regex:/^([A-Z0-9]+ ?)+$/i'],
             'addVariants.*.front_view' => ['required_if:addVariants.*.id,""', 'nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'addVariants.*.back_view' => ['required_if:addVariants.*.id,""', 'nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            'addVariants.*.2XS'  => ['required_without_all:addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL', 'integer', 'max:999'],
-            'addVariants.*.XS'  => ['required_without_all:addVariants.*.2XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL', 'integer', 'max:999'],
-            'addVariants.*.S'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL', 'integer', 'max:999'],
-            'addVariants.*.M'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL', 'integer', 'max:999'],
-            'addVariants.*.L'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.XL,addVariants.*.2XL', 'integer', 'max:999'],
-            'addVariants.*.XL'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.2XL', 'integer', 'max:999'],
-            'addVariants.*.2XL'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL', 'integer', 'max:999'],
+            'addVariants.*.2XS'  => ['filled', 'integer', 'max:999'],
+            'addVariants.*.XS'  => ['filled', 'integer', 'max:999'],
+            'addVariants.*.S'  => ['filled', 'integer', 'max:999'],
+            'addVariants.*.M'  => ['filled', 'integer', 'max:999'],
+            'addVariants.*.L'  => ['filled', 'integer', 'max:999'],
+            'addVariants.*.XL'  => ['filled', 'integer', 'max:999'],
+            'addVariants.*.2XL'  => ['filled', 'integer', 'max:999'],
         ];
     }
 
@@ -148,13 +148,13 @@ class ProductsEdit extends Component
         $this->form['fabric_id'] = (string)$this->form['fabric_id'];
 
         // dd($this->addVariants);
-        foreach($this->addVariants as $key => $value){
-            foreach($this->SIZES as $size) {
-                if($value[$size] == 0){
-                    $this->addVariants[$key][$size] = "";
-                }  
-            }
-        }
+        // foreach($this->addVariants as $key => $value){
+        //     foreach($this->SIZES as $size) {
+        //         if($value[$size] == 0){
+        //             $this->addVariants[$key][$size] = "";
+        //         }  
+        //     }
+        // }
 
         $this->validate();
     
@@ -278,7 +278,6 @@ class ProductsEdit extends Component
         
             $frontImagePath = $variantFront->storeAs('/images/products', $newFrontName, 'public');
             $backImagePath = $variantBack->storeAs('/images/products', $newBackName, 'public');
-
 
             $variants[] = [
                 'prd_var_name' => $newVariants[$i]['prd_var_name'],
