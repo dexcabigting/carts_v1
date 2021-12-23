@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Storage;
 class ProductsDelete extends Component
 {
     public $products = [];
-
     public $promptDelete = 1;
     public $promptDeleted = 0;
 

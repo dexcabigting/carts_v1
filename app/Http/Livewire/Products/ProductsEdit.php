@@ -30,7 +30,6 @@ class ProductsEdit extends Component
         'prd_description' => '',
         'prd_price' => '',
     ];
-
     public $addVariants;
     public $categories = [];
     public $fabrics = [];
