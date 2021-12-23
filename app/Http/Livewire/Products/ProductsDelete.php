@@ -3,7 +3,10 @@
 namespace App\Http\Livewire\Products;
 
 use Livewire\Component;
+
 use App\Models\Product;
+
+use Illuminate\Support\Facades\Storage;
 
 class ProductsDelete extends Component
 {
@@ -30,7 +33,18 @@ class ProductsDelete extends Component
             $flash = 'Products have been deleted successfully!';
         }
             
-        Product::whereIn('id', $this->products)->delete();
+        $products = Product::whereIn('id', $this->products)->get();
+
+        $products->each(function ($product) {
+                    $variants = $product->product_variants()->get();
+
+                    $variants->each(function ($variant) {
+                        Storage::disk('root')->delete('app/public/' . $variant->front_view);
+                        Storage::disk('root')->delete('app/public/' . $variant->back_view);
+                    });
+                })
+                ->each
+                ->delete();
 
         $this->emitUp('unsetCheckedProducts', $this->products);
 
