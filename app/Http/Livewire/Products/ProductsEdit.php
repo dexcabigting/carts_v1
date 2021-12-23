@@ -130,6 +130,13 @@ class ProductsEdit extends Component
         // dd($this->addVariants);
     }
 
+    public function hydrate()
+    {
+        if(!empty($this->getErrorBag())) {
+            $this->resetErrorBag();
+        }
+    }
+
     public function render()
     {
         return view('livewire.products.products-edit');

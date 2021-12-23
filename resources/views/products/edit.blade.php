@@ -75,12 +75,12 @@
                             <div class="flex gap-5 pb-3">
                                 <input type="hidden" wire:model.defer="addVariants.{{ $index }}.id">
 
-                                <div >    
+                                <div wire:key="{{ $loop->index }}-variant-name">    
                                     <x-label :value="__('Variant')"/>
                                     <x-input wire:model.defer="addVariants.{{ $index }}.prd_var_name" class="block mt-1 w-40 text-black" type="text" autofocus />
                                 </div>
 
-                                <div class="w-1/4">
+                                <div wire:key="{{ $loop->index }}-images" class="w-1/4">
                                     <div class="">
                                         <x-label :value="__('Front View')"/>
                                         <input type="file" wire:model.defer="addVariants.{{ $index }}.front_view" />
@@ -94,43 +94,41 @@
                                     </div>
                                 </div>
 
-                                <div class="flex flex-row gap-5">
-                                    
-                                    <div>
+                                <div  wire:key="{{ $loop->index }}-sizes" class="flex flex-row gap-5">
+                                    <div wire:key="{{ $loop->index }}-2xs">
                                         <x-label for="2XS" :value="__('2XS')"/>
                                         <x-input wire:model.defer="addVariants.{{ $index }}.2XS" class="block mt-1 w-14 text-black" type="text" value="{{ old('2XS') }}" autofocus />
                                     </div>
                                     
-                                    <div>
+                                    <div wire:key="{{ $loop->index }}-xs">
                                         <x-label for="XS" :value="__('XS')"/>
                                         <x-input wire:model.defer="addVariants.{{ $index }}.XS" class="block mt-1 w-14 text-black" type="text" value="{{ old('XS') }}" autofocus />
                                     </div>
 
-                                    <div>
+                                    <div wire:key="{{ $loop->index }}-s">
                                         <x-label for="S" :value="__('S')"/>
                                         <x-input wire:model.defer="addVariants.{{ $index }}.S" class="block mt-1 w-14 text-black" type="text" value="{{ old('S') }}" autofocus />
                                     </div>
 
-                                    <div>
+                                    <div wire:key="{{ $loop->index }}-m">
                                         <x-label for="M" :value="__('M')"/>
                                         <x-input wire:model.defer="addVariants.{{ $index }}.M" class="block mt-1 w-14 text-black" type="text" value="{{ old('M') }}" autofocus />
                                     </div>
                                 
-                                    <div>
+                                    <div wire:key="{{ $loop->index }}-l">
                                         <x-label for="L" :value="__('L')"/>
                                         <x-input wire:model.defer="addVariants.{{ $index }}.L" class="block mt-1 w-14 text-black" type="text" value="{{ old('L') }}" autofocus />
                                     </div>
 
-                                    <div>
+                                    <div wire:key="{{ $loop->index }}-xl">
                                         <x-label for="XL" :value="__('XL')"/>
                                         <x-input wire:model.defer="addVariants.{{ $index }}.XL" class="block mt-1 w-14 text-black" type="text" value="{{ old('XL') }}" autofocus />
                                     </div>
 
-                                    <div>
+                                    <div wire:key="{{ $loop->index }}-2xl">
                                         <x-label for="2XL" :value="__('2XL')"/>
                                         <x-input wire:model.defer="addVariants.{{ $index }}.2XL" class="block mt-1 w-14 text-black" type="text" value="{{ old('2XL') }}" autofocus />
-                                    </div>
-                                    
+                                    </div>                                   
                                 </div>
 
                                 @if(count($addVariants) == 1) 
