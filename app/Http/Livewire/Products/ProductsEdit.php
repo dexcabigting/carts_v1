@@ -3,12 +3,13 @@
 namespace App\Http\Livewire\Products;
 
 use Livewire\Component;
+use Livewire\WithFileUploads;
+
 use App\Models\Product;
 use App\Models\ProductVariant;
-use App\Models\ProductStock;
 use App\Models\Category;
 use App\Models\Fabric;
-use Livewire\WithFileUploads;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 

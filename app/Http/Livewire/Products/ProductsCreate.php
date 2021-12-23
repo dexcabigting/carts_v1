@@ -3,11 +3,13 @@
 namespace App\Http\Livewire\Products;
 
 use Livewire\Component;
-use App\Models\Product;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Str;
+
+use App\Models\Product;
 use App\Models\Category;
 use App\Models\Fabric;
+
+use Illuminate\Support\Str;
 
 class ProductsCreate extends Component
 {
