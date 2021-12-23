@@ -122,7 +122,7 @@ class ProductsEdit extends Component
 
         $this->fabrics = Fabric::all(['id', 'fab_name']);
 
-        dd($this->addVariants);
+        // dd($this->addVariants);
     }
 
     public function render()
@@ -254,43 +254,43 @@ class ProductsEdit extends Component
 
         $newSizes = [];
 
-            for($i = 0; $i < $newCount; $i++) {
-                $variantFront = $newVariants[$i]['front_view'];
-                $variantBack = $newVariants[$i]['back_view'];
+        for($i = 0; $i < $newCount; $i++) {
+            $variantFront = $newVariants[$i]['front_view'];
+            $variantBack = $newVariants[$i]['back_view'];
 
-                $newFrontName = $newVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantFront->extension();
-                $newBackName = $newVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantBack->extension();
+            $newFrontName = $newVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantFront->extension();
+            $newBackName = $newVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $variantBack->extension();
+        
+            $frontImagePath = $variantFront->storeAs('/images/products', $newFrontName, 'public');
+            $backImagePath = $variantBack->storeAs('/images/products', $newBackName, 'public');
+
+
+            $variants[] = [
+                'prd_var_name' => $newVariants[$i]['prd_var_name'],
+                'front_view' => $frontImagePath,
+                'back_view' => $backImagePath,
+            ];
+
+            $sizes = [
+                '2XS' => $newVariants[$i]['2XS'],
+                'XS' => $newVariants[$i]['XS'],
+                'S' => $newVariants[$i]['S'],
+                'M' => $newVariants[$i]['M'],
+                'L' => $newVariants[$i]['L'],
+                'XL' => $newVariants[$i]['XL'],
+                '2XL' => $newVariants[$i]['2XL'],
+            ];
+
+            $sizes = array_filter($sizes);   
             
-                $frontImagePath = $variantFront->storeAs('/images/products', $newFrontName,'public');
-                $backImagePath = $variantBack->storeAs('/images/products', $newBackName,'public');
+            array_push($newSizes, $sizes);
+        }
 
+        $productVariants = $product->product_variants()->createMany($variants);
 
-                $variants[] = [
-                    'prd_var_name' => $newVariants[$i]['prd_var_name'],
-                    'front_view' => $frontImagePath,
-                    'back_view' => $backImagePath,
-                ];
-
-                $sizes = [
-                    '2XS' => $newVariants[$i]['2XS'],
-                    'XS' => $newVariants[$i]['XS'],
-                    'S' => $newVariants[$i]['S'],
-                    'M' => $newVariants[$i]['M'],
-                    'L' => $newVariants[$i]['L'],
-                    'XL' => $newVariants[$i]['XL'],
-                    '2XL' => $newVariants[$i]['2XL'],
-                ];
-
-                $sizes = array_filter($sizes);   
-                
-                array_push($newSizes, $sizes);
-            }
-
-            $productVariants = $product->product_variants()->createMany($variants);
-
-            for($i = 0; $i < $newCount; $i++) {
-                $productVariants->get($i)->product_stock()->create($newSizes[$i]);
-            }
+        for($i = 0; $i < $newCount; $i++) {
+            $productVariants->get($i)->product_stock()->create($newSizes[$i]);
+        }
     }
 
     private function deleteExistingVariants($deleteExisting)
@@ -323,7 +323,7 @@ class ProductsEdit extends Component
     {
         $id = $this->addVariants[$index]['id'];
 
-        if($id !== NULL) {
+        if($id !== "") {
             array_push($this->deleteExisting, $id);
         }
 
