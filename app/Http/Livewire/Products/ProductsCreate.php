@@ -172,7 +172,7 @@ class ProductsCreate extends Component
             session()->flash('fail', 'Only 5 variants are allowed!'); 
         } else {
             $this->addVariants[] = [
-                'prd_var_name' => "0",
+                'prd_var_name' => "",
                 'front_view' => null,
                 'back_view' => null,
                 '2XS'  => "0",
