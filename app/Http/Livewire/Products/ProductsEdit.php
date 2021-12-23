@@ -24,11 +24,11 @@ class ProductsEdit extends Component
      * @var ['prd_image'] mixed
      */
     public $form = [
-        'prd_name' => '',
-        'category_id' => '',
-        'fabric_id' => '',
-        'prd_description' => '',
-        'prd_price' => '',
+        'prd_name' => "",
+        'category_id' => "",
+        'fabric_id' => "",
+        'prd_description' => "",
+        'prd_price' => "",
     ];
     public $addVariants;
     public $categories = [];
@@ -329,13 +329,13 @@ class ProductsEdit extends Component
                 'prd_var_name' => "",
                 'front_view' => null,
                 'back_view' => null,
-                '2XS'  => "0",
-                'XS'  => "0",
-                'S'  => "0",
-                'M'  => "0",
-                'L'  => "0",
-                'XL'  => "0",
-                '2XL'  => "0",
+                '2XS' => "0",
+                'XS' => "0",
+                'S' => "0",
+                'M' => "0",
+                'L' => "0",
+                'XL' => "0",
+                '2XL' => "0",
             ];
         }
     }
