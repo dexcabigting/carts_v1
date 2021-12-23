@@ -17,24 +17,24 @@ class ProductsCreate extends Component
     use WithFileUploads;
 
     public $form = [
-        'prd_name' => '',
-        'prd_category' => '',
-        'prd_fabric' => '',
-        'prd_description' => '',
-        'prd_price' => '',
+        'prd_name' => "",
+        'category_id' => "",
+        'fabric_id' => "",
+        'prd_description' => "",
+        'prd_price' => "",
     ];
     public array $addVariants = [
         [
             'prd_var_name' => "",
             'front_view' => null,
             'back_view' => null,
-            '2XS'  => "",
-            'XS'  => "",
-            'S'  => "",
-            'M'  => "",
-            'L'  => "",
-            'XL'  => "",
-            '2XL'  => "",
+            '2XS'  => "0",
+            'XS'  => "0",
+            'S'  => "0",
+            'M'  => "0",
+            'L'  => "0",
+            'XL'  => "0",
+            '2XL'  => "0",
         ]
     ];
     public $categories = [];
@@ -44,8 +44,8 @@ class ProductsCreate extends Component
     {
         return [
             'form.prd_name' => ['required', 'string', 'max:100', 'unique:products,prd_name', 'regex:/^([A-Z0-9]+ ?)+$/i'],
-            'form.prd_category' => ['required', 'string', 'max:100', 'exists:categories,id'],
-            'form.prd_fabric' => ['required', 'string', 'max:100', 'exists:fabrics,id'],
+            'form.category_id' => ['required', 'string', 'max:100', 'exists:categories,id'],
+            'form.fabric_id' => ['required', 'string', 'max:100', 'exists:fabrics,id'],
             'form.prd_description' => ['required', 'string', 'max:100'],
             'form.prd_price' => ['required', 'numeric', 'regex:/^\d+(\.\d{2})?$/'],
             'addVariants.*.prd_var_name' => ['required', 'string', 'max:100', 'regex:/^([A-Z0-9]+ ?)+$/i'],
@@ -65,8 +65,8 @@ class ProductsCreate extends Component
         'form.prd_name' => 'product name',
         'form.prd_description' => 'product description',
         'form.prd_price' => 'product price',
-        'form.prd_category' => 'product category',
-        'form.prd_fabric' => 'product fabric',
+        'form.category_id' => 'product category',
+        'form.fabric_id' => 'product fabric',
         'addVariants.*.prd_var_name' => 'variant name',
         'addVariants.*.front_view' => 'front view image',
         'addVariants.*.back_view' => 'back view image',
@@ -139,8 +139,8 @@ class ProductsCreate extends Component
         
         $product = Product::create([
             'prd_name' => $this->form['prd_name'],
-            'category_id' => $this->form['prd_category'],
-            'fabric_id' => $this->form['prd_fabric'],
+            'category_id' => $this->form['category_id'],
+            'fabric_id' => $this->form['fabric_id'],
             'prd_description' => $this->form['prd_description'],
             'prd_price' => $this->form['prd_price'],
             // 'prd_image' => $prdImagePath,
@@ -164,8 +164,8 @@ class ProductsCreate extends Component
         $this->form['prd_name'] = '';
         $this->form['prd_description'] = '';
         $this->form['prd_price'] = '';
-        $this->form['prd_category'] = '';
-        $this->form['prd_fabric'] = '';
+        $this->form['category_id'] = '';
+        $this->form['fabric_id'] = '';
 
         $this->addVariants = [
             [

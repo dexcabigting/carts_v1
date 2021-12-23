@@ -25,8 +25,8 @@
 
                     <div class="mt-4">
                         <x-label :value="__('Category')" />
-                        <select wire:model="form.prd_category" class="border-gray-300 mt-1 text-black rounded-lg w-full">
-                            <option value="" selected>
+                        <select wire:model="form.category_id" class="border-gray-300 mt-1 text-black rounded-lg w-full">
+                            <option value="">
                                 Category
                             </option>  
                             @foreach($categories as $category)
@@ -39,8 +39,8 @@
 
                     <div class="mt-4">
                         <x-label :value="__('Fabric')" />
-                        <select wire:model="form.prd_fabric" class="border-gray-300 mt-1 text-black rounded-lg w-full">
-                            <option value="" selected>
+                        <select wire:model="form.fabric_id" class="border-gray-300 mt-1 text-black rounded-lg w-full">
+                            <option value="">
                                 Fabric
                             </option>    
                             @foreach($fabrics as $fabric)
