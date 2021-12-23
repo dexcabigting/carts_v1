@@ -59,8 +59,8 @@ class ProductsEdit extends Component
             'form.prd_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
             'addVariants.*.id' => 'nullable|integer',
             'addVariants.*.prd_var_name' => 'required|string|max:100',
-            'addVariants.*.front_view' => 'required_if:addVariants.*.id,null|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'addVariants.*.back_view' => 'required_if:addVariants.*.id,null|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'addVariants.*.front_view' => 'required_if:addVariants.*.id,""|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'addVariants.*.back_view' => 'required_if:addVariants.*.id,""|nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'addVariants.*.2XS'  => 'required_without_all:addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|max:100',
             'addVariants.*.XS'  => 'required_without_all:addVariants.*.2XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|max:100',
             'addVariants.*.S'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|max:100',
@@ -161,7 +161,7 @@ class ProductsEdit extends Component
         if(count($this->addVariants) > count($oldVariants)) {
             // For new variants 
             $newVariants = array_filter($this->addVariants, function ($var) {
-                return ($var['id'] == null);
+                return ($var['id'] == "");
             });
 
             $newVariants = array_values($newVariants);
