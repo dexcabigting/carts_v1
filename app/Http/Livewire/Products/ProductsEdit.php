@@ -118,9 +118,9 @@ class ProductsEdit extends Component
             array_push($this->addVariants, $array);
         }
         
-        $this->categories = Category::all();
+        $this->categories = Category::all(['id', 'ctgr_name']);
 
-        $this->fabrics = Fabric::all();
+        $this->fabrics = Fabric::all(['id', 'fab_name']);
     }
 
     public function render()
