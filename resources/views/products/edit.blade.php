@@ -94,7 +94,7 @@
                                     </div>
                                 </div>
 
-                                <div  wire:key="{{ $loop->index }}-sizes" class="flex flex-row gap-5">
+                                <div wire:key="{{ $loop->index }}-sizes" class="flex flex-row gap-5">
                                     <div wire:key="{{ $loop->index }}-2xs">
                                         <x-label for="2XS" :value="__('2XS')"/>
                                         <x-input wire:model.defer="addVariants.{{ $index }}.2XS" class="block mt-1 w-14 text-black" type="text" value="{{ old('2XS') }}" autofocus />
