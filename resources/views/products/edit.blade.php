@@ -29,7 +29,7 @@
                                 Category
                             </option>  
                             @foreach($categories as $category)
-                                <option value="{{ $category->id }}" selected>
+                                <option value="{{ $category->id }}">
                                 {{ $category->ctgr_name }}
                                 </option>  
                             @endforeach
@@ -43,7 +43,7 @@
                                 Fabric
                             </option>    
                             @foreach($fabrics as $fabric)
-                                <option value="{{ $fabric->id }}" selected>
+                                <option value="{{ $fabric->id }}">
                                     {{ $fabric->fab_name }}
                                 </option>
                             @endforeach
