@@ -88,6 +88,11 @@ class ProductsEdit extends Component
         'addVariants.*.XL'  => 'XL',
         'addVariants.*.2XL'  => '2XL',
     ];
+
+    protected $messages = [
+        'addVariants.*.front_view.required_if' => 'Front view image is required for new variants.',
+        'addVariants.*.back_view.required_if' => 'Back view image is required for new variants.',
+    ];
     
     public function mount(Product $id)
     {
