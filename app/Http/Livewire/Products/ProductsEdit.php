@@ -196,7 +196,7 @@ class ProductsEdit extends Component
 
         $this->emitUp('refreshParent');
 
-        session()->flash('success', 'Product has been updated successfully!');
+        session()->flash('success', 'Product has been successfully updated!');
     }
 
     private function updateExisting($oldVariants)
