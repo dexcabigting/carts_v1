@@ -53,8 +53,8 @@ class ProductsEdit extends Component
     {
         return [
             'form.prd_name' => ['required', 'string', 'max:100', 'unique:products,prd_name,' . $this->product->id],
-            'form.prd_category' => ['required', 'string', 'max:100', 'exists:categories,id'],
-            'form.prd_fabric' => ['required', 'string', 'max:100', 'exists:fabrics,id'],
+            'form.category_id' => ['required', 'string', 'max:100', 'exists:categories,id'],
+            'form.fabric_id' => ['required', 'string', 'max:100', 'exists:fabrics,id'],
             'form.prd_description' => ['required', 'string', 'max:100'],
             'form.prd_price' => ['required', 'numeric', 'regex:/^\d+(\.\d{2})?$/'],
             'addVariants.*.id' => ['nullable', 'integer'],
@@ -127,7 +127,7 @@ class ProductsEdit extends Component
 
         $this->fabrics = Fabric::all(['id', 'fab_name']);
 
-        // dd($this->addVariants);
+        // dd($this->form);
     }
 
     public function hydrate()
@@ -144,6 +144,9 @@ class ProductsEdit extends Component
 
     public function update()
     {
+        $this->form['category_id'] = (string)$this->form['category_id'];
+        $this->form['fabric_id'] = (string)$this->form['fabric_id'];
+
         // dd($this->addVariants);
         foreach($this->addVariants as $key => $value){
             foreach($this->SIZES as $size) {
