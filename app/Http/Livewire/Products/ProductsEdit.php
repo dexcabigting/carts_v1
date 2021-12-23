@@ -310,7 +310,14 @@ class ProductsEdit extends Component
 
     private function deleteExistingVariants($deleteExisting)
     {
-        ProductVariant::whereIn('id', $deleteExisting)->delete();
+        $variants = ProductVariant::whereIn('id', $deleteExisting)->get();
+
+        $variants->each(function ($variant) {
+                        Storage::disk('root')->delete('app/public/' . $variant->front_view);
+                        Storage::disk('root')->delete('app/public/' . $variant->back_view);
+                    })
+                    ->each
+                    ->delete();
     }
 
     public function addMore()
