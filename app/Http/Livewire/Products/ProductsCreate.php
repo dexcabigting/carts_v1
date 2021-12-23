@@ -23,28 +23,41 @@ class ProductsCreate extends Component
         'prd_description' => '',
         'prd_price' => '',
     ];
-    public $addVariants;
+    public array $addVariants = [
+        [
+            'prd_var_name' => "",
+            'front_view' => null,
+            'back_view' => null,
+            '2XS'  => "",
+            'XS'  => "",
+            'S'  => "",
+            'M'  => "",
+            'L'  => "",
+            'XL'  => "",
+            '2XL'  => "",
+        ]
+    ];
     public $categories = [];
     public $fabrics = [];
 
     protected function rules()
     {
         return [
-            'form.prd_name' => 'required|string|max:100|unique:products,prd_name',
-            'form.prd_category' => 'required|string|max:100|exists:categories,id',
-            'form.prd_fabric' => 'required|string|max:100|exists:fabrics,id',
-            'form.prd_description' => 'required|string|max:100',
-            'form.prd_price' => 'required|numeric|regex:/^\d+(\.\d{2})?$/',
-            'addVariants.*.prd_var_name' => 'required|string|max:100',
-            'addVariants.*.front_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'addVariants.*.back_view' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'addVariants.*.2XS'  => 'required_without_all:addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|max:100',
-            'addVariants.*.XS'  => 'required_without_all:addVariants.*.2XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|max:100',
-            'addVariants.*.S'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|max:100',
-            'addVariants.*.M'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL|integer|max:100',
-            'addVariants.*.L'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.XL,addVariants.*.2XL|integer|max:100',
-            'addVariants.*.XL'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.2XL|integer|max:100',
-            'addVariants.*.2XL'  => 'required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL|integer|max:100',
+            'form.prd_name' => ['required', 'string', 'max:100', 'unique:products,prd_name', 'regex:/^([A-Z0-9]+ ?)+$/i'],
+            'form.prd_category' => ['required', 'string', 'max:100', 'exists:categories,id'],
+            'form.prd_fabric' => ['required', 'string', 'max:100', 'exists:fabrics,id'],
+            'form.prd_description' => ['required', 'string', 'max:100'],
+            'form.prd_price' => ['required', 'numeric', 'regex:/^\d+(\.\d{2})?$/'],
+            'addVariants.*.prd_var_name' => ['required', 'string', 'max:100', 'regex:/^([A-Z0-9]+ ?)+$/i'],
+            'addVariants.*.front_view' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'addVariants.*.back_view' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'addVariants.*.2XS'  => ['required_without_all:addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL', 'integer', 'max:999'],
+            'addVariants.*.XS'  => ['required_without_all:addVariants.*.2XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL', 'integer', 'max:999'],
+            'addVariants.*.S'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.M,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL', 'integer', 'max:999'],
+            'addVariants.*.M'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.L,addVariants.*.XL,addVariants.*.2XL', 'integer', 'max:999'],
+            'addVariants.*.L'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.XL,addVariants.*.2XL', 'integer', 'max:999'],
+            'addVariants.*.XL'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.2XL', 'integer', 'max:999'],
+            'addVariants.*.2XL'  => ['required_without_all:addVariants.*.2XS,addVariants.*.XS,addVariants.*.S,addVariants.*.M,addVariants.*.L,addVariants.*.XL', 'integer', 'max:999'],
         ];
     }
 
@@ -66,23 +79,13 @@ class ProductsCreate extends Component
         'addVariants.*.2XL'  => '2XL',
     ];
 
+    protected $messages = [
+        'addVariants.*.front_view.required_if' => 'Front view image is required for new variants.',
+        'addVariants.*.back_view.required_if' => 'Back view image is required for new variants.',
+    ];
+
     public function mount()
     {
-        $this->addVariants = [
-            [
-                'prd_var_name' => '',
-                'front_view' => null,
-                'back_view' => null,
-                '2XS'  => '',
-                'XS'  => '',
-                'S'  => '',
-                'M'  => '',
-                'L'  => '',
-                'XL'  => '',
-                '2XL'  => '',
-            ]
-        ];
-
         $this->categories = Category::all();
 
         $this->fabrics = Fabric::all();
