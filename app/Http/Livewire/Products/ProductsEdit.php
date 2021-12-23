@@ -102,17 +102,17 @@ class ProductsEdit extends Component
 
         foreach($this->productVariants as $productVariant) {
             $array = [
-                'id' => $productVariant->id,
+                'id' => (string)$productVariant->id,
                 'prd_var_name' => $productVariant->prd_var_name,
                 'front_view' => null,
                 'back_view' => null,
-                '2XS' => $productVariant->product_stock->{'2XS'},
-                'XS' => $productVariant->product_stock->XS,
-                'S' => $productVariant->product_stock->S,
-                'M' => $productVariant->product_stock->M,
-                'L' => $productVariant->product_stock->L,
-                'XL' => $productVariant->product_stock->XL,
-                '2XL' => $productVariant->product_stock->{'2XL'},
+                '2XS' => (string)$productVariant->product_stock->{'2XS'},
+                'XS' => (string)$productVariant->product_stock->XS,
+                'S' => (string)$productVariant->product_stock->S,
+                'M' => (string)$productVariant->product_stock->M,
+                'L' => (string)$productVariant->product_stock->L,
+                'XL' => (string)$productVariant->product_stock->XL,
+                '2XL' => (string)$productVariant->product_stock->{'2XL'},
             ];
 
             array_push($this->addVariants, $array);
@@ -121,6 +121,8 @@ class ProductsEdit extends Component
         $this->categories = Category::all(['id', 'ctgr_name']);
 
         $this->fabrics = Fabric::all(['id', 'fab_name']);
+
+        dd($this->addVariants);
     }
 
     public function render()
