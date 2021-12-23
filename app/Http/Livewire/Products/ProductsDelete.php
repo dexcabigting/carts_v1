@@ -28,9 +28,9 @@ class ProductsDelete extends Component
     public function deleteProducts()
     {
         if (count($this->products) == 1) {
-            $flash = 'Product has been deleted successfully!';
+            $flash = 'Product has been successfully deleted!';
         } else {
-            $flash = 'Products have been deleted successfully!';
+            $flash = 'Products have been successfully deleted!';
         }
             
         $products = Product::whereIn('id', $this->products)->get();
