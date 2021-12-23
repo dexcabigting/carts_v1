@@ -53,8 +53,8 @@ class ProductsEdit extends Component
     {
         return [
             'form.prd_name' => ['required', 'string', 'max:100', 'unique:products,prd_name,' . $this->product->id],
-            'form.prd_category' => ['nullable', 'string', 'max:100', 'exists:categories,id'],
-            'form.prd_fabric' => ['nullable', 'string', 'max:100', 'exists:fabrics,id'],
+            'form.prd_category' => ['required', 'string', 'max:100', 'exists:categories,id'],
+            'form.prd_fabric' => ['required', 'string', 'max:100', 'exists:fabrics,id'],
             'form.prd_description' => ['required', 'string', 'max:100'],
             'form.prd_price' => ['required', 'numeric', 'regex:/^\d+(\.\d{2})?$/'],
             'addVariants.*.id' => ['nullable', 'integer'],
