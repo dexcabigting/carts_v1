@@ -35,15 +35,6 @@ class ProductsEdit extends Component
     public $fabrics = [];
     public $productVariants = [];
     public $deleteExisting = [];
-    private $SIZES = [
-        '2XS',
-        'XS',
-        'S',
-        'M',
-        'L',
-        'XL',
-        '2XL',
-    ];
 
     protected $listeners = [
         'closeEdit',
@@ -146,15 +137,6 @@ class ProductsEdit extends Component
     {
         $this->form['category_id'] = (string)$this->form['category_id'];
         $this->form['fabric_id'] = (string)$this->form['fabric_id'];
-
-        // dd($this->addVariants);
-        // foreach($this->addVariants as $key => $value){
-        //     foreach($this->SIZES as $size) {
-        //         if($value[$size] == 0){
-        //             $this->addVariants[$key][$size] = "";
-        //         }  
-        //     }
-        // }
 
         $this->validate();
     
