@@ -19,7 +19,6 @@ class ProductsCreate extends Component
     use WithFileUploads;
 
     public $imageID = 0;
-
     public $form = [
         'prd_name' => "",
         'category_id' => "",
