@@ -18,6 +18,7 @@ class ProductsEdit extends Component
    
     use WithFileUploads;
 
+    public $imageID = 0;
     public $product;
     
      /**
@@ -175,6 +176,8 @@ class ProductsEdit extends Component
         $this->mount($this->product);
 
         $this->deleteExisting = [];
+
+        $this->imageID++;
 
         $this->emitUp('refreshParent');
 
