@@ -42,6 +42,15 @@ class ProductsCreate extends Component
     ];
     public $categories = [];
     public $fabrics = [];
+    private $SIZES = [
+        '2XS',
+        'XS',
+        'S',
+        'M',
+        'L',
+        'XL',
+        '2XL'
+    ];
 
     protected function rules()
     {
