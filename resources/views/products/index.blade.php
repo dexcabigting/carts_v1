@@ -50,7 +50,7 @@
 
                             <select wire:model="category" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                 <option value="All" selected>
-                                    <x-label value="All" class="inline-block" />
+                                    <x-label value="Categories" class="inline-block" />
                                 </option>
                                 @foreach($categories as $category)
                                 <option value="{{ $category->id }}">
