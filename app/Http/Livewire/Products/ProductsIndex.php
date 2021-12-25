@@ -17,7 +17,7 @@ class ProductsIndex extends Component
     public $category;
     public $fabric;
     public $categories = [];
-    public $fabrics;
+    public $fabrics = [];
     public $selectAll = false;
     public $createModal = 0;
     public $editModal = 0;
@@ -56,30 +56,7 @@ class ProductsIndex extends Component
 
     public function getProductsProperty()
     {
-        $search = '%' . $this->search . '%';
-
-        $sortColumn = $this->sortColumn;
-
-        $sortDirection = $this->sortDirection;
-
-        $category = $this->category;
-
-        $fabric = $this->fabric;
-
-        /**
-         * @var Category
-         */
-        $categories = $this->categories;
-
-        $fabrics = $this->fabrics;
-
-        $categories = $categories->pluck('id')->toArray();
-
-        $fabrics =  $fabrics->pluck('id')->toArray();
-
-        $category = is_string($category) && $category != "All" ? [$category] : $categories;
-
-        $fabric = is_string($fabric) && $fabric != "All" ? [$fabric] : $fabrics;
+        extract($this->setProperties());
 
         return Product::with(['category', 'fabric', 'product_variants', 'product_stocks'])
             ->where('prd_name', 'like', $search)
@@ -89,27 +66,8 @@ class ProductsIndex extends Component
     }
 
     public function updatedSelectAll($value)
-    {
-        $search = '%' . $this->search . '%';
-
-        $category = $this->category;
-
-        $fabric = $this->fabric;
-
-        /**
-         * @var Category
-         */
-        $categories = $this->categories;
-
-        $fabrics = $this->fabrics;
-
-        $categories = $categories->pluck('id')->toArray();
-
-        $fabrics =  $fabrics->pluck('id')->toArray();
-
-        $category = is_string($category) && $category != "All" ? [$category] : $categories;
-
-        $fabric = is_string($fabric) && $fabric != "All" ? [$fabric] : $fabrics;
+    {    
+        extract($this->setProperties());
 
         if ($value) {
             $this->checkedProducts = Product::where('prd_name', 'like', $search)
@@ -150,17 +108,6 @@ class ProductsIndex extends Component
     public function updatingFabric()
     {
         $this->disablerAndPageResetter();
-    }
-
-    private function disablerAndPageResetter()
-    {
-        if(is_array($this->checkedProducts)) {
-            $this->checkedProducts = [];
-
-            $this->selectAll = false;
-
-            $this->resetPage();
-        }
     }
 
     public function openCreateModal()
@@ -211,5 +158,49 @@ class ProductsIndex extends Component
                 unset($this->checkedProducts['$id']);
             }
         }
+    }
+
+    private function disablerAndPageResetter()
+    {
+        if(is_array($this->checkedProducts)) {
+            $this->checkedProducts = [];
+
+            $this->selectAll = false;
+
+            $this->resetPage();
+        }
+    }
+
+    private function setProperties()
+    {
+        $search = '%' . $this->search . '%';
+
+        $sortColumn = $this->sortColumn;
+
+        $sortDirection = $this->sortDirection;
+
+        $category = $this->category;
+
+        $fabric = $this->fabric;
+
+        /**
+         * @var Category
+         */
+        $categories = $this->categories;
+
+        /**
+         * @var Fabric
+         */
+        $fabrics = $this->fabrics;
+
+        $categories = $categories->pluck('id')->toArray();
+
+        $fabrics =  $fabrics->pluck('id')->toArray();
+
+        $category = is_string($category) && $category != "All" ? [$category] : $categories;
+
+        $fabric = is_string($fabric) && $fabric != "All" ? [$fabric] : $fabrics;
+
+        return compact('search', 'sortColumn', 'sortDirection', 'category', 'fabric', 'fabrics', 'categories');
     }
 }
