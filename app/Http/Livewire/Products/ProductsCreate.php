@@ -196,7 +196,7 @@ class ProductsCreate extends Component
                 session()->flash('success', 'Product has been successfully created!'); 
             });
         } catch(Exception $error) {
-            session()->flash('success', 'Product has been successfully created!'); 
+            session()->flash('fail', 'An error occured! ' . $error); 
         }
     }
 
