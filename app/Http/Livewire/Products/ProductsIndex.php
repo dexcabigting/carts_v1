@@ -24,8 +24,8 @@ class ProductsIndex extends Component
     public $deleteModal = 0;
     public $productId;
     public $search;
-    public $sortColumn = 'prd_name';
-    public $sortDirection = 'asc';
+    public $sortBy = 'prd_name';
+    public $orderBy = 'asc';
 
     protected $listeners = [
         'refreshParent' => '$refresh',
@@ -62,7 +62,7 @@ class ProductsIndex extends Component
             ->where('prd_name', 'like', $search)
             ->whereIn('category_id', $category)
             ->whereIn('fabric_id', $fabric)
-            ->orderBy($sortColumn, $sortDirection);
+            ->orderBy($sortBy, $orderBy);
     }
 
     public function updatedSelectAll($value)
@@ -175,9 +175,9 @@ class ProductsIndex extends Component
     {
         $search = '%' . $this->search . '%';
 
-        $sortColumn = $this->sortColumn;
+        $sortBy = $this->sortBy;
 
-        $sortDirection = $this->sortDirection;
+        $orderBy = $this->orderBy;
 
         $category = $this->category;
 
@@ -201,6 +201,11 @@ class ProductsIndex extends Component
 
         $fabric = is_string($fabric) && $fabric != "All" ? [$fabric] : $fabrics;
 
-        return compact('search', 'sortColumn', 'sortDirection', 'category', 'fabric', 'fabrics', 'categories');
+        return compact('search', 'sortBy', 'orderBy', 'category', 'fabric', 'fabrics', 'categories');
+    }
+
+    public function resetFilter()
+    {
+        $this->reset(['search', 'min', 'max', 'category', 'fabric', 'sortBy', 'orderBy']);
     }
 }

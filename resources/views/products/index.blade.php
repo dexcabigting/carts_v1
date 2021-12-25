@@ -28,7 +28,7 @@
                             </div>
                             <div>
                                 <div class="flex flex-row">
-                            <select wire:model="sortColumn" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                            <select wire:model="sortBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 <option value="prd_name">
                                     <x-label :value="__('Name')" class="inline-block" />
                                 </option>
@@ -38,7 +38,7 @@
                                 </option>
                             </select>
 
-                            <select wire:model="sortDirection" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                            <select wire:model="orderBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                 <option value="asc">
                                     <x-label :value="__('Ascending')" class="inline-block" />
                                 </option>
