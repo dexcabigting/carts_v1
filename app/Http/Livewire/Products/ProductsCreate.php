@@ -166,6 +166,8 @@ class ProductsCreate extends Component
             $productVariants->get($i)->product_stock()->create($productStocks[$i]);
         }
 
+        $product->load(['category:id,ctgr_name', 'fabric:id,fab_name']);
+
         $are_all_empty = true;
 
         foreach($this->addVariants as $key => $individualVariant) {
