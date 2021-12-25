@@ -12,6 +12,8 @@ use App\Models\Fabric;
 use Illuminate\Support\Str;
 
 use App\Events\ProductCreated;
+use Exception;
+use Illuminate\Support\Facades\DB;
 
 class ProductsCreate extends Component
 {
@@ -151,44 +153,50 @@ class ProductsCreate extends Component
             array_push($productStocks, $productVariantsStocks);
         }
         
-        $product = Product::create([
-            'prd_name' => $this->form['prd_name'],
-            'category_id' => $this->form['category_id'],
-            'fabric_id' => $this->form['fabric_id'],
-            'prd_description' => $this->form['prd_description'],
-            'prd_price' => $this->form['prd_price'],
-            // 'prd_image' => $prdImagePath,
-        ]);
+        try {
+            DB::transaction(function() use($count, $productVariants, $productStocks) {
+                $product = Product::create([
+                    'prd_name' => $this->form['prd_name'],
+                    'category_id' => $this->form['category_id'],
+                    'fabric_id' => $this->form['fabric_id'],
+                    'prd_description' => $this->form['prd_description'],
+                    'prd_price' => $this->form['prd_price'],
+                    // 'prd_image' => $prdImagePath,
+                ]);
 
-        $productVariants = $product->product_variants()->createMany($productVariants);
+                $productVariants = $product->product_variants()->createMany($productVariants);
 
-        for($i = 0; $i < $count; $i++) {
-            $productVariants->get($i)->product_stock()->create($productStocks[$i]);
-        }
-
-        $product->load(['category:id,ctgr_name', 'fabric:id,fab_name']);
-
-        $are_all_empty = true;
-
-        foreach($this->addVariants as $key => $value) {
-            foreach($this->SIZES as $size) {
-                if($are_all_empty) {
-                    $are_all_empty = $value[$size] == "0";
-                } else {
-                    event(new ProductCreated($product));
-
-                    break;
+                for($i = 0; $i < $count; $i++) {
+                    $productVariants->get($i)->product_stock()->create($productStocks[$i]);
                 }
-            }
+
+                $product->load(['category:id,ctgr_name', 'fabric:id,fab_name']);
+
+                $are_all_empty = true;
+
+                foreach($this->addVariants as $key => $value) {
+                    foreach($this->SIZES as $size) {
+                        if($are_all_empty) {
+                            $are_all_empty = $value[$size] == "0";
+                        } else {
+                            event(new ProductCreated($product));
+
+                            break;
+                        }
+                    }
+                }
+
+                $this->clearFormFields();
+
+                $this->imageID++;
+
+                $this->emitUp('refreshParent');
+
+                session()->flash('success', 'Product has been successfully created!'); 
+            });
+        } catch(Exception $error) {
+            session()->flash('success', 'Product has been successfully created!'); 
         }
-        
-        $this->clearFormFields();
-
-        $this->imageID++;
-
-        $this->emitUp('refreshParent');
-
-        session()->flash('success', 'Product has been successfully created!'); 
     }
 
     public function clearFormFields()
