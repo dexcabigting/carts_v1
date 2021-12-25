@@ -11,14 +11,17 @@ class ProductCreatedNotification extends Notification
 {
     use Queueable;
 
+    public $product;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($product)
     {
         //
+        $this->product = $product;
     }
 
     /**
@@ -29,7 +32,7 @@ class ProductCreatedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -56,6 +59,9 @@ class ProductCreatedNotification extends Notification
     {
         return [
             //
+            'product name' => $this->product->prd_name,
+            'category' => $this->product->category->ctgr_name,
+            'fabric' => $this->product->fabric->fab_name
         ];
     }
 }
