@@ -10,8 +10,11 @@ use App\Models\ProductVariant;
 use App\Models\Category;
 use App\Models\Fabric;
 
+use Exception;
+
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class ProductsEdit extends Component
 {
@@ -137,6 +140,12 @@ class ProductsEdit extends Component
         $this->form['fabric_id'] = (string)$this->form['fabric_id'];
 
         $this->validate();
+
+        try {
+
+        } catch(Exception $error) {
+
+        }
     
         $this->product->update([
             'prd_name' => $this->form['prd_name'],
