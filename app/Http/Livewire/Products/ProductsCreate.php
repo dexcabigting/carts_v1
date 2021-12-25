@@ -11,6 +11,8 @@ use App\Models\Fabric;
 
 use Illuminate\Support\Str;
 
+use App\Events\ProductCreated;
+
 class ProductsCreate extends Component
 {
     /**
@@ -162,6 +164,24 @@ class ProductsCreate extends Component
 
         for($i = 0; $i < $count; $i++) {
             $productVariants->get($i)->product_stock()->create($productStocks[$i]);
+        }
+
+        $are_all_empty = true;
+
+        foreach($this->addVariants as $key => $individualVariant) {
+            if($are_all_empty) {
+                $are_all_empty = array_reduce($individualVariant, function($are_previous_empty, $value, $key) {
+                    if(in_array($key, $this->SIZES) && $are_previous_empty) {
+                        return $value == "0";
+                    }
+
+                    return $are_previous_empty;
+                }, $are_all_empty);
+            } else {
+                event(new ProductCreated($product));
+
+                break;
+            }
         }
         
         $this->clearFormFields();
