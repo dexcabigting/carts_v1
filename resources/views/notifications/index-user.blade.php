@@ -31,7 +31,7 @@
                     Your order #{{ $notification['data']['invoice number'] }} is now {{ $notification['data']['status'] }}!
                     <a href="{{ route('orders.index') }}">
                         <span class="font-bold">
-                            View your orders!
+                            View your orders
                         </span>  
                     </a>
                 </div>
@@ -40,7 +40,7 @@
                     New {{ $notification['data']['fabric'] }} {{ $notification['data']['category'] }}! *{{ $notification['data']['product name'] }}* 
                     <a href="{{ route('shop.index') }}">
                         <span class="font-bold">
-                            Shop now!
+                            Shop now
                         </span>  
                     </a> 
                 </div>
