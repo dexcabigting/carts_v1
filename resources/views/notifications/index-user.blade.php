@@ -26,9 +26,15 @@
 
         @forelse($notifications as $notification)
             <div wire:key="{{ $loop->index }}-admin-user-notif" class="lg:ml-9 flex flex-row p-1  text-black bg-green-200 border-4 border-green-500 rounded-md">
+                @if($notification['type'] == 'App\Notifications\OrderStatusUpdatedNotification')
                 <div class="p-2 px-2 lg:px-32">
                     Your order # {{ $notification['data']['invoice number'] }} is now {{ $notification['data']['status'] }} 
                 </div>
+                @elseif($notification['type'] == 'App\Notifications\ProductCreatedNotification')
+                <div class="p-2 px-2 lg:px-32">
+                    New {{ $notification['data']['fabric'] }} {{ $notification['data']['category'] }}! *{{ $notification['data']['product name'] }}* Shop now!   
+                </div>
+                @endif
                 
                 <div class="flex flex-row gap-5 ml-24 xl:ml-32">
                     @if($notificationType != 'readNotifications')
