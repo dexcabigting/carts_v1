@@ -170,19 +170,15 @@ class ProductsCreate extends Component
 
         $are_all_empty = true;
 
-        foreach($this->addVariants as $key => $individualVariant) {
-            if($are_all_empty) {
-                $are_all_empty = array_reduce($individualVariant, function($are_previous_empty, $value, $key) {
-                    if(in_array($key, $this->SIZES) && $are_previous_empty) {
-                        return $value == "0";
-                    }
+        foreach($this->addVariants as $key => $value) {
+            foreach($this->SIZES as $size) {
+                if($are_all_empty) {
+                    $are_all_empty = $value[$size] == "0";
+                } else {
+                    event(new ProductCreated($product));
 
-                    return $are_previous_empty;
-                }, $are_all_empty);
-            } else {
-                event(new ProductCreated($product));
-
-                break;
+                    break;
+                }
             }
         }
         
