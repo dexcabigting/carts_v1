@@ -28,11 +28,21 @@
             <div wire:key="{{ $loop->index }}-admin-user-notif" class="lg:ml-9 flex flex-row p-1  text-black bg-green-200 border-4 border-green-500 rounded-md">
                 @if($notification['type'] == 'App\Notifications\OrderStatusUpdatedNotification')
                 <div class="p-2 px-2 lg:px-32">
-                    Your order # {{ $notification['data']['invoice number'] }} is now {{ $notification['data']['status'] }} 
+                    Your order #{{ $notification['data']['invoice number'] }} is now {{ $notification['data']['status'] }}!
+                    <a href="{{ route('orders.index') }}">
+                        <span class="font-bold">
+                            View your orders!
+                        </span>  
+                    </a>
                 </div>
                 @elseif($notification['type'] == 'App\Notifications\ProductCreatedNotification')
                 <div class="p-2 px-2 lg:px-32">
-                    New {{ $notification['data']['fabric'] }} {{ $notification['data']['category'] }}! *{{ $notification['data']['product name'] }}* Shop now!   
+                    New {{ $notification['data']['fabric'] }} {{ $notification['data']['category'] }}! *{{ $notification['data']['product name'] }}* 
+                    <a href="{{ route('shop.index') }}">
+                        <span class="font-bold">
+                            Shop now!
+                        </span>  
+                    </a> 
                 </div>
                 @endif
                 
