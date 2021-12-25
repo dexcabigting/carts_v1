@@ -206,6 +206,6 @@ class ProductsIndex extends Component
 
     public function resetFilter()
     {
-        $this->reset(['search', 'min', 'max', 'category', 'fabric', 'sortBy', 'orderBy']);
+        $this->reset(['search', 'sortBy', 'orderBy', 'category', 'fabric']);
     }
 }
