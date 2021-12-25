@@ -3,9 +3,11 @@
 namespace App\Http\Livewire\Products;
 
 use Livewire\Component;
+use Livewire\WithPagination;
+
 use App\Models\Product;
 use App\Models\Category;
-use Livewire\WithPagination;
+use App\Models\Fabric;
 
 class ProductsIndex extends Component
 {
@@ -13,7 +15,9 @@ class ProductsIndex extends Component
 
     public $checkedProducts;
     public $category;
+    public $fabric;
     public $categories = [];
+    public $fabrics;
     public $selectAll = false;
     public $createModal = 0;
     public $editModal = 0;
@@ -35,8 +39,12 @@ class ProductsIndex extends Component
     public function mount()
     {
         $this->checkedProducts = [];
+
         $this->productId = [];
-        $this->categories = Category::all();
+
+        $this->categories = Category::all('id', 'ctgr_name');
+
+        $this->fabrics = Fabric::all('id', 'fab_name');
     }
 
     public function render()
@@ -56,18 +64,27 @@ class ProductsIndex extends Component
 
         $category = $this->category;
 
+        $fabric = $this->fabric;
+
         /**
          * @var Category
          */
         $categories = $this->categories;
 
+        $fabrics = $this->fabrics;
+
         $categories = $categories->pluck('id')->toArray();
 
-        $category = is_string($category) && $category != 'All' ? [$category] : $categories;
+        $fabrics =  $fabrics->pluck('id')->toArray();
+
+        $category = is_string($category) && $category != "All" ? [$category] : $categories;
+
+        $fabric = is_string($fabric) && $fabric != "All" ? [$fabric] : $fabrics;
 
         return Product::with(['category', 'fabric', 'product_variants', 'product_stocks'])
             ->where('prd_name', 'like', $search)
             ->whereIn('category_id', $category)
+            ->whereIn('fabric_id', $fabric)
             ->orderBy($sortColumn, $sortDirection);
     }
 
