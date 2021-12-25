@@ -142,52 +142,51 @@ class ProductsEdit extends Component
         $this->validate();
 
         try {
+            DB::transaction(function() {
+                $this->product->update([
+                    'prd_name' => $this->form['prd_name'],
+                    'category_id' => $this->form['category_id'],
+                    'fabric_id' => $this->form['fabric_id'],
+                    'prd_description' => $this->form['prd_description'],
+                    'prd_price' => $this->form['prd_price'],
+                ]);
 
-        } catch(Exception $error) {
+                $oldVariants = array_filter($this->addVariants, function ($var) {
+                    return ($var['id'] != null);
+                });
 
-        }
-    
-        $this->product->update([
-            'prd_name' => $this->form['prd_name'],
-            'category_id' => $this->form['category_id'],
-            'fabric_id' => $this->form['fabric_id'],
-            'prd_description' => $this->form['prd_description'],
-            'prd_price' => $this->form['prd_price'],
-        ]);
+                $this->updateExisting($oldVariants);
 
-        $oldVariants = array_filter($this->addVariants, function ($var) {
-            return ($var['id'] != null);
-        });
+                if(count($this->addVariants) > count($oldVariants)) {
+                    // For new variants 
+                    $newVariants = array_filter($this->addVariants, function ($var) {
+                        return ($var['id'] == "");
+                    });
 
-        $this->updateExisting($oldVariants);
+                    $newVariants = array_values($newVariants);
 
+                    $this->createNewVariants($newVariants);
+                }
 
-        if(count($this->addVariants) > count($oldVariants)) {
-            // For new variants 
-            $newVariants = array_filter($this->addVariants, function ($var) {
-                return ($var['id'] == "");
+                if($this->deleteExisting) {
+                    $this->deleteExistingVariants($this->deleteExisting);
+                }
+
+                $this->product->refresh();
+
+                $this->mount($this->product);
+
+                $this->deleteExisting = [];
+
+                $this->imageID++;
+
+                $this->emitUp('refreshParent');
+
+                session()->flash('success', 'Product has been successfully updated!');
             });
-
-            $newVariants = array_values($newVariants);
-
-            $this->createNewVariants($newVariants);
-        }
-
-        if($this->deleteExisting) {
-            $this->deleteExistingVariants($this->deleteExisting);
-        }
-
-        $this->product->refresh();
-
-        $this->mount($this->product);
-
-        $this->deleteExisting = [];
-
-        $this->imageID++;
-
-        $this->emitUp('refreshParent');
-
-        session()->flash('success', 'Product has been successfully updated!');
+        } catch(Exception $error) {
+            session()->flash('fail', 'An error occured! ' . $error); 
+        }  
     }
 
     private function updateExisting($oldVariants)
