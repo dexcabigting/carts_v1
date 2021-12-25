@@ -9,11 +9,12 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Fabric;
 
+use Exception;
+
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 use App\Events\ProductCreated;
-use Exception;
-use Illuminate\Support\Facades\DB;
 
 class ProductsCreate extends Component
 {
