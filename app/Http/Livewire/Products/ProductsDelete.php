@@ -34,32 +34,38 @@ class ProductsDelete extends Component
         } else {
             $flash = 'Products have been successfully deleted!';
         }
-            
-        $products = Product::whereIn('id', $this->products)->get();
 
-        $products->each(function ($product) {
-                    $variants = $product->product_variants()->get();
+        try {
+            DB::transaction(function() use($flash) {
+                $products = Product::whereIn('id', $this->products)->get();
 
-                    $variants->each(function ($variant) {
-                        Storage::disk('root')->delete('app/public/' . $variant->front_view);
-                        Storage::disk('root')->delete('app/public/' . $variant->back_view);
-                    });
-                })
-                ->each
-                ->delete();
+                $products->each(function ($product) {
+                            $variants = $product->product_variants()->get();
 
-        $this->emitUp('unsetCheckedProducts', $this->products);
+                            $variants->each(function ($variant) {
+                                Storage::disk('root')->delete('app/public/' . $variant->front_view);
+                                Storage::disk('root')->delete('app/public/' . $variant->back_view);
+                            });
+                        })
+                        ->each
+                        ->delete();
 
-        $this->emitUp('cleanse');
+                $this->emitUp('unsetCheckedProducts', $this->products);
 
-        $this->emitUp('refreshParent');
+                $this->emitUp('cleanse');
 
-        session()->flash('success', $flash);
+                $this->emitUp('refreshParent');
 
-        $this->products = [];
+                session()->flash('success', $flash);
 
-        $this->promptDelete = 0;
-        $this->promptDeleted = 1;
+                $this->products = [];
+
+                $this->promptDelete = 0;
+                $this->promptDeleted = 1;
+            });
+        } catch (Exception $error) {
+            session()->flash('fail', 'An error occured! ' . $error); 
+        }
     }
 
     public function closeDeleteModal()
