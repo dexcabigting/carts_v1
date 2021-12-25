@@ -6,7 +6,10 @@ use Livewire\Component;
 
 use App\Models\Product;
 
+use Exception;
+
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class ProductsDelete extends Component
 {
