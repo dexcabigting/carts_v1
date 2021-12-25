@@ -92,18 +92,36 @@ class ProductsIndex extends Component
     {
         $search = '%' . $this->search . '%';
 
+        $category = $this->category;
+
+        $fabric = $this->fabric;
+
+        /**
+         * @var Category
+         */
+        $categories = $this->categories;
+
+        $fabrics = $this->fabrics;
+
+        $categories = $categories->pluck('id')->toArray();
+
+        $fabrics =  $fabrics->pluck('id')->toArray();
+
+        $category = is_string($category) && $category != "All" ? [$category] : $categories;
+
+        $fabric = is_string($fabric) && $fabric != "All" ? [$fabric] : $fabrics;
+
         if ($value) {
             $this->checkedProducts = Product::where('prd_name', 'like', $search)
+                ->whereIn('category_id', $category)
+                ->whereIn('fabric_id', $fabric)
                 ->pluck('id')
                 ->map(fn ($item) => (string) $item)
                 ->flip()
                 ->map(fn ($item) => true)
                 ->toArray();
-
-            // dd($this->checkedProducts);
         } else {
             $this->checkedProducts = [];
-            // dd($this->checkedProducts);
         }
     }
 
@@ -119,18 +137,30 @@ class ProductsIndex extends Component
         $this->checkedProducts = array_filter($this->checkedProducts);
     }
 
-    public function updatedSearch()
+    public function updatingSearch()
+    {
+        $this->disablerAndPageResetter();
+    }
+
+    public function updatingCategory()
+    {
+        $this->disablerAndPageResetter();
+    }
+
+    public function updatingFabric()
+    {
+        $this->disablerAndPageResetter();
+    }
+
+    private function disablerAndPageResetter()
     {
         if(is_array($this->checkedProducts)) {
             $this->checkedProducts = [];
 
             $this->selectAll = false;
-        }
-    }
 
-    public function updatingSearch()
-    {
-        $this->resetPage();
+            $this->resetPage();
+        }
     }
 
     public function openCreateModal()
