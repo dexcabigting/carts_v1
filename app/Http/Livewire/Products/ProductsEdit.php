@@ -15,7 +15,6 @@ use Illuminate\Support\Str;
 
 class ProductsEdit extends Component
 {
-   
     use WithFileUploads;
 
     public $imageID = 0;
@@ -118,8 +117,6 @@ class ProductsEdit extends Component
         $this->categories = Category::all(['id', 'ctgr_name']);
 
         $this->fabrics = Fabric::all(['id', 'fab_name']);
-
-        // dd($this->form);
     }
 
     public function hydrate()
@@ -247,7 +244,6 @@ class ProductsEdit extends Component
 
     private function createNewVariants($newVariants)
     {
-
         $product = $this->product;
 
         $newCount = count($newVariants);
