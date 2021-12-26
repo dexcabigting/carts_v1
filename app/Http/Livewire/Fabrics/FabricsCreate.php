@@ -41,16 +41,11 @@ class FabricsCreate extends Component
             'fab_description' => $this->form['fab_description'],
         ]);
 
-        $this->clearFormFields();
+        $this->reset(['form']);
 
         $this->emitUp('refreshParent');
 
         session()->flash('success', 'Fabric has been successfully created!'); 
-    }
-
-    public function clearFormFields()
-    {
-        $this->reset(['form']);
     }
 
     public function closeCreateModal()
