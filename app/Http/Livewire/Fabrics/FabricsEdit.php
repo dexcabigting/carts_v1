@@ -47,7 +47,7 @@ class FabricsEdit extends Component
 
         $this->emitUp('refreshParent');
 
-        session()->flash('success', 'Fabric has been updated successfully!'); 
+        session()->flash('success', 'Fabric has been successfully updated!'); 
     }
 
     public function closeEditModal()
