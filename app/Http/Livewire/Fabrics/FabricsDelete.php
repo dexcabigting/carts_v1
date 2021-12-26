@@ -25,9 +25,9 @@ class FabricsDelete extends Component
     public function deleteFabrics()
     {
         if (count($this->fabrics) == 1) {
-            $flash = 'Fabric has been deleted successfully!';
+            $flash = 'Fabric has been successfully deleted!';
         } else {
-            $flash = 'Fabrics have been deleted successfully!';
+            $flash = 'Fabrics have been successfully deleted!';
         }
             
         Fabric::whereIn('id', $this->fabrics)->delete();
