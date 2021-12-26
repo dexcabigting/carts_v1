@@ -199,6 +199,14 @@ class UsersIndex extends Component
 
         $user->userAddresses()->onlyTrashed()->restore();
 
+        $carts = $user->carts()->onlyTrashed();
+            
+        $carts->each(function ($cart) {
+            $cart->restore();
+
+            $cart->cart_items()->onlyTrashed()->restore();
+        });
+
         $this->emit('unsetCheckedUsers', [$id]);
 
         $this->emit('cleanse');
@@ -212,7 +220,16 @@ class UsersIndex extends Component
 
         $users->each(function ($user) {
             $user->restore();
+
             $user->userAddresses()->onlyTrashed()->restore();
+
+            $carts = $user->carts()->onlyTrashed();
+            
+            $carts->each(function ($cart) {
+                $cart->restore();
+
+                $cart->cart_items()->onlyTrashed()->restore();
+            });
         }); 
 
         $this->emit('unsetCheckedUsers', $userIds);
