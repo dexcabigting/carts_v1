@@ -43,16 +43,22 @@ class FabricsEdit extends Component
     {
         $this->validate();
 
-        $this->fabric->update([
-            'fab_name' => $this->form['fab_name'],
-            'fab_description' => $this->form['fab_description'],
-        ]);
+        try {
+            DB::transaction(function() {
+                $this->fabric->update([
+                    'fab_name' => $this->form['fab_name'],
+                    'fab_description' => $this->form['fab_description'],
+                ]);
 
-        $this->mount($this->fabric);
+                $this->mount($this->fabric);
 
-        $this->emitUp('refreshParent');
+                $this->emitUp('refreshParent');
 
-        session()->flash('success', 'Fabric has been successfully updated!'); 
+                session()->flash('success', 'Fabric has been successfully updated!'); 
+            });
+        } catch(Exception $error) {
+            session()->flash('fail', 'An error occured! ' . $error);
+        }
     }
 
     public function closeEditModal()
