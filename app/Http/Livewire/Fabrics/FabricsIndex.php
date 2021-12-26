@@ -91,8 +91,7 @@ class FabricsIndex extends Component
 
             $this->selectAll = false;
 
-            
-        $this->resetPage();
+            $this->resetPage();
         }
     }
 
