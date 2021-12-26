@@ -3,7 +3,12 @@
 namespace App\Http\Livewire\Fabrics;
 
 use Livewire\Component;
+
 use App\Models\Fabric;
+
+use Exception;
+
+use Illuminate\Support\Facades\DB;
 
 class FabricsCreate extends Component
 {
