@@ -145,8 +145,8 @@ class FabricsIndex extends Component
         }
     }
 
-    // public function resetFilter()
-    // {
-    //     $this->reset(['search', 'sortBy', 'orderBy', 'category', 'fabric']);
-    // }
+    public function resetFilter()
+    {
+        $this->reset(['search', 'sortBy', 'orderBy']);
+    }
 }
