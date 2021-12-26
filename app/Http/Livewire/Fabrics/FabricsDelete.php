@@ -34,21 +34,27 @@ class FabricsDelete extends Component
         } else {
             $flash = 'Fabrics have been successfully deleted!';
         }
-            
-        Fabric::whereIn('id', $this->fabrics)->delete();
 
-        $this->emitUp('unsetCheckedFabrics', $this->fabrics);
+        try {
+            DB::transaction(function() use($flash) {
+                Fabric::whereIn('id', $this->fabrics)->delete();
 
-        $this->emitUp('cleanse');
+                $this->emitUp('unsetCheckedFabrics', $this->fabrics);
 
-        $this->emitUp('refreshParent');
+                $this->emitUp('cleanse');
 
-        session()->flash('success', $flash);
+                $this->emitUp('refreshParent');
 
-        $this->fabrics = [];
+                session()->flash('success', $flash);
 
-        $this->promptDelete = 0;
-        $this->promptDeleted = 1;
+                $this->fabrics = [];
+
+                $this->promptDelete = 0;
+                $this->promptDeleted = 1;
+            });
+        } catch(Exception $error) {
+            session()->flash('fail', 'An error occured! ' . $error);
+        }
     }
 
     public function closeDeleteModal()
