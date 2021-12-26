@@ -8,8 +8,8 @@ use App\Models\Fabric;
 class FabricsCreate extends Component
 {
     public $form = [
-        'fab_name' => '',
-        'fab_description' => '',
+        'fab_name' => "",
+        'fab_description' => "",
     ];
 
     protected $rules = [
@@ -45,10 +45,7 @@ class FabricsCreate extends Component
 
     public function clearFormFields()
     {
-        $this->form = [
-            'fab_name' => '',
-            'fab_description' => '',
-        ];
+        $this->reset(['form']);
     }
 
     public function closeCreateModal()
