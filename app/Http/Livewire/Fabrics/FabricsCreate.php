@@ -45,7 +45,7 @@ class FabricsCreate extends Component
 
         $this->emitUp('refreshParent');
 
-        session()->flash('success', 'Fabric has been created successfully!'); 
+        session()->flash('success', 'Fabric has been successfully created!'); 
     }
 
     public function clearFormFields()
