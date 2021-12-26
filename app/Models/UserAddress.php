@@ -17,7 +17,7 @@ class UserAddress extends Model
         'city',
         'barangay',
         'home_address',
-        'is_main_address',
+        'is_main_address'
     ];
 
     protected $dates = [
