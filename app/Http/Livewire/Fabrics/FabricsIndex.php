@@ -3,8 +3,9 @@
 namespace App\Http\Livewire\Fabrics;
 
 use Livewire\Component;
-use App\Models\Fabric;
 use Livewire\WithPagination;
+
+use App\Models\Fabric;
 
 class FabricsIndex extends Component
 {
@@ -83,18 +84,16 @@ class FabricsIndex extends Component
         $this->checkedFabrics = array_filter($this->checkedFabrics);
     }
 
-    public function updatedSearch()
+    public function updatingSearch()
     {
         if(is_array($this->checkedFabrics)) {
             $this->checkedFabrics = [];
 
             $this->selectAll = false;
-        }
-    }
 
-    public function updatingSearch()
-    {
+            
         $this->resetPage();
+        }
     }
 
     public function openCreateModal()
