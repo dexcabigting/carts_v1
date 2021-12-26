@@ -18,12 +18,12 @@
 
                 <div>
                     <x-label :value="__('Name')"/>
-                    <x-input  wire:model.lazy="form.fab_name" class="block mt-1 w-full text-black" type="text" value="{{ old('fab_name') }}" autofocus required />
+                    <x-input  wire:model.defer="form.fab_name" class="block mt-1 w-full text-black" type="text" value="{{ old('fab_name') }}" autofocus required />
                 </div>
 
                 <div class="mt-4">
                     <x-label for="fab_description" :value="__('Description')" />
-                    <x-input wire:model.lazy="form.fab_description" id="fab_description" class="block mt-1 w-full text-black" type="text" value="{{ old('fab_description') }}" required />
+                    <x-input wire:model.defer="form.fab_description" id="fab_description" class="block mt-1 w-full text-black" type="text" value="{{ old('fab_description') }}" required />
                 </div>
             </div>
         </div>
