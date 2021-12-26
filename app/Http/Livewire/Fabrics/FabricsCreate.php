@@ -36,16 +36,22 @@ class FabricsCreate extends Component
     {
         $this->validate();
 
-        Fabric::create([
-            'fab_name' => $this->form['fab_name'],
-            'fab_description' => $this->form['fab_description'],
-        ]);
+        try {
+            DB::transaction(function() {
+                Fabric::create([
+                    'fab_name' => $this->form['fab_name'],
+                    'fab_description' => $this->form['fab_description'],
+                ]);
 
-        $this->reset(['form']);
+                $this->reset(['form']);
 
-        $this->emitUp('refreshParent');
+                $this->emitUp('refreshParent');
 
-        session()->flash('success', 'Fabric has been successfully created!'); 
+                session()->flash('success', 'Fabric has been successfully created!'); 
+            });
+        } catch(Exception $error) {
+            session()->flash('fail', 'An error occured! ' . $error);
+        }
     }
 
     public function closeCreateModal()
