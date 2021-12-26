@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 class Cart extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, CascadeSoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -20,6 +21,8 @@ class Cart extends Model
         'updated_at',
         'deleted_at'
     ];
+
+    protected $cascadeDeletes = ['cart_items'];
 
     public function user()
     {
