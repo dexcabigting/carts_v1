@@ -35,7 +35,7 @@
                 </x-button>
             </div>  
             <div>
-                <x-button class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500 my-3">
+                <x-button type="button" wire:click.prevent="closeCreateModal" class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500 my-3">
                     {{ __('Close') }}
                 </x-button>
             </div>
