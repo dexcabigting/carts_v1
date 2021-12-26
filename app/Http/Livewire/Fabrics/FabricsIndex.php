@@ -17,8 +17,8 @@ class FabricsIndex extends Component
     public $deleteModal = 0;
     public $fabricId;
     public $search;
-    public $sortColumn = 'fab_name';
-    public $sortDirection = 'asc';
+    public $sortBy = 'fab_name';
+    public $orderBy = 'asc';
 
     protected $listeners = [
         'refreshParent' => '$refresh',
@@ -46,13 +46,13 @@ class FabricsIndex extends Component
     {
         $search = '%' . $this->search . '%';
 
-        $sortColumn = $this->sortColumn;
+        $sortBy = $this->sortBy;
 
-        $sortDirection = $this->sortDirection;
+        $orderBy = $this->orderBy;
 
         return Fabric::select('id', 'fab_name', 'fab_description', 'created_at')
             ->where('fab_name', 'like', $search)
-            ->orderBy($sortColumn, $sortDirection);
+            ->orderBy($sortBy, $orderBy);
     }
 
     public function updatedSelectAll($value)
@@ -146,4 +146,9 @@ class FabricsIndex extends Component
             }
         }
     }
+
+    // public function resetFilter()
+    // {
+    //     $this->reset(['search', 'sortBy', 'orderBy', 'category', 'fabric']);
+    // }
 }
