@@ -3,7 +3,12 @@
 namespace App\Http\Livewire\Categories;
 
 use Livewire\Component;
+
 use App\Models\Category;
+
+use Exception;
+
+use Illuminate\Support\Facades\DB;
 
 class CategoriesDelete extends Component
 {
@@ -25,25 +30,31 @@ class CategoriesDelete extends Component
     public function deleteCategories()
     {
         if (count($this->categories) == 1) {
-            $flash = 'Category has been deleted successfully!';
+            $flash = 'Category has been successfully deleted!';
         } else {
-            $flash = 'Categories have been deleted successfully!';
+            $flash = 'Categories have been successfully deleted!';
         }
-            
-        Category::whereIn('id', $this->categories)->delete();
 
-        $this->emitUp('unsetCheckedCategories', $this->categories);
+        try {
+            DB::transaction(function() use($flash) {
+                Category::whereIn('id', $this->categories)->delete();
 
-        $this->emitUp('cleanse');
+                $this->emitUp('unsetCheckedCategories', $this->categories);
 
-        $this->emitUp('refreshParent');
+                $this->emitUp('cleanse');
 
-        session()->flash('success', $flash);
+                $this->emitUp('refreshParent');
 
-        $this->categories = [];
+                session()->flash('success', $flash);
 
-        $this->promptDelete = 0;
-        $this->promptDeleted = 1;
+                $this->categories = [];
+
+                $this->promptDelete = 0;
+                $this->promptDeleted = 1;
+            });
+        } catch(Exception $error) {
+            session()->flash('fail', 'An error occured! ' . $error);
+        }
     }
 
     public function closeDeleteModal()
