@@ -305,7 +305,7 @@ class ProductsEdit extends Component
                         Storage::disk('root')->delete('app/public/' . $variant->back_view);
                     })
                     ->each
-                    ->delete();
+                    ->forceDelete();
     }
 
     public function addMore()
