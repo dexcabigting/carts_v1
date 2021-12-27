@@ -20,6 +20,30 @@
                         </button>
                     </div>
                     </div>
+
+                    <!-- Products -->
+                    <div class="xl:ml-0">
+                        <div class="font-medium text-gray-100 py-4">
+                            <div class="flex flex-col items-center justify-items-center lg:flex-row mx-2">
+                                <div class="mx-2">
+                                <x-label :value="__('Products')" class="text-gray-50 inline-block font-bold text-sm mx-1 xl:text-xl" />
+                                </div>
+                                <div class="inline-flex">
+                                    <select wire:model="query" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                        <option value="users">
+                                                <x-label :value="__('Products')" class="inline-block" />
+                                        </option>
+
+                                        <option value="deletedProducts">
+                                            <x-label :value="__('Deleted Products')" class="inline-block" />
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <!-- Order By -->
                     <div class="px-4">
                         <div class="flex flex-col items-center justify-items-center lg:flex-row mx-2">
