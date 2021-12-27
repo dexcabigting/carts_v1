@@ -137,14 +137,14 @@
 
                         <div wire:key="home_address-1" class="mt-4">
                             <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
-                            <x-input wire:model="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
+                            <x-input wire:model.defer="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
                         </div>
                     @endif
 
                     @if(!empty($selectedRegion) && !empty($selectedProvince) && !empty($selectedCity) && !empty($selectedBarangay))
                         <div wire:key="home_address-2" class="mt-4">
                             <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
-                            <x-input wire:model="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
+                            <x-input wire:model.defer="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
                         </div>
                     @endif
                 </div>
