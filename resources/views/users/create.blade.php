@@ -158,7 +158,7 @@
                 </div>
                 
                 <div>
-                    <x-button wire:click.prevent="closeCreateModal()" type="button" class="bg-red-500 text-gray-100 text-xl font-bold px-4 py-2">
+                    <x-button type="button" wire:click.prevent="closeCreateModal" class="bg-red-500 text-gray-100 text-xl font-bold px-4 py-2">
                         {{ __('Close') }}
                     </x-button>
                 </div>  
