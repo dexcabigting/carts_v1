@@ -19,13 +19,14 @@ class ProductsIndex extends Component
     public $categories = [];
     public $fabrics = [];
     public $selectAll = false;
-    public $createModal = 0;
-    public $editModal = 0;
-    public $deleteModal = 0;
     public $productId;
     public $search;
     public $sortBy = 'prd_name';
     public $orderBy = 'asc';
+    public $createModal = false;
+    public $editModal = false;
+    public $deleteModal = false;
+    public $query = 'users';
 
     protected $listeners = [
         'refreshParent' => '$refresh',
