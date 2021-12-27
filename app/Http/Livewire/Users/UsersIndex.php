@@ -201,6 +201,8 @@ class UsersIndex extends Component
 
         $user->likes()->onlyTrashed()->restore();
 
+        $user->product_variant_comments()->onlyTrashed()->restore();
+
         $carts = $user->carts()->onlyTrashed();
             
         $carts->each(function ($cart) {
@@ -244,6 +246,8 @@ class UsersIndex extends Component
             $user->userAddresses()->onlyTrashed()->restore();
 
             $user->likes()->onlyTrashed()->restore();
+
+            $user->product_variant_comments()->onlyTrashed()->restore();
 
             $carts = $user->carts()->onlyTrashed();
             
