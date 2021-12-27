@@ -3,19 +3,24 @@
 namespace App\Http\Livewire\Categories;
 
 use Livewire\Component;
+
 use App\Models\Category;
+
+use Exception;
+
+use Illuminate\Support\Facades\DB;
 
 class CategoriesEdit extends Component
 {
     public $category;
     public $form = [
-        'ctgr_name' => '',
-        'ctgr_description' => '',
+        'ctgr_name' => "",
+        'ctgr_description' => "",
     ];
 
     protected $rules = [
-        'form.ctgr_name' => 'required|string|max:255',
-        'form.ctgr_description' => 'required|string|max:255',
+        'form.ctgr_name' => 'required|string|max:100|regex:/^([A-Z0-9]+ ?)+$/i',
+        'form.ctgr_description' => 'required|string|max:100',
     ];
 
     protected $validationAttributes = [
@@ -38,16 +43,22 @@ class CategoriesEdit extends Component
     {
         $this->validate();
 
-        $this->category->update([
-            'ctgr_name' => $this->form['ctgr_name'],
-            'ctgr_description' => $this->form['ctgr_description'],
-        ]);
+        try {
+            DB::transaction(function() {
+                $this->category->update([
+                    'ctgr_name' => $this->form['ctgr_name'],
+                    'ctgr_description' => $this->form['ctgr_description'],
+                ]);
 
-        $this->mount($this->category);
+                $this->mount($this->category);
 
-        $this->emitUp('refreshParent');
+                $this->emitUp('refreshParent');
 
-        session()->flash('success', 'Category has been updated successfully!'); 
+                session()->flash('success', 'Category has been successfully updated!');  
+            });
+        } catch(Exception $error) {
+            session()->flash('fail', 'An error occured! ' . $error);
+        }
     }
 
     public function closeEditModal()
