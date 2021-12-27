@@ -3,13 +3,18 @@
 namespace App\Http\Livewire\Categories;
 
 use Livewire\Component;
+
 use App\Models\Category;
+
+use Exception;
+
+use Illuminate\Support\Facades\DB;
 
 class CategoriesCreate extends Component
 {
     public $form = [
-        'ctgr_name' => '',
-        'ctgr_description' => '',
+        'ctgr_name' => "",
+        'ctgr_description' => "",
     ];
 
     protected $rules = [
@@ -31,24 +36,22 @@ class CategoriesCreate extends Component
     {
         $this->validate();
 
-        Category::create([
-            'ctgr_name' => $this->form['ctgr_name'],
-            'ctgr_description' => $this->form['ctgr_description'],
-        ]);
+        try {
+            DB::transaction(function() {
+                Category::create([
+                    'ctgr_name' => $this->form['ctgr_name'],
+                    'ctgr_description' => $this->form['ctgr_description'],
+                ]);
 
-        $this->clearFormFields();
+                $this->reset(['form']);
 
-        $this->emitUp('refreshParent');
+                $this->emitUp('refreshParent');
 
-        session()->flash('success', 'Category has been created successfully!'); 
-    }
-
-    public function clearFormFields()
-    {
-        $this->form = [
-            'ctgr_name' => '',
-            'ctgr_description' => '',
-        ];
+                session()->flash('success', 'Category has been successfully created!');  
+            });
+        } catch(Exception $error) {
+            session()->flash('fail', 'An error occured! ' . $error);
+        }
     }
 
     public function closeCreateModal()
