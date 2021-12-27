@@ -50,11 +50,6 @@ class UsersIndex extends Component
         return view('livewire.users.users-index', compact('users')) ;
     }
 
-    public function callEvent()
-    {
-        $this->dispatchBrowserEvent('exceptionAlert');
-    }
-
     public function getUsersProperty()
     {
         $search = '%' . $this->search . '%';
