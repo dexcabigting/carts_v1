@@ -313,3 +313,9 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    window.addEventListener('exceptionAlert', event => {
+        alert('An error occured! ' + event.detail.error);  
+    });
+</script>

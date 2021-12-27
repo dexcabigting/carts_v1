@@ -265,7 +265,7 @@ class ProductsIndex extends Component
                 $this->emit('cleanse');
             });
         } catch(Exception $error) {
-            
+            $this->dispatchBrowserEvent('exceptionAlert', ['error' => $error]);
         }
     }
 
@@ -302,7 +302,7 @@ class ProductsIndex extends Component
                 $this->emit('cleanse');
             });
         } catch(Exception $error) {
-
+            $this->dispatchBrowserEvent('exceptionAlert', ['error' => $error]);
         }
     }
 }
