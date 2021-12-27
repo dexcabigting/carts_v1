@@ -86,7 +86,7 @@ $(document).ready(function(){
 
     function _onExportToPDF(){
         var exportData = $(this).data("value");
-        
+
         const downloadLink = document.createElement("a");
         const fileName = "Custom-Details.pdf";
         downloadLink.href = exportData;
