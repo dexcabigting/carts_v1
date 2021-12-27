@@ -3,11 +3,10 @@
 namespace App\Http\Livewire\Users;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 
 use App\Models\User;
 use App\Models\Role;
-
-use Livewire\WithPagination;
 
 class UsersIndex extends Component
 {
@@ -86,11 +85,8 @@ class UsersIndex extends Component
 
         if ($value) {
             $this->checkedUsers = $query
-                // ->join('roles', 'roles.id', '=', 'role_id')
-                // ->where('roles.role', '=', 'Customer')
                 ->where('role_id', Role::where('role', '=', 'Customer')->first()->id)
                 ->where($sortBy, 'like', $search)
-                // ->where('id', '!=',  auth()->user()->id)
                 ->pluck('id')
                 ->map(fn ($item) => (string) $item)
                 ->flip()
@@ -191,8 +187,6 @@ class UsersIndex extends Component
 
     public function restoreUser($id)
     {
-        // dd('Hello ' . $id);
-
         $user = User::onlyTrashed()->findOrFail($id);
 
         $user->restore();
