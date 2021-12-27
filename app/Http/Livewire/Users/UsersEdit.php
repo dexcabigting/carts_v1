@@ -57,7 +57,7 @@ class UsersEdit extends Component
         $service = app()->make(PhoneNumberLookupService::class);
         
         return [
-            'form.name' => ['required', 'string', 'max:50', 'regex:/^[A-Za-z][A-Za-z\s]*$/'],
+            'form.name' => ['required', 'string', 'max:50', 'regex:/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/'],
             'form.email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $this->user->id],
             'form.phone' => ['required', 'string', 'min:11', 'max:12', 'unique:users,phone,' . $this->user->id, new PhoneNumber($service)],
             'form.role_id' => ['required', 'exists:roles,id'],
