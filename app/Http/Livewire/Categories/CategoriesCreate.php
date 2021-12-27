@@ -13,8 +13,8 @@ class CategoriesCreate extends Component
     ];
 
     protected $rules = [
-        'form.ctgr_name' => 'required|string|max:255',
-        'form.ctgr_description' => 'required|string|max:255',
+        'form.ctgr_name' => 'required|string|max:100|regex:/^([A-Z0-9]+ ?)+$/i',
+        'form.ctgr_description' => 'required|string|max:100',
     ];
 
     protected $validationAttributes = [
