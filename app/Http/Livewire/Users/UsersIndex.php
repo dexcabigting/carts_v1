@@ -17,7 +17,7 @@ class UsersIndex extends Component
     public $userId;
     public $selectAll = false;
     public $search;
-    public $sortBy = 'name';
+    public $sortBy = 'role_id';
     public $orderBy = 'asc';
     public $createModal = false;
     public $editModal = false;
