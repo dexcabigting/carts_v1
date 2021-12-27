@@ -146,4 +146,9 @@ class CategoriesIndex extends Component
             }
         }
     }
+
+    public function resetFilter()
+    {
+        $this->reset(['search', 'sortBy', 'orderBy']);
+    }
 }
