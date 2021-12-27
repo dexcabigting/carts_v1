@@ -1,6 +1,6 @@
 // Variables
 
-var FILE_UPLOAD_CONTAINER_ID = "uploaded-preview-image",
+var NEW_FILE_UPLOAD_CONTAINER_ID = "uploaded-preview-image",
 PREVIEW_UPLOADED_FILE = "preview-uploaded-files",
 
 CUSTOM_DESIGN_CONTAINER = "custom-design-container",
@@ -40,7 +40,7 @@ function _attachEvent(selector, selectorEvent, callback){
 // Event Methods
 
 function _onClickUploadImage(){
-    var file = $(_getIdSelector(FILE_UPLOAD_CONTAINER_ID)).get(0).files[0];
+    var file = $(_getIdSelector(NEW_FILE_UPLOAD_CONTAINER_ID)).get(0).files[0];
 
     if(file){
         var reader = new FileReader();
@@ -87,7 +87,7 @@ function _onUploadToggle(){
 function _attachEvents(){
 
     _attachEvent(
-        _getIdSelector(FILE_UPLOAD_CONTAINER_ID),
+        _getIdSelector(NEW_FILE_UPLOAD_CONTAINER_ID),
         CHANGE_EVENT,
         _onClickUploadImage
     );

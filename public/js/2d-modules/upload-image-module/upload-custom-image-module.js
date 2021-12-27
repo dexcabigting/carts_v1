@@ -1,7 +1,7 @@
 // Variables
 
 var UPLOAD_CUSTOM_IMAGE_ID = "upload-custom-image-id",
-FILE_UPLOAD_CONTAINER_ID = "file-upload-container-id",
+FILE_TEMP_UPLOAD_CONTAINER_ID = "file-upload-container-id",
 AVATAR_LIST = "avatarlist",
 
 // Selectors
@@ -32,7 +32,7 @@ function _attachEvent(selector, selectorEvent, callback){
 // Event Methods
 
 function _onClickUploadImage(){
-    var file = $(_getIdSelector(FILE_UPLOAD_CONTAINER_ID)).get(0).files[0];
+    var file = $(_getIdSelector(FILE_TEMP_UPLOAD_CONTAINER_ID)).get(0).files[0];
 
     if(file){
         var reader = new FileReader();
@@ -43,7 +43,7 @@ function _onClickUploadImage(){
             $(_getIdSelector(AVATAR_LIST)).append(imgContainer);
             
         }
-
+        
         reader.readAsDataURL(file);
     }
 }
