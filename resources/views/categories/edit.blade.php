@@ -18,12 +18,12 @@
 
                 <div>
                     <x-label :value="__('Name')"/>
-                    <x-input  wire:model.lazy="form.ctgr_name" class="block mt-1 w-full text-black" type="text" value="{{ old('ctgr_name') }}" autofocus required />
+                    <x-input  wire:model.defer="form.ctgr_name" class="block mt-1 w-full text-black" type="text" value="{{ old('ctgr_name') }}" autofocus required />
                 </div>
 
                 <div class="mt-4">
                     <x-label for="ctgr_description" :value="__('Description')" />
-                    <x-input wire:model.lazy="form.ctgr_description" id="ctgr_description" class="block mt-1 w-full text-black" type="text" value="{{ old('ctgr_description') }}" required />
+                    <x-input wire:model.defer="form.ctgr_description" id="ctgr_description" class="block mt-1 w-full text-black" type="text" value="{{ old('ctgr_description') }}" required />
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                 </x-button>
             </div>  
             <div>
-                <x-button class="hover:bg-red-400  hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500  my-3" type="button" wire:click="closeEditModal()">
+                <x-button type="button" wire:click="closeEditModal" class="hover:bg-red-400  hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500  my-3">
                     {{ __('Close') }}
                 </x-button>
             </div>
