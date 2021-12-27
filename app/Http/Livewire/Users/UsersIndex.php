@@ -191,7 +191,7 @@ class UsersIndex extends Component
 
     public function resetFilter()
     {
-        $this->reset(['sortBy', 'orderBy', 'query']);
+        $this->reset(['search', 'sortBy', 'orderBy', 'query']);
     }
 
     public function restoreUser($id)
