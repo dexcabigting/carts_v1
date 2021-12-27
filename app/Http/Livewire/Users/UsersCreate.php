@@ -54,9 +54,9 @@ class UsersCreate extends Component
         $service = app()->make(PhoneNumberLookupService::class);
         
         return [
-            'form.name' => ['required', 'string', 'max:255'],
+            'form.name' => ['required', 'string', 'max:50', 'regex:/^[A-Za-z][A-Za-z\s]*$/'],
             'form.email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'form.phone' => ['required', 'string', 'unique:users,phone', new PhoneNumber($service)],
+            'form.phone' => ['required', 'string', 'min:11', 'max:12', 'unique:users,phone', new PhoneNumber($service)],
             'form.password' => ['required', 'confirmed', Rules\Password::defaults()],
             'form.role_id' => ['required', 'exists:roles,id'],
             'form.verify_email' => ['required', 'in:Yes,No'],
@@ -64,7 +64,7 @@ class UsersCreate extends Component
             'form.province' => ['required', 'string', 'exists:provinces,name'],
             'form.city' => ['required', 'string', 'exists:cities,name'],
             'form.barangay' => ['required', 'string', 'exists:barangays,name'],
-            'form.home_address' => ['required', 'string']
+            'form.home_address' => ['required', 'string', 'max:100', 'regex:/^\s*\S+(?:\s+\S+){2}/']
         ];
     }
     
