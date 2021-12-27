@@ -209,6 +209,24 @@ class UsersIndex extends Component
             $cart->cart_items()->onlyTrashed()->restore();
         });
 
+        $orders = $user->orders()->onlyTrashed();
+
+        $orders->each(function ($order) {
+            $order->restore();
+
+            $orderVariants = $order->order_variants()->onlyTrashed();
+
+            $orderVariants->each(function ($orderVariant) {
+                $orderVariant->restore();
+
+                $orderItems = $orderVariant->order_items()->onlyTrashed();
+
+                $orderItems->each(function ($orderItem) {
+                    $orderItem->restore();
+                });
+            });
+        });
+
         $this->emit('unsetCheckedUsers', [$id]);
 
         $this->emit('cleanse');
@@ -233,6 +251,24 @@ class UsersIndex extends Component
                 $cart->restore();
 
                 $cart->cart_items()->onlyTrashed()->restore();
+            });
+
+            $orders = $user->orders()->onlyTrashed();
+
+            $orders->each(function ($order) {
+                $order->restore();
+
+                $orderVariants = $order->order_variants()->onlyTrashed();
+
+                $orderVariants->each(function ($orderVariant) {
+                    $orderVariant->restore();
+
+                    $orderItems = $orderVariant->order_items()->onlyTrashed();
+
+                    $orderItems->each(function ($orderItem) {
+                        $orderItem->restore();
+                    });
+                });
             });
         }); 
 
