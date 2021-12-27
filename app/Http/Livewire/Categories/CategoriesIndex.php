@@ -17,8 +17,8 @@ class CategoriesIndex extends Component
     public $deleteModal = 0;
     public $categoryId;
     public $search;
-    public $sortColumn = 'ctgr_name';
-    public $sortDirection = 'asc';
+    public $sortBy = 'ctgr_name';
+    public $orderBy = 'asc';
 
     protected $listeners = [
         'refreshParent' => '$refresh',
@@ -46,13 +46,13 @@ class CategoriesIndex extends Component
     {
         $search = '%' . $this->search . '%';
 
-        $sortColumn = $this->sortColumn;
+        $sortBy = $this->sortColumn;
 
-        $sortDirection = $this->sortDirection;
+        $orderBy = $this->sortDirection;
 
         return Category::select('id', 'ctgr_name', 'ctgr_description', 'created_at')
             ->where('ctgr_name', 'like', $search)
-            ->orderBy($sortColumn, $sortDirection);
+            ->orderBy($sortBy, $orderBy);
     }
 
     public function updatedSelectAll($value)
