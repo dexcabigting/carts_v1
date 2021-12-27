@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, CascadeSoftDeletes;
+
+    protected $cascadeDeletes = ['order_variants'];
 
     protected $fillable = [
         'user_id',
@@ -17,7 +21,13 @@ class Order extends Model
         'payment_proof',
         'transaction_fee',
         'discount',
-        'status',
+        'status'
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
     ];
 
     public function user()
