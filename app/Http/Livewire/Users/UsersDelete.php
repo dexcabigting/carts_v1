@@ -3,7 +3,12 @@
 namespace App\Http\Livewire\Users;
 
 use Livewire\Component;
+
 use App\Models\User;
+
+use Exception;
+
+use Illuminate\Support\Facades\DB;
 
 class UsersDelete extends Component
 {
@@ -24,31 +29,37 @@ class UsersDelete extends Component
 
     public function deleteUsers()
     {
-        if (count($this->users) == 1) {
-            $flash = 'User has been deleted successfully!';
+        try {
+            DB::transaction(function() {
+                if(count($this->users) == 1) {
+                    $flash = 'User has been successfully deleted!';
 
-            $user = User::findOrfail($this->users[0]);
-            $user->delete();
-        } else {
-            $flash = 'Users have been deleted successfully!';
+                    $user = User::findOrfail($this->users[0]);
+                    $user->delete();
+                } else {
+                    $flash = 'Users have been successfully deleted!';
 
-            $users = User::whereIn('id', $this->users)->get();
-            $users->each->delete();
+                    $users = User::whereIn('id', $this->users)->get();
+                    $users->each->delete();
+                }
+                    
+                $this->emitUp('unsetCheckedUsers', $this->users);
+
+                $this->emitUp('cleanse');
+
+                $this->emitUp('refreshParent');
+
+                session()->flash('success', $flash);
+
+                $this->users = [];
+
+                $this->promptDelete = 0;
+
+                $this->promptDeleted = 1;
+            });
+        } catch(Exception $error) {
+            session()->flash('fail', 'An error occured! ' . $error);
         }
-            
-        $this->emitUp('unsetCheckedUsers', $this->users);
-
-        $this->emitUp('cleanse');
-
-        $this->emitUp('refreshParent');
-
-        session()->flash('success', $flash);
-
-        $this->users = [];
-
-        $this->promptDelete = 0;
-
-        $this->promptDeleted = 1;
     }
 
     public function closeDeleteModal()
