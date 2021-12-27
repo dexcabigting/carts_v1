@@ -83,18 +83,15 @@ class CategoriesIndex extends Component
         $this->checkedCategories = array_filter($this->checkedCategories);
     }
 
-    public function updatedSearch()
+    public function updatingSearch()
     {
         if(is_array($this->checkedCategories)) {
             $this->checkedCategories = [];
 
             $this->selectAll = false;
-        }
-    }
 
-    public function updatingSearch()
-    {
-        $this->resetPage();
+            $this->resetPage();
+        }
     }
 
     public function openCreateModal()
