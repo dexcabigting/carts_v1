@@ -69,6 +69,10 @@
                                 </div>
                                 <div class="inline-flex">
                                     <select wire:model="sortBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                        <option value="role_id">
+                                                <x-label :value="__('Role')" class="inline-block" />
+                                        </option>
+                                        
                                         <option value="name">
                                                 <x-label :value="__('Name')" class="inline-block" />
                                         </option>
