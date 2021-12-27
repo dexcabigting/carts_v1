@@ -4,23 +4,28 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 
 class OrderVariant extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, CascadeSoftDeletes;
+
+    protected $cascadeDeletes = ['order_items'];
 
     protected $fillable = [
         'order_id',
         'product_variant_id',
-        'amount',
+        'amount'
     ];
 
     protected $dates = [
         'created_at',
         'updated_at',
+        'deleted_at',
         'earliest',
-        'latest',
-];
+        'latest'
+    ];
 
     public function order()
     {
