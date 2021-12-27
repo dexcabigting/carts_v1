@@ -46,9 +46,9 @@ class CategoriesIndex extends Component
     {
         $search = '%' . $this->search . '%';
 
-        $sortBy = $this->sortColumn;
+        $sortBy = $this->sortBy;
 
-        $orderBy = $this->sortDirection;
+        $orderBy = $this->orderBy;
 
         return Category::select('id', 'ctgr_name', 'ctgr_description', 'created_at')
             ->where('ctgr_name', 'like', $search)
