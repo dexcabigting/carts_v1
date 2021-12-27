@@ -5,6 +5,7 @@ TSHIRT_TYPE_ID = "tshirttype",
 TSHIRT_CONTAINER_ID = "shirtDiv",
 TSHIRT_CONTAINER_CLASS = "shirtDiv",
 SAVE_TSHIRT_FACING_ID = "tshirtFacing",
+PREVIEW_UPLOADED_FILE = "preview-uploaded-files",
 
 CSRF_MODULE = "meta[name=csrf-token]",
 BICEP_ID = "bicep-id",
@@ -134,25 +135,25 @@ function _onClickBtnSave(){
         
         var tshirtSetup = {};
 
+        var jersey_measurements = {
+            Neck: _getFieldTextValue(NECK_ID),
+            Chest: _getFieldTextValue(CHEST_ID),
+            Stomach: _getFieldTextValue(STOMACH_ID),
+            Waist: _getFieldTextValue(WAIST_ID),
+            Hip: _getFieldTextValue(HIP_ID),
+            ShirtLength: _getFieldTextValue(SHIRT_LENGTH_ID),
+            Shoulder: _getFieldTextValue(SHOULDER_ID),
+            Bicep: _getFieldTextValue(BICEP_ID)
+        };
+        
+        var short_measurements = {
+            Waist: _getFieldTextValue(SHORT_WAIST_ID),
+            Inseam: _getFieldTextValue(INSEAM_ID),
+            Outseam: _getFieldTextValue(OUTSEAM_ID)
+        };
+
         if(!isCustom){
             var tshirtColor = $(_getIdSelector(TSHIRT_CONTAINER_ID)).css(BACKGROUND_COLOR);
-            
-            var jersey_measurements = {
-                Neck: _getFieldTextValue(NECK_ID),
-                Chest: _getFieldTextValue(CHEST_ID),
-                Stomach: _getFieldTextValue(STOMACH_ID),
-                Waist: _getFieldTextValue(WAIST_ID),
-                Hip: _getFieldTextValue(HIP_ID),
-                ShirtLength: _getFieldTextValue(SHIRT_LENGTH_ID),
-                Shoulder: _getFieldTextValue(SHOULDER_ID),
-                Bicep: _getFieldTextValue(BICEP_ID)
-            };
-            
-            var short_measurements = {
-                Waist: _getFieldTextValue(SHORT_WAIST_ID),
-                Inseam: _getFieldTextValue(INSEAM_ID),
-                Outseam: _getFieldTextValue(OUTSEAM_ID)
-            };
 
             tshirtSetup = {
                 customer_name: JSON.stringify(_getFieldTextValue(HIDDEN_USER_NAME_ID)),
@@ -166,23 +167,47 @@ function _onClickBtnSave(){
                 tshirt_pdf: JSON.stringify(_baseSixtyFourPDF),
                 _token: token
             };
+
+            _insertShirtSetup(tshirtSetup);
         }
         else {
-            tshirtSetup = {
-                customer_name: JSON.stringify(_getFieldTextValue(HIDDEN_USER_NAME_ID)),
-                tshirt_front: JSON.stringify({}),
-                tshirt_back: JSON.stringify({}),
-                tshirt_jersey_measurements: JSON.stringify(jersey_measurements || {}),
-                tshirt_short_measurements: JSON.stringify(short_measurements || {}),
-                tshirt_fabric: JSON.stringify({}),
-                tshirt_type: JSON.stringify({}),
-                tshirt_color: JSON.stringify({}),
-                tshirt_pdf: JSON.stringify($(_getClassSelector(UPLOADED_FILE))[0].src),
-                _token: token
-            };
-        }
 
-        _insertShirtSetup(tshirtSetup);
+            var docs = new jsPDF();
+
+            setTimeout(function() {
+                html2canvas(document.querySelector(_getIdSelector(PREVIEW_UPLOADED_FILE))).then(uploadCanvas => {
+
+                    function convertCanvasToImage(c)
+                    {
+                        var image = new Image();
+                        image.src = c.toDataURL("image/jpeg");
+                        docs.addImage(image.src, 'JPEG', 10, 10);
+                        return image;
+                    }
+                    convertCanvasToImage(uploadCanvas);
+                });
+            },200); 
+
+            setTimeout(function() {
+                _baseSixtyFourPDF = docs.output("datauristring");
+
+                tshirtSetup = {
+                    customer_name: JSON.stringify(_getFieldTextValue(HIDDEN_USER_NAME_ID)),
+                    tshirt_front: JSON.stringify({}),
+                    tshirt_back: JSON.stringify({}),
+                    tshirt_jersey_measurements: JSON.stringify(jersey_measurements || {}),
+                    tshirt_short_measurements: JSON.stringify(short_measurements || {}),
+                    tshirt_fabric: JSON.stringify({}),
+                    tshirt_type: JSON.stringify({}),
+                    tshirt_color: JSON.stringify({}),
+                    tshirt_pdf: JSON.stringify(_baseSixtyFourPDF),
+                    _token: token
+                };
+                console.log(tshirtSetup);
+                _insertShirtSetup(tshirtSetup);
+                
+            },1300); 
+        }
 
     },2600);	
 }

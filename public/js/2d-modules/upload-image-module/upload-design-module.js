@@ -45,13 +45,23 @@ function _onClickUploadImage(){
     if(file){
         var reader = new FileReader();
         
-        $(_getIdSelector(PREVIEW_UPLOADED_FILE)).empty();
+        var newCanvas = document.getElementById(PREVIEW_UPLOADED_FILE);
+        
+        var newContext = newCanvas.getContext("2d");
 
-        reader.onload = function(){
-            var imgContainer = "<img style='cursor:pointer;' class='img-upload-polaroid' src='" + reader.result + "'>";
+        var reader = new FileReader();
 
-            $(_getIdSelector(PREVIEW_UPLOADED_FILE)).append(imgContainer);
-            
+        reader.onload = function(event){
+
+            var image = new Image();
+
+            image.onload = function(){
+                newCanvas.width = image.width;
+                newCanvas.height = image.height;
+                newContext.drawImage(image,0,0);
+            }
+
+            image.src = event.target.result;
         }
 
         reader.readAsDataURL(file);

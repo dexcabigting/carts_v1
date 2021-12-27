@@ -78,6 +78,13 @@
 			border: none;
 			box-shadow: none;
 		}
+		.sm:flex.sm:items-center.sm:ml-6 {
+			display: block !important;
+		}
+
+		.border-danger {
+			border:1px solid red !important;
+		}
 	 </style>
   </section> 
 
@@ -146,17 +153,16 @@
 										<li class="color-preview" title="Dark Chocolate" style="background-color:#382d21;"></li>
 										
 									</ul>
+								</div>
+								<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+									<h3>Pre-made Layout</h3>
+									<p style="">
+										<button class="submit-file-toggle w-full hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
+											Submit File
+										</button>
+									</p>								
 								</div>			      
-							</div>	
-							
-							<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
-								<h3>Pre-made Layout</h3>
-								<p style="">
-									<button class="submit-file-toggle w-full hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
-										Submit File
-									</button>
-								</p>								
-							</div>			   
+							</div>				   
 							<div class="tab-pane" id="tab2">
 								<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
 									<div class="input-append">
@@ -243,6 +249,7 @@
 				<div class="upload-design-container" hidden>
 					<div class="span3">
 						<input class="" id="uploaded-preview-image" style='cursor:pointer;' type="file" > Upload here
+
 						<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
 							<h3>Custom Layout</h3>
 							<p style="">
@@ -252,7 +259,7 @@
 							</p>								
 						</div>
 					</div>
-					<div id="preview-uploaded-files" class="span6"></div>
+					<canvas id="preview-uploaded-files" class="span6"></canvas>
 				</div>
 				<div class="span3">
 					<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
@@ -328,7 +335,7 @@
 
 			<span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-			<div class="modal-body-class inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+			<div class="modal-body-class hidden inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
 			<div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
 				<div class="sm:flex sm:items-start">
 				<div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
