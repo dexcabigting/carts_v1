@@ -12,7 +12,10 @@ use Yajra\Address\Entities\Region;
 use Yajra\Address\Entities\Province;
 use Yajra\Address\Entities\City;
 use Yajra\Address\Entities\Barangay;
-use Illuminate\Support\Arr;
+
+use Exception;
+
+use Illuminate\Support\Facades\DB;
 
 use App\Service\Twilio\PhoneNumberLookupService;
 
@@ -22,17 +25,17 @@ class UsersEdit extends Component
 {
     public $user;
     public $form = [
-        'name' => '',
-        'email' => '',
-        'phone' => '',
-        'role_id' => '',
-        'verify_email' => '',
-        'region' => '',
-        'province' => '',
-        'city' => '',
-        'barangay' => '',
-        'home_address' => '',
-        'is_main_address' => ''
+        'name' => "",
+        'email' => "",
+        'phone' => "",
+        'role_id' => "",
+        'verify_email' => "",
+        'region' => "",
+        'province' => "",
+        'city' => "",
+        'barangay' => "",
+        'home_address' => "",
+        'is_main_address' => ""
     ];
     public $address = null;
     public $isDefaultAddress = true;
@@ -54,15 +57,15 @@ class UsersEdit extends Component
         $service = app()->make(PhoneNumberLookupService::class);
         
         return [
-            'form.name' => ['required', 'string', 'max:255'],
+            'form.name' => ['required', 'string', 'max:50', 'regex:/^[A-Za-z][A-Za-z\s]*$/'],
             'form.email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $this->user->id],
-            'form.phone' => ['required', 'string', 'unique:users,phone,' . $this->user->id, new PhoneNumber($service)],
+            'form.phone' => ['required', 'string', 'min:11', 'max:12', 'unique:users,phone,' . $this->user->id, new PhoneNumber($service)],
             'form.role_id' => ['required', 'exists:roles,id'],
             'form.region' => ['required', 'string', 'exists:regions,name'],
             'form.province' => ['required', 'string', 'exists:provinces,name'],
             'form.city' => ['required', 'string', 'exists:cities,name'],
             'form.barangay' => ['required', 'string', 'exists:barangays,name'],
-            'form.home_address' => ['required', 'string', 'max:100'],
+            'form.home_address' => ['required', 'string', 'max:100', 'regex:/^\s*\S+(?:\s+\S+){2}/']
         ];
     }
 
@@ -237,30 +240,34 @@ class UsersEdit extends Component
         
         $this->validate();
 
-        $this->user->update([
-            'name' => $this->form['name'],
-            'email' => $this->form['email'],
-            'phone' => $this->form['phone'],
-            'role_id' => $this->form['role_id']
-        ]); 
-    
-        $this->user_address->update([
-            'region' => $this->form['region'],
-            'province' => $this->form['province'],
-            'city' => $this->form['city'],
-            'barangay' => $this->form['barangay'],
-            'home_address' => $this->form['home_address'],
-        ]);
+        try {
+            DB::transaction(function() {
+                $this->user->update([
+                    'name' => $this->form['name'],
+                    'email' => $this->form['email'],
+                    'phone' => $this->form['phone'],
+                    'role_id' => $this->form['role_id']
+                ]); 
+            
+                $this->user_address->update([
+                    'region' => $this->form['region'],
+                    'province' => $this->form['province'],
+                    'city' => $this->form['city'],
+                    'barangay' => $this->form['barangay'],
+                    'home_address' => $this->form['home_address'],
+                ]);
 
-        // $this->mount($this->user, $this->selectedAddress);
+                $this->emitUp('refreshParent');
 
-        $this->emitUp('refreshParent');
+                if($this->form['role_id'] == 1) {
+                    $this->emitUp('unsetCheckedUsers', [$this->user->id]);
+                }
 
-        if($this->form['role_id'] == 1) {
-            $this->emitUp('unsetCheckedUsers', [$this->user->id]);
+                session()->flash('success', 'User has been successfully updated!');
+            });
+        } catch(Exception $error) {
+            session()->flash('fail', 'An error occured! ' . $error);
         }
-
-        session()->flash('success', 'User has been updated successfully!');
     }
 
     public function closeEditModal()
