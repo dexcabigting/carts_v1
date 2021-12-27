@@ -34,6 +34,11 @@ class Product extends Model
         return $this->hasMany(ProductVariant::class);
     }
 
+    public function deleted_product_variants()
+    {
+        return $this->hasMany(ProductVariant::class)->onlyTrashed();
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -47,6 +52,11 @@ class Product extends Model
     public function product_stocks()
     {
         return $this->hasManyThrough(ProductStock::class, ProductVariant::class);
+    }
+
+    public function deleted_product_stocks()
+    {
+        return $this->hasManyThrough(ProductStock::class, ProductVariant::class)->withTrashedParents()->onlyTrashed();
     }
 
     public function likes()
