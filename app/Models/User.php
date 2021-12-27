@@ -21,7 +21,7 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
-    protected $cascadeDeletes = ['userAddresses', 'carts', 'likes'];
+    protected $cascadeDeletes = ['userAddresses', 'carts', 'likes', 'orders'];
 
     protected $fillable = [
         'name',
