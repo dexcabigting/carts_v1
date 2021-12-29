@@ -3,15 +3,27 @@
 
     </div>
 
-    <div class="p-5 m-auto z-20">
-        <div class="text-white mx-auto">
-            <div class="bg-white shadow-sm rounded-lg border-4 border-gray-500">
-                <div class="bg-custom-blacki border-b border-gray-200">
-                    @include('profile.create-address')
+    @if(auth()->user()->role_id == 1)
+        <div class="m-auto z-20">
+            <div class="max-w-lg mx-auto sm:px-6 lg:px-8">
+                <div class="bg-custom-blacki shadow-sm rounded-lg border-2 border-transparent">
+                    <div class="p-6 bg-custom-blacki ">
+                        @include('profile.create-address-admin')
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    @else
+        <div class="m-auto z-20">
+            <div class="max-w-lg mx-auto sm:px-6 lg:px-8">
+                <div class="bg-custom-blacki shadow-sm rounded-lg border-2 border-transparent">
+                    <div class="p-6 bg-custom-blacki ">
+                       @include('profile.create-address-user')
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
 
 <script>

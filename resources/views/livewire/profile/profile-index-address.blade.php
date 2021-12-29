@@ -5,5 +5,9 @@
         @livewire('profile.profile-delete-address', ['id' => $selectedAddress])
     @endif
 
-    @include('profile.index-address')
+    @if(auth()->user()->role_id == 1)
+        @include('profile.index-address-admin')
+    @else
+        @include('profile.index-address-user')
+    @endif
 </div>
