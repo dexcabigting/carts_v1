@@ -204,10 +204,11 @@ class ProductsEdit extends Component
             
             // if(($this->form['prd_name'] != $this->product->prd_name) || ($oldVariants[$i]['prd_var_name'] != $oldProductVariant->prd_var_name)) {
             // If admin changes the product name, product image name should be updated
-            Storage::move('public/' . $oldProductVariant->front_view, 'public/' . $frontViewImagePath);
-            Storage::move('public/' . $oldProductVariant->back_view, 'public/' . $backViewImagePath);
+                
+            // }
 
             if($oldVariants[$i]['front_view'] && $oldVariants[$i]['back_view']) {
+                // dd("delete");
                 // If admin changes the product image, old image must be removed and replaced with a renamed image according to product name
                 Storage::delete('public/' .$oldProductVariant->front_view);
                 Storage::delete('public/' .$oldProductVariant->back_view);
@@ -219,6 +220,9 @@ class ProductsEdit extends Component
                 $backImage = $oldVariants[$i]['back_view'];
                 $backViewImageName = $oldVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $backImage->extension();
                 $backViewImagePath = $backImage->storeAs('/images/products', $backViewImageName,'public');
+            } else {
+                Storage::move('public/' . $oldProductVariant->front_view, 'public/' . $frontViewImagePath);
+                Storage::move('public/' . $oldProductVariant->back_view, 'public/' . $backViewImagePath);
             }
 
             $oldVariant = [
