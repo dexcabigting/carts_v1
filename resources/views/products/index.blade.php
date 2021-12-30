@@ -193,10 +193,10 @@
                                         <div class="flex items-center">
                                             <div class="flex-shrink-0 h-10 w-10">
                                                 @if(!$product->trashed())
-                                                    <img wire:key="{{ $loop->index }}-not-trashed" class="h-10 w-10 rounded-full" src="{{ Storage::temporaryUrl('app/public/' . $product->product_variants->first()->front_view, now()->addMinutes(5)) }}" alt="">
+                                                    <img wire:key="{{ $loop->index }}-not-trashed" class="h-10 w-10 rounded-full" src="{{ Storage::url($product->product_variants->first()->front_view) }}" alt="">
                                                 @else
-                                                    <img wire:key="{{ $loop->index }}-trashed" class="h-10 w-10 rounded-full" src="{{ Storage::temporaryUrl('app/public/' . $product->deleted_product_variants->first()->front_view, now()->addMinutes(5)) }}" alt="">    
-                                                @endif                                  
+                                                    <img wire:key="{{ $loop->index }}-trashed" class="h-10 w-10 rounded-full" src="{{ Storage::url($product->deleted_product_variants->first()->front_view) }}" alt="">    
+                                                @endif                                 
                                             </div>
                                             <div class="ml-4">
                                                 <div class="text-sm font-medium text-gray-100">
