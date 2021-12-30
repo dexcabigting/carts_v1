@@ -245,7 +245,7 @@ slider.onmouseout = function() {
                 <div class="p-5 bg-white m-auto rounded-lg relative">
                     <img class="bg-black py-2 px-2 h-10 w-10 absolute top-0 right-0 rounded-tr-md" src="img/Group 12.svg">
                     <div class="flex-none m-auto p-10 bg-white shadow-2xl">
-                        <img class="h-40 w-40" src="{{ Storage::temporaryUrl('app/public/'.$product->product_variants->first()->front_view, now()->addMinutes(5)) }}" />
+                        <img class="h-40 w-40" src="{{ Storage::url('public/'.$product->product_variants->first()->front_view) }}" />
                     </div>
 
                     <div class="text-black text-2xl absolute bottom-5 right-5">
