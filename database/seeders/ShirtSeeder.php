@@ -10,29 +10,29 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
-class ShirtSeeder extends Seeder
+class LongSleevesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-public function run()
+    public function run()
     {
         $path = 'images/products/';
         $extension = '.jpg';
-        $category_id = Category::where('ctgr_name', 'T-Shirt')->first()->id;
+        $category_id = Category::where('ctgr_name', 'Long Sleeves')->first()->id;
 
         for($i = 1; $i <= 6; $i++) {
-            $front_filename = $path . 'Variant 1-EJ EZON SHIRT '.$i.'-' . Str::random(10) . $extension;
-            $back_filename = $path . 'Variant 1-EJ EZON SHIRT '.$i.'-' . Str::random(10) . $extension;
+            $front_filename = $path . 'Variant 1-EJ EZON LONG SLEEVES '.$i.'-' . Str::random(10) . $extension;
+            $back_filename = $path . 'Variant 1-EJ EZON LONG SLEEVES '.$i.'-' . Str::random(10) . $extension;
 
-            Storage::disk('s3')->put('app/public/' .  $front_filename, Storage::disk('root')->get('templates/SHIRT TEMPLATES/TEMPLATE'.$i.'/FRONT.jpg'));
-            Storage::disk('s3')->put('app/public/' .  $back_filename, Storage::disk('root')->get('templates/SHIRT TEMPLATES/TEMPLATE'.$i.'/BACK.jpg'));
+            Storage::disk('root')->copy('templates/LONG SLEEVES TEMPLATES/TEMPLATE'.$i.'/FRONT.jpg', 'app/public/' .  $front_filename);
+            Storage::disk('root')->copy('templates/LONG SLEEVES TEMPLATES/TEMPLATE'.$i.'/BACK.jpg', 'app/public/' .  $back_filename);
 
             $products = Product::factory()->state([
                 'category_id' => $category_id,
-                'prd_name' => 'EJ EZON SHIRT '.$i,
+                'prd_name' => 'EJ EZON LONG SLEEVES '.$i,
             ])->has(
                 ProductVariant::factory()->state([
                     'prd_var_name' => 'Variant ' .$i,
