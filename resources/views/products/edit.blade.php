@@ -87,13 +87,13 @@
                                 <div wire:key="{{ $loop->index }}-images" class="w-1/4">
                                     <div class="">
                                         <x-label :value="__('Front View')"/>
-                                        <input type="file" wire:model.defer="addVariants.{{ $index }}.front_view" id="front-{{ $imageID }}" />
+                                        <input wire:key="{{ $addVariants[$index]['variant_id'] }}-front" type="file" wire:model="addVariants.{{ $index }}.front_view" />
                                         <div wire:loading wire:target="addVariants.{{ $index }}.front_view">Uploading...</div>
                                     </div>
 
                                     <div class="">   
                                         <x-label :value="__('Back View')"/> 
-                                        <input type="file" wire:model.defer="addVariants.{{ $index }}.back_view" id="back-{{ $imageID }}" />
+                                        <input wire:key="{{ $addVariants[$index]['variant_id'] }}-back" type="file" wire:model="addVariants.{{ $index }}.back_view" />
                                         <div wire:loading wire:target="addVariants.{{ $index }}.back_view">Uploading...</div>
                                     </div>
                                 </div>

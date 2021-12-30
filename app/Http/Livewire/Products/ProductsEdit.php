@@ -20,7 +20,6 @@ class ProductsEdit extends Component
 {
     use WithFileUploads;
 
-    public $imageID = 0;
     public $product;
     
      /**
@@ -53,8 +52,8 @@ class ProductsEdit extends Component
             'form.prd_price' => ['required', 'numeric', 'regex:/^\d+(\.\d{2})?$/'],
             'addVariants.*.id' => ['nullable', 'integer'],
             'addVariants.*.prd_var_name' => ['required', 'string', 'max:100', 'regex:/^([A-Z0-9]+ ?)+$/i'],
-            'addVariants.*.front_view' => ['required_if:addVariants.*.id,""', 'nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
-            'addVariants.*.back_view' => ['required_if:addVariants.*.id,""', 'nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'addVariants.*.front_view' => ['required_if:addVariants.*.id,""', 'nullable', 'required_with:addVariants.*.back_view', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'addVariants.*.back_view' => ['required_if:addVariants.*.id,""', 'nullable', 'required_with:addVariants.*.front_view', 'image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'addVariants.*.2XS'  => ['filled', 'integer', 'max:999'],
             'addVariants.*.XS'  => ['filled', 'integer', 'max:999'],
             'addVariants.*.S'  => ['filled', 'integer', 'max:999'],
@@ -112,6 +111,7 @@ class ProductsEdit extends Component
                 'L' => (string)$productVariant->product_stock->L,
                 'XL' => (string)$productVariant->product_stock->XL,
                 '2XL' => (string)$productVariant->product_stock->{'2XL'},
+                'variant_id' => mt_rand(00, 99)
             ];
 
             array_push($this->addVariants, $array);
@@ -152,7 +152,7 @@ class ProductsEdit extends Component
                 ]);
 
                 $oldVariants = array_filter($this->addVariants, function ($var) {
-                    return ($var['id'] != null);
+                    return ($var['id'] != "");
                 });
 
                 $this->updateExisting($oldVariants);
@@ -177,8 +177,6 @@ class ProductsEdit extends Component
                 $this->mount($this->product);
 
                 $this->deleteExisting = [];
-
-                $this->imageID++;
 
                 $this->emitUp('refreshParent');
 
@@ -206,10 +204,11 @@ class ProductsEdit extends Component
             
             // if(($this->form['prd_name'] != $this->product->prd_name) || ($oldVariants[$i]['prd_var_name'] != $oldProductVariant->prd_var_name)) {
             // If admin changes the product name, product image name should be updated
-            Storage::move('public/' . $oldProductVariant->front_view, 'public/' . $frontViewImagePath);
-            Storage::move('public/' . $oldProductVariant->back_view, 'public/' . $backViewImagePath);
+                
+            // }
 
             if($oldVariants[$i]['front_view'] && $oldVariants[$i]['back_view']) {
+                // dd("delete");
                 // If admin changes the product image, old image must be removed and replaced with a renamed image according to product name
                 Storage::delete('public/' .$oldProductVariant->front_view);
                 Storage::delete('public/' .$oldProductVariant->back_view);
@@ -221,6 +220,9 @@ class ProductsEdit extends Component
                 $backImage = $oldVariants[$i]['back_view'];
                 $backViewImageName = $oldVariants[$i]['prd_var_name'] . '-' . $this->form['prd_name'] . Str::random(10) . '.' . $backImage->extension();
                 $backViewImagePath = $backImage->storeAs('/images/products', $backViewImageName,'public');
+            } else {
+                Storage::move('public/' . $oldProductVariant->front_view, 'public/' . $frontViewImagePath);
+                Storage::move('public/' . $oldProductVariant->back_view, 'public/' . $backViewImagePath);
             }
 
             $oldVariant = [
@@ -305,7 +307,7 @@ class ProductsEdit extends Component
                         Storage::disk('root')->delete('app/public/' . $variant->back_view);
                     })
                     ->each
-                    ->delete();
+                    ->forceDelete();
     }
 
     public function addMore()
@@ -325,6 +327,7 @@ class ProductsEdit extends Component
                 'L' => "0",
                 'XL' => "0",
                 '2XL' => "0",
+                'variant_id' => mt_rand(00, 99)
             ];
         }
     }
