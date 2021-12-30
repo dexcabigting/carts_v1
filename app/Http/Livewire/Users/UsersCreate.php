@@ -12,8 +12,11 @@ use Yajra\Address\Entities\Province;
 use Yajra\Address\Entities\City;
 use Yajra\Address\Entities\Barangay;
 
-use Illuminate\Support\Facades\Hash;
+use Exception;
+
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 use App\Service\Twilio\PhoneNumberLookupService;
 
@@ -22,18 +25,18 @@ use App\Rules\PhoneNumber;
 class UsersCreate extends Component
 {
     public $form = [
-        'name' => '',
-        'email' => '',
-        'phone' => '',
-        'password' => '',
-        'password_confirmation' => '',
-        'role_id' => '',
-        'verify_email' => '',
-        'region' => '',
-        'province' => '',
-        'city' => '',
-        'barangay' => '',
-        'home_address' => '',
+        'name' => "",
+        'email' => "",
+        'phone' => "",
+        'password' => "",
+        'password_confirmation' => "",
+        'role_id' => "",
+        'verify_email' => "",
+        'region' => "",
+        'province' => "",
+        'city' => "",
+        'barangay' => "",
+        'home_address' => "",
     ];
     public $roles = [];
     public $yesOrNo = [];
@@ -51,9 +54,9 @@ class UsersCreate extends Component
         $service = app()->make(PhoneNumberLookupService::class);
         
         return [
-            'form.name' => ['required', 'string', 'max:255'],
+            'form.name' => ['required', 'string', 'max:50', 'regex:/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/'],
             'form.email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'form.phone' => ['required', 'string', 'unique:users,phone', new PhoneNumber($service)],
+            'form.phone' => ['required', 'string', 'min:11', 'max:12', 'unique:users,phone', new PhoneNumber($service)],
             'form.password' => ['required', 'confirmed', Rules\Password::defaults()],
             'form.role_id' => ['required', 'exists:roles,id'],
             'form.verify_email' => ['required', 'in:Yes,No'],
@@ -61,7 +64,7 @@ class UsersCreate extends Component
             'form.province' => ['required', 'string', 'exists:provinces,name'],
             'form.city' => ['required', 'string', 'exists:cities,name'],
             'form.barangay' => ['required', 'string', 'exists:barangays,name'],
-            'form.home_address' => ['required', 'string']
+            'form.home_address' => ['required', 'string', 'max:100', 'regex:/^\s*\S+(?:\s+\S+){2}/']
         ];
     }
     
@@ -157,31 +160,35 @@ class UsersCreate extends Component
 
         $this->validate();
 
-        // dd($this->form);
-        
-        $user = User::create([
-            'name' => $this->form['name'],
-            'email' => $this->form['email'],
-            'phone' => $this->form['phone'],
-            'password' => Hash::make($this->form['password']),
-            'role_id' => $this->form['role_id'],
-            'email_verified_at' => ($this->form['verify_email'] == "Yes") ? now() : null
-        ]);
+        try {
+            DB::transaction(function() {
+                $user = User::create([
+                    'name' => $this->form['name'],
+                    'email' => $this->form['email'],
+                    'phone' => $this->form['phone'],
+                    'password' => Hash::make($this->form['password']),
+                    'role_id' => $this->form['role_id'],
+                    'email_verified_at' => ($this->form['verify_email'] == "Yes") ? now() : null
+                ]);
 
-        $user->userAddresses()->create([
-            'region' => $this->form['region'],
-            'province' => $this->form['province'],
-            'city' => $this->form['city'],
-            'barangay' => $this->form['barangay'],
-            'home_address' => $this->form['home_address'],
-            'is_main_address' => 1,
-        ]);
+                $user->userAddresses()->create([
+                    'region' => $this->form['region'],
+                    'province' => $this->form['province'],
+                    'city' => $this->form['city'],
+                    'barangay' => $this->form['barangay'],
+                    'home_address' => $this->form['home_address'],
+                    'is_main_address' => 1,
+                ]);
 
-        $this->reset(['form', 'selectedRegion', 'selectedProvince', 'selectedCity', 'selectedBarangay', 'provinces', 'cities', 'barangays']);
+                $this->reset(['form', 'selectedRegion', 'selectedProvince', 'selectedCity', 'selectedBarangay', 'provinces', 'cities', 'barangays']);
 
-        $this->emitUp('refreshParent');
+                $this->emitUp('refreshParent');
 
-        session()->flash('success', 'User has been created successfully!'); 
+                session()->flash('success', 'User has been successfully created!'); 
+            });
+        } catch(Exception $error) {
+            session()->flash('fail', 'An error occured! ' . $error);
+        }
     }
 
     public function closeCreateModal()

@@ -42,10 +42,10 @@ class ProductsDelete extends Component
                 $products->each(function ($product) {
                             $variants = $product->product_variants()->get();
 
-                            $variants->each(function ($variant) {
-                                Storage::disk('root')->delete('app/public/' . $variant->front_view);
-                                Storage::disk('root')->delete('app/public/' . $variant->back_view);
-                            });
+                            // $variants->each(function ($variant) {
+                            //     Storage::disk('root')->delete('app/public/' . $variant->front_view);
+                            //     Storage::disk('root')->delete('app/public/' . $variant->back_view);
+                            // });
                         })
                         ->each
                         ->delete();

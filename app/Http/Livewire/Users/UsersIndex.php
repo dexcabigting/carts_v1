@@ -3,11 +3,14 @@
 namespace App\Http\Livewire\Users;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 
 use App\Models\User;
 use App\Models\Role;
 
-use Livewire\WithPagination;
+use Exception;
+
+use Illuminate\Support\Facades\DB;
 
 class UsersIndex extends Component
 {
@@ -86,11 +89,8 @@ class UsersIndex extends Component
 
         if ($value) {
             $this->checkedUsers = $query
-                // ->join('roles', 'roles.id', '=', 'role_id')
-                // ->where('roles.role', '=', 'Customer')
                 ->where('role_id', Role::where('role', '=', 'Customer')->first()->id)
                 ->where($sortBy, 'like', $search)
-                // ->where('id', '!=',  auth()->user()->id)
                 ->pluck('id')
                 ->map(fn ($item) => (string) $item)
                 ->flip()
@@ -186,98 +186,108 @@ class UsersIndex extends Component
 
     public function resetFilter()
     {
-        $this->reset(['sortBy', 'orderBy', 'query']);
+        $this->reset(['search', 'sortBy', 'orderBy', 'query']);
     }
 
     public function restoreUser($id)
     {
-        // dd('Hello ' . $id);
+        try {
+            DB::transaction(function() use($id) {
+                $user = User::onlyTrashed()->findOrFail($id);
 
-        $user = User::onlyTrashed()->findOrFail($id);
+                $user->restore();
 
-        $user->restore();
+                $user->userAddresses()->onlyTrashed()->restore();
 
-        $user->userAddresses()->onlyTrashed()->restore();
+                $user->likes()->onlyTrashed()->restore();
 
-        $user->likes()->onlyTrashed()->restore();
+                $user->product_variant_comments()->onlyTrashed()->restore();
 
-        $user->product_variant_comments()->onlyTrashed()->restore();
+                $carts = $user->carts()->onlyTrashed();
+                    
+                $carts->each(function ($cart) {
+                    $cart->restore();
 
-        $carts = $user->carts()->onlyTrashed();
-            
-        $carts->each(function ($cart) {
-            $cart->restore();
-
-            $cart->cart_items()->onlyTrashed()->restore();
-        });
-
-        $orders = $user->orders()->onlyTrashed();
-
-        $orders->each(function ($order) {
-            $order->restore();
-
-            $orderVariants = $order->order_variants()->onlyTrashed();
-
-            $orderVariants->each(function ($orderVariant) {
-                $orderVariant->restore();
-
-                $orderItems = $orderVariant->order_items()->onlyTrashed();
-
-                $orderItems->each(function ($orderItem) {
-                    $orderItem->restore();
+                    $cart->cart_items()->onlyTrashed()->restore();
                 });
+
+                $orders = $user->orders()->onlyTrashed();
+
+                $orders->each(function ($order) {
+                    $order->restore();
+
+                    $orderVariants = $order->order_variants()->onlyTrashed();
+
+                    $orderVariants->each(function ($orderVariant) {
+                        $orderVariant->restore();
+
+                        $orderItems = $orderVariant->order_items()->onlyTrashed();
+
+                        $orderItems->each(function ($orderItem) {
+                            $orderItem->restore();
+                        });
+                    });
+                });
+
+                $this->emit('unsetCheckedUsers', [$id]);
+
+                $this->emit('cleanse');
             });
-        });
-
-        $this->emit('unsetCheckedUsers', [$id]);
-
-        $this->emit('cleanse');
+        } catch(Exception $error) {
+            $this->dispatchBrowserEvent('exceptionAlert', ['error' => $error]);
+        }
     }
 
     public function restoreUsers()
     {
-        $userIds = $this->checked_keys;
+        try {
+            DB::transaction(function() {
+                $userIds = $this->checked_keys;
 
-        $users = User::onlyTrashed()->whereIn('id', $userIds)->get();
+                $users = User::onlyTrashed()->whereIn('id', $userIds)->get();
 
-        $users->each(function ($user) {
-            $user->restore();
+                $users->each(function ($user) {
+                    $user->restore();
 
-            $user->userAddresses()->onlyTrashed()->restore();
+                    $user->userAddresses()->onlyTrashed()->restore();
 
-            $user->likes()->onlyTrashed()->restore();
+                    $user->likes()->onlyTrashed()->restore();
 
-            $user->product_variant_comments()->onlyTrashed()->restore();
+                    $user->product_variant_comments()->onlyTrashed()->restore();
 
-            $carts = $user->carts()->onlyTrashed();
-            
-            $carts->each(function ($cart) {
-                $cart->restore();
+                    $carts = $user->carts()->onlyTrashed();
+                    
+                    $carts->each(function ($cart) {
+                        $cart->restore();
 
-                $cart->cart_items()->onlyTrashed()->restore();
-            });
-
-            $orders = $user->orders()->onlyTrashed();
-
-            $orders->each(function ($order) {
-                $order->restore();
-
-                $orderVariants = $order->order_variants()->onlyTrashed();
-
-                $orderVariants->each(function ($orderVariant) {
-                    $orderVariant->restore();
-
-                    $orderItems = $orderVariant->order_items()->onlyTrashed();
-
-                    $orderItems->each(function ($orderItem) {
-                        $orderItem->restore();
+                        $cart->cart_items()->onlyTrashed()->restore();
                     });
-                });
+
+                    $orders = $user->orders()->onlyTrashed();
+
+                    $orders->each(function ($order) {
+                        $order->restore();
+
+                        $orderVariants = $order->order_variants()->onlyTrashed();
+
+                        $orderVariants->each(function ($orderVariant) {
+                            $orderVariant->restore();
+
+                            $orderItems = $orderVariant->order_items()->onlyTrashed();
+
+                            $orderItems->each(function ($orderItem) {
+                                $orderItem->restore();
+                            });
+                        });
+                    });
+                }); 
+
+                $this->emit('unsetCheckedUsers', $userIds);
+
+                $this->emit('cleanse');
             });
-        }); 
-
-        $this->emit('unsetCheckedUsers', $userIds);
-
-        $this->emit('cleanse');
+        } catch(Exception $error) {
+            $this->dispatchBrowserEvent('exceptionAlert', ['error' => $error]);
+        }
     }
 }

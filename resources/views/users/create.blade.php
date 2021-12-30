@@ -137,14 +137,14 @@
 
                         <div wire:key="home_address-1" class="mt-4">
                             <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
-                            <x-input wire:model="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
+                            <x-input wire:model.defer="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
                         </div>
                     @endif
 
                     @if(!empty($selectedRegion) && !empty($selectedProvince) && !empty($selectedCity) && !empty($selectedBarangay))
                         <div wire:key="home_address-2" class="mt-4">
                             <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
-                            <x-input wire:model="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
+                            <x-input wire:model.defer="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
                         </div>
                     @endif
                 </div>
@@ -158,7 +158,7 @@
                 </div>
                 
                 <div>
-                    <x-button wire:click.prevent="closeCreateModal()" type="button" class="bg-red-500 text-gray-100 text-xl font-bold px-4 py-2">
+                    <x-button type="button" wire:click.prevent="closeCreateModal" class="bg-red-500 text-gray-100 text-xl font-bold px-4 py-2">
                         {{ __('Close') }}
                     </x-button>
                 </div>  

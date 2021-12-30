@@ -9,6 +9,10 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Fabric;
 
+use Exception;
+
+use Illuminate\Support\Facades\DB;
+
 class ProductsIndex extends Component
 {
     use WithPagination;
@@ -19,13 +23,14 @@ class ProductsIndex extends Component
     public $categories = [];
     public $fabrics = [];
     public $selectAll = false;
-    public $createModal = 0;
-    public $editModal = 0;
-    public $deleteModal = 0;
     public $productId;
     public $search;
     public $sortBy = 'prd_name';
     public $orderBy = 'asc';
+    public $createModal = false;
+    public $editModal = false;
+    public $deleteModal = false;
+    public $query = 'products';
 
     protected $listeners = [
         'refreshParent' => '$refresh',
@@ -58,7 +63,13 @@ class ProductsIndex extends Component
     {
         extract($this->setProperties());
 
-        return Product::with(['category', 'fabric', 'product_variants', 'product_stocks'])
+        if($this->query == 'products') {
+            $query = Product::query()->with(['category', 'fabric', 'product_variants', 'product_stocks']);
+        } else {
+            $query = Product::onlyTrashed()->with(['category', 'fabric', 'deleted_product_variants', 'deleted_product_stocks']);
+        }
+
+        return $query
             ->where('prd_name', 'like', $search)
             ->whereIn('category_id', $category)
             ->whereIn('fabric_id', $fabric)
@@ -69,8 +80,15 @@ class ProductsIndex extends Component
     {    
         extract($this->setProperties());
 
+        if($this->query == 'products') {
+            $query = Product::query();
+        } else {
+            $query = Product::onlyTrashed();
+        }
+
         if ($value) {
-            $this->checkedProducts = Product::where('prd_name', 'like', $search)
+            $this->checkedProducts = $query
+                ->where('prd_name', 'like', $search)
                 ->whereIn('category_id', $category)
                 ->whereIn('fabric_id', $fabric)
                 ->pluck('id')
@@ -98,6 +116,15 @@ class ProductsIndex extends Component
     public function updatingSearch()
     {
         $this->disablerAndPageResetter();
+    }
+
+    public function updatingQuery()
+    {
+        $this->resetPage();
+
+        $this->checkedProducts = [];
+
+        $this->selectAll = false;
     }
 
     public function updatingCategory()
@@ -207,5 +234,75 @@ class ProductsIndex extends Component
     public function resetFilter()
     {
         $this->reset(['search', 'sortBy', 'orderBy', 'category', 'fabric']);
+    }
+
+    public function restoreProduct($id)
+    {
+        try {
+            DB::transaction(function() use($id) {
+                $product = Product::onlyTrashed()->findOrFail($id);
+
+                $product->restore();
+
+                $productVariants = $product->product_variants()->onlyTrashed();
+
+                $productVariants->each(function($productVariant) {
+                    $productVariant->restore();
+
+                    $productStock = $productVariant->product_stock()->onlyTrashed();
+
+                    $productStock->restore();
+                });
+
+                $likes = $product->likes()->onlyTrashed();
+
+                $likes->each(function($like) {
+                    $like->restore();
+                });
+
+                $this->emit('unsetCheckedProducts', [$id]);
+
+                $this->emit('cleanse');
+            });
+        } catch(Exception $error) {
+            $this->dispatchBrowserEvent('exceptionAlert', ['error' => $error]);
+        }
+    }
+
+    public function restoreProducts()
+    {
+        try {
+            DB::transaction(function() {
+                $productIds = $this->checked_keys;
+
+                $products = Product::onlyTrashed()->whereIn('id', $productIds)->get();
+
+                $products->each(function($product) {
+                    $product->restore();
+
+                    $productVariants = $product->product_variants()->onlyTrashed();
+
+                    $productVariants->each(function($productVariant) {
+                        $productVariant->restore();
+
+                        $productStock = $productVariant->product_stock()->onlyTrashed();
+
+                        $productStock->restore();
+                    });
+
+                    $likes = $product->likes()->onlyTrashed();
+
+                    $likes->each(function($like) {
+                        $like->restore();
+                    });
+                });
+
+                $this->emit('unsetCheckedProducts', $productIds);
+
+                $this->emit('cleanse');
+            });
+        } catch(Exception $error) {
+            $this->dispatchBrowserEvent('exceptionAlert', ['error' => $error]);
+        }
     }
 }
