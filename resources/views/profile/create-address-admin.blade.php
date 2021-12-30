@@ -100,7 +100,7 @@
 
         <div class="flex justify-center items-center gap-5 mt-4"> 
             <div wire:key="1">
-                <x-button class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500">
+                <x-button class="hover:bg-purple-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-custom-violet">
                     {{ __('Save') }}
                 </x-button>
             </div>

@@ -13,7 +13,7 @@
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">
                     <div class="shadow overflow-hidden  border-gray-200 sm:rounded-lg">
-                        <table class="table-auto min-w-full divide-y divide-gray-200">
+                        <table class="table-auto min-w-full divide-y divide-gray-200 bg-white">
                             <thead class="bg-custom-black">
                                 <tr>
                                     <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -146,7 +146,7 @@
                                     @endif
                                 @empty
                                 <tr>
-                                    <td class="md:px-6 py-4 text-center" colspan="6">
+                                    <td class="md:px-6 py-4 text-center" colspan="7">
                                         <div>
                                             <span class=" text-2xl font-semibold text-gray-400 leading-tight">
                                                 {{ __('You have no orders!') }}

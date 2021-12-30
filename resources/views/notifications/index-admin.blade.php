@@ -25,7 +25,7 @@
         </div>
 
         @forelse($notifications as $notification)
-            <div wire:key="{{ $loop->index }}-admin-user-notif" class="lg:ml-9 flex flex-row p-1  text-black bg-green-200 border-4 border-green-500 rounded-md">
+            <div wire:key="{{ $loop->index }}-admin-user-notif" class="lg:ml-9 flex flex-row p-1  text-black bg-green-100 border-4 border-green-300 rounded-md">
                 @if($notification['type'] == 'App\Notifications\OrderCreatedNotification') 
                     <div class="p-2 px-2 lg:px-32">
                         {{ $notification['data']['user'] }} has ordered {{ $notification['data']['invoice number'] }}   
@@ -35,22 +35,22 @@
                         {{ $notification['data']['name'] }} ({{ $notification['data']['email'] }}) has registered {{ $notification['created_at']->diffForHumans() }}   
                     </div>
                 @elseif($notification['type'] == 'App\Notifications\ProductVariantCommentCreatedNotification')
-                <div class="p-2 px-2 lg:px-32">
+                <div class="p-2 px-2 lg:px-12">
                     {{ $notification['data']['user'] }} commented on {{ $notification['data']['product'] }}:{{ $notification['data']['product variant'] }} "{{ $notification['data']['comment'] }}" {{ $notification['created_at']->diffForHumans() }}   
                 </div>
                 @endif
                 
-                <div class="flex flex-row gap-5 ml-24 xl:ml-32">
+                <div class="flex flex-row align-center items-center px-2 gap-5 ml-12 xl:ml-24">
                     @if($notificationType != 'readNotifications')
                     <div>
-                        <x-button type="button" wire:click="markAsRead('{{ $notification['id'] }}')" class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500">
+                        <x-button type="button" wire:click="markAsRead('{{ $notification['id'] }}')" class="w-32 hover:bg-purple-400 hover:text-purple-100 text-md font-semibold text-white px-2 py-2 bg-custom-violet">
                             Mark as Read
                         </x-button>
                     </div>
                     @endif
 
                     <div>
-                        <x-button type="button" wire:click="delete  ('{{ $notification['id'] }}')" class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500">
+                        <x-button type="button" wire:click="delete  ('{{ $notification['id'] }}')" class="hover:bg-red-400 hover:text-purple-100 text-md font-semibold text-white px-4 py-2 bg-red-500">
                             Delete
                         </x-button>
                     </div>

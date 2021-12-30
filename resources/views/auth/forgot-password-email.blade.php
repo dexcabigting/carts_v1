@@ -6,8 +6,10 @@
             </a>
         </x-slot>
         
-        <div class="mb-4 text-9xl text-gray-600">
+        <div class="w-full flex justify-center items-center mb-4 text-2xl text-gray-200">
+            <h1 class="w-1/2 text-center">
             {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+            </h1>
         </div>
 
         <!-- Session Status -->
@@ -20,17 +22,17 @@
             @csrf
 
             <!-- Email Address -->
-            <div>
+            <div class="flex justify-center items-center w-full">
                 <x-label for="email" :value="__('Email')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
+                <x-input id="email" class="block mt-1 w-96 ml-4" type="email" name="email" :value="old('email')" required autofocus />
 
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
+                <x-button class="ml-2 text-white bg-custom-violet py-2 px-4">
                     {{ __('Email Password Reset Link') }}
                 </x-button>
             </div>
+
+         
             
         </form>
     </x-auth-card>

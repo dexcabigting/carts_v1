@@ -1,5 +1,5 @@
-<div class="py-5 px-10 overflow-y-auto flex items-center justify-center w-auto">
-    <div class="px-5">
+<div class="py-5 px-10 overflow-y-auto flex flex-col items-center justify-center w-auto">
+    <div class="px-5 ">
         <x-success-fail-message/>
         <x-validation-errors :errors="$errors" />
     </div>

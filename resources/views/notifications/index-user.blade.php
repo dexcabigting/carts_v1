@@ -1,6 +1,6 @@
-<div class="h-screen pt-20 ml-5 lg:ml-32 xl:ml-48 lg:pt-40  2xl:ml-96 max-w-8xl flex flex-col">  
-    <div class="pt-12 pb-6">
-        <div class="max-w-8xl mx-auto">
+<div class="h-screen pt-24 max-w-8xl flex items-center flex-col">  
+    <div class="">
+        <div class="max-w-8xl mx-auto flex items-center justify-center">
             <div class="bg-custom-blacki overflow-hidden shadow-sm rounded-lg mx-2">
                 <div class="px-32 p-8 bg-custom-blacki shadow-2xl text-xl lg:text-6xl font-extrabold text-center text-gray-300 font-extraboldoverflow-x-auto">
                     My Notifications
@@ -12,9 +12,9 @@
         </div>
     </div>
 
-    <div class="max-w-3xl ml-2 float-right flex flex-col gap-5 w-full">
-        <div class="text-sm font-medium text-gray-900">
-            <select wire:model="notificationType">
+    <div class="max-w-3xl float-right flex flex-col items-center justify-center ml-4 mt-4 w-full">
+        <div class="text-sm  text-gray-100 w-full items-center justify-center">
+            <select class="font-semibold rounded-lg bg-custom-blacki" wire:model="notificationType">
                 <option value="unreadNotifications">
                     Unread Notifications
                 </option>
@@ -25,12 +25,12 @@
         </div>
 
         @forelse($notifications as $notification)
-            <div wire:key="{{ $loop->index }}-admin-user-notif" class="lg:ml-9 flex flex-row p-1  text-black bg-green-200 border-4 border-green-500 rounded-md">
+            <div wire:key="{{ $loop->index }}-admin-user-notif" class="mt-8             lg:ml-9 flex flex-row p-1  text-black bg-green-200 border-4 border-green-500 rounded-md">
                 @if($notification['type'] == 'App\Notifications\OrderStatusUpdatedNotification')
                 <div class="p-2 px-2 lg:px-32">
                     Your order #{{ $notification['data']['invoice number'] }} is now {{ $notification['data']['status'] }}!
                     <a href="{{ route('orders.index') }}">
-                        <span class="font-bold">
+                        <span class="font-bold underline text-custom-violet">
                             View your orders
                         </span>  
                     </a>
@@ -46,10 +46,10 @@
                 </div>
                 @endif
                 
-                <div class="flex flex-row gap-5 ml-24 xl:ml-32">
+                <div class="flex flex-row gap-5 ml-24 xl:ml-2 items-center">
                     @if($notificationType != 'readNotifications')
                     <div>
-                        <x-button type="button" wire:click="markAsRead('{{ $notification['id'] }}')" class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500">
+                        <x-button type="button" wire:click="markAsRead('{{ $notification['id'] }}')" class="w-32 items-center align-center hover:bg-purple-400 hover:text-purple-100 text-XL font-semibold text-white px-1 py-2 bg-custom-violet">
                             Mark as Read
                         </x-button>
                     </div>

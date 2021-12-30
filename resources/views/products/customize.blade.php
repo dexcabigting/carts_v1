@@ -253,8 +253,11 @@
 						<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
 							<h3>Custom Layout</h3>
 							<p style="">
-								<button class="submit-file-toggle w-full hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
-									Submit File
+								<button class="submit-file-toggle w-full align-center relative items-center hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
+								<svg xmlns="http://www.w3.org/2000/svg" class="absolute left-8 h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414 6.414a2 2 0 001.414.586H19a2 2 0 002-2V7a2 2 0 00-2-2h-8.172a2 2 0 00-1.414.586L3 12z" />
+</svg>	
+								Back 
 								</button>
 							</p>								
 						</div>

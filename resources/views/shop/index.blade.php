@@ -1,4 +1,4 @@
-<div class="h-1/2 mt-4 2xl:mx-80 lg:mx-40">
+<div class="h-1/2 mt-4 2xl:mx-64 lg:mx-40">
     <div class="" id="slider">
         <div id="line">
 
@@ -134,14 +134,16 @@ slider.onmouseout = function() {
 
 </script>
 <div>
-    <div class="items-center lg:mx-40 2xl:mx-80">
+    <div class="items-center lg:mx-40 2xl:mx-64">
         <div class="mx-2 md:mx-auto">
             <div class="shadow-xl overflow-hidden rounded-lg">
-                <div class="block md:flex md:flex-row items-center md:justify-center p-6 bg-custom-blacki overflow-x-auto">
+                <div class="block md:flex md:flex-row items-center md:justify-center py-6 bg-custom-blacki overflow-x-auto">
                     <!-- Filters -->
                     <div class="px-12 flex flex-col xl:flex-row">
                         <div class="flex flex-col xl:flex-row items-center justify-center text-base font-medium text-gray-100 py-4 my-2 md:my-0">
-                            <div class="flex flex-row">   
+                            <div class="flex 2xl:flex-row flex-col items-center justify-center">
+                                <div class="flex flex-col xl:flex-row justify-center items-center"> 
+                                    <div>
                                 <select wire:model="category" class="my-2 mx-2 text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                     <option value="All" selected>
                                         <x-label value="All categories" class="inline-block" />
@@ -164,8 +166,10 @@ slider.onmouseout = function() {
                                     </option>
                                     @endforeach
                                 </select>
-
-                                <select wire:model="sortBy" class="my-2 mx-2 text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                </div>
+                                <div>
+                                <div>
+                                <select wire:model="sortBy" class="my-2 mx-2 text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                     <option value="prd_name">
                                         <x-label value="Name" class="inline-block" />
                                     </option>
@@ -174,7 +178,7 @@ slider.onmouseout = function() {
                                     </option>
                                 </select>
 
-                                <select wire:model="orderBy" class="my-2 mx-2 text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                <select wire:model="orderBy" class="my-2 mx-2 text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                     <<option value="asc">
                                         <x-label value="Ascending" class="inline-block" />
                                     </option>
@@ -182,39 +186,51 @@ slider.onmouseout = function() {
                                         <x-label value="Descending" class="inline-block" />
                                     </option>
                                 </select>
+                                </div>
 
-                                <div>
-                                    <input wire:model.debounce.500ms="min" placeholder="Minimum Price" type="text" class="text-black w-32"/>
+                                </div>
+
+                                
+                                <div class="flex md:flex-row flex-col">
+                                    <div class="flex flex-row">
+                                <div class="my-2 mx-2 text-sm font-medium bg-custom-blacki text-white rounded-xl shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                    <input wire:model.debounce.500ms="min" placeholder="Minimum Price" type="text" class="rounded-lg text-black w-32"/>
                                     @error('min') <span class="text-red text-sm font-small">{{ $message }}</span> @enderror
                                 </div>
 
-                                <div>
-                                    <input wire:model.debounce.500ms="max" placeholder="Maximum Price" type="text" class="text-black w-32"/>
+                                <div class="my-2 text-sm font-medium bg-custom-blacki text-white rounded-xl shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
+                                    <input wire:model.debounce.500ms="max" placeholder="Maximum Price" type="text" class="rounded-lg text-black w-32"/>
                                     @error('max') <span class="text-red text-sm font-small">{{ $message }}</span> @enderror
                                 </div>
-                            </div> 
-                        <div class="flex flex-col md:flex-row w-full md:-ml-8">
+                                </div>
+                            
+                        <div class="flex flex-row w-full md:-ml-8">
 
                     <!-- Search Bar -->
-                    <div class="text-black md:ml-24 md:col-span-2 lg:col-span-2 grid lg:items-center lg:align-center relative md:w-64 xl:w-72 2xl:w-96">
-                        <x-input class="h-9 lg:pr-10 pr-4" type="search" wire:model.debounce.500ms="search" autofocus />
+                    <div class="text-black col-span-2 lg:col-span-2 grid items-center align-center ml-2 lg:ml-12 relative md:w-64 xl:w-72 2xl:w-64">
+                        <x-input class="h-9 pr-4" type="search" wire:model.debounce.500ms="search" autofocus />
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mr-2 fill-current text-indigo-300 absolute right-0" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
                         </svg>
                     </div>
+                    
 
                      <!-- Reset Filter -->
-                    <div>
-                        <x-button type="button" wire:click="resetFilter()" class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500">
-                            {{ __('Reset Filter') }}
+                    <div class="2xl:ml-4  lg:items-center align-center col-span-2 grid">
+                        <x-button title="Reset" type="button" wire:click="resetFilter()" class="hover:text-purple-100 text-sm font-semibold text-white mx-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+</svg>   
+                        {{ __('') }}
                         </x-button>
                     </div>
-
                     </div>
+                    
+                    
                         </div>
                         
                     </div>
-
+                    </div>
                 </div>
 
             </div>
@@ -222,7 +238,7 @@ slider.onmouseout = function() {
     </div>
 </div>
     <div class="my-12 pb-6 w-full justify-center items-center flex">
-        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-6xl md:mx-24 lg:mx-42 mx-4 xl:mx-auto">
+        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-6xl md:mx-24 lg:mx-auto mx-4 xl:mx-auto">
             @forelse ($products as $product)
             <!-- Loop Content -->
             <div class="w-full flex flex-col gap-5 p-5 border-4 border-gray-500 bg-custom-blacki h-auto overflow-hidden shadow-sm sm:rounded-lg relative">

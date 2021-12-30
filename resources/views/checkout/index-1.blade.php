@@ -1,4 +1,4 @@
-<div class="w-3/5">
+<div class="lg:w-3/5">
     <div class="bg-custom-blacki max-w-auto overflow-hidden shadow-sm sm:rounded-lg p-5">
         <form wire:submit.prevent="placeOrder" enctype="multipart/form-data">
             @csrf
