@@ -64,22 +64,22 @@
                     
                     <div>
                         <x-label :value="__('Province')" />
-                        <x-input wire:model="form.province" class="block mt-1 w-full " type="text" autofocus required />
+                        <x-input disabled wire:model="form.province" class="block mt-1 w-full " type="text" autofocus required />
                     </div>
 
                     <div>
                         <x-label :value="__('City')" />
-                        <x-input wire:model="form.city" class="block mt-1 w-full " type="text" autofocus required />
+                        <x-input disabled wire:model="form.city" class="block mt-1 w-full " type="text" autofocus required />
                     </div>
 
                     <div>
                         <x-label :value="__('Barangay')" />
-                        <x-input wire:model="form.barangay" class="block mt-1 w-full " type="text" autofocus required />
+                        <x-input disabled wire:model="form.barangay" class="block mt-1 w-full " type="text" autofocus required />
                     </div>
 
                     <div>
                         <x-label :value="__('Home Address')" />
-                        <x-input wire:model="form.home_address" class="block mt-1 w-full " type="text" autofocus required />
+                        <x-input disabled wire:model="form.home_address" class="block mt-1 w-full " type="text" autofocus required />
                     </div>
                 @elseif($pages === 3)
                     <div class="bg-white relative">
