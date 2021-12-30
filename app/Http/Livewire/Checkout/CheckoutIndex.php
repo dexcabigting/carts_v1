@@ -35,6 +35,7 @@ class CheckoutIndex extends Component
     public $carts = [];
     public $form = [];
     public $productsAndVariants = [];
+    public $renderedAddress = false;
 
     protected function rules()
     {
@@ -133,15 +134,17 @@ class CheckoutIndex extends Component
 
     public function render()
     {
-        // dd($this->productsAndVariants);
-
         $userAddress = $this->user_address->first();
 
-        $this->form['province'] = Str::ucfirst(Str::lower($userAddress->province));
-        $this->form['city'] = Str::ucfirst(Str::lower($userAddress->city));
-        $this->form['barangay'] = $userAddress->barangay;
-        $this->form['home_address'] = $userAddress->home_address;
-        $this->form['amount'] = number_format($this->total, 2, ".", "");
+        if (!$this->renderedAddress) {
+            $this->form['province'] = $userAddress->province;
+            $this->form['city'] = $userAddress->city;
+            $this->form['barangay'] = $userAddress->barangay;
+            $this->form['home_address'] = $userAddress->home_address;
+            $this->form['amount'] = number_format($this->total, 2, ".", "");
+
+            $this->renderedAddress = true;
+        }
 
         $userAddresses = auth()->user()->userAddresses()
                                 ->get()->pluck('id')->toArray(); 
@@ -401,5 +404,10 @@ class CheckoutIndex extends Component
         event(new OrderCreated($order));
         
         Cart::whereIn('id', $cartIds)->delete();
+    }
+
+    public function updatedSelectedAddress()
+    {
+        $this->renderedAddress = false;
     }
 }
