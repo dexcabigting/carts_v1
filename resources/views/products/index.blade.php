@@ -1,5 +1,5 @@
-<div class="h-screen pt-20 lg:pt-40 xl:pl-16 2xl:pl-56 w-full flex flex-col">
-    <div class="flex items-center justify-center">
+<div class="h-screen pt-20 lg:pt-24 xl:pt-40 xl:pl-3 2xl:pl-44 w-full flex flex-col">
+    <div class="flex items-center justify-center ml-12 md:ml-0">
         <div class="w-full">
             <div class="inline-flex">
                 <div class="inline-flex mx-2 lg:ml-0 mb-4 p-4 bg-custom-blacki shadow-2xl overflow-x-auto">
@@ -22,12 +22,13 @@
                     </div>
                     <!-- Order By -->
                     <div class="px-4">
-                        <div class="flex flex-col items-center justify-items-center lg:flex-row mx-2">
+                        <div class="flex flex-col items-center justify-center lg:flex-row mx-2">
                             <div class="mx-2">
                             <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-base -ml-2" />
                             </div>
                             <div>
-                                <div class="flex flex-row">
+                                <div class="flex md:flex-row flex-col">
+                                <div>
                             <select wire:model="sortBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 <option value="prd_name">
                                     <x-label :value="__('Name')" class="inline-block" />
@@ -47,7 +48,8 @@
                                     <x-label :value="__('Descending')" class="inline-block" />
                                 </option>
                             </select>
-
+                            </div>
+                            <div>
                             <select wire:model="category" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                 <option value="All" selected>
                                     <x-label value="Categories" class="inline-block" />
@@ -69,6 +71,7 @@
                                 </option>
                                 @endforeach
                             </select>
+                            </div>
 
                             </div>
                             </div>
@@ -86,9 +89,11 @@
                     </div>
 
                     <!-- Reset Filter -->
-                    <div>
-                        <x-button type="button" wire:click="resetFilter" class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500">
-                            {{ __('Reset Filter') }}
+                    <div class="ml-2 align-center items-center flex  col-span-2">
+                        <x-button title="Reset Filter" type="button" wire:click="resetFilter()">
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+</svg>
                         </x-button>
                     </div>
 

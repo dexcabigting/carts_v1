@@ -5,11 +5,11 @@
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
         </x-slot>
-
-        <div class="mb-4 text-sm text-gray-600">
+        <div class="w-full flex items-center justify-center">
+        <div class="w-1/2 text-center mb-4 text-2xl text-gray-600">
             {{ __('Forgot your password? No problem. Once you have verified the code sent to your number, we will redirect you to the password reset page.') }}
         </div>
-
+        </div>
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -20,17 +20,17 @@
             @csrf
 
             <!-- Email Address -->
-            <div>
+            <div class="w-full flex items-center justify-center">
                 <x-label for="email" :value="__('Phone')" />
 
-                <x-input id="email" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" required autofocus />
-            </div>
+                <x-input id="email" class="block w-72 ml-4" type="tel" name="phone" :value="old('phone')" required autofocus />
 
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
+                <x-button class="ml-2 px-4 py-2 bg-custom-violet font-bold text-white">
                     {{ __('Send Verification Code') }}
                 </x-button>
             </div>
+
+            
         </form>
     </x-auth-card>
 </x-guest-layout>

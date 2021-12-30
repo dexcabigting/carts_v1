@@ -88,7 +88,7 @@
                                 </tr>
                             </thead>
 
-                            <tbody class="bg-white divide-y divide-gray-200">
+                            <tbody class="bg-white divide-y divide-w-200">
                                 @php
                                     $total = 0;
                                 @endphp
@@ -180,7 +180,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td class="md:px-6 py-4 text-center" colspan="6">
+                                    <td class="md:px-6 py-4 text-center" colspan="9">
                                         <div>
                                             <span class=" text-2xl font-semibold text-gray-400 leading-tight">
                                                 {{ __('There are no orders!') }}

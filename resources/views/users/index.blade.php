@@ -1,8 +1,8 @@
-<div class ="h-screen items-center pt-14 2xl:pt-40 lg:pt-20 xl:pl-24 2xl:pl-72 w-full flex flex-col">
+<div class ="h-screen items-center pt-14 2xl:pt-40 lg:pt-20 xl:pl-2 2xl:pl-44 w-full flex flex-col">
     <div class="flex flex-col items-center justify-center">
         <div class="w-full">
             <div class="inline-flex ">
-                <div class="inline-flex ml-6 lg:ml-0 p-7 px-9 md:px-16 2xl:px-7 bg-custom-blacki shadow-2xl overflow-x-auto">
+                <div class="inline-flex ml-6 lg:ml-0 p-7 px-9 md:px-2 2xl:px-7 bg-custom-blacki shadow-2xl overflow-x-auto">
                 <div class="flex flex-col md:flex-row items-center justify-between">
                     <div class="flex mx-12 md:m-0">
                     <div>
@@ -106,9 +106,11 @@
                     </div>
 
                     <!-- Reset Filter -->
-                    <div>
-                        <x-button type="button" wire:click="resetFilter()" class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500">
-                            {{ __('Reset Filter') }}
+                    <div class="ml-2 align-center items-center flex  col-span-2">
+                        <x-button title="Reset Filter" type="button" wire:click="resetFilter()">
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+</svg>
                         </x-button>
                     </div>
             </div>

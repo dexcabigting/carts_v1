@@ -11,7 +11,7 @@
 
     <div class="pb-5">
         <div class="max-w-5xl mx-auto">
-            <div class="flex flex-row gap-5">
+            <div class="flex flex-col lg:flex-row gap-5">
                 <!-- Checkout Details Table -->
                 @include('checkout.index-2')
 

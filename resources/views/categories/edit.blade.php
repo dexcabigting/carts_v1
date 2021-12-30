@@ -1,4 +1,4 @@
-<div class="py-5 w-auto overflow-y-auto flex justify-center items-center">
+<div class="py-5 w-auto overflow-y-auto flex=col flex justify-center items-center">
     <div class="px-5">
         <x-success-fail-message/>
         <x-validation-errors :errors="$errors" />

@@ -1,13 +1,13 @@
-<div class="flex-grow flex flex-col">
-    <div class="flex flex-col gap-5 align-middle inline-block min-w-full">
+<div class="flex-grow flex flex-col mx-4 lg:mx-0 rounded-lg">
+    <div class="flex flex-col gap-5 align-middle min-w-full">
 
         <div class="bg-custom-blacki text-xl font-extrabold text-center text-white p-5 sm:rounded-lg">
             Transaction Breakdown
         </div>
 
-        <div class="shadow overflow-hidden  border-gray-200 sm:rounded-lg">
+        <div class="shadow overflow-hidden  border-gray-200 sm:rounded-lg ">
             <table class="table-auto min-w-full divide-y divide-gray-200">
-                <thead class="bg-custom-blacki">
+                <thead class="bg-custom-blacki px-2">
                     <tr>
                         <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Product Variant

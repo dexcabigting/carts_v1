@@ -41,7 +41,7 @@
         </div>
     @elseif($promptDeleted)
         <div class="flex mt-4 justify-center">
-            <div>
+            <div class="bg-custom-violet text-white font-bold text-lg px-4 py-2 ">
                 <x-button type="button" wire:click.prevent="closeDeleteModal()">
                     {{ __('Close') }}
                 </x-button>

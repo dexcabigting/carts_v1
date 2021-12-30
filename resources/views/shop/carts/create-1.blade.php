@@ -55,7 +55,7 @@
         <form action="POST" wire:submit.prevent="store">
             @foreach($addItems as $index => $addItem)
             <div class="grid grid-cols-4 justify-items-center gap-5 mb-5" wire:key="item-{{ $loop->index }}">
-                <div wire:key="item-{{ $loop->index }}-dropdown" class="">
+                <div wire:key="item-{{ $loop->index }}-dropdown" class="ml-7">
                     <select wire:model="addItems.{{ $index }}.size" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                             <option value="" selected>
                                 ---
@@ -70,11 +70,11 @@
                     </select>
                 </div>
 
-                <div wire:key="item-{{ $loop->index }}-surname" class="">
+                <div wire:key="item-{{ $loop->index }}-surname" class="ml-3">
                     <x-input wire:model.defer="addItems.{{ $index }}.surname" class="block text-black w-full" type="text" autofocus />
                 </div>
 
-                <div wire:key="item-{{ $loop->index }}-number" class="">
+                <div wire:key="item-{{ $loop->index }}-number" class="ml-3">
                     <x-input wire:model.defer="addItems.{{ $index }}.jersey_number" class="block text-black w-full" type="text" autofocus />
                 </div>
 
@@ -118,13 +118,13 @@
 
             <div class="flex justify-center mt-4 gap-5 pb-5">
                 <div>
-                    <x-button class="bg-red-500 text-2xl py-2 font-bold px-12" type="button" wire:click.prevent="closeCartModal()">
+                    <x-button class="bg-red-500 text-2xl py-2 font-bold px-3 xl:px-12" type="button" wire:click.prevent="closeCartModal()">
                         {{ __('Close') }}
                     </x-button>
                 </div>
 
                 <div>
-                    <x-button class="bg-custom-violet text-2xl py-2 font-bold px-6">
+                    <x-button class="bg-custom-violet text-xl xl:text-2xl py-3 font-bold xl:py-2 px-3 xl:px-6">
                         {{ __('Add to Cart') }}
                     </x-button>
                 </div>
