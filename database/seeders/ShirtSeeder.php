@@ -27,8 +27,8 @@ public function run()
             $front_filename = $path . 'Variant 1-EJ EZON SHIRT '.$i.'-' . Str::random(10) . $extension;
             $back_filename = $path . 'Variant 1-EJ EZON SHIRT '.$i.'-' . Str::random(10) . $extension;
 
-            Storage::disk('root')->copy('templates/SHIRT TEMPLATES/TEMPLATE'.$i.'/FRONT.jpg', 'app/public/' .  $front_filename);
-            Storage::disk('root')->copy('templates/SHIRT TEMPLATES/TEMPLATE'.$i.'/BACK.jpg', 'app/public/' .  $back_filename);
+            Storage::disk('s3')->put('app/public/' .  $front_filename, Storage::disk('root')->get('templates/SHIRT TEMPLATES/TEMPLATE'.$i.'/FRONT.jpg'));
+            Storage::disk('s3')->put('app/public/' .  $back_filename, Storage::disk('root')->get('templates/SHIRT TEMPLATES/TEMPLATE'.$i.'/BACK.jpg'));
 
             $products = Product::factory()->state([
                 'category_id' => $category_id,
