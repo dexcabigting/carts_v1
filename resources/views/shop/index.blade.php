@@ -185,10 +185,12 @@ slider.onmouseout = function() {
 
                                 <div>
                                     <input wire:model.debounce.500ms="min" placeholder="Minimum Price" type="text" class="text-black w-32"/>
+                                    @error('min') <span class="text-red text-sm font-small">{{ $message }}</span> @enderror
                                 </div>
 
                                 <div>
                                     <input wire:model.debounce.500ms="max" placeholder="Maximum Price" type="text" class="text-black w-32"/>
+                                    @error('max') <span class="text-red text-sm font-small">{{ $message }}</span> @enderror
                                 </div>
                             </div> 
                         <div class="flex flex-col md:flex-row w-full md:-ml-8">
