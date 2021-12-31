@@ -31,9 +31,9 @@ class CartsEdit extends Component
     ];
 
     protected $validationAttributes = [
-        'cartItems.*.size' => 'Jersey Size',
-        'cartItems.*.surname' => 'Jersey Surname',
-        'cartItems.*.jersey_number' => 'Jersey Number',
+        'cartItems.*.size' => 'jersey size',
+        'cartItems.*.surname' => 'jersey surname',
+        'cartItems.*.jersey_number' => 'jersey number',
     ];
 
     public function mount(Cart $id)
