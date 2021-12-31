@@ -56,8 +56,14 @@ class CartsEdit extends Component
 
     public function render()
     {
-        // dd($this->cartItems);
         return view('livewire.shop.carts.carts-edit');
+    }
+
+    public function hydrate()
+    {
+        if(!empty($this->getErrorBag())) {
+            $this->resetErrorBag();
+        }
     }
 
     public function update()
@@ -121,8 +127,8 @@ class CartsEdit extends Component
 
     public function addMore()
     {
-        if (count($this->cartItems) == 15) {
-            session()->flash('fail', 'Only 15 items are allowed!');
+        if (count($this->cartItems) == 10) {
+            session()->flash('fail', 'Only 10 items are allowed!');
         } else {
             $this->cartItems[] = [
                 'id' => null,
