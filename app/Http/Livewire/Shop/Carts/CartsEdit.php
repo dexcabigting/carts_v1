@@ -75,34 +75,39 @@ class CartsEdit extends Component
         // TO DO: set $this->cartItems limit with a maximum value of 15
         $this->validate();
 
-        // Update existing cart items
-        $origCartItems = collect($this->cartItems)
-            ->filter(fn ($value) => $value['id'] != null);
+        try {
+            DB::transaction(function() {
+                // Update existing cart items
+                $origCartItems = collect($this->cartItems)
+                    ->filter(fn ($value) => $value['id'] != null);
 
-        if($origCartItems) {
-            $this->updateItems($origCartItems);
+                if($origCartItems) {
+                    $this->updateItems($origCartItems);
+                }
+
+                // Create new cart items
+                $newCartItems = collect($this->cartItems)
+                    ->filter(fn ($value) => $value['id'] == null)
+                    ->map(fn ($value) => array_filter($value));
+
+                if($newCartItems) {
+                    $this->createItems($newCartItems);
+                }
+
+                // Delete existing cart items if there are any            
+                if($this->deleteExisting) {
+                    $this->deleteItems($this->deleteExisting);
+                }
+
+                $this->cartId->refresh();
+
+                $this->emitUp('refreshParent');
+
+                session()->flash('success', 'Cart has been updated successfully!');
+            });
+        } catch(Exception $error) {
+            session()->flash('An error occured! ' . $error);
         }
-
-        // Create new cart items
-        $newCartItems = collect($this->cartItems)
-            ->filter(fn ($value) => $value['id'] == null)
-            ->map(fn ($value) => array_filter($value));
-
-        if($newCartItems) {
-            $this->createItems($newCartItems);
-        }
-
-        // Delete existing cart items if there are any
-        
-        if($this->deleteExisting) {
-            $this->deleteItems($this->deleteExisting);
-        }
-
-        $this->cartId->refresh();
-
-        $this->emitUp('refreshParent');
-
-        session()->flash('success', 'Cart has been updated successfully!');
     }
 
     public function createItems($newCartItems)
