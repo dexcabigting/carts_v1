@@ -9,6 +9,10 @@ use App\Models\ProductStock;
 use App\Models\Cart;
 use App\Models\CartItem;
 
+use Exception;
+
+use Illuminate\Support\Facades\DB;
+
 class CartsEdit extends Component
 {
     public $cartItems = [
