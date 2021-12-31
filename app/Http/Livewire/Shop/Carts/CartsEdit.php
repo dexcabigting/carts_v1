@@ -122,7 +122,7 @@ class CartsEdit extends Component
     public function addMore()
     {
         if (count($this->cartItems) == 15) {
-            session()->flash('fail', 'Only 5 variants are allowed!');
+            session()->flash('fail', 'Only 15 items are allowed!');
         } else {
             $this->cartItems[] = [
                 'id' => null,
