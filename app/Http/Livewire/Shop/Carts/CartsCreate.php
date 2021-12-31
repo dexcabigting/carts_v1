@@ -187,8 +187,8 @@ class CartsCreate extends Component
 
     public function addMore()
     {
-        if(count($this->addItems) === 15) {
-            session()->flash('fail', 'Only 15 items are allowed!');
+        if(count($this->addItems) === 10) {
+            session()->flash('fail', 'Only 10 items are allowed!');
         } else {
             $this->addItems[] = [
                 'size' => "",
