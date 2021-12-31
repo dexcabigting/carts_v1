@@ -75,6 +75,19 @@ class CartsEdit extends Component
         // TO DO: set $this->cartItems limit with a maximum value of 15
         $this->validate();
 
+        $originalStocks = $this->sizes->sizes->toArray();
+
+        $variantStocks = array_count_values(array_column($this->cartItems, 'size'));
+
+        foreach($variantStocks as $size => $count) {
+            $originalCountSize = $originalStocks[$size];
+
+            if( $count > $originalCountSize ) {
+                session()->flash('fail', 'The quantity of ' . $size . ' exceeded the available size!');
+                return;
+            }
+        }
+
         try {
             DB::transaction(function() {
                 // Update existing cart items
