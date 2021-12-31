@@ -3,7 +3,9 @@
 namespace App\Http\Livewire\Shop\Carts;
 
 use Livewire\Component;
+
 use App\Models\ProductVariant;
+use App\Models\ProductStock;
 use App\Models\Cart;
 use App\Models\CartItem;
 
@@ -19,6 +21,7 @@ class CartsEdit extends Component
     ];
     public $deleteExisting = [];
     public $cartVariant;
+    public $sizes;
     public $totalAmount;
 
     protected $rules = [
@@ -37,7 +40,12 @@ class CartsEdit extends Component
     {
         $this->cartId = $id;
 
-        $this->cartVariant = ProductVariant::where('id', $this->cartId->product_variant_id)->first();
+        $this->cartVariant = ProductVariant::where('id', $this->cartId->product_variant_id)
+                                ->first();
+
+        $this->sizes = ProductStock::where('product_variant_id', $id->product_variant_id)->first();
+
+        // dd($this->sizes);
 
         $this->productPrice = $this->cartVariant->product()->first()->prd_price;
 
