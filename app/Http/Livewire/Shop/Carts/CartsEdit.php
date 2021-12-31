@@ -13,10 +13,10 @@ class CartsEdit extends Component
 {
     public $cartItems = [
         [
-            'id' => '',
-            'size' => '',
-            'surname' => '',
-            'jersey_number' => '', 
+            'id' => "",
+            'size' => "",
+            'surname' => "",
+            'jersey_number' => "", 
         ]
     ];
     public $deleteExisting = [];
@@ -126,9 +126,9 @@ class CartsEdit extends Component
         } else {
             $this->cartItems[] = [
                 'id' => null,
-                'size' => '',
-                'surname' => '',
-                'jersey_number' => '',
+                'size' => "",
+                'surname' => "",
+                'jersey_number' => "",
             ];
 
             $this->totalAmount = $this->totalAmount + $this->productPrice;
