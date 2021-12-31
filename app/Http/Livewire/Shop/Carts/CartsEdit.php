@@ -30,8 +30,8 @@ class CartsEdit extends Component
 
     protected $rules = [
         'cartItems.*.size' => 'required|string|in:2XS,XS,S,M,L,XL,2XL',
-        'cartItems.*.surname' => 'required|string|regex:/^[a-zA-Z ]*$/|max:20',
-        'cartItems.*.jersey_number' => 'required|numeric|max:99',
+        'cartItems.*.surname' => 'required|string|regex:/^[a-zA-Z ]*$/|max:15',
+        'cartItems.*.jersey_number' => 'required|integer|min:0|max:99|not_in:-0',
     ];
 
     protected $validationAttributes = [
@@ -72,7 +72,6 @@ class CartsEdit extends Component
 
     public function update()
     {
-        // TO DO: set $this->cartItems limit with a maximum value of 15
         $this->validate();
 
         $originalStocks = $this->sizes->sizes->toArray();
@@ -116,7 +115,7 @@ class CartsEdit extends Component
 
                 $this->emitUp('refreshParent');
 
-                session()->flash('success', 'Cart has been updated successfully!');
+                session()->flash('success', 'Cart has been successfully updated!');
             });
         } catch(Exception $error) {
             session()->flash('An error occured! ' . $error);
