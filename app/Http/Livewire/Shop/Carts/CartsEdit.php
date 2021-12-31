@@ -25,8 +25,8 @@ class CartsEdit extends Component
     public $totalAmount;
 
     protected $rules = [
-        'cartItems.*.size' => 'required|string',
-        'cartItems.*.surname' => 'required|string',
+        'cartItems.*.size' => 'required|string|in:2XS,XS,S,M,L,XL,2XL',
+        'cartItems.*.surname' => 'required|string|regex:/^[a-zA-Z ]*$/|max:20',
         'cartItems.*.jersey_number' => 'required|numeric|min:1|max:99',
     ];
 
