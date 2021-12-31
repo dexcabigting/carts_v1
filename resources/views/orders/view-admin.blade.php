@@ -1,15 +1,15 @@
-<div class="mx-auto">
-    <div class="flex flex-col gap-5 p-5 align-middle inline-block ">
+<div class="mx-auto overflow-y-auto px-5 h-screen md:h-2/3 ">
+    <div class="flex flex-col gap-5 p-5 align-middle">
         <div>
             <x-success-fail-message />
         </div>
 
-        <div class="relative bg-custom-blacki text-xl font-extrabold text-center text-white p-5 sm:rounded-lg">
+        <div class="relative bg-custom-blacki text-xl font-extrabold text-left md:text-center text-white p-5 sm:rounded-lg">
             Order Details
 
             @if(auth()->user()->role_id == 1)
                 <div class="absolute top-0 right-0">
-                    <x-button class="m-3 hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500" type="button" wire:click="proofOfPaymentOrCustomerInfo()">
+                    <x-button class="m-3 hover:bg-red-400 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-red-500" type="button" wire:click="proofOfPaymentOrCustomerInfo()">
                         @if(!$proofOfPayment)
                             {{ __('Proof of Payment') }}
                         @else
@@ -19,9 +19,9 @@
                 </div>
             @endif
         </div>
-
-        <div class="flex flex-row gap-5">
-            <div class="w-3/4 shadow overflow-hidden border-gray-200 sm:rounded-lg">
+        <div class="overflow-hidden py-20">
+        <div class="flex flex-col md:flex-row gap-5 ">
+            <div class="md:w-3/4 shadow overflow-hidden border-gray-200 sm:rounded-lg">
                 <table class="min-w-full table-auto divide-y divide-gray-200">
                     <thead class="bg-custom-blacki">
                         <tr>
@@ -216,7 +216,7 @@
             </div>
 
             @if(!$proofOfPayment)
-            <div class="w-1/4 bg-white flex flex-col p-5 gap-2 rounded-lg text-black">
+            <div class="md:w-1/4 bg-white flex flex-col p-5 gap-2 rounded-lg text-black">
                 <div class="">
                     <span class="font-semibold">Name:</span> {{ $userOrder->user->name }}
                 </div>
@@ -253,7 +253,7 @@
             @endif
         </div>
         
-        <div class="flex justify-center items-center gap-5"> 
+        <div class="flex justify-center items-center gap-5 mt-4"> 
             <div>
                 <x-button class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500" type="button" wire:click="updateStatus()">
                     {{ __('Save') }}
@@ -265,5 +265,6 @@
                 </x-button>
             </div>
         </div>
+    </div>
     </div>
 </div>        

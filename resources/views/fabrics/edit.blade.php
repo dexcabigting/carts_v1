@@ -1,14 +1,14 @@
 <div class="py-5 w-auto overflow-y-auto">
-    <div class="px-5">
+    <div class="flex justify-center items-center mx-2 w-80 text-sm">
         <x-success-fail-message/>
         <x-validation-errors :errors="$errors" />
     </div>
     
     <form wire:submit.prevent="update">
         @csrf
-        <div class="flex flex-row divide-x-4 divide-gray-600 gap-5">
-            <div class="w-48">
-                <div class="flex justify-around">
+        <div class="flex flex-row divide-x-2 divide-gray-600 gap-5 ml-10">
+            <div class="w-64">
+                <div class="flex justify-center items-center">
                     <div>
                         <h2 class="font-semibold text-l leading-tight mb-4">
                             {{ __('Fabric Info') }}
@@ -23,7 +23,9 @@
 
                 <div class="mt-4">
                     <x-label for="fab_description" :value="__('Description')" />
-                    <x-input wire:model.defer="form.fab_description" id="fab_description" class="block mt-1 w-full text-black" type="text" value="{{ old('fab_description') }}" required />
+                    <div >
+                    <x-input class="h-40" wire:model.defer="form.fab_description" id="fab_description" class="block mt-1 w-full text-black" type="text" value="{{ old('fab_description') }}" required />
+                    </div>               
                 </div>
             </div>
         </div>

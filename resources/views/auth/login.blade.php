@@ -8,18 +8,22 @@
             <div class="flex justify-center lg:justify-start items-center py-12 -ml-12">
                 <div class="flex justify-center items-center flex-col md:ml-32">
                  <div class="flex flex-col lg:flex-row justify-center items-center 2xl:block">
-                     <div class="md:ml-64 lg:ml-0 ">
-                    <img class="lg:ml-60 w-40 h-40 lg:w-48 lg:h-48 mb-12 2xl:ml-72" src="img/Group 20.svg" alt=""/>
+                     <div class="">
+                    <img class="lg:ml-60 w-40 h-40 lg:w-48 lg:h-48 mb-12 2xl:ml-56" src="img/Group 20.svg" alt=""/>
                     </div>
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
-
+       
         <!-- Validation Errors -->
         
 
-        <form method="POST" action="{{ route('login') }}"  class="w-full max-w-sm lg:ml-24">
+        <form method="POST" action="{{ route('login') }}"  class="w-full max-w-sm">
+        <div class="ml-64">
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        </div>
             @csrf
+ <!-- Session Status -->
+
+ <x-auth-session-status class="mb-4" :status="session('status')" />
+
 
             <!-- Email Address -->
             

@@ -6,7 +6,7 @@
             </a>
         </x-slot>
         <div class="w-full flex items-center justify-center">
-        <div class="w-1/2 text-center mb-4 text-2xl text-gray-600">
+        <div class="w-full text-center mb-4 text-2xl text-gray-600 px-24">
             {{ __('Forgot your password? No problem. Once you have verified the code sent to your number, we will redirect you to the password reset page.') }}
         </div>
         </div>
@@ -20,7 +20,7 @@
             @csrf
 
             <!-- Email Address -->
-            <div class="w-full flex items-center justify-center">
+            <div class="w-96 flex items-center justify-center">
                 <x-label for="email" :value="__('Phone')" />
 
                 <x-input id="email" class="block w-72 ml-4" type="tel" name="phone" :value="old('phone')" required autofocus />

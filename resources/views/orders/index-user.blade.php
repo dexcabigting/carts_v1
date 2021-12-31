@@ -8,7 +8,7 @@
         </div>
     </div>
 
-    <div class="max-w-4xl mx-auto">
+    <div class="max-w-2xl mx-2 md:max-w-4xl md:mx-auto">
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">

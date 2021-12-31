@@ -68,7 +68,7 @@
 
                 <div>
                     <!-- Address -->
-                    <div class="block md:flex fle-row">
+                    <div class="block md:flex flex-row">
                         <div class="mt-4 ">
                             <x-label :value="__('Region')" />
                             <select wire:model="selectedRegion" class="text-black rounded-lg lg:pr-16 pr-4 w-full">
