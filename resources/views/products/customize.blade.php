@@ -85,6 +85,10 @@
 		.border-danger {
 			border:1px solid red !important;
 		}
+
+		a{
+			color: white;
+		}
 	 </style>
   </section> 
 

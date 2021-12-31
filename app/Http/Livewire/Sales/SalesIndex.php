@@ -73,6 +73,9 @@ class SalesIndex extends Component
                                     })
                                 ->where('product_id', 'like', $this->productId);
                         })
+                    ->whereHas('order', function ($query) {
+                        $query->where('status', 'Approved');
+                    })
                     ->where('product_variant_id', 'like', $this->productVariantId)
                     ->where('created_at', '>=', $this->startDate)
                     ->where('created_at', '<=', Carbon::parse($this->endDate)->addDay(1)->toDateString());                    
