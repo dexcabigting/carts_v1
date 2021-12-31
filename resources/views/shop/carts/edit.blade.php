@@ -80,14 +80,11 @@
             <input type="hidden" wire:model.defer="cartItems.{{ $index }}.id">
 
             <div class="">
-                <select wire:model="cartItems.{{ $index }}.size" class="border-gray-300 rounded-lg w-full">
-                    @if($cartItems[$index]['size'] == '')
+                <select wire:model.defer="cartItems.{{ $index }}.size" class="border-gray-300 rounded-lg w-full">
                     <option value="">
                         ---
-                    </option>
-                    @endif
-                    
-                    @foreach($cartVariant->product_stock->sizes->toArray() as $column => $value)
+                    </option>                    
+                    @foreach($sizes->sizes->toArray() as $column => $value)
                         @if($value > 0)
                         <option value="{{ $column }}">
                             {{ $column }}
