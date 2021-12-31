@@ -76,7 +76,7 @@
 
     <form wire:submit.prevent="update">
         @foreach($cartItems as $index => $cartItem)
-        <div class="grid grid-cols-4 justify-items-center gap-3 pb-3" wire:key="{{ $loop->index }}">
+        <div class="grid grid-cols-4 justify-items-center gap-3 pb-3" wire:key="{{ $loop->index }}-cart-item">
             <input type="hidden" wire:model.defer="cartItems.{{ $index }}.id">
 
             <div class="">
