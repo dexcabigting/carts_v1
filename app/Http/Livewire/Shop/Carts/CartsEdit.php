@@ -122,7 +122,9 @@ class CartsEdit extends Component
 
     public function deleteItems($deleteExistingItems)
     {
-        CartItem::destroy($deleteExistingItems);
+        $cartItems = CartItem::whereIn('id', $deleteExistingItems)->get();
+
+        $cartItems->each->forceDelete();
     }
 
     public function addMore()
