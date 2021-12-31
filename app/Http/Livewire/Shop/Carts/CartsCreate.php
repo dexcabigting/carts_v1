@@ -154,7 +154,7 @@ class CartsCreate extends Component
 
                 $this->totalAmount  = $this->productPrice;
 
-                session()->flash('success', 'Cart has been created successfully!'); 
+                session()->flash('success', 'Cart has been successfully created!'); 
             });
         } catch(Exception $error) {
             session()->flash('fail', 'An error occured! ' . $error);
