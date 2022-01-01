@@ -119,7 +119,7 @@
 
                 <div class="flex justify-center mt-4 gap-5 pb-5">
                     <div>
-                        <x-button class="bg-red-500 text-2xl py-2 font-bold px-3 xl:px-12" type="button" wire:click.prevent="closeCartModal()">
+                        <x-button type="button" wire:click.prevent="closeCartModal" class="bg-red-500 text-2xl py-2 font-bold px-3 xl:px-12">
                             {{ __('Close') }}
                         </x-button>
                     </div>
