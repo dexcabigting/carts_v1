@@ -105,7 +105,7 @@ class ShopIndex extends Component
             '2XL'
         ];
 
-        return Product::with('category', 'fabric')
+        return Product::with('category:id,ctgr_name', 'fabric:id,fab_name')
             ->whereHas('product_variants', function ($query) use($sizes) {
                 $query->whereDoesntHave('product_stock', function ($query) use($sizes){
                     foreach($sizes as $size) {
@@ -113,6 +113,7 @@ class ShopIndex extends Component
                     }
                 });
             })
+            ->withSum('product_variants', 'sold_count')
             ->where('prd_name', 'like', $search)
             ->whereBetween('prd_price', [$min, $max])
             ->whereIn('products.category_id', $category)
