@@ -32,6 +32,9 @@
                 @endif
             </div>
         @endforelse
+        <div class="">
+            {{ $comments->links() }}
+        </div>
     </div>
 
     <div>

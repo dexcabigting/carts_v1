@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Shop\Carts;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 
 use App\Models\ProductVariantComment;
 
@@ -14,6 +15,8 @@ use Illuminate\Support\Facades\DB;
 
 class CartsCommentIndex extends Component
 {
+    use WithPagination;
+
     public $variantId = null;
     public $commentId = null;
     public $userComment = "";
@@ -37,7 +40,7 @@ class CartsCommentIndex extends Component
 
     public function render()
     {
-        $comments = $this->comments->get();
+        $comments = $this->comments->paginate(3);
 
         return view('livewire.shop.carts.carts-comment-index', compact('comments'));
     }
@@ -149,6 +152,8 @@ class CartsCommentIndex extends Component
 
     public function newVariantId($variantId): int
     {
+        $this->resetPage();
+
         return $this->variantId = $variantId;
     }
 }
