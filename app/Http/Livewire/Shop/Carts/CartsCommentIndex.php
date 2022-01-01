@@ -24,6 +24,10 @@ class CartsCommentIndex extends Component
         'userComment' => 'required|string|max:150'
     ];
 
+    protected $listeners = [
+        'updatedSelectVariantId' => 'newVariantId'
+    ];
+
     public function mount($variantId)
     {
         // dd($variantId);
@@ -141,5 +145,10 @@ class CartsCommentIndex extends Component
     protected function resetProperties()
     {
         $this->reset(['commentId', 'userComment', 'wireSubmit', 'buttonText']);
+    }
+
+    public function newVariantId($variantId): int
+    {
+        return $this->variantId = $variantId;
     }
 }

@@ -207,4 +207,9 @@ class CartsCreate extends Component
         return auth()->user()->userCart($this->selectVariant)
             ->first()->id;
     }
+
+    public function updatedSelectVariant()
+    {
+        $this->emit('updatedSelectVariantId', $this->selectVariant); 
+    }
 }
