@@ -3,8 +3,9 @@
 namespace App\Http\Livewire\Checkout;
 
 use Livewire\Component;
-use Luigel\Paymongo\Facades\Paymongo;
-use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
+
+// use Luigel\Paymongo\Facades\Paymongo;
 
 use App\Models\Order;
 use App\Models\OrderVariant;
@@ -12,12 +13,15 @@ use App\Models\Cart;
 use App\Models\ProductStock;
 use App\Models\UserAddress;
 
-use LVR\CreditCard\CardNumber;
-use LVR\CreditCard\CardExpirationDate;
-
-use Livewire\WithFileUploads;
+// use LVR\CreditCard\CardNumber;
+// use LVR\CreditCard\CardExpirationDate;
 
 use App\Events\OrderCreated;
+
+use Exception;
+
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class CheckoutIndex extends Component
 {
@@ -30,7 +34,7 @@ class CheckoutIndex extends Component
     public $amount;
     public $paymentMethod;
     public $total;
-    public $isPaymentSuccessful = 0;
+    public $isPaymentSuccessful = false;
     public $discount;
     public $carts = [];
     public $form = [];
