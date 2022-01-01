@@ -148,9 +148,11 @@
             </div>
 
             <div>
-                <x-button class="bg-custom-violet text-xl xl:text-2xl py-3 font-bold xl:py-2 px-3 xl:px-6">
-                    {{ __('Checkout') }}
-                </x-button>
+                <a href="{{ route('checkout.index', [json_encode($this->user_cart)])  }}">
+                    <x-button class="bg-custom-violet text-xl xl:text-2xl py-3 font-bold xl:py-2 px-3 xl:px-6">
+                        {{ __('Checkout') }}
+                    </x-button>
+                </a>
             </div>
         </div>
     </div>
