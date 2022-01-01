@@ -136,7 +136,7 @@
     <div class="">
         <div>
             <h2 class="font-semibold text-l leading-tight ">
-                {{ __('Variant already in Cart') }}
+                Variant already in <a class="underline" href="{{ route('carts.index') }}">Cart</a>
             </h2>
         </div>
         
