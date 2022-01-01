@@ -17,7 +17,8 @@ class ProductVariant extends Model
         'product_id',
         'prd_var_name',
         'front_view',
-        'back_view'
+        'back_view',
+        'sold_count'
     ];
 
     protected $dates = [
