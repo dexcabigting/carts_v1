@@ -130,7 +130,7 @@ class CheckoutIndex extends Component
             'home_address' => "",
             // 'postal_code' => "",
             // 'country' => 'PH',
-            'amount' => "",
+            'amount' => 00.00,
             'type' => "",
             'proof' => null,
         ];
@@ -140,12 +140,13 @@ class CheckoutIndex extends Component
     {
         $userAddress = $this->user_address->first();
 
+        $this->form['amount'] = number_format($this->total, 2, ".", "");
+
         if (!$this->renderedAddress) {
             $this->form['province'] = $userAddress->province;
             $this->form['city'] = $userAddress->city;
             $this->form['barangay'] = $userAddress->barangay;
             $this->form['home_address'] = $userAddress->home_address;
-            $this->form['amount'] = number_format($this->total, 2, ".", "");
 
             $this->renderedAddress = true;
         }
