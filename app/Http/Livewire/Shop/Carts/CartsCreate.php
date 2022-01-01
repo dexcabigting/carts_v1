@@ -201,4 +201,10 @@ class CartsCreate extends Component
             $query->where('product_variant_id', $this->selectVariant);
         })->exists();
     }
+
+    public function getUserCartProperty(): int
+    {
+        return auth()->user()->userCart($this->selectVariant)
+            ->first()->id;
+    }
 }
