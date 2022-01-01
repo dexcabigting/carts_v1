@@ -94,8 +94,8 @@ class CheckoutIndex extends Component
 
         $this->productsAndVariants = [
             0 => [
-                'product' => '',
-                'variant' => '',
+                'product' => "",
+                'variant' => "",
             ],
         ];
 
@@ -121,18 +121,18 @@ class CheckoutIndex extends Component
                                     ->first()->id; 
 
         $this->form = [
-            'name' => auth()->user()->name,
-            'email' => auth()->user()->email,
-            'phone' => auth()->user()->phone,
-            'province' => '',
-            'city' => '',
-            'barangay' => '',
-            'home_address' => '',
-            // 'postal_code' => '',
+            'name' => (string)auth()->user()->name,
+            'email' => (string)auth()->user()->email,
+            'phone' => (string)auth()->user()->phone,
+            'province' => "",
+            'city' => "",
+            'barangay' => "",
+            'home_address' => "",
+            // 'postal_code' => "",
             // 'country' => 'PH',
-            'amount' => '',
-            'type' => '',
-            'proof' => '',
+            'amount' => "",
+            'type' => "",
+            'proof' => null,
         ];
     }
 
