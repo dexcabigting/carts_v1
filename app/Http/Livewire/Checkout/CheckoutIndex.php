@@ -388,12 +388,12 @@ class CheckoutIndex extends Component
                 'amount' => $cartToBeMoved->product_variant->product->prd_price,
             ]);
 
-            $productStock = ProductStock::where('product_variant_id', $cartToBeMoved->product_variant_id)->first();
-            $userCartItem = auth()->user()->carts()->where('id', $cartToBeMoved->id)->first()->cartItemSizes()->toArray();
+            // $productStock = ProductStock::where('product_variant_id', $cartToBeMoved->product_variant_id)->first();
+            // $userCartItem = auth()->user()->carts()->where('id', $cartToBeMoved->id)->first()->cartItemSizes()->toArray();
 
-            foreach($userCartItem as $size => $qty) {
-                $productStock->decrement($size, $qty);
-            }
+            // foreach($userCartItem as $size => $qty) {
+            //     $productStock->decrement($size, $qty);
+            // }
 
             foreach($cartToBeMoved->cart_items as $cartItem) {
                 $newOrderVariant->order_items()->create([
