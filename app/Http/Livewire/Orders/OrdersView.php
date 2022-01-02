@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Orders;
 
-use App\Events\OrderStatusUpdated;
 use Livewire\Component;
+
+use App\Events\OrderStatusUpdated;
+
 use App\Models\Order;
 
 class OrdersView extends Component
