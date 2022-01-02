@@ -7,6 +7,9 @@ use Livewire\Component;
 use App\Events\OrderStatusUpdated;
 
 use App\Models\Order;
+use App\Models\OrderVariant;
+use App\Models\ProductVariant;
+use App\Models\ProductStock;
 
 use Twilio\Rest\Client;
 
@@ -79,7 +82,9 @@ class OrdersView extends Component
                     'status' => $this->selectedStatus,
                 ]);
 
-                if($this->selectedStatus == "Shipping") {
+                if($this->selectedStatus == "Approved") {
+                    $this->updateStocks();
+                } elseif($this->selectedStatus == "Shipping") {
                     $this->validate();
 
                     $this->textUser();
@@ -121,8 +126,6 @@ class OrdersView extends Component
         $date = Carbon::parse($this->dateOfArrival)->toFormattedDateString();
         $message = "Hello! " . $name . ", your order is expected to arrive in " . $date . ' - EJ Ezon';
 
-        // dd($name, $phone);
-
         $accountSid = env('TWILIO_SID');
         $authToken = env('TWILIO_TOKEN');
         $twilioNumber = env('TWILIO_FROM');
@@ -137,4 +140,32 @@ class OrdersView extends Component
             ]
         );
     }   
+
+    protected function updateStocks()
+    {
+        $orderId = $this->orderId;
+
+        $orderVariants = OrderVariant::where('order_id', $orderId)->get();
+
+        $orderVariants->each(function($orderVariant) {
+            $variant = ProductVariant::where('id', $orderVariant->product_variant_id)->first();
+
+            $productStock = ProductStock::where('product_variant_id', $orderVariant->product_variant_id)->first();
+
+            $orderItems = $orderVariant->orderItemSizes()->toArray();
+
+            foreach($orderItems as $size => $qty) {
+                $productStock->decrement($size, $qty);
+
+                $variant->increment('sold_count', $qty);
+            }
+        });
+
+        // $productStock = ProductStock::where('product_variant_id', $cartToBeMoved->product_variant_id)->first();
+        // $userCartItem = auth()->user()->carts()->where('id', $cartToBeMoved->id)->first()->cartItemSizes()->toArray();
+
+        // foreach($userCartItem as $size => $qty) {
+        //     $productStock->decrement($size, $qty);
+        // }
+    }
 }
