@@ -129,20 +129,12 @@ class OrdersView extends Component
 
         $client = new Client($accountSid, $authToken);
 
-        try {
-            $client->messages->create(
-                $phone,
-                [
-                    "body" => $message,
-                    "from" => $twilioNumber
-                ]
-            );
-            Log::info('Message sent to ' . $phone);
-        } catch(TwilioException $e) {
-            Log::error(
-                'Could not send SMS notification.' .
-                ' Twilio replied with: ' . $e
-            );
-        }
+        $client->messages->create(
+            "+" . $phone,
+            [
+                "body" => $message,
+                "from" => $twilioNumber
+            ]
+        );
     }   
 }
