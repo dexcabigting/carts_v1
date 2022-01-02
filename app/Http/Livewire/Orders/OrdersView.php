@@ -119,7 +119,7 @@ class OrdersView extends Component
         $name = $this->order->first()->user->name;
         $phone = $this->order->first()->user->phone;
         $date = Carbon::parse($this->dateOfArrival)->toFormattedDateString();
-        $message = "Hello " . $name . ", your order is expected to arrive in " . $date;
+        $message = "Hello! " . $name . ", your order is expected to arrive in " . $date . ' - EJ Ezon';
 
         // dd($name, $phone);
 
