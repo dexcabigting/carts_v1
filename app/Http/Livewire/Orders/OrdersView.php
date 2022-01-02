@@ -10,15 +10,21 @@ use App\Models\Order;
 
 use Twilio\Rest\Client;
 
+use Exception;
+
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
+
 class OrdersView extends Component
 {
     public $orderId;
     public $orderStatuses;
     public $selectedStatus;
-    public $proofOfPayment = 0;
+    public $proofOfPayment = false;
+    public $dateOfArrival;
 
     protected $rules = [
-        'message' => 'required|string|max:160'
+        'dateOfArrival' => 'required|date'
     ];
 
     public function mount($id)
@@ -35,6 +41,8 @@ class OrdersView extends Component
             'Shipping',
             'Delivered',
         ];
+
+        $this->dateOfArrival = now()->toDateString();
 
         // dd($this->orderStatuses);
     }
@@ -63,23 +71,31 @@ class OrdersView extends Component
 
     public function updateStatus()
     {
-        $this->order->update([
-            'status' => $this->selectedStatus,
-        ]);
+        // dd($this->dateOFArrival);
 
-        if($this->selectedStatus == "Shipping") {
-            $this->validate();
+        try {
+            DB::transaction(function() {
+                $this->order->update([
+                    'status' => $this->selectedStatus,
+                ]);
 
-            $this->textUser();
+                if($this->selectedStatus == "Shipping") {
+                    $this->validate();
+
+                    $this->textUser();
+                }
+
+                $order = $this->order->first();
+
+                event(new OrderStatusUpdated($order));
+
+                session()->flash('success', 'User has been notified!');
+
+                $this->emitUp('refreshParent');
+            });
+        } catch(Exception $error) {
+            session()->flash('fail', 'An error occured! ' . $error);
         }
-
-        $order = $this->order->first();
-
-        event(new OrderStatusUpdated($order));
-
-        session()->flash('success', 'User has been notified!');
-
-        $this->emitUp('refreshParent');
     }
 
     public function proofOfPaymentOrCustomerInfo()
@@ -102,13 +118,14 @@ class OrdersView extends Component
     {
         $name = $this->order->first()->user->name;
         $phone = $this->order->first()->user->phone;
-        $message = $this->message;
+        $date = Carbon::parse($this->dateOfArrival)->toFormattedDateString();
+        $message = "Hello " . $name . ", your order is expected to arrive in " . $date;
 
         // dd($name, $phone);
 
-        $accountSid = env('TWILIO_ACCOUNT_SID');
-        $authToken = env('TWILIO_AUTH_TOKEN');
-        $twilioNumber = env('TWILIO_NUMBER');
+        $accountSid = env('TWILIO_SID');
+        $authToken = env('TWILIO_TOKEN');
+        $twilioNumber = env('TWILIO_FROM');
 
         $client = new Client($accountSid, $authToken);
 
@@ -116,7 +133,7 @@ class OrdersView extends Component
             $client->messages->create(
                 $phone,
                 [
-                    "body" => "Hello " . $name . "! ". $message,
+                    "body" => $message,
                     "from" => $twilioNumber
                 ]
             );
