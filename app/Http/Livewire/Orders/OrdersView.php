@@ -24,6 +24,7 @@ class OrdersView extends Component
         $this->selectedStatus = $this->order->first()->status;
 
         $this->orderStatuses = [
+            'Rejected',
             'Pending',
             'Approved',
             'To ship',
