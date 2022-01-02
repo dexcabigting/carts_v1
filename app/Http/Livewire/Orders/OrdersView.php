@@ -8,14 +8,18 @@ use App\Events\OrderStatusUpdated;
 
 use App\Models\Order;
 
+use Twilio\Rest\Client;
+
 class OrdersView extends Component
 {
-    // public $userOrder; 
     public $orderId;
     public $orderStatuses;
     public $selectedStatus;
-    // public $orderDetails = 1;
     public $proofOfPayment = 0;
+
+    protected $rules = [
+        'message' => 'required|string|max:160'
+    ];
 
     public function mount($id)
     {
@@ -24,13 +28,15 @@ class OrdersView extends Component
         $this->selectedStatus = $this->order->first()->status;
 
         $this->orderStatuses = [
-            'Rejected',
             'Pending',
+            'Rejected',
             'Approved',
             'To ship',
             'Shipping',
             'Delivered',
         ];
+
+        // dd($this->orderStatuses);
     }
 
     public function render()
@@ -61,6 +67,12 @@ class OrdersView extends Component
             'status' => $this->selectedStatus,
         ]);
 
+        if($this->selectedStatus == "Shipping") {
+            $this->validate();
+
+            $this->textUser();
+        }
+
         $order = $this->order->first();
 
         event(new OrderStatusUpdated($order));
@@ -85,4 +97,35 @@ class OrdersView extends Component
         
         $this->emitUp('closeViewModal');
     }
+
+    protected function textUser()
+    {
+        $name = $this->order->first()->user->name;
+        $phone = $this->order->first()->user->phone;
+        $message = $this->message;
+
+        // dd($name, $phone);
+
+        $accountSid = env('TWILIO_ACCOUNT_SID');
+        $authToken = env('TWILIO_AUTH_TOKEN');
+        $twilioNumber = env('TWILIO_NUMBER');
+
+        $client = new Client($accountSid, $authToken);
+
+        try {
+            $client->messages->create(
+                $phone,
+                [
+                    "body" => "Hello " . $name . "! ". $message,
+                    "from" => $twilioNumber
+                ]
+            );
+            Log::info('Message sent to ' . $phone);
+        } catch(TwilioException $e) {
+            Log::error(
+                'Could not send SMS notification.' .
+                ' Twilio replied with: ' . $e
+            );
+        }
+    }   
 }
