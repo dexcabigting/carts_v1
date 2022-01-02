@@ -197,9 +197,7 @@ class CartsCreate extends Component
 
     public function getVariantInCartProperty(): bool
     {
-        return auth()->user()->whereHas('carts', function($query) {
-            $query->where('product_variant_id', $this->selectVariant);
-        })->exists();
+        return auth()->user()->carts()->where('product_variant_id', $this->selectVariant)->exists();
     }
 
     public function getUserCartProperty(): int
