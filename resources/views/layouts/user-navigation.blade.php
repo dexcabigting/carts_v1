@@ -64,6 +64,9 @@
 
                         <x-dropdown-link :href="route('notifications.index')" class="font-semibold bg-custom-blacki text-white hover:text-gray-100 focus:text-gray-100 hover:bg-purple-900 focus:bg-custom-violet">
                             {{ __('Notifications') }}
+                            <div wire:key="{{ mt_rand(00, 99) }}-dropdown-notif" class="float-right">
+                                @livewire('notifications.notifications-counter')
+                            </div>
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -129,6 +132,9 @@
 
                 <x-responsive-nav-link :href="route('notifications.index')">
                     {{ __('Notifications') }}
+                    <div wire:key="{{ mt_rand(00, 99) }}-responsive-notif">
+                        @livewire('notifications.notifications-counter')
+                    </div> 
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
