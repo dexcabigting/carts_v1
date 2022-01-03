@@ -46,4 +46,9 @@ class OrderVariant extends Model
     {
         return $this->amount * $this->order_items()->count();
     }
+
+    public function orderItemSizes()
+    {
+        return $this->hasMany(OrderItem::class)->pluck('size')->countBy();
+    }
 }

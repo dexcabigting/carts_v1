@@ -119,7 +119,7 @@
 
                 <div class="flex justify-center mt-4 gap-5 pb-5">
                     <div>
-                        <x-button class="bg-red-500 text-2xl py-2 font-bold px-3 xl:px-12" type="button" wire:click.prevent="closeCartModal()">
+                        <x-button type="button" wire:click.prevent="closeCartModal" class="bg-red-500 text-2xl py-2 font-bold px-3 xl:px-12">
                             {{ __('Close') }}
                         </x-button>
                     </div>
@@ -133,16 +133,27 @@
             </form>
         </div>
     @else
-    <div class="flex justify-around">
+    <div class="">
         <div>
             <h2 class="font-semibold text-l leading-tight ">
-                {{ __('Variant already in Cart') }}
+                Variant already in <a class="underline" href="{{ route('carts.index') }}">Cart</a>
             </h2>
         </div>
-        <div>
-            <x-button class="bg-red-500 text-2xl py-2 font-bold px-3 xl:px-12" type="button" wire:click.prevent="closeCartModal()">
-                {{ __('Close') }}   
-            </x-button>
+        
+        <div class="flex justify-center mt-4 gap-5 pb-5">
+            <div>
+                <x-button type="button" wire:click.prevent="closeCartModal" class="bg-red-500 text-2xl py-2 font-bold px-3 xl:px-12">
+                    {{ __('Close') }}
+                </x-button>
+            </div>
+
+            <div>
+                <a href="{{ route('checkout.index', [json_encode($this->user_cart)])  }}">
+                    <x-button class="bg-custom-violet text-xl xl:text-2xl py-3 font-bold xl:py-2 px-3 xl:px-6">
+                        {{ __('Checkout') }}
+                    </x-button>
+                </a>
+            </div>
         </div>
     </div>
     @endif

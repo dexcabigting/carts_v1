@@ -53,10 +53,10 @@ use App\Http\Controllers\TestController;
 */
 
 // Landing Page
-Route::view('/', 'welcome');
+Route::view('/', 'welcome')->name('welcome');
 
 // Testing Page
-Route::get('/test', [TestController::class, 'index']);
+// Route::get('/test', [TestController::class, 'index']);
 
 // About Us
 Route::get('/about-us', [AboutUsController::class, 'index'])->name('about-us');

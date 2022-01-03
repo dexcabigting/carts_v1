@@ -24,17 +24,17 @@
 
                         <div>
                             <x-label :value="__('Name')" />
-                            <x-input wire:model="form.name" class="block mt-1 w-full text-black" type="text" autofocus required />
+                            <x-input wire:model="form.name" class="block mt-1 w-full text-black" type="text" disabled autofocus required />
                         </div>
 
                         <div>
                             <x-label :value="__('Email')" />
-                            <x-input wire:model="form.email" class="block mt-1 w-full text-black" type="email" required />
+                            <x-input wire:model="form.email" class="block mt-1 w-full text-black" type="email" disabled required />
                         </div>
 
                         <div>
                             <x-label :value="__('Phone')" />
-                            <x-input wire:model="form.phone" class="block mt-1 w-full text-black" type="text" required />
+                            <x-input wire:model="form.phone" class="block mt-1 w-full text-black" type="text" disabled required />
                         </div>
                     @elseif($isPaymentSuccessful == 0)
                         <div>
@@ -64,22 +64,22 @@
                     
                     <div>
                         <x-label :value="__('Province')" />
-                        <x-input disabled wire:model="form.province" class="block mt-1 w-full " type="text" autofocus required />
+                        <x-input wire:model="form.province" class="block mt-1 w-full " type="text" disabled autofocus required />
                     </div>
 
                     <div>
                         <x-label :value="__('City')" />
-                        <x-input disabled wire:model="form.city" class="block mt-1 w-full " type="text" autofocus required />
+                        <x-input wire:model="form.city" class="block mt-1 w-full " type="text" disabled autofocus required />
                     </div>
 
                     <div>
                         <x-label :value="__('Barangay')" />
-                        <x-input disabled wire:model="form.barangay" class="block mt-1 w-full " type="text" autofocus required />
+                        <x-input wire:model="form.barangay" class="block mt-1 w-full " type="text" disabled autofocus required />
                     </div>
 
                     <div>
                         <x-label :value="__('Home Address')" />
-                        <x-input disabled wire:model="form.home_address" class="block mt-1 w-full " type="text" autofocus required />
+                        <x-input wire:model="form.home_address" class="block mt-1 w-full " type="text" disabled autofocus required />
                     </div>
                 @elseif($pages === 3)
                     <div class="bg-white relative">
@@ -92,7 +92,7 @@
 
                     <div>
                         <x-label :value="__('Amount')" />
-                        <x-input wire:model="form.amount" placeholder="Enter amount" class="block mt-1 w-full" type="text" required />
+                        <x-input wire:model.defer="form.amount" placeholder="Enter amount" class="block mt-1 w-full" type="text" required />
                     </div>
 
                     <div>

@@ -35,7 +35,7 @@ class AuthenticatedSessionController extends Controller
         if(auth()->user()->role_id == 1)    {
             return redirect()->intended(RouteServiceProvider::HOME);
         } else {
-            return redirect()->route('shop.index');
+            return redirect()->intended('shop.index');
         }
 
 

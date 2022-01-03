@@ -2,6 +2,7 @@
     <div class="flex flex-col gap-5 p-5 align-middle inline-block ">
         <div>
             <x-success-fail-message />
+            <x-validation-errors />
         </div>
 
         <div class="relative bg-custom-blacki text-xl font-extrabold text-center text-white p-5 sm:rounded-lg">
@@ -76,7 +77,7 @@
                                 </div>  
                             </td>
 
-                            <td class="md:px-6 py-4 whitespace-nowrap">
+                            <td class="md:px-6 py-4 whitespace-nowrap text-right">
                                 <div class="text-sm font-medium text-gray-900">
                                     @php
                                         $amount = 0;
@@ -199,15 +200,24 @@
                                 </div>
                             </td>
 
-                            <td class="md:px-6 py-4 whitespace-nowrap text-right" colspan="3">
-                                <div class="text-sm font-medium text-gray-900">
-                                    <select wire:model="selectedStatus">
-                                        @foreach($orderStatuses as $index => $orderStatus)
-                                            <option value="{{ $orderStatus }}">
-                                                {{ $orderStatus }} 
-                                            </option>
-                                        @endforeach
-                                    </select>
+                            <td class="md:px-6 py-4 whitespace-nowrap" colspan="3">
+                                <div class="flex flex-row text-sm font-medium text-gray-900 gap-5">
+                                    <div class="w-1/2">
+                                        <select wire:model="selectedStatus">
+                                            @foreach($orderStatuses as $index => $orderStatus)
+                                                <option value="{{ $orderStatus }}">
+                                                    {{ $orderStatus }} 
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    @if($selectedStatus == "Shipping")
+                                    <div class="flex flex-row gap-5 items-center w-1/2">
+                                        <x-label class="text-gray-900" value="Date of Arrival" />
+                                        <x-input wire:model.defer="dateOfArrival" type="date" min="{{ now()->toDateString() }}" />
+                                    </div>
+                                    @endif
                                 </div>
                             </td>
                         </tr>

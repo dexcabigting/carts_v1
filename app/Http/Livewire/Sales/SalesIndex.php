@@ -74,7 +74,10 @@ class SalesIndex extends Component
                                 ->where('product_id', 'like', $this->productId);
                         })
                     ->whereHas('order', function ($query) {
-                        $query->where('status', 'Approved');
+                        $query->where(function ($query) {
+                            $query->where('status', '!=', 'Rejected')
+                                ->orWhere('status', '!=', 'Pending');
+                        });
                     })
                     ->where('product_variant_id', 'like', $this->productVariantId)
                     ->where('created_at', '>=', $this->startDate)
@@ -87,7 +90,14 @@ class SalesIndex extends Component
                 ->where('category_id', 'like', $this->categoryId)
                 ->where('fabric_id', 'like', $this->fabricId)
                 ->whereHas('product_variants', function ($query) {
-                    $query->whereHas('order_variants');   
+                    $query->whereHas('order_variants', function ($query) {
+                        $query->whereHas('order', function ($query) {
+                            $query->where(function ($query) {
+                                $query->where('status', '!=', 'Rejected')
+                                    ->orWhere('status', '!=', 'Pending');
+                            });
+                        });
+                    });   
                 });
     }
 
