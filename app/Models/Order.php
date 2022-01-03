@@ -21,7 +21,8 @@ class Order extends Model
         'payment_proof',
         'transaction_fee',
         'discount',
-        'status'
+        'status',
+        'date_of_arrival'
     ];
 
     protected $dates = [
