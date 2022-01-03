@@ -34,7 +34,7 @@ class ProductStock extends Model
 
     public function getSizesAttribute()
     {
-        return $this->makeHidden(['id', 'product_variant_id', 'created_at', 'updated_at']);
+        return $this->makeHidden(['id', 'product_variant_id', 'created_at', 'updated_at', 'deleted_at']);
     }
 
     public function getQuantityAttribute()
