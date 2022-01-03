@@ -181,9 +181,12 @@
           </div>
 
         </div>
-        <button
-          class="hover:bg-purple-900 hover:text-purple-100 text-2xl md:text-4xl font-semibold text-white py-6 lg:px-2 lg:py-6 uppercase bg-custom-violet">Get
-          yours now</button>
+        <a href="{{ route('shop.index') }}">
+          <button
+            class="hover:bg-purple-900 hover:text-purple-100 text-2xl md:text-4xl font-semibold text-white py-6 lg:px-2 lg:py-6 uppercase bg-custom-violet">Get
+            yours now
+          </button>
+        </a>
       </div>
 
     </div>
@@ -198,12 +201,15 @@
   </section>
   <div class="flex flex-col justify-center items-center">
     <img class="w-1/2" src="img/Group 15.png" alt="">
-    <button
-      class="hover:bg-purple-900 hover:text-purple-100 text-2xl md:text-4xl font-semibold text-white my-12 px-10 py-6 uppercase bg-custom-violet">CUSTOMIZE
-      YOURS NOW</button>
+    <a href="{{ route('products.customize') }}">
+      <button
+        class="hover:bg-purple-900 hover:text-purple-100 text-2xl md:text-4xl font-semibold text-white my-12 px-10 py-6 uppercase bg-custom-violet">CUSTOMIZE
+        YOURS NOW
+      </button>
+    </a>
   </div>
   <section class="relative flex justify-center items-center my-24">
-    <h1 class="text-7xl md:text-9xl text-custom-text font-extrabold  top-2">SHOP NOW</h1>
+    <h1 class="text-7xl md:text-9xl text-custom-text font-extrabold  top-2"><a href="{{ route('shop.index') }}">SHOP NOW</a></h1>
     <img class="w-1/2 absolute top-12" src="img/Group 19.png" alt="">
   </section>
   <div class="relative md:h-screen">
