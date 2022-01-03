@@ -209,7 +209,7 @@
     </a>
   </div>
   <section class="relative flex justify-center items-center my-24">
-    <h1 class="text-7xl md:text-9xl text-custom-text font-extrabold  top-2"><a href="{{ route('shop.index') }}">SHOP NOW</a></h1>
+    <h1 class="text-7xl md:text-9xl text-custom-text font-extrabold  top-2">SHOP NOW</h1>
     <img class="w-1/2 absolute top-12" src="img/Group 19.png" alt="">
   </section>
   <div class="relative md:h-screen">
@@ -218,9 +218,12 @@
         <p class="text-2xl text-gray-100 text-left font-semibold">CHOOSE WHAT YOU WEAR</p>
         <h1 class="text-5xl md:text-6xl lg:text-9xl text-gray-100 text-center font-extrabold">VISIT OUR SHOP</h1>
 
-        <button
-          class="my-12 hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 uppercase bg-custom-violet">SHOP
-          NOW</button>
+        <a href="{{ route('shop.index') }}">
+          <button
+            class="my-12 hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 uppercase bg-custom-violet">SHOP
+            NOW
+          </button>
+        </a>
       </div>
     </div>
 
