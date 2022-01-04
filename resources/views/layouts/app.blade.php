@@ -22,6 +22,7 @@
         <!-- JQuery -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
         
+        @livewireAssets
         @livewireStyles
     </head>
     <body class="font-Raleway antialiased bg-custom-black">
@@ -41,7 +42,7 @@
            
             </div>
         </div>
-        @livewireAssets(['base_url' => ENV('APP_URL'));
+        
        
         @livewireScripts
     </body>
