@@ -225,10 +225,11 @@ class OrdersView extends Component
         $this->order->delete();
     }
 
-    protected function notifyUser()
+    public function notifyUser()
     {
         $order = $this->order->first();
 
+        dd($order);
         event(new OrderStatusUpdated($order));
     }
 
