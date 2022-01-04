@@ -41,7 +41,7 @@
            
             </div>
         </div>
-        {{-- @livewireAssets(['base_url' => ENV('APP_URL')); --}}
+        @livewireAssets(['base_url' => ENV('APP_URL'));
        
         @livewireScripts
     </body>
