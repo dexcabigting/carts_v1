@@ -86,12 +86,13 @@ class OrdersView extends Component
 
     public function updateStatus()
     {
-        if($this->selectedStatus == $this->order->first()->status) {
-            session()->flash('fail', 'Please select another order status.');
-            return;
-        } 
         try {
             DB::transaction(function() {
+                if($this->selectedStatus == $this->order->first()->status) {
+                    session()->flash('fail', 'Please select another order status.');
+                    return;
+                } 
+
                 $this->order->update([
                     'status' => $this->selectedStatus,
                 ]);
