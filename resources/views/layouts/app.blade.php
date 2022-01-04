@@ -17,12 +17,11 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/app.js') }}"></script>
 
         <!-- JQuery -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
         
-        @livewireAssets
         @livewireStyles
     </head>
     <body class="font-Raleway antialiased bg-custom-black">
