@@ -115,8 +115,6 @@ class OrdersView extends Component
                     }
 
                     session()->flash('success', 'User has been notified!');
-
-                    $this->emitUp('refreshParent'); 
                 });
             } catch(Exception $error) {
                 if($error->getMessage()) {
@@ -126,6 +124,8 @@ class OrdersView extends Component
                 }   
             }  
         }
+
+        $this->emitUp('refreshParent'); 
     }
 
     public function proofOfPaymentOrCustomerInfo()
