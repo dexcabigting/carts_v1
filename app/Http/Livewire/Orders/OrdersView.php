@@ -37,12 +37,12 @@ class OrdersView extends Component
         $this->selectedStatus = $this->order->first()->status;
 
         $this->orderStatuses = [
-            'Pending',
-            'Rejected',
-            'Approved',
-            'To ship',
-            'Shipping',
-            'Delivered',
+            "Pending",
+            "Rejected",
+            "Approved",
+            "To ship",
+            "Shipping",
+            "Delivered",
         ];
 
         $key = array_search($this->selectedStatus, $this->orderStatuses);
