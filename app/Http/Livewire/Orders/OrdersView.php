@@ -60,7 +60,7 @@ class OrdersView extends Component
     {
         $userOrder = $this->order->first();
 
-        dd($userOrder);
+        // dd($userOrder);
 
         return view('livewire.orders.orders-view', compact('userOrder'));
     }
