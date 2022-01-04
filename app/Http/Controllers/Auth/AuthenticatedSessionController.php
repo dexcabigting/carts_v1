@@ -33,7 +33,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if(auth()->user()->role_id == 1)    {
-            return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->intended(route('dashboard'));
         } else {
             return redirect()->intended(route('shop.index'));
         }
