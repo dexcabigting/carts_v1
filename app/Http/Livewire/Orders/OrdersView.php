@@ -89,43 +89,44 @@ class OrdersView extends Component
         if($this->selectedStatus == $this->order->first()->status) {
             session()->flash('fail', 'Please select another order status.');
             return;
-        } else {
-            try {
-                DB::transaction(function() {
-                    $this->order->update([
-                        'status' => $this->selectedStatus,
-                    ]);
+        } 
+        try {
+            DB::transaction(function() {
+                $this->order->update([
+                    'status' => $this->selectedStatus,
+                ]);
 
-                    $this->notifyUser();
+                $this->notifyUser();
 
-                    if($this->selectedStatus == "Approved") {
-                        $this->checkStocks();
+                if($this->selectedStatus == "Approved") {
+                    $this->checkStocks();
 
-                        $this->updateStocks();
-                    } elseif($this->selectedStatus == "Shipping") {
-                        $this->validate();
+                    $this->updateStocks();
+                } elseif($this->selectedStatus == "Shipping") {
+                    $this->validate();
 
-                        $this->assignDateOfArrival();
+                    $this->assignDateOfArrival();
 
-                        $this->textUser();
-                    } elseif($this->selectedStatus == "Rejected") {
-                        $this->deleteUserOrder();
+                    $this->textUser();
+                } elseif($this->selectedStatus == "Rejected") {
+                    $this->deleteUserOrder();
 
-                        $this->textUser();
-                    }
+                    $this->textUser();
+                }
 
-                    session()->flash('success', 'User has been notified!');
-                });
-            } catch(Exception $error) {
-                if($error->getMessage()) {
-                    session()->flash('fail', $error->getMessage());
-                } else {
-                    session()->flash('fail', 'An error occured! ' . $error);
-                }   
-            }  
-        }
+                $this->mount($this->order->first()->id);
 
-        $this->emitUp('refreshParent'); 
+                $this->emitUp('refreshParent'); 
+
+                session()->flash('success', 'User has been notified!');
+            });
+        } catch(Exception $error) {
+            if($error->getMessage()) {
+                session()->flash('fail', $error->getMessage());
+            } else {
+                session()->flash('fail', 'An error occured! ' . $error);
+            }   
+        }  
     }
 
     public function proofOfPaymentOrCustomerInfo()
