@@ -65,15 +65,9 @@ class OrdersView extends Component
         return view('livewire.orders.orders-view', compact('userOrder'));
     }
 
-    public function notifyUser()
-    {
-        $order = $this->order->first();
-        
-        event(new OrderStatusUpdated($order));
-    }
-
     public function getOrderProperty()
     {
+        // dd($this->orderId);
         // if(auth()->user()->role_id == 1) {
             return Order::where('id', $this->orderId)
                             ->with(['user:id,name,email,phone', 
@@ -102,12 +96,14 @@ class OrdersView extends Component
                     return;
                 } 
 
-                $this->order->update([
-                    'status' => $this->selectedStatus,
-                ]);
+                $updatedOrderStatus = $this->order->first();
+
+                $updatedOrderStatus->status = $this->selectedStatus;
+
+                $updatedOrderStatus->save();
 
                 $this->notifyUser();
-
+            
                 if($this->selectedStatus == "Approved") {
                     $this->checkStocks();
 
@@ -124,7 +120,7 @@ class OrdersView extends Component
                     $this->textUser();
                 }
 
-                $this->mount($this->order->first()->id);
+                $this->mount($updatedOrderStatus->id);
 
                 $this->emitUp('refreshParent'); 
 
@@ -237,5 +233,12 @@ class OrdersView extends Component
     public function assignDateOfArrival()
     {
         $this->order->update(['date_of_arrival' => $this->dateOfArrival]);
+    }
+
+    public function notifyUser()
+    {
+        $order = $this->order->first();
+
+        event(new OrderStatusUpdated($order));
     }
 }
