@@ -65,6 +65,13 @@ class OrdersView extends Component
         return view('livewire.orders.orders-view', compact('userOrder'));
     }
 
+    public function notifyUser()
+    {
+        $order = $this->order->first();
+        
+        event(new OrderStatusUpdated($order));
+    }
+
     public function getOrderProperty()
     {
         // if(auth()->user()->role_id == 1) {
@@ -225,14 +232,6 @@ class OrdersView extends Component
     protected function deleteUserOrder()
     {
         $this->order->delete();
-    }
-
-    public function notifyUser()
-    {
-        $order = $this->order->first();
-
-        
-        event(new OrderStatusUpdated($order));
     }
 
     public function assignDateOfArrival()
