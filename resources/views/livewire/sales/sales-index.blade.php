@@ -1,3 +1,9 @@
 <div class="w-full p-20">
-    @include('sales.index')
+    @if($premadeOrCustom == "Premade")
+        @livewire('sales.premade-sales-index')
+    @else
+        <div class="text-white">    
+            Hello
+        </div>
+    @endif
 </div>
