@@ -1,5 +1,6 @@
-<div class="h-screen pt-20 lg:pt-40 xl:pl-2 2xl:pl-56 w-full flex flex-col">
-     <div class="flex items-center justify-center">
+<div class="flex justify-center items-center w-full pt-24 lg:pt-32 xl:pt-12 2xl:pt-24 2xl:pl-56">
+<div class ="h-full lg:pl-0 xl:pl-64 ">
+<div class="flex flex-col items-center justify-center">
         <div class="w-full">
             <div class="inline-flex">
                 <div class="inline-flex ml-5 lg:ml-2 xl:ml-2 2xl:ml-0 mb-4 px-6 p-7 bg-custom-blacki shadow-2xl overflow-x-auto">
@@ -74,7 +75,7 @@
         </div>
     </div>
 
-    <div class="max-w-md lg:max-w-5xl xl:max-w-6xl 2xl:ml-0 lg:ml-1  ml-5">
+    <div class="max-w-sm lg:max-w-5xl xl:max-w-6xl 2xl:ml-0 lg:ml-1 ml-10">
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">
@@ -191,4 +192,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

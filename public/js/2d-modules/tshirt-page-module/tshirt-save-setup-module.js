@@ -56,6 +56,8 @@ _selectedFabricType = "Spandex",
 _selectedTshirtType = "Short Sleeve Shirts",
 _baseSixtyFourPDF = EMPTY_STRING;
 
+
+_isSave = FALSE;
 // API Methods
 
 function _insertShirtSetup(data){
@@ -121,37 +123,42 @@ function _onClickTshirtType(e){
 }
 
 function _onClickBtnSave(){
-    let customContainer = $(_getClassSelector(CUSTOM_DESIGN_CONTAINER)),
-        customContainerAttribute = customContainer.attr(HIDDEN);
 
-    let isCustom = (typeof (customContainerAttribute) !== typeof undefined
-                && customContainerAttribute !== false);
+    if(!_isSave){
+        $(_getIdSelector(FLIPBACK_ID)).trigger(CLICK_EVENT);
 
-    if(!isCustom)
-        _createtshirtPDF();
-    
-    setTimeout(function() {
-        var token = $(CSRF_MODULE).attr(CONTENT);
+        let customContainer = $(_getClassSelector(CUSTOM_DESIGN_CONTAINER)),
+            customContainerAttribute = customContainer.attr(HIDDEN);
+
+        let isCustom = (typeof (customContainerAttribute) !== typeof undefined
+                    && customContainerAttribute !== false);
+
+        if(!isCustom)
+            _createtshirtPDF();
         
-        var tshirtSetup = {};
+        setTimeout(function() {
+            var token = $(CSRF_MODULE).attr(CONTENT);
+            
+            var tshirtSetup = {};
 
-        var jersey_measurements = {
-            Neck: _getFieldTextValue(NECK_ID),
-            Chest: _getFieldTextValue(CHEST_ID),
-            Stomach: _getFieldTextValue(STOMACH_ID),
-            Waist: _getFieldTextValue(WAIST_ID),
-            Hip: _getFieldTextValue(HIP_ID),
-            ShirtLength: _getFieldTextValue(SHIRT_LENGTH_ID),
-            Shoulder: _getFieldTextValue(SHOULDER_ID),
-            Bicep: _getFieldTextValue(BICEP_ID)
+            var jersey_measurements = {
+                Neck: _getFieldTextValue(NECK_ID),
+                Chest: _getFieldTextValue(CHEST_ID),
+                Stomach: _getFieldTextValue(STOMACH_ID),
+                Waist: _getFieldTextValue(WAIST_ID),
+                Hip: _getFieldTextValue(HIP_ID),
+                ShirtLength: _getFieldTextValue(SHIRT_LENGTH_ID),
+                Shoulder: _getFieldTextValue(SHOULDER_ID),
+                Bicep: _getFieldTextValue(BICEP_ID)
+            };
+            
+            var short_measurements = {
+                Waist: _getFieldTextValue(SHORT_WAIST_ID),
+                Inseam: _getFieldTextValue(INSEAM_ID),
+                Outseam: _getFieldTextValue(OUTSEAM_ID)
         };
-        
-        var short_measurements = {
-            Waist: _getFieldTextValue(SHORT_WAIST_ID),
-            Inseam: _getFieldTextValue(INSEAM_ID),
-            Outseam: _getFieldTextValue(OUTSEAM_ID)
-        };
-
+            
+   
         if(!isCustom){
             var tshirtColor = $(_getIdSelector(TSHIRT_CONTAINER_ID)).css(BACKGROUND_COLOR);
 
@@ -207,6 +214,10 @@ function _onClickBtnSave(){
         }
 
     },2600);	
+
+         _isSave = TRUE;
+
+    }
 }
 
 function _createtshirtPDF(){
@@ -221,10 +232,10 @@ function _createtshirtPDF(){
 
     if (imgUrl === "images/2d-img/jersey3.png")
         _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/jersey3.png",baseUrl + "images/2d-img/jersey4back.png");
-    else if (imgUrl === "images/2d-img/mens_longsleeve_front.png")
-        _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/mens_longsleeve_front.png",baseUrl + "images/2d-img/mens_longsleeve_back.png");
-    else if (imgUrl === "images/2d-img/mens_tank_front.png")
-        _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/mens_tank_front.png",baseUrl + "images/2d-img/mens_tank_back.png");
+    else if (imgUrl === "images/2d-img/jersey2front.PNG")
+        _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/jersey2front.PNG",baseUrl + "images/2d-img/jersey2back.PNG");
+    else if (imgUrl === "images/2d-img/Design1front.png")
+        _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/Design1front.png",baseUrl + "images/2d-img/Design1back.png");
     else if (imgUrl === "images/2d-img/mens_hoodie_front.png")
         _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/mens_hoodie_front.png",baseUrl + "images/2d-img/mens_hoodie_back.png");
         

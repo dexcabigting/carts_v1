@@ -1,8 +1,9 @@
-<div class="h-screen pt-20 lg:pl-16 lg:pt-24  2xl:pl-72 w-full flex flex-col">
-    <div class="pt-12 pb-6">
-        <div class="max-w-md lg:ml-0 ml-4 lg:max-w-5xl mx-auto">
+<div class="flex justify-center items-center w-full pt-24 lg:pt-32 xl:pt-24 2xl:pt-44 pl-6 lg:pl-10 xl:pl-80">
+<div class ="h-full 2xl:pl-56">
+<div class="flex flex-col items-center justify-center">
+        <div class="max-w-m lg:ml-0 ml-4 lg:max-w-5xl mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex items-center justify-center flex-col md:flex-row gap-5 p-6 bg-custom-blacki shadow-2xl overflow-x-auto">
+                <div class="flex items-center justify-center flex-col md:flex-row gap-5 px-14 lg:px-44 py-6 bg-custom-blacki shadow-2xl overflow-x-auto">
                      <!-- Order By -->
                     <div class="px-4">
                         <div class="flex flex-col xl:flex-row text-sm font-medium text-gray-100 py-4">
@@ -50,7 +51,7 @@
         </div>
     </div>
 
-    <div class="max-w-md lg:max-w-4xl xl:max-w-5xl lg:ml-0 ml-4 lg:overflow-auto">
+    <div class="max-w-sm lg:max-w-4xl xl:max-w-5xl lg:ml-0  ml-10 lg:overflow-auto">
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">

@@ -40,9 +40,9 @@
             </div>  
         </div>
     @elseif($promptDeleted)
-        <div class="flex mt-4 justify-center">
+        <div class="flex mt-4 justify-center text-xl">
             <div>
-                <x-button type="button" wire:click.prevent="closeDeleteModal">
+                <x-button class="bg-custom-violet px-4 py-2 text-white" type="button" wire:click.prevent="closeDeleteModal">
                     {{ __('Close') }}
                 </x-button>
             </div>

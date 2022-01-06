@@ -53,7 +53,8 @@ function _getShirtValue(e){
 }
 
 function _renderShirtChanges(sender, frontImgUrl, backImgUrl){
-    if (sender.attr(DATA_ORIGINAL_TITLE) == SHOW_BACK_VIEW_TITLE) {
+    if (sender.attr(DATA_ORIGINAL_TITLE) == SHOW_BACK_VIEW_TITLE 
+    || sender.attr(DATA_ORIGINAL_TITLE) == undefined) {
 
         sender.attr(DATA_ORIGINAL_TITLE, SHOW_FRONT_VIEW_TITLE);	
         $(_getIdSelector(TSHIRT_FACING_ID)).attr(SRC_SELECTOR,backImgUrl);
@@ -108,10 +109,10 @@ function _onCLickFlipBack(){
 
     if (imgUrl === "images/2d-img/jersey3.png")
         _renderShirtChanges($(this),baseUrl + "images/2d-img/jersey3.png",baseUrl + "images/2d-img/jersey4back.png");
-    else if (imgUrl === "images/2d-img/mens_longsleeve_front.png")
-        _renderShirtChanges($(this),baseUrl + "images/2d-img/mens_longsleeve_front.png",baseUrl + "images/2d-img/mens_longsleeve_back.png");
-    else if (imgUrl === "images/2d-img/mens_tank_front.png")
-        _renderShirtChanges($(this),baseUrl + "images/2d-img/mens_tank_front.png",baseUrl + "images/2d-img/mens_tank_back.png");
+    else if (imgUrl === "images/2d-img/jersey2front.PNG")
+        _renderShirtChanges($(this),baseUrl + "images/2d-img/jersey2front.PNG",baseUrl + "images/2d-img/jersey2back.PNG");
+    else if (imgUrl === "images/2d-img/Design1front.png")
+        _renderShirtChanges($(this),baseUrl + "images/2d-img/Design1front.png",baseUrl + "images/2d-img/Design1back.png");
     else if (imgUrl === "images/2d-img/mens_hoodie_front.png")
         _renderShirtChanges($(this),baseUrl + "images/2d-img/mens_hoodie_front.png",baseUrl + "images/2d-img/mens_hoodie_back.png");
 

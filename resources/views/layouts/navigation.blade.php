@@ -1,5 +1,5 @@
-<nav x-data="{ open: false }" class="bg-custom-blacki">
-    <div class="hidden xl:flex flex-col md:flex-row md:w-full">
+<nav x-data="{ open: false }" class="bg-custom-blacki fixed">
+    <div class="hidden xl:flex flex-col md:flex-row md:w-full  h-screen">
         <div @click.away="open = false" class="flex flex-col w-full md:w-64 text-gray-700 bg-custom-blacki dark-mode:text-gray-200 dark-mode:bg-gray-800 flex-shrink-0" x-data="{ open: false }">
             <div class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-center">
                 <div class="items-center flex justify-center text-lg font-semibold tracking-widest text-gray-100 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Admin</div>

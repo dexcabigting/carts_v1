@@ -1,4 +1,4 @@
-<div class="h-auto lg:pl-3 xl:pl-20 2xl:pl-80 lg:mt-5">
+<div class="h-auto lg:pl-20 xl:pl-80 lg:mt-5">
     <div class="pt-12 pb-5">
         <div class="max-w-6xl mx-auto">
             <!-- <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
@@ -9,7 +9,7 @@
         </div>
     </div>
     
-    <div class="max-w-md lg:max-w-6xl mx-auto ml-5 lg:ml-0">
+    <div class="w-full max-w-sm lg:max-w-6xl h-auto lg:pl-3 xl:pl-20 2xl:pl-80 lg:mt-5 ml-5 lg:ml-0 flex items-center justify-center">
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">

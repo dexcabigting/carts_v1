@@ -1,6 +1,7 @@
-<div class="h-auto pt-24 lg:pl-0 xl:pl-7 2xl:pl-56 w-full flex flex-col">
-     <div class="flex items-center justify-center ml-2 md:ml-0">
-        <div class="w-full ">
+<div class="flex justify-center items-center w-full pt-24 lg:pt-32 xl:pt-24 2xl:pt-32  2xl:pl-44">
+<div class ="h-full pl-2 lg:pl-0 lg:mx-2 xl:mx-4 xl:pl-72">
+<div class="flex flex-col items-center justify-center">
+        <div class="w-full flex justify-center items-center">
             <div class="inline-flex ">
                 <div class="flex flex-row gap-2 ml-5 lg:ml-0 px-8 xl:px-6 p-7 2xl:px-14 bg-custom-blacki shadow-2xl overflow-x-auto">
                 <div class="flex flex-col md:flex-row items-center justify-between">
@@ -75,7 +76,7 @@
         </div>
     </div>
 
-    <div class="lg:max-w-5xl xl:pl-12 2xl:pl-0 2xl:max-w-6xl max-w-md lg:ml-0 ml-4">
+    <div class="lg:max-w-5xl xl:pl-12 2xl:pl-0 2xl:max-w-6xl max-w-sm lg:ml-0 ml-10">
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">
@@ -192,4 +193,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
