@@ -31,6 +31,12 @@
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.3.3"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url" : "git@github.com:dexcabigting/twilio-php.git"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "App\\": "app/",

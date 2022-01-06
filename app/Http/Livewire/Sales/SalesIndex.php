@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Fabric;
 use App\Models\Product;
 use App\Models\OrderVariant;
+use App\Models\OrderItem;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
@@ -53,10 +54,18 @@ class SalesIndex extends Component
     public function getSalesProperty()
     {
         return OrderVariant::select('product_variant_id', 
-                            DB::raw('sum(amount) as amount'), 
-                            DB::raw('count(*) as quantity'),
                             DB::raw('min(created_at) as earliest'),
                             DB::raw('max(created_at) as latest'))
+                    ->addSelect([
+                        "amount" => OrderItem::select(DB::raw('sum(amount) as amount'))
+                            ->join('order_variants', 'order_variants.id', '=', 'order_variant_id')
+                            ->groupBy('product_variant_id')
+                            ->limit(1),
+                        "quantity" => OrderItem::select(DB::raw('count(*) as quantity'))
+                            ->join('order_variants', 'order_variants.id', '=', 'order_variant_id')
+                            ->groupBy('product_variant_id')
+                            ->limit(1)
+                    ])
                     ->groupBy('product_variant_id')
                     ->orderBy('amount', $this->sortDirection)
                     ->with(['product_variant' => function ($query) {
@@ -76,7 +85,7 @@ class SalesIndex extends Component
                     ->whereHas('order', function ($query) {
                         $query->where(function ($query) {
                             $query->where('status', '!=', 'Rejected')
-                                ->orWhere('status', '!=', 'Pending');
+                                ->where('status', '!=', 'Pending');
                         });
                     })
                     ->where('product_variant_id', 'like', $this->productVariantId)
