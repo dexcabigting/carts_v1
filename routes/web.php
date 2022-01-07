@@ -38,6 +38,8 @@ use App\Http\Livewire\Sales\SalesIndex;
 // Livewire Profile Component
 use App\Http\Livewire\Profile\ProfileIndex;
 
+use App\Http\Livewire\Reservations\ReservationsIndex;
+
 // For Testing
 use App\Http\Controllers\TestController;
 
@@ -108,8 +110,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Orders Livewire Component
         Route::get('my-orders', OrdersIndex::class)->name('orders.index');
+
          //2d
         Route::get('products/customize', ProductsCustomize::class)->name('products.customize');
+
+        // Orders Livewire Component
+        Route::get('my-reservations', ReservationsIndex::class)->name('reservations.index');
     });
     
 });

@@ -21,6 +21,9 @@
                         <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('products.customize')" :active="request()->routeIs('products.customize')">
                             {{ __('Customize') }}
                         </x-nav-link>
+                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('reservations.index')" :active="request()->routeIs('reservations.index')">
+                            {{ __('Reservations') }}
+                        </x-nav-link>
                     @endif
                 </div>
 
@@ -114,6 +117,10 @@
 
                 <x-responsive-nav-link :href="route('products.customize')" :active="request()->routeIs('products.customize')">
                     {{ __('Customize') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('reservations.index')" :active="request()->routeIs('reservations.index')">
+                    {{ __('Reservations') }}
                 </x-responsive-nav-link>
             @endif
         </div>
