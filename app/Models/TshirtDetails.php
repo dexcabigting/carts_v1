@@ -13,7 +13,7 @@ class TshirtDetails extends Model
 
     protected $fillable = [
         'tshirt_id',
-        'customer_name',
+        'user_id',
         'tshirt_front',
         'tshirt_back',
         'tshirt_jersey_measurements',
@@ -26,8 +26,6 @@ class TshirtDetails extends Model
         'is_approve',
         'custom_note',
         'custom_estimate_delivery',
-        'created_date',
-        'updated_date',
     ];
 
     /**
