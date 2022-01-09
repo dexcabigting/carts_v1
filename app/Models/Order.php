@@ -21,13 +21,15 @@ class Order extends Model
         'payment_proof',
         'transaction_fee',
         'discount',
-        'status'
+        'status',
+        'date_of_arrival'
     ];
 
     protected $dates = [
         'created_at',
         'updated_at',
-        'deleted_at'
+        'deleted_at',
+        'date_of_arrival'
     ];
 
     public function user()

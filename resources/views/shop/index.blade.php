@@ -195,10 +195,12 @@ slider.onmouseout = function() {
                                     <div class="flex flex-row">
                                 <div class="my-2 mx-2 text-sm font-medium bg-custom-blacki text-white rounded-xl shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                     <input wire:model.debounce.500ms="min" placeholder="Minimum Price" type="text" class="rounded-lg text-black w-32"/>
+                                    @error('min') <span class="text-red-500 text-sm font-small">{{ $message }}</span> @enderror
                                 </div>
 
                                 <div class="my-2 text-sm font-medium bg-custom-blacki text-white rounded-xl shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'">
                                     <input wire:model.debounce.500ms="max" placeholder="Maximum Price" type="text" class="rounded-lg text-black w-32"/>
+                                    @error('max') <span class="text-red-500 text-sm font-small">{{ $message }}</span> @enderror
                                 </div>
                                 </div>
                             
@@ -217,8 +219,8 @@ slider.onmouseout = function() {
                     <div class="2xl:ml-4  lg:items-center align-center col-span-2 grid">
                         <x-button title="Reset" type="button" wire:click="resetFilter()" class="hover:text-purple-100 text-sm font-semibold text-white mx-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-</svg>   
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>   
                         {{ __('') }}
                         </x-button>
                     </div>
@@ -241,6 +243,9 @@ slider.onmouseout = function() {
             <!-- Loop Content -->
             <div class="w-full flex flex-col gap-5 p-5 border-4 border-gray-500 bg-custom-blacki h-auto overflow-hidden shadow-sm sm:rounded-lg relative">
                 <div class="p-5 bg-white m-auto rounded-lg relative">
+                    <div class="text-black text-l absolute top-5 left-5">
+                        Sold: {{ $product->product_variants_sum_sold_count }}
+                    </div>
                     <img class="bg-black py-2 px-2 h-10 w-10 absolute top-0 right-0 rounded-tr-md" src="img/Group 12.svg">
                     <div class="flex-none m-auto p-10 bg-white shadow-2xl">
                         <img class="h-40 w-40" src="{{ Storage::url('public/'.$product->product_variants->first()->front_view) }}" />

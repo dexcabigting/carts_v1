@@ -37,7 +37,7 @@
         </button>
         <div x-show="showMenu">
             <nav class="flex flex-col">
-                <a href="#" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
+                <a href="{{ route('welcome') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
                     HOME
                     <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
                 </a>
@@ -74,7 +74,7 @@
                     <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
                   </a>
                             
-                  <a  href="{{ route('register') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
+                  <a href="{{ route('register') }}" class="px-2 py-4 text-white bg-custom-blacki flex justify-between w-full border-b border-custom-text hover:text-gray-200 hover:bg-custom-violet">
                     REGISTER
                     <svg class="w-6 h-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M9 5l7 7-7 7"></path></svg>    
                   </a>
@@ -85,7 +85,7 @@
     <!-- .bg-blue-500 -->
 
     <header class="flex py-8 sm:text-sm text-white font-light text-base justify-center items-center w-full">
-      <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5"><a href="index.html">HOME</a></h1>
+      <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5"><a href="{{ route('welcome') }}">HOME</a></h1>
       <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5"><a href="{{ route('about-us') }}">ABOUT US</a></h1>   
         
       <img class="sm:block py-2 lg:px-12 sm:h-20 sm:w-10 h-10 w-40 -mt-24 md:h-auto md:w-auto sm:mt-2 md:mt-0 sm:mx-8" src="img/Group 12.svg" />
@@ -181,9 +181,12 @@
           </div>
 
         </div>
-        <button
-          class="hover:bg-purple-900 hover:text-purple-100 text-2xl md:text-4xl font-semibold text-white py-6 lg:px-2 lg:py-6 uppercase bg-custom-violet">Get
-          yours now</button>
+        <a href="{{ route('shop.index') }}">
+          <button
+            class="hover:bg-purple-900 hover:text-purple-100 text-2xl md:text-4xl font-semibold text-white py-6 lg:px-2 lg:py-6 uppercase bg-custom-violet">Get
+            yours now
+          </button>
+        </a>
       </div>
 
     </div>
@@ -198,9 +201,12 @@
   </section>
   <div class="flex flex-col justify-center items-center">
     <img class="w-1/2" src="img/Group 15.png" alt="">
-    <button
-      class="hover:bg-purple-900 hover:text-purple-100 text-2xl md:text-4xl font-semibold text-white my-12 px-10 py-6 uppercase bg-custom-violet">CUSTOMIZE
-      YOURS NOW</button>
+    <a href="{{ route('products.customize') }}">
+      <button
+        class="hover:bg-purple-900 hover:text-purple-100 text-2xl md:text-4xl font-semibold text-white my-12 px-10 py-6 uppercase bg-custom-violet">CUSTOMIZE
+        YOURS NOW
+      </button>
+    </a>
   </div>
   <section class="relative flex justify-center items-center my-24">
     <h1 class="text-7xl md:text-9xl text-custom-text font-extrabold  top-2">SHOP NOW</h1>
@@ -212,9 +218,12 @@
         <p class="text-2xl text-gray-100 text-left font-semibold">CHOOSE WHAT YOU WEAR</p>
         <h1 class="text-5xl md:text-6xl lg:text-9xl text-gray-100 text-center font-extrabold">VISIT OUR SHOP</h1>
 
-        <button
-          class="my-12 hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 uppercase bg-custom-violet">SHOP
-          NOW</button>
+        <a href="{{ route('shop.index') }}">
+          <button
+            class="my-12 hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 uppercase bg-custom-violet">SHOP
+            NOW
+          </button>
+        </a>
       </div>
     </div>
 
@@ -227,10 +236,10 @@
       <ul class="text-gray-100">
         <h1 class="font-semibold text-2xl">CONTENTS</h1>
         <div class="font-md">
-          <li class="py-4 font-semibold">HOME</li>
-          <li class="py-4 font-semibold">ABOUT</li>
-          <h1 class="py-4 font-semibold">PRODUCTS</h1>
-          <li class="py-4 font-semibold">CUSTOMIZE</li>
+          <li class="py-4 font-semibold"><a href="{{ route('welcome') }}">HOME</a></li>
+          <li class="py-4 font-semibold"><a href="{{ route('about-us') }}">ABOUT US</a></li>
+          <h1 class="py-4 font-semibold"><a href="{{ route('shop.index') }}">PRODUCTS</a></h1>
+          <li class="py-4 font-semibold"><a href="{{ route('products.customize') }}">CUSTOMIZE</a></li>
 
         </div>
       </ul>
@@ -240,8 +249,8 @@
       <ul class="text-gray-100">
         <h1 class="font-semibold text-2xl">BE A MEMBER</h1>
         <div class="font-md">
-          <li class="py-4 font-semibold">LOGIN</li>
-          <li class="py-4 font-semibold">REGISTER</li>
+          <li class="py-4 font-semibold"><a href="{{ route('login') }}">LOGIN</a></li>
+          <li class="py-4 font-semibold"><a href="{{ route('register') }}">REGISTER</a></li>
 
         </div>
       </ul>
@@ -251,7 +260,7 @@
       <ul class="text-gray-100">
         <h1 class="font-semibold text-2xl">CONTACT</h1>
         <div class="font-md">
-          <li class="py-4">example@gmail.com</li>
+          <li class="py-4">admin@admin.com</li>
           <li></li>
           <li></li>
         </div>
@@ -262,7 +271,7 @@
     <img class="w-12 h-12 hover:bg-gray-200 fill-current ml-32" src="img/Icon awesome-facebook-square.svg" alt="">
   </div>
   <div class="py-24 flex flex-col justify-center items-center text-gray-100">
-    <h1>Copyright by EJ SPORTS JERSEY 2020</h1>
+    <h1>Copyright by EJ SPORTS JERSEY 2022</h1>
     <h1 class="py-4">All Rights Reserved</h1>
   </div>
 </footer>

@@ -3,8 +3,9 @@
 namespace App\Http\Livewire\Checkout;
 
 use Livewire\Component;
-use Luigel\Paymongo\Facades\Paymongo;
-use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
+
+// use Luigel\Paymongo\Facades\Paymongo;
 
 use App\Models\Order;
 use App\Models\OrderVariant;
@@ -12,12 +13,15 @@ use App\Models\Cart;
 use App\Models\ProductStock;
 use App\Models\UserAddress;
 
-use LVR\CreditCard\CardNumber;
-use LVR\CreditCard\CardExpirationDate;
-
-use Livewire\WithFileUploads;
+// use LVR\CreditCard\CardNumber;
+// use LVR\CreditCard\CardExpirationDate;
 
 use App\Events\OrderCreated;
+
+use Exception;
+
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class CheckoutIndex extends Component
 {
@@ -30,11 +34,12 @@ class CheckoutIndex extends Component
     public $amount;
     public $paymentMethod;
     public $total;
-    public $isPaymentSuccessful = 0;
+    public $isPaymentSuccessful = false;
     public $discount;
     public $carts = [];
     public $form = [];
     public $productsAndVariants = [];
+    public $renderedAddress = false;
 
     protected function rules()
     {
@@ -89,8 +94,8 @@ class CheckoutIndex extends Component
 
         $this->productsAndVariants = [
             0 => [
-                'product' => '',
-                'variant' => '',
+                'product' => "",
+                'variant' => "",
             ],
         ];
 
@@ -116,32 +121,35 @@ class CheckoutIndex extends Component
                                     ->first()->id; 
 
         $this->form = [
-            'name' => auth()->user()->name,
-            'email' => auth()->user()->email,
-            'phone' => auth()->user()->phone,
-            'province' => '',
-            'city' => '',
-            'barangay' => '',
-            'home_address' => '',
-            // 'postal_code' => '',
+            'name' => (string)auth()->user()->name,
+            'email' => (string)auth()->user()->email,
+            'phone' => (string)auth()->user()->phone,
+            'province' => "",
+            'city' => "",
+            'barangay' => "",
+            'home_address' => "",
+            // 'postal_code' => "",
             // 'country' => 'PH',
-            'amount' => '',
-            'type' => '',
-            'proof' => '',
+            'amount' => 00.00,
+            'type' => "",
+            'proof' => null,
         ];
     }
 
     public function render()
     {
-        // dd($this->productsAndVariants);
-
         $userAddress = $this->user_address->first();
 
-        $this->form['province'] = Str::ucfirst(Str::lower($userAddress->province));
-        $this->form['city'] = Str::ucfirst(Str::lower($userAddress->city));
-        $this->form['barangay'] = $userAddress->barangay;
-        $this->form['home_address'] = $userAddress->home_address;
         $this->form['amount'] = number_format($this->total, 2, ".", "");
+
+        if (!$this->renderedAddress) {
+            $this->form['province'] = $userAddress->province;
+            $this->form['city'] = $userAddress->city;
+            $this->form['barangay'] = $userAddress->barangay;
+            $this->form['home_address'] = $userAddress->home_address;
+
+            $this->renderedAddress = true;
+        }
 
         $userAddresses = auth()->user()->userAddresses()
                                 ->get()->pluck('id')->toArray(); 
@@ -380,12 +388,12 @@ class CheckoutIndex extends Component
                 'amount' => $cartToBeMoved->product_variant->product->prd_price,
             ]);
 
-            $productStock = ProductStock::where('product_variant_id', $cartToBeMoved->product_variant_id)->first();
-            $userCartItem = auth()->user()->carts()->where('id', $cartToBeMoved->id)->first()->cartItemSizes()->toArray();
+            // $productStock = ProductStock::where('product_variant_id', $cartToBeMoved->product_variant_id)->first();
+            // $userCartItem = auth()->user()->carts()->where('id', $cartToBeMoved->id)->first()->cartItemSizes()->toArray();
 
-            foreach($userCartItem as $size => $qty) {
-                $productStock->decrement($size, $qty);
-            }
+            // foreach($userCartItem as $size => $qty) {
+            //     $productStock->decrement($size, $qty);
+            // }
 
             foreach($cartToBeMoved->cart_items as $cartItem) {
                 $newOrderVariant->order_items()->create([
@@ -401,5 +409,10 @@ class CheckoutIndex extends Component
         event(new OrderCreated($order));
         
         Cart::whereIn('id', $cartIds)->delete();
+    }
+
+    public function updatedSelectedAddress()
+    {
+        $this->renderedAddress = false;
     }
 }

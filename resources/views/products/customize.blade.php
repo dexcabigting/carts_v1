@@ -94,6 +94,7 @@
 			</style>
 		</section> 
 
+<<<<<<< HEAD
 		<section style="padding-top: 0 !important;">
 		<meta name="csrf-token" content="{{ Session::token() }}"> 
 		<!-- Navbar
@@ -199,6 +200,89 @@
 											</div>
 											
 										</div>				      
+=======
+  <section style="padding-top: 0 !important;">
+  <meta name="csrf-token" content="{{ Session::token() }}"> 
+  <!-- Navbar
+    ================================================== -->
+	<input type="hidden" value="{{ Auth::user()->id }}" id="hdn-user-name-id" />
+    <div class="container">
+		<section id="typography">
+		  <div class="page-header">
+		    <h2>Customize Your Own Jersey</h2>
+		  </div>
+		
+		  <!-- Headings & Paragraph Copy -->
+		  <div class="row">	
+				<div class="custom-design-container">  		
+					<div class="span3">
+						<div class="tabbable"> <!-- Only required for left/right tabs -->
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#tab1" data-toggle="tab" style="color:gray">Options</a></li>				    
+							<li><a href="#tab2" data-toggle="tab" style="color:gray">Stickers and Logo</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="tab1">
+								<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+									<h3>Tee Styles</h3>
+									<p style="">
+										<select id="tshirttype">                        
+											<option value="{{asset('images/2d-img/jersey3.png')}}" selected="selected">Short Sleeve Shirts</option>
+											<!-- <option value="{{asset('images/2d-img/mens_longsleeve_front.png')}}">Long Sleeve Shirts</option>                                        
+											<option value="{{asset('images/2d-img/mens_hoodie_front.png')}}">Hoodies</option>                    
+											<option value="{{asset('images/2d-img/mens_tank_front.png')}}">Tank tops</option> -->
+										</select>	
+									</p>								
+								</div>
+								<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+									<h3>Fabric Type</h3>
+									<p>
+										<select id="fabrictype">                        
+										<option selected="selected">Spandex</option>
+										<option >Sublimax</option>                                        
+										<option >Neoprene</option>                    
+										<option >Sportsmax</option>
+										<option >Polidex</option>                                        
+										<option >Ribstop</option>                    
+										<option >Squarenet</option>
+										<option >Latex</option>                                        
+										<option >Micro Shiny</option>                    
+										<option >1x1 Lining</option>
+									</select>	
+									</p>								
+								</div>
+								<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+								<h3>Select Color</h3>
+									<ul class="nav">
+										<li class="color-preview" title="Red" style="background-color:#FF0000;"></li>
+										<li class="color-preview" title="Dark Heather" style="background-color:#616161;"></li>
+										<li class="color-preview" title="Gray" style="background-color:#f0f0f0;"></li>
+										<li class="color-preview" title="Charcoal" style="background-color:#5b5b5b;"></li>
+										<li class="color-preview" title="Black" style="background-color:#222222;"></li>
+										<li class="color-preview" title="Heather Orange" style="background-color:#fc8d74;"></li>
+										<li class="color-preview" title="Heather Dark Chocolate" style="background-color:#432d26;"></li>
+										<li class="color-preview" title="Salmon" style="background-color:#eead91;"></li>
+										<li class="color-preview" title="Chesnut" style="background-color:#806355;"></li>
+										<li class="color-preview" title="Dark Chocolate" style="background-color:#382d21;"></li>
+										
+									</ul>
+								</div>
+								<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+									<h3>Pre-made Layout</h3>
+									<p style="">
+										<button class="submit-file-toggle w-full hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
+											Submit File
+										</button>
+									</p>								
+								</div>			      
+							</div>				   
+							<div class="tab-pane" id="tab2">
+								<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+									<div class="input-append">
+									<h3>Add Text Here	</h3>
+									<input class="span2" id="text-string" type="text" placeholder="Type here..."><button id="add-text" class="btn" title="Add text"><i class="icon-share-alt"></i></button>
+									<hr>
+>>>>>>> dev
 									</div>
 									
 								</div>

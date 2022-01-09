@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductLike;
 use App\Models\Category;
 use App\Models\Fabric;
+use Exception;
 use Livewire\WithPagination;
 
 class ShopIndex extends Component
@@ -24,6 +25,16 @@ class ShopIndex extends Component
     public $max = null;
     public $sortBy = 'prd_name';
     public $orderBy = 'asc';
+
+    protected $rules = [
+        'min' => 'numeric|regex:/^\d+(\.\d{1,2})?$/|between:0,99999.99',
+        'max' => 'numeric|regex:/^\d+(\.\d{1,2})?$/|between:0,99999.99'
+    ];
+
+    protected $validationAttributes = [
+        'min' => 'minimum price',
+        'max' => 'maximum price'
+    ];
 
     protected $listeners = [
         'openCartModal',
@@ -47,10 +58,20 @@ class ShopIndex extends Component
 
     public function getProductsProperty()
     {
-        $search = '%' . $this->search . '%';
+        $min = 00.00;
 
-        $min = (empty($this->min)) ? 00.00 : $this->min;
-        $max = (empty($this->max)) ? 99999999.99 : $this->max;
+        $max = 99999.99;
+
+        $search = '%' . $this->search . '%';
+        
+        try {
+            $this->validate();
+
+            $min = (empty($this->min)) ? 00.00 : $this->min;
+            $max = (empty($this->max)) ? 99999.99 : $this->max;
+        } catch(Exception $error) {
+
+        }
 
         $sortBy = $this->sortBy;
         $orderBy = $this->orderBy;
@@ -59,13 +80,13 @@ class ShopIndex extends Component
         $fabric = $this->fabric;
 
         /**
-         * @var Category
-         */
+        * @var Category
+        */
         $categories = $this->categories;
 
         /**
-         * @var Fabric
-         */
+        * @var Fabric
+        */
         $fabrics = $this->fabrics;
 
         $categories = $categories->pluck('id')->toArray();
@@ -84,7 +105,7 @@ class ShopIndex extends Component
             '2XL'
         ];
 
-        return Product::with('category', 'fabric')
+        return Product::with('category:id,ctgr_name', 'fabric:id,fab_name')
             ->whereHas('product_variants', function ($query) use($sizes) {
                 $query->whereDoesntHave('product_stock', function ($query) use($sizes){
                     foreach($sizes as $size) {
@@ -92,6 +113,7 @@ class ShopIndex extends Component
                     }
                 });
             })
+            ->withSum('product_variants', 'sold_count')
             ->where('prd_name', 'like', $search)
             ->whereBetween('prd_price', [$min, $max])
             ->whereIn('products.category_id', $category)
@@ -116,11 +138,13 @@ class ShopIndex extends Component
 
     public function updatedMin()
     {
+        $this->validateOnly('min');
         $this->resetPage();
     }
 
     public function updatedMax()
     {
+        $this->validateOnly('max');
         $this->resetPage();
     }
 
@@ -164,5 +188,6 @@ class ShopIndex extends Component
     public function resetFilter()
     {
         $this->reset(['search', 'min', 'max', 'category', 'fabric', 'sortBy', 'orderBy']);
+        $this->resetErrorBag();
     }
 }

@@ -37,6 +37,9 @@
                                     <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Date Ordered
                                     </th>
+                                    <th scope="col" class="md:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Date of Arrival
+                                    </th>
                                 </tr>
                             </thead>
 
@@ -117,6 +120,16 @@
                                             {{ $order->created_at->diffForHumans() }}
                                         </div>
                                     </td>
+
+                                    <td class="md:px-6 py-4 whitespace-nowrap">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            @if(!empty($order->date_of_arrival))
+                                                {{ $order->date_of_arrival->toFormattedDateString() }}
+                                            @else
+                                                N/A
+                                            @endif
+                                        </div>
+                                    </td>
                                 </tr>
 
                                     @if($loop->last)
@@ -140,13 +153,13 @@
                                                 </div>
                                             </td>
 
-                                            <td class="md:px-6 py-4 text-center" colspan="3">
+                                            <td class="md:px-6 py-4 text-center" colspan="4">
                                             </td>
                                         </tr>
                                     @endif
                                 @empty
                                 <tr>
-                                    <td class="md:px-6 py-4 text-center" colspan="7">
+                                    <td class="md:px-6 py-4 text-center" colspan="8">
                                         <div>
                                             <span class=" text-2xl font-semibold text-gray-400 leading-tight">
                                                 {{ __('You have no orders!') }}

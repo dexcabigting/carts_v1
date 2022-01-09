@@ -163,7 +163,7 @@ function _onClickBtnSave(){
             var tshirtColor = $(_getIdSelector(TSHIRT_CONTAINER_ID)).css(BACKGROUND_COLOR);
 
             tshirtSetup = {
-                customer_name: JSON.stringify(_getFieldTextValue(HIDDEN_USER_NAME_ID)),
+                customer_name: _getFieldTextValue(HIDDEN_USER_NAME_ID),
                 tshirt_front: _savedFrontCanvas,
                 tshirt_back: _savedBackCanvas,
                 tshirt_jersey_measurements: JSON.stringify(jersey_measurements || {}),
@@ -191,7 +191,7 @@ function _onClickBtnSave(){
                         tempDocs.addImage(image.src, 'JPEG', 10, 10);
 
                         tshirtSetup = {
-                            customer_name: JSON.stringify(_getFieldTextValue(HIDDEN_USER_NAME_ID)),
+                            customer_name: _getFieldTextValue(HIDDEN_USER_NAME_ID),
                             tshirt_front: JSON.stringify({}),
                             tshirt_back: JSON.stringify({}),
                             tshirt_jersey_measurements: JSON.stringify(jersey_measurements || {}),
@@ -252,81 +252,70 @@ function _flipTshirt(sender, frontImgUrl, backImgUrl){
     pdf.setFontSize(20);
 
     if (sender.attr(SAVE_DATA_ORIGIN_TITLE) == SAVE_SHOW_BACK_VIEW) {
-        setTimeout(function() {
-            _frontCanvas(pdf);
-        },700); 
+        _frontCanvas(pdf).then(() => {
+            return new Promise(next => {
+                setTimeout(function() {
 
-        setTimeout(function() {
-
-            sender.attr(SAVE_DATA_ORIGIN_TITLE, SAVE_SHOW_FRONT_VIEW);	
-            $(_getIdSelector(SAVE_TSHIRT_FACING_ID)).attr(SRC_SELECTOR,backImgUrl);
+                    sender.attr(SAVE_DATA_ORIGIN_TITLE, SAVE_SHOW_FRONT_VIEW);	
+                    $(_getIdSelector(SAVE_TSHIRT_FACING_ID)).attr(SRC_SELECTOR,backImgUrl);
+                    
+                    // canvas.clear();
             
-            // canvas.clear();
-    
-            try
-            {
-                JSON.parse(_savedBackCanvas);
-                canvas.loadFromJSON(_savedBackCanvas);
-            }
-            catch(e)
-            {
-                console.log(e);
-            }
+                    try
+                    {
+                        JSON.parse(_savedBackCanvas);
+                        canvas.loadFromJSON(_savedBackCanvas);
+                        next();
+                    }
+                    catch(e)
+                    {
+                        console.log(e);
+                    }
 
-        },1000);
-
-        setTimeout(function() {
-            _backCanvas(pdf);
-        },1900);	
-
-        setTimeout(function() {
+                },1000);
+            });
+        }).then(() => {
+            return _backCanvas(pdf);
+        }).then(() => {
             var milliSeconds = Date.now();
 
             pdf.save("Custom-Shirt-" + milliSeconds + ".pdf");
 
             _baseSixtyFourPDF = pdf.output("datauristring");
-        },2400);	
+        });
     }
     else{
-        setTimeout(function() {
-
-            _backCanvas(pdf);
-        },700);	
-
-        setTimeout(function() {
-
-            sender.attr(SAVE_DATA_ORIGIN_TITLE, SAVE_SHOW_BACK_VIEW);		
-            $(_getIdSelector(SAVE_TSHIRT_FACING_ID)).attr(SRC_SELECTOR,frontImgUrl);		
-    
-            // canvas.clear();
-    
-            try
-            {
-                JSON.parse(_savedFrontCanvas);
-                canvas.loadFromJSON(_savedFrontCanvas);			           
-            }
-            catch(e)
-            {
-                console.log(e);
-            }
-        },1000);	
-
-        setTimeout(function() {
-            _frontCanvas(pdf);
-        },1900);	 
-
-        setTimeout(function() {
+        _backCanvas(pdf).then(() => {
+            return new Promise(next => {
+                 sender.attr(SAVE_DATA_ORIGIN_TITLE, SAVE_SHOW_BACK_VIEW);		
+                $(_getIdSelector(SAVE_TSHIRT_FACING_ID)).attr(SRC_SELECTOR,frontImgUrl);		
+        
+                // canvas.clear();
+        
+                try
+                {
+                    JSON.parse(_savedFrontCanvas);
+                    canvas.loadFromJSON(_savedFrontCanvas);	
+                    next();		           
+                }
+                catch(e)
+                {
+                    console.log(e);
+                }
+            });
+        }).then(() => _frontCanvas(pdf))
+        .then(() => {
             var milliSeconds = Date.now();
 
             pdf.save("Custom-Shirt-" + milliSeconds + ".pdf");
 
             _baseSixtyFourPDF = pdf.output("datauristring");
-        },2400);
+        });
     }	
 }
 
 function _frontCanvas(pdf){
-    html2canvas(document.querySelector(_getIdSelector(TSHIRT_CONTAINER_ID))).then(canvas => {
+    return html2canvas(document.querySelector(_getIdSelector(TSHIRT_CONTAINER_ID))).then(canvas => {
 
         function convertCanvasToImage(c)
         {
@@ -342,7 +331,7 @@ function _frontCanvas(pdf){
 
 function _backCanvas(pdf){
 
-    html2canvas(document.querySelector(_getIdSelector(TSHIRT_CONTAINER_ID))).then(canvas => {
+    return html2canvas(document.querySelector(_getIdSelector(TSHIRT_CONTAINER_ID))).then(canvas => {
 
         function convertCanvasToImage(c)
         {

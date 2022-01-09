@@ -11,7 +11,7 @@
                         <x-label value="{{ $comment->created_at->diffForHumans() }}" />
                     </div>
                     <div>
-                        <input value="{{ $comment->comment }}" class="text-black h-10 w-full" type="textarea"/>
+                        <input value="{{ $comment->comment }}" class="bg-white text-black h-10 w-full" type="textarea" disabled/>
                     </div>
                     <div wire:key="{{ $loop->index }}-comment-edit" class="float-right">
                         @if($comment->user_id == auth()->user()->id)
@@ -32,6 +32,9 @@
                 @endif
             </div>
         @endforelse
+        <div class="">
+            {{ $comments->links() }}
+        </div>
     </div>
 
     <div>

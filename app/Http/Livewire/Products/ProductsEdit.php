@@ -112,6 +112,7 @@ class ProductsEdit extends Component
                 'L' => (string)$productVariant->product_stock->L,
                 'XL' => (string)$productVariant->product_stock->XL,
                 '2XL' => (string)$productVariant->product_stock->{'2XL'},
+                'variant_id' => 00,
             ];
 
             array_push($this->addVariants, $array);
@@ -325,6 +326,7 @@ class ProductsEdit extends Component
                 'L' => "0",
                 'XL' => "0",
                 '2XL' => "0",
+                'variant_id' => mt_rand(00, 99)
             ];
         }
     }

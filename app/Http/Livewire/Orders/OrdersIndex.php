@@ -58,7 +58,8 @@ class OrdersIndex extends Component
                             ->join('users', 'orders.user_id', '=', 'users.id')
                             ->withCount('order_items')
                             ->where('name', 'like', $search)
-                            ->orderBy($sortColumn, $sortDirection);
+                            ->orderBy($sortColumn, $sortDirection)
+                            ->withTrashed();
         } else {
             return Order::with(['order_variants:id,order_id,amount,product_variant_id', 
                                 'order_variants.product_variant' => function ($query) {

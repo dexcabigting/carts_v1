@@ -18,12 +18,21 @@
                         <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('orders.index')" :active="request()->routeIs('orders.index')">
                             {{ __('Orders') }}
                         </x-nav-link>
+<<<<<<< HEAD
                         @if((new \Jenssegers\Agent\Agent())->isDesktop())
                             <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('products.customize')" :active="request()->routeIs('products.customize')">
                                 {{ __('Customize') }}
                             </x-nav-link>
                         @endif
                         
+=======
+                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('products.customize')" :active="request()->routeIs('products.customize')">
+                            {{ __('Customize') }}
+                        </x-nav-link>
+                        <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('reservations.index')" :active="request()->routeIs('reservations.index')">
+                            {{ __('Reservations') }}
+                        </x-nav-link>
+>>>>>>> dev
                     @endif
                 </div>
 
@@ -67,6 +76,9 @@
 
                         <x-dropdown-link :href="route('notifications.index')" class="font-semibold bg-custom-blacki text-white hover:text-gray-100 focus:text-gray-100 hover:bg-purple-900 focus:bg-custom-violet">
                             {{ __('Notifications') }}
+                            <div wire:key="{{ mt_rand(00, 99) }}-dropdown-notif" class="float-right">
+                                @livewire('notifications.notifications-counter')
+                            </div>
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -99,7 +111,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            @if (auth()->user()->role_id == 2)
+            @if(auth()->user()->role_id == 2)
                 <x-responsive-nav-link :href="route('shop.index')" :active="request()->routeIs('shop.index')">
                     {{ __('Shop') }}
                 </x-responsive-nav-link>
@@ -108,6 +120,7 @@
                 <x-responsive-nav-link :href="route('carts.index')" :active="request()->routeIs('carts.index')">
                     {{ __('Carts') }}
                 </x-responsive-nav-link>
+<<<<<<< HEAD
                 
                 <x-responsive-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
                     {{ __('Orders') }}
@@ -118,6 +131,20 @@
                     </x-responsive-nav-link>
                
                 
+=======
+
+                <x-responsive-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
+                    {{ __('Orders') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('products.customize')" :active="request()->routeIs('products.customize')">
+                    {{ __('Customize') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('reservations.index')" :active="request()->routeIs('reservations.index')">
+                    {{ __('Reservations') }}
+                </x-responsive-nav-link>
+>>>>>>> dev
             @endif
         </div>
 
@@ -135,6 +162,9 @@
 
                 <x-responsive-nav-link :href="route('notifications.index')">
                     {{ __('Notifications') }}
+                    <div wire:key="{{ mt_rand(00, 99) }}-responsive-notif">
+                        @livewire('notifications.notifications-counter')
+                    </div> 
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
