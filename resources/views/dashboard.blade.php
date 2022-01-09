@@ -1,5 +1,5 @@
 <x-app-layout>
-<div class="lg:pt-10 h-auto w-full mt-12 xl:pl-56 xl:mx-12 2xl:mx-56 2xl:pl-44">
+<div class="lg:pt-10 h-auto w-full mt-10 xl:pl-56 xl:mx-12 2xl:mx-56 2xl:pl-44">
 <div class="grid grid-cols-1 p-4 space-y-8 lg:gap-8 lg:space-y-0 lg:grid-cols-3 py-12">
               <!-- Bar chart card -->
               <div class="col-span-2 bg-custom-gray rounded-md dark:bg-darker" x-data="{ isOn: false }">

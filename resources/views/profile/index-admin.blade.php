@@ -1,4 +1,4 @@
-<div class="2xl:pt-0 xl:pt-24 2xl:ml-96 xl:ml-56 lg:ml-32 ml-6">
+<div class="xl:mt-0 mt-24 2xl:pt-0 xl:pt-24 2xl:ml-96 xl:pl-80 lg:ml-32 ml-6">
     <div class="pt-4 w-full flex justify-center items-center">
         <div class="max-w-3xl mx-auto sm:px-6 w-full mb-5 2xl:mt-24">
             <div class="bg-black overflow-hidden shadow-sm sm:rounded-lg">

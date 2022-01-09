@@ -1,4 +1,5 @@
-<div class="h-screen pt-20 ml-5 lg:ml-32 xl:ml-48 lg:pt-40  2xl:ml-96 max-w-8xl flex flex-col">  
+<div class="h-screen pt-20 ml-5 lg:ml-32 xl:pl-80 lg:pt-40 2xl:pl-96 max-w-8xl flex flex-col">  
+    <div class="2xl:ml-32">
     <div class="pt-12 pb-6">
         <div class="max-w-8xl mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm rounded-lg mx-2">
@@ -65,4 +66,5 @@
             {{ $notifications->links() }}
         </div>
     </div>
+</div>
 </div>

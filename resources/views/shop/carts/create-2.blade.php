@@ -1,5 +1,6 @@
-<div class="flex flex-col gap-5 p-5 h-full overflow-y-auto">
+<div class="flex flex-col-reverse md:flex-col gap-5 p-5 h-full overflow-y-auto">
     @foreach($variants as $variantTest)
+    <div>
     <div class="flex justify-left">
         <div>
             <h2 class="font-semibold text-3xl leading-tight ">
@@ -11,8 +12,9 @@
     <div class="">
         {{ $variants->links() }}
     </div>
-
-    <div class="flex flex-row gap-5">
+    </div>
+    <div>
+    <div class="flex flex-col xl:flex-row gap-5">
         <div class="bg-white m-auto rounded-lg relative h-70 w-70">
             <img class="bg-black py-2 px-2 h-10 w-10 absolute top-0 right-0 rounded-tr-md" src="img/Group 12.svg">
             <div class="flex-none m-auto p-10 bg-white shadow-2xl rounded-md">
@@ -33,7 +35,7 @@
             </div>
         </div>
     </div>
-
+    </div>
     <div class="overflow-clip border-gray-200 text-2xl">
         {{ $product->prd_description }}
     </div>

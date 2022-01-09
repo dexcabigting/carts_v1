@@ -103,9 +103,14 @@
                 <x-responsive-nav-link :href="route('shop.index')" :active="request()->routeIs('shop.index')">
                     {{ __('Shop') }}
                 </x-responsive-nav-link>
+               
 
                 <x-responsive-nav-link :href="route('carts.index')" :active="request()->routeIs('carts.index')">
                     {{ __('Carts') }}
+                </x-responsive-nav-link>
+                
+                <x-responsive-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
+                    {{ __('Orders') }}
                 </x-responsive-nav-link>
                 @if((new \Jenssegers\Agent\Agent())->isDesktop() || new \Jenssegers\Agent\Agent())->isTablet())
                     <x-responsive-nav-link :href="route('products.customize')" :active="request()->routeIs('products.customize')">
