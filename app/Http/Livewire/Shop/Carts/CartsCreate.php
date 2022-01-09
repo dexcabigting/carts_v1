@@ -3,11 +3,16 @@
 namespace App\Http\Livewire\Shop\Carts;
 
 use Livewire\Component;
+use Livewire\WithPagination;
+
 use App\Models\Product;
 use App\Models\ProductVariant;
 use App\Models\ProductStock;
 use App\Models\Cart;
-use Livewire\WithPagination;
+
+use Exception;
+
+use Illuminate\Support\Facades\DB;
 
 class CartsCreate extends Component
 {
@@ -37,8 +42,8 @@ class CartsCreate extends Component
 
     protected $rules = [
         'addItems.*.size' => 'required|string|in:2XS,XS,S,M,L,XL,2XL',
-        'addItems.*.surname' => 'required|string|regex:/^[a-zA-Z ]*$/|max:20',
-        'addItems.*.jersey_number' => 'required|numeric|max:99',
+        'addItems.*.surname' => 'required|string|regex:/^[a-zA-Z ]*$/|max:15',
+        'addItems.*.jersey_number' => 'required|integer|min:0|max:99|not_in:-0',
     ];
 
     protected $validationAttributes = [
@@ -104,10 +109,10 @@ class CartsCreate extends Component
 
         return ProductVariant::where('product_id', $this->product->id)
                     ->whereDoesntHave('product_stock', function ($query) use($sizes) {
-                                    foreach($sizes as $size) {
-                                        $query->where($size, '=', 0);
-                                    }
-                                });
+                        foreach($sizes as $size) {
+                            $query->where($size, '=', 0);
+                        }
+                    });
     }
 
     public function getVariantStocksProperty()
@@ -117,78 +122,49 @@ class CartsCreate extends Component
 
     public function store()
     {
-        // TO DO: set $this->addItems limit with a maximum value of 15
         $this->validate();
 
-        $productVariant = ProductVariant::where('id', $this->selectVariant)->first(); 
+        try {
+            DB::transaction(function() {
+                $productVariant = ProductVariant::where('id', $this->selectVariant)->first(); 
 
-        $productVariantId = $productVariant->id;
+                $productVariantId = $productVariant->id;
 
-        //Sizes to be inserted in the database
-        $variantStocks = array_count_values(array_column($this->addItems, 'size'));
+                $variantStocks = array_count_values(array_column($this->addItems, 'size'));
 
-        $originalStocks = $this->variant_stocks->first()->sizes->toArray();
+                $originalStocks = $this->variant_stocks->first()->sizes->toArray();
 
-        foreach($variantStocks as $size => $count) {
-            $originalCountSize = $originalStocks[$size];
+                foreach($variantStocks as $size => $count) {
+                    $originalCountSize = $originalStocks[$size];
 
-            if( $count > $originalCountSize ) {
-                session()->flash('fail', 'The quantity of ' . $size . ' exceeded the available size!');
-                return;
-            }
-        }
-
-        // Check if the variant is already on the user's cart
-        if ($productVariant->userHasVariantInCart()) {
-            // dd("You already have this on your cart");
-
-            $userCart = auth()->user()->carts()->where('product_variant_id', $productVariantId)->first();
-
-            $existingVariantInCartSizes = $userCart->cart_items()->pluck('size')->countBy();
-
-            $stocks = collect($variantStocks)->map( function ($item, $size) use($existingVariantInCartSizes) {
-                if(isset($existingVariantInCartSizes[$size])) {
-                    return $item + $existingVariantInCartSizes[$size];
+                    if( $count > $originalCountSize ) {
+                        session()->flash('fail', 'The quantity of ' . $size . ' exceeded the available size!');
+                        return;
+                    }
                 }
-                return $item;
-            })->toArray();
 
-            foreach ($stocks as $size => $count) {
-                $originalCountSize = $originalStocks[$size];
+                $cart = Cart::create([
+                    'user_id' => auth()->id(),
+                    'product_variant_id' => $productVariantId,
+                ]);
 
-                if ($count > $originalCountSize) {
-                    session()->flash('fail', 'The quantity of ' . $size . ' exceeded the available size!');
-                    return;
-                }
-            }
+                $cart->cart_items()->createMany($this->addItems);
 
-            $userCart->cart_items()->createMany($this->addItems);
+                $this->reset(['addItems']);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
 
-            $flash = "Your existing cart has been updated!";
-        } else {
-            // If user doesn't have this variant on his/her cart
+                $this->totalAmount  = $this->productPrice;
 
-            $cart = Cart::create([
-                'user_id' => auth()->id(),
-                'product_variant_id' => $productVariantId,
-            ]);
-
-            $cart->cart_items()->createMany($this->addItems);
-
-            $flash = "Cart has been created successfully!";
+                session()->flash('success', 'Cart has been successfully created!'); 
+            });
+        } catch(Exception $error) {
+            session()->flash('fail', 'An error occured! ' . $error);
         }
-
-        $this->reset(['addItems']);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-
-        $this->totalAmount  = $this->productPrice;
-
-        session()->flash('success', $flash); 
     }
 
     public function addMore()
     {
-        if(count($this->addItems) === 15) {
-            session()->flash('fail', 'Only 15 items are allowed!');
+        if(count($this->addItems) === 10) {
+            session()->flash('fail', 'Only 10 items are allowed!');
         } else {
             $this->addItems[] = [
                 'size' => "",
@@ -219,5 +195,19 @@ class CartsCreate extends Component
         $this->emitUp('closeCartModal');
     }
 
-    
+    public function getVariantInCartProperty(): bool
+    {
+        return auth()->user()->carts()->where('product_variant_id', $this->selectVariant)->exists();
+    }
+
+    public function getUserCartProperty(): int
+    {
+        return auth()->user()->userCart($this->selectVariant)
+            ->first()->id;
+    }
+
+    public function updatedSelectVariant()
+    {
+        $this->emit('updatedSelectVariantId', $this->selectVariant); 
+    }
 }

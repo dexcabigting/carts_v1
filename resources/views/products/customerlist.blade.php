@@ -42,11 +42,11 @@
                         </thead>
 
                         <tbody class="bg-custom-text divide-y divide-gray-200">
-                            @foreach ($tshirt_details as $tshirt_detail)
+                            @foreach ($tshirt_details as $index => $tshirt_detail)
                             <tr> 
                                 <td class="px-6 py-4 whitespace-nowrap"> 
                                     <div class="text-sm font-medium text-gray-100">
-                                        {{ str_replace('"', '', $tshirt_detail->customer_name) }}
+                                        fritz
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap"> 
@@ -78,11 +78,6 @@
                                         @endphp
                                     </div>                                      
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">                                     
-                                    <div class="text-sm font-medium text-gray-100">
-                                        {{ str_replace('"', '', $tshirt_detail->created_date->format('Y-m-d')) }}
-                                    </div>                                      
-                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="grid grid-cols-1 gap-4">
                                     <div>
@@ -105,6 +100,8 @@
                                     <div class="text-sm font-medium text-gray-100">
                                         {{ str_replace('"', '', $tshirt_detail->custom_price) }}
                                     </div>                                      
+                                </td>
+                                <td>
                                 </td>
                             </tr>
                             @endforeach

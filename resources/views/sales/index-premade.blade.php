@@ -1,4 +1,8 @@
+<<<<<<< HEAD:resources/views/sales/index.blade.php
 <div class="h-screen lg:ml-10 xl:ml-32 2xl:ml-80 pt-24">
+=======
+<div class="h-screen w-full">
+>>>>>>> 3166c552eac743b6f12221f0b52e2b2eff7f46fb:resources/views/sales/index-premade.blade.php
     <div class="pt-12 pb-6">
         <div class="max-w-5xl mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">

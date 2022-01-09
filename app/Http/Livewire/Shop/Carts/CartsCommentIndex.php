@@ -3,13 +3,20 @@
 namespace App\Http\Livewire\Shop\Carts;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 
 use App\Models\ProductVariantComment;
 
 use App\Events\ProductVariantCommentCreated;
 
+use Exception;
+
+use Illuminate\Support\Facades\DB;
+
 class CartsCommentIndex extends Component
 {
+    use WithPagination;
+
     public $variantId = null;
     public $commentId = null;
     public $userComment = "";
@@ -18,6 +25,10 @@ class CartsCommentIndex extends Component
 
     protected $rules = [
         'userComment' => 'required|string|max:150'
+    ];
+
+    protected $listeners = [
+        'updatedSelectVariantId' => 'newVariantId'
     ];
 
     public function mount($variantId)
@@ -29,7 +40,7 @@ class CartsCommentIndex extends Component
 
     public function render()
     {
-        $comments = $this->comments->get();
+        $comments = $this->comments->paginate(3);
 
         return view('livewire.shop.carts.carts-comment-index', compact('comments'));
     }
@@ -46,23 +57,29 @@ class CartsCommentIndex extends Component
     {
         $this->validate();
 
-        $comment = ProductVariantComment::create([
-            'product_variant_id' => $this->variantId,
-            'user_id' => auth()->user()->id,
-            'comment' => $this->userComment
-        ]);
+        try {
+            DB::transaction(function() {
+                $comment = ProductVariantComment::create([
+                    'product_variant_id' => $this->variantId,
+                    'user_id' => auth()->user()->id,
+                    'comment' => $this->userComment
+                ]);
 
-        $comment = $comment->load(['product_variant' => function ($query) {
-                                    $query->select('id', 'prd_var_name', 'product_id')
-                                        ->with(['product:id,prd_name']);
-                                }, 
-                                'user:id,name']);
+                $comment = $comment->load(['product_variant' => function ($query) {
+                                            $query->select('id', 'prd_var_name', 'product_id')
+                                                ->with(['product:id,prd_name']);
+                                        }, 
+                                        'user:id,name']);
 
-        event(new ProductVariantCommentCreated($comment));
+                event(new ProductVariantCommentCreated($comment));
 
-        $this->reset('userComment');
+                $this->reset('userComment');
 
-        session()->flash('success', 'Comment has been successfully added!');
+                session()->flash('success', 'Comment has been successfully added!');
+            });
+        } catch(Exception $error) {
+            session()->flash('fail', 'An error occured! ' . $error);
+        }
     }
 
     public function enableEdit(int $id, string $comment)
@@ -80,15 +97,21 @@ class CartsCommentIndex extends Component
     {
         $this->validate();
 
-        $comment = $this->comment->first();
-        
-        $comment->update([
-            'comment' => $this->userComment
-        ]);
+        try {
+            DB::transaction(function() {
+                $comment = $this->comment->first();
+                
+                $comment->update([
+                    'comment' => $this->userComment
+                ]);
 
-        $this->resetProperties();
+                $this->resetProperties();
 
-        session()->flash('success', 'Comment has been successfully updated!');
+                session()->flash('success', 'Comment has been successfully updated!');
+            });
+        } catch(Exception $error) {
+            session()->flash('fail', 'An error occured! ' . $error);
+        }
     }
 
     public function deleteComment($id)
@@ -97,13 +120,19 @@ class CartsCommentIndex extends Component
             $this->resetProperties();
         }
 
-        $this->commentId = $id;
+        try {
+            DB::transaction(function() use($id) {
+                $this->commentId = $id;
 
-        $this->comment->delete();
+                $this->comment->delete();
 
-        $this->reset(['commentId']);
+                $this->reset(['commentId']);
 
-        session()->flash('success', 'Comment has been successfully deleted!');
+                session()->flash('success', 'Comment has been successfully deleted!');
+            });
+        } catch(Exception $error) {
+            session()->flash('fail', 'An error occured! ' . $error);
+        }
     }
 
     public function cancelEdit()
@@ -119,5 +148,12 @@ class CartsCommentIndex extends Component
     protected function resetProperties()
     {
         $this->reset(['commentId', 'userComment', 'wireSubmit', 'buttonText']);
+    }
+
+    public function newVariantId($variantId): int
+    {
+        $this->resetPage();
+
+        return $this->variantId = $variantId;
     }
 }

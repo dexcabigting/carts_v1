@@ -43,6 +43,7 @@ class ProductsCreate extends Component
             'L' => "0",
             'XL' => "0",
             '2XL' => "0",
+            'id' => 00
         ]
     ];
     public $categories = [];
@@ -221,6 +222,7 @@ class ProductsCreate extends Component
                 'L' => "0",
                 'XL' => "0",
                 '2XL' => "0",
+                'id' => mt_rand(00, 99)
             ];
         }
     }

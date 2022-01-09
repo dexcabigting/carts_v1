@@ -96,7 +96,7 @@
   <meta name="csrf-token" content="{{ Session::token() }}"> 
   <!-- Navbar
     ================================================== -->
-	<input type="hidden" value="{{ Auth::user()->name }}" id="hdn-user-name-id" />
+	<input type="hidden" value="{{ Auth::user()->id }}" id="hdn-user-name-id" />
     <div class="container">
 		<section id="typography">
 		  <div class="page-header">

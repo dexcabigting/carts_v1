@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Shop\Carts;
 
 use Livewire\Component;
 use Livewire\WithPagination;
+
 use App\Models\Cart;
 
 class CartsIndex extends Component

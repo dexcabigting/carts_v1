@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductStock extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'product_variant_id',
@@ -20,6 +21,12 @@ class ProductStock extends Model
         '2XL',
     ];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+
     public function productVariant()
     {
         return $this->belongsTo(ProductVariant::class);
@@ -27,7 +34,7 @@ class ProductStock extends Model
 
     public function getSizesAttribute()
     {
-        return $this->makeHidden(['id', 'product_variant_id', 'created_at', 'updated_at']);
+        return $this->makeHidden(['id', 'product_variant_id', 'created_at', 'updated_at', 'deleted_at']);
     }
 
     public function getQuantityAttribute()

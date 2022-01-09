@@ -10,6 +10,44 @@
         </div>
     </div>
 
+    <div class="justify-around">
+        <div>
+            <h2 class="font-semibold text-l text-gray-100 leading-tight mb-4">
+                {{ __('Available Sizes') }}
+            </h2>
+        </div>
+
+        <div class="flex flex-row gap-5 text-white">
+            <div>
+                2XS: {{ $sizes->{'2XS'} }}
+            </div>
+
+            <div>
+                XS: {{ $sizes->XS }}
+            </div>
+
+            <div>
+                S: {{ $sizes->S }}
+            </div>
+
+            <div>
+                M: {{ $sizes->M }}
+            </div>
+
+            <div>
+                L: {{ $sizes->L }}
+            </div>
+
+            <div>
+                XL: {{ $sizes->XL }}
+            </div>
+
+            <div>
+                2XL: {{ $sizes->{'2XL'} }}
+            </div>
+        </div>
+    </div>
+
     <div class="grid grid-cols-4 justify-items-center gap-3 text-center">
         <div class="">
             <h2 class="font-semibold text-l text-gray-100 leading-tight mb-4">
@@ -38,18 +76,15 @@
 
     <form wire:submit.prevent="update">
         @foreach($cartItems as $index => $cartItem)
-        <div class="grid grid-cols-4 justify-items-center gap-3 pb-3" wire:key="{{ $loop->index }}">
+        <div class="grid grid-cols-4 justify-items-center gap-3 pb-3" wire:key="{{ $loop->index }}-cart-item">
             <input type="hidden" wire:model.defer="cartItems.{{ $index }}.id">
 
             <div class="">
-                <select wire:model="cartItems.{{ $index }}.size" class="border-gray-300 rounded-lg w-full">
-                    @if($cartItems[$index]['size'] == '')
+                <select wire:model.defer="cartItems.{{ $index }}.size" class="border-gray-300 rounded-lg w-full">
                     <option value="">
                         ---
-                    </option>
-                    @endif
-                    
-                    @foreach($cartVariant->product_stock->sizes->toArray() as $column => $value)
+                    </option>                    
+                    @foreach($sizes->sizes->toArray() as $column => $value)
                         @if($value > 0)
                         <option value="{{ $column }}">
                             {{ $column }}
