@@ -29,11 +29,6 @@
 
                     <!-- Address -->
                     <div class="mt-4">
-                        <x-label class="text-xl text-purple-100" :value="__('Home Address')" />
-                        <x-input wire:model.defer="form.home_address" class="block mt-1 w-full" type="text" :value="old('home_address')" placeholder="ex. Street or Apartment no." required />
-                    </div>
-
-                    <div class="mt-4">
                         <x-label  class="text-xl text-purple-100" :value="__('Region')" />
                         <select wire:model="selectedRegion" class="w-full rounded-lg">
                             <option value="" selected>
@@ -94,9 +89,16 @@
                         </select>
                     </div>
                     @elseif(!empty($selectedCity) && empty($barangays))
-                        <div class="mt-4">
-                            <x-label value="This city has no barangays." />
-                        </div>
+                    <div class="mt-4">
+                        <x-label value="This city has no barangays." />
+                    </div>
+                    @endif
+
+                    @if(!empty($selectedRegion) && !empty($selectedProvince) && !empty($selectedCity) && (!empty($selectedBarangay) || $this->form['barangay'] == "N/A"))
+                    <div class="mt-4">
+                        <x-label class="text-xl text-purple-100" :value="__('Home Address')" />
+                        <x-input wire:model.defer="form.home_address" class="block mt-1 w-full" type="text" :value="old('home_address')" placeholder="ex. Street or Apartment no." required />
+                    </div>
                     @endif
                     
                     <!-- Password -->
