@@ -156,7 +156,7 @@ function _onClickBtnSave(){
             var tshirtColor = $(_getIdSelector(TSHIRT_CONTAINER_ID)).css(BACKGROUND_COLOR);
 
             tshirtSetup = {
-                customer_name: JSON.stringify(_getFieldTextValue(HIDDEN_USER_NAME_ID)),
+                customer_name: _getFieldTextValue(HIDDEN_USER_NAME_ID),
                 tshirt_front: _savedFrontCanvas,
                 tshirt_back: _savedBackCanvas,
                 tshirt_jersey_measurements: JSON.stringify(jersey_measurements || {}),
@@ -184,7 +184,7 @@ function _onClickBtnSave(){
                         tempDocs.addImage(image.src, 'JPEG', 10, 10);
 
                         tshirtSetup = {
-                            customer_name: JSON.stringify(_getFieldTextValue(HIDDEN_USER_NAME_ID)),
+                            customer_name: _getFieldTextValue(HIDDEN_USER_NAME_ID),
                             tshirt_front: JSON.stringify({}),
                             tshirt_back: JSON.stringify({}),
                             tshirt_jersey_measurements: JSON.stringify(jersey_measurements || {}),
