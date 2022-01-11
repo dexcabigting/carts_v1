@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3902d1cf3aab6624ad0df9c77ccf03ae",
+    "content-hash": "4813344d0132ebe78b4d272c01c86d69",
     "packages": [
         {
             "name": "aloha/twilio",
@@ -6527,16 +6527,16 @@
         },
         {
             "name": "twilio/sdk",
-            "version": "v6.33.0",
+            "version": "6.32.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dexcabigting/twilio-php.git",
-                "reference": "520c0b3c509572f0f0ffea4569778b63ebef5d8e"
+                "url": "https://github.com/twilio/twilio-php.git",
+                "reference": "d4a5ad22e761a14c5e355debb88a6f17640b247c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dexcabigting/twilio-php/zipball/520c0b3c509572f0f0ffea4569778b63ebef5d8e",
-                "reference": "520c0b3c509572f0f0ffea4569778b63ebef5d8e",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/d4a5ad22e761a14c5e355debb88a6f17640b247c",
+                "reference": "d4a5ad22e761a14c5e355debb88a6f17640b247c",
                 "shasum": ""
             },
             "require": {
@@ -6556,11 +6556,7 @@
                     "Twilio\\": "src/Twilio/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Twilio\\Tests\\": "tests/Twilio/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -6578,9 +6574,10 @@
                 "twilio"
             ],
             "support": {
-                "source": "https://github.com/dexcabigting/twilio-php/tree/v6.33.0"
+                "issues": "https://github.com/twilio/twilio-php/issues",
+                "source": "https://github.com/twilio/twilio-php/tree/6.32.0"
             },
-            "time": "2021-12-16T20:17:06+00:00"
+            "time": "2021-12-15T20:48:09+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
