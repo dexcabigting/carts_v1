@@ -174,9 +174,6 @@
 
                                 <td class="md:px-6 px-2 py-4 whitespace-nowrap ">
                                     <div class="flex items-center">
-                                        <div class="flex-shrink-0 h-10 w-10">
-                                            <img class="lg:h-10 lg:w-10 w-5 h-5 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
-                                        </div>
                                         <div class="ml-4">
                                             <div class="text-sm lg:text-xl font-medium text-gray-100">
                                             {{ $user->name }}
