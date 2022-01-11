@@ -49,7 +49,7 @@ class RegisterIndex extends Component
         $service = app()->make(PhoneNumberLookupService::class);
         
         return [
-            'form.name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/'],
+            'form.name' => ['required', 'string', 'max:50', 'regex:/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/'],
             'form.email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email'],
             'form.phone' => ['required', 'string', 'min:11', 'max:12', 'unique:users,phone', new PhoneNumber($service)],
             'form.password' => ['required', 'confirmed', Rules\Password::defaults()],
