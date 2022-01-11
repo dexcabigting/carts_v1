@@ -55,7 +55,7 @@ class UsersCreate extends Component
         
         return [
             'form.name' => ['required', 'string', 'max:50', 'regex:/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/'],
-            'form.email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'form.email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email'],
             'form.phone' => ['required', 'string', 'min:11', 'max:12', 'unique:users,phone', new PhoneNumber($service)],
             'form.password' => ['required', 'confirmed', Rules\Password::defaults()],
             'form.role_id' => ['required', 'exists:roles,id'],
@@ -64,7 +64,7 @@ class UsersCreate extends Component
             'form.province' => ['required', 'string', 'exists:provinces,name'],
             'form.city' => ['required', 'string', 'exists:cities,name'],
             'form.barangay' => ['required', 'string', 'exists:barangays,name'],
-            'form.home_address' => ['required', 'string', 'max:100', 'regex:/^\s*\S+(?:\s+\S+){2}/']
+            'form.home_address' => ['required', 'string', 'max:100', 'regex:/^\d+\s[A-z]+\s[A-z]+/']
         ];
     }
     
