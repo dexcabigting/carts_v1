@@ -58,14 +58,14 @@ class UsersEdit extends Component
         
         return [
             'form.name' => ['required', 'string', 'max:50', 'regex:/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/'],
-            'form.email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $this->user->id],
+            'form.email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email,' . $this->user->id],
             'form.phone' => ['required', 'string', 'min:11', 'max:12', 'unique:users,phone,' . $this->user->id, new PhoneNumber($service)],
             'form.role_id' => ['required', 'exists:roles,id'],
             'form.region' => ['required', 'string', 'exists:regions,name'],
             'form.province' => ['required', 'string', 'exists:provinces,name'],
             'form.city' => ['required', 'string', 'exists:cities,name'],
             'form.barangay' => ['required', 'string', 'exists:barangays,name'],
-            'form.home_address' => ['required', 'string', 'max:100', 'regex:/^\s*\S+(?:\s+\S+){2}/']
+            'form.home_address' => ['required', 'string', 'max:100', 'regex:/^\d+\s[A-z]+\s[A-z]+/']
         ];
     }
 
