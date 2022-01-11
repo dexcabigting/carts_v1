@@ -18,21 +18,12 @@
                         <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('orders.index')" :active="request()->routeIs('orders.index')">
                             {{ __('Orders') }}
                         </x-nav-link>
-<<<<<<< HEAD
-                        @if((new \Jenssegers\Agent\Agent())->isDesktop())
-                            <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('products.customize')" :active="request()->routeIs('products.customize')">
-                                {{ __('Customize') }}
-                            </x-nav-link>
-                        @endif
-                        
-=======
                         <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('products.customize')" :active="request()->routeIs('products.customize')">
                             {{ __('Customize') }}
                         </x-nav-link>
                         <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('reservations.index')" :active="request()->routeIs('reservations.index')">
                             {{ __('Reservations') }}
                         </x-nav-link>
->>>>>>> dev
                     @endif
                 </div>
 
@@ -120,18 +111,6 @@
                 <x-responsive-nav-link :href="route('carts.index')" :active="request()->routeIs('carts.index')">
                     {{ __('Carts') }}
                 </x-responsive-nav-link>
-<<<<<<< HEAD
-                
-                <x-responsive-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
-                    {{ __('Orders') }}
-                </x-responsive-nav-link>
-                
-                    <x-responsive-nav-link :href="route('products.customize')" :active="request()->routeIs('products.customize')">
-                        {{ __('Customize') }}
-                    </x-responsive-nav-link>
-               
-                
-=======
 
                 <x-responsive-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
                     {{ __('Orders') }}
@@ -144,7 +123,6 @@
                 <x-responsive-nav-link :href="route('reservations.index')" :active="request()->routeIs('reservations.index')">
                     {{ __('Reservations') }}
                 </x-responsive-nav-link>
->>>>>>> dev
             @endif
         </div>
 
