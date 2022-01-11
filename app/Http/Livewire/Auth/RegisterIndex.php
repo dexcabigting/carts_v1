@@ -49,15 +49,15 @@ class RegisterIndex extends Component
         $service = app()->make(PhoneNumberLookupService::class);
         
         return [
-            'form.name' => ['required', 'string', 'max:255'],
-            'form.email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'form.phone' => ['required', 'string', 'unique:users,phone', new PhoneNumber($service)],
+            'form.name' => ['required', 'string', 'max:255', 'regex:/^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{0,}$/'],
+            'form.email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:users,email'],
+            'form.phone' => ['required', 'string', 'min:11', 'max:12', 'unique:users,phone', new PhoneNumber($service)],
             'form.password' => ['required', 'confirmed', Rules\Password::defaults()],
             'form.region' => ['required', 'string', 'exists:regions,name'],
             'form.province' => ['required', 'string', 'exists:provinces,name'],
             'form.city' => ['required', 'string', 'exists:cities,name'],
             'form.barangay' => ['required', 'string', 'exists:barangays,name'],
-            'form.home_address' => ['required', 'string']
+            'form.home_address' => ['required', 'string', 'max:100', 'regex:/^\d+\s[A-z]+\s[A-z]+/']
         ];
     }
 
@@ -193,6 +193,10 @@ class RegisterIndex extends Component
     {
         if(!empty($city)) {
             $this->barangays = $this->barangay_list->toArray();
+
+            if(empty($this->barangays)) {
+                $this->form['barangay'] = "N/A";
+            }
         }
 
         $this->selectedBarangay = "";
