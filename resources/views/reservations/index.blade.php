@@ -14,13 +14,13 @@
                         <thead class="bg-custom-blacki ">
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    No.
-                                </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Jersey Type
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Fabric
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                    Measurement
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Status
@@ -31,20 +31,19 @@
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
                                     Custom Price
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
-                                    Estimated Days To Complete
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                    Date Reserved
+                                </th>
+                                </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-100 uppercase tracking-wider">
+                                    Completion Date
                                 </th>
                             </tr>
                         </thead>
 
                         <tbody class="bg-custom-text divide-y divide-gray-200">
-                            @forelse($tshirt_details as $index => $tshirt_detail)
+                            @forelse ($tshirt_details as $tshirt_detail)
                             <tr> 
-                                <td class="px-6 py-4 whitespace-nowrap"> 
-                                    <div class="text-sm font-medium text-gray-100">
-                                        {{ $tshirt_details->firstItem() + $index }}
-                                    </div>
-                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap"> 
                                     <div class="text-sm font-medium text-gray-100">
                                         {{ str_replace('"', '', $tshirt_detail->tshirt_type) }}
@@ -55,8 +54,25 @@
                                         {{ str_replace('"', '', $tshirt_detail->tshirt_fabric) }}
                                     </div>                                      
                                 </td>
+                                <td class="px-6 py-4 whitespace-nowrap">                                     
+                                    <div class="text-sm font-medium text-gray-100">
+                                        @php
+                                            $each_measurement = json_decode($tshirt_detail->tshirt_jersey_measurements,true);
+                                            
+                                            echo "<h3>Jersey</h3>";
+                                            foreach($each_measurement as $key => $value)
+                                                echo $key.": ".$value."<br/>";
+                                                
+                                            $each_short_measurement = json_decode($tshirt_detail->tshirt_short_measurements,true);
+                                            
+                                            echo "<br/><h3>Jersey Short</h3>";
+                                            foreach($each_short_measurement as $key => $value)
+                                                echo $key.": ".$value."<br/>";
+                                        @endphp
+                                    </div>                                      
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-center text-sm font-medium text-gray-100">
+                                    <div class="text-sm font-medium text-gray-100">
                                         @if(!$tshirt_detail->is_approve)
                                             Pending
                                         @else
@@ -64,27 +80,7 @@
                                         @endif
                                     </div>                                                                
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap flex flex-row">    
-                                    <div>  
-                                        <button type="button" class="p-2 bg-custom-violet hover:bg-purple-900 hover:text-purple-100 border border-transparent font-semibold text-xs text-white uppercase tracking-wide hover:bg-green-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                </svg>
-                                            </span>
-                                        </button>           
-                                    </div> 
-                                    <div>
-                                        <button type="button" class="p-2 bg-red-600  border border-transparent font-semibold text-xs text-white uppercase tracking-normal hover:bg-red-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
-                                            <span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-                                                </svg>
-
-                                            </span>
-                                        </button>
-                                    </div>   
+                                <td class="px-6 py-4 whitespace-nowrap flex flex-row">                                     
                                     @if($tshirt_detail->is_approve)
                                     <div>
                                         <a href="">
@@ -97,23 +93,33 @@
                                             </button>
                                         </a>
                                     </div>
-                                    @endif                             
+                                    @else
+                                    <div>
+                                        <button type="button" class="p-2 bg-red-600  border border-transparent font-semibold text-xs text-white uppercase tracking-normal hover:bg-red-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                            <span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                                </svg>
+
+                                            </span>
+                                        </button>
+                                    </div>  
+                                    @endif                                
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">                                     
-                                    <div class="text-center text-sm font-medium text-gray-100">
-                                        @if($tshirt_detail->custom_price == 0)
-                                            N/A
-                                        @else
-                                            &#8369;{{ number_format($tshirt_detail->custom_price, 2) }}
-                                        @endif
+                                    <div class="text-sm font-medium text-gray-100">
+                                         &#8369;{{ number_format($tshirt_detail->custom_price, 2) }}
                                     </div>                                      
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">                                     
-                                    <div class="text-center text-sm font-medium text-gray-100">
+                                    <div class="text-sm font-medium text-gray-100">
+                                        {{ $tshirt_detail->created_at->diffForHumans() }}
+                                    </div>                                      
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">                                     
+                                    <div class="text-sm font-medium text-gray-100">
                                         @if($tshirt_detail->custom_estimate_delivery)
-                                            {{ $tshirt_detail->custom_estimate_delivery->toFormattedDateString() }}
-                                        @else
-                                            N/A
+                                        {{ $tshirt_detail->custom_estimate_delivery->toFormattedDateString() }}
                                         @endif
                                     </div>                                      
                                 </td>

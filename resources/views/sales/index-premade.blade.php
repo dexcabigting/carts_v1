@@ -1,15 +1,13 @@
-<div class="h-screen lg:ml-10 xl:ml-32 2xl:ml-80 pt-24">
+<div class="h-screen w-full">
     <div class="pt-12 pb-6">
         <div class="max-w-5xl mx-auto">
             <div class="bg-custom-blacki overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex flex-col gap-5 p-6 bg-custom-blacki shadow-2xl overflow-x-auto justify-center items-center">
+                <div class="flex flex-col gap-5 p-6 bg-custom-blacki shadow-2xl overflow-x-auto">
                     <!-- Filter By -->
-                    <div class="flex flex-col md:inline-block items-center justify-center">
-                    <div>
                     <div class="flex flex-row">
                         <div class="px-4">
                             <div class="flex flex-col xl:flex-row text-sm font-medium text-gray-100 py-4">
-                                <div class="w-auto mx-2">
+                                <div class="w-1/3">
                                     <x-label :value="__('Filter by')" class="font-semibold text-gray-50 inline-block text-base 2xl:text-xl" />
                                 </div>
 
@@ -56,16 +54,13 @@
                                         </select>
                                     </div>                                
                                 </div>
-                                </div>
                             </div>
-                        </div>
                         </div>
 
                         <!-- Order By -->
-                        <div class="flex flex-row">
                         <div class="px-4">
                             <div class="flex flex-col xl:flex-row text-sm font-medium text-gray-100 py-4">
-                                <div class="w-auto mx-2">
+                                <div class="w-1/3">
                                     <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-base 2xl:text-xl" />
                                 </div>
 
@@ -83,17 +78,15 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Reset Filter Button -->
-                        <div class="ml-2 align-center items-center flex  col-span-2">
-                        <x-button title="Reset Filter" type="button" wire:click="resetFilter()">
-                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-</svg>
-                        </x-button>
+                        <div>
+                            <x-button type="button" wire:click="resetFilter()" class="hover:bg-red-400 hover:text-purple-100 text-XL font-semibold text-white px-4 py-2 bg-red-500">
+                                {{ __('Reset Filter') }}
+                            </x-button>
+                        </div>
                     </div>
-                    </div>
-                    <div>
+
                     <div class="flex flex-row text-sm font-medium text-gray-100">
                         <div>
                             <x-label :value="__('Start Date')" class="inline-block" />
@@ -107,13 +100,12 @@
                             <input class="bg-white text-black" wire:model="endDate" type="date">
                         </div>
                     </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
-    <div class="max-w-md lg:max-w-5xl xl:max-w-6xl 2xl:ml-0 lg:ml-1  ml-5">
+
+    <div class="max-w-5xl mx-auto">
         <div class="flex flex-col">
             <div class="my-2 overflow-x-auto">
                 <div class="py-2 align-middle inline-block min-w-full">
