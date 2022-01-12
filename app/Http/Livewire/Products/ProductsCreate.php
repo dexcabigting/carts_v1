@@ -116,6 +116,8 @@ class ProductsCreate extends Component
 
     public function store()
     {
+        $this->form['prd_price'] = number_format($this->form['prd_price'], 2);
+
         $this->validate();
 
         $count = count($this->addVariants);
