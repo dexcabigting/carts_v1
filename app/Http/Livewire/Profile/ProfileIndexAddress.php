@@ -206,15 +206,19 @@ class ProfileIndexAddress extends Component
 
     public function updateAddress()
     {
+        
+
         $this->form['region'] = (empty($this->selectedRegion)) ? "" : $this->region->name;
         $this->form['province'] = (empty($this->selectedProvince)) ? "" : $this->province->name;
         $this->form['city'] = (empty($this->selectedCity)) ? "" : $this->city->name;
 
         if(!empty($this->barangays)) {
             $this->form['barangay'] = (empty($this->selectedBarangay)) ? "" : $this->barangay->name;
-        } elseif(empty($this->barangays)) {
-            $this->form['barangay'] = (!empty($this->selectedCity) && empty($this->selectedBarangay)) ? 'N/A' : "" ;
+        } else {
+            $this->form['barangay'] = 'N/A';
         }
+
+        // dd($this->selectedBarangay, $this->form['barangay']);
 
         $this->validate();
 
@@ -253,6 +257,10 @@ class ProfileIndexAddress extends Component
     {
         if(!empty($city)) {
             $this->barangays = $this->barangay_list->toArray();
+
+            if(empty($this->barangays)) {
+                $this->form['barangay'] = "N/A";
+            }
         }
 
         $this->selectedBarangay = "";

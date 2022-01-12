@@ -98,23 +98,18 @@
                     @endforeach
                 </select>
             </div>
-        @elseif(!empty($selectedCity) && empty($barangays))
+        @elseif(!empty($selectedRegion) && !empty($selectedProvince) && !empty($selectedCity) && empty($barangays))
             <div class="mt-4">
                 <x-label value="This city has no barangays." />
             </div>
+        @endif      
 
+        @if(!empty($selectedRegion) && !empty($selectedProvince) && !empty($selectedCity))
             <div wire:key="home_address-1" class="mt-4">
                 <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
                 <x-input wire:model="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
             </div>
-        @endif      
-
-        @if(!empty($selectedRegion) && !empty($selectedProvince) && !empty($selectedCity) && !empty($selectedBarangay))
-            <div wire:key="home_address-2" class="mt-4">
-                <x-label class="text-xl mb-4 text-white" :value="__('Home Address')" />
-                <x-input wire:model="form.home_address" class="block mt-1 w-full text-black" type="text" placeholder="ex. Street/Apartment no." />
-            </div>
-        @endif                    
+        @endif                     
 
         <div class="flex flex-row mt-4 gap-5">
             <x-button class="hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white w-full px-4 py-2 bg-custom-violet my-3">
