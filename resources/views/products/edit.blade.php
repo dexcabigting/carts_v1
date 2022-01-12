@@ -72,19 +72,16 @@
                         </div>
 
                         @foreach($addVariants as $index => $addVariant)
-                        <div class="inline-flex xl:flex-row flex-col">
+                        <div class="inline-flex xl:flex-row flex-col gap-2">
                             <div class="block">
                                 <div wire:key="{{ $loop->index }}-variant-number" class="flex gap-5 pb-3">
                                     <input type="hidden" wire:model.defer="addVariants.{{ $index }}.id">
-
                                     <div wire:key="{{ $loop->index }}-variant-name">    
                                         <x-label :value="__('Variant')"/>
-                                        <x-input wire:model.defer="addVariants.{{ $index }}.prd_var_name" class="block mt-1 w-40 text-black" type="text" autofocus />
+                                        <x-input wire:model.defer="addVariants.{{ $index }}.prd_var_name" class="block mt-1 w-full text-black" type="text" autofocus />
                                     </div>
-                                </div>
-
-                                <div class="block">
-                                    <div wire:key="{{ $loop->index }}-images" class="w-1/4">
+                                
+                                    <div wire:key="{{ $loop->index }}-images" class="w-2/4">
                                         <div class="">
                                             <x-label :value="__('Front View')"/>
                                             <input wire:key="{{ $addVariants[$index]['variant_id'] }}-front" type="file" wire:model="addVariants.{{ $index }}.front_view" />
@@ -100,9 +97,9 @@
                                 </div>
                             </div>
 
-                            <div class=" block justify-center items-center">
+                            <div class="block justify-center items-center">
                                 <div class="items-center align-center">
-                                    <div wire:key="{{ $loop->index }}-sizes" class="flex flex-row gap-2">
+                                    <div wire:key="{{ $loop->index }}-sizes-1" class="flex flex-row gap-2">
                                         <div wire:key="{{ $loop->index }}-2xs">
                                             <x-label for="2XS" :value="__('2XS')"/>
                                             <x-input wire:model.defer="addVariants.{{ $index }}.2XS" class="block mt-1 w-14 text-black" type="text" value="{{ old('2XS') }}" autofocus />
@@ -117,7 +114,9 @@
                                             <x-label for="S" :value="__('S')"/>
                                             <x-input wire:model.defer="addVariants.{{ $index }}.S" class="block mt-1 w-14 text-black" type="text" value="{{ old('S') }}" autofocus />
                                         </div>
+                                    </div>
 
+                                    <div wire:key="{{ $loop->index }}-sizes-2" class="flex flex-row gap-2">
                                         <div wire:key="{{ $loop->index }}-m">
                                             <x-label for="M" :value="__('M')"/>
                                             <x-input wire:model.defer="addVariants.{{ $index }}.M" class="block mt-1 w-14 text-black" type="text" value="{{ old('M') }}" autofocus />
@@ -140,7 +139,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             @if(count($addVariants) == 1) 
                                 <div>
                                     <x-button type="button" wire:click.prevent="addMore">
