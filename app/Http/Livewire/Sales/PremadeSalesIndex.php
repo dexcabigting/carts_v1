@@ -119,9 +119,16 @@ class PremadeSalesIndex extends Component
 
     private function resetDates()
     {
-        $start = OrderVariant::oldest()->first('created_at')->toArray();
+        if(count($this->sales->get()) > 0) {
+            $start = OrderVariant::oldest()->first('created_at')->toArray();
 
-        $end = OrderVariant::latest()->first('created_at')->toArray();
+            $end = OrderVariant::latest()->first('created_at')->toArray();
+        } else {
+            $start = null;
+
+            $end = null;
+        }
+
 
         if(empty($start) && empty($end)) {
             $this->startDate = now()->toDateString();
