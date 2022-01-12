@@ -162,7 +162,7 @@
 
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-100">
-                                            {{ $category->created_at }}
+                                            {{ $category->created_at->diffForHumans() }}
                                         </div>
                                     </td>
                                 </tr>

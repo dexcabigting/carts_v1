@@ -163,7 +163,7 @@
 
                                     <td class="break-words px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-100">
-                                            {{ $fabric->created_at }}
+                                            {{ $fabric->created_at->diffForHumans() }}
                                         </div>
                                     </td>
                                 </tr>
