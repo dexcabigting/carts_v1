@@ -94,87 +94,113 @@
 			</style>
 		</section> 
 
-  <section style="padding-top: 0 !important;">
-  <meta name="csrf-token" content="{{ Session::token() }}"> 
-  <!-- Navbar
-    ================================================== -->
-	<input type="hidden" value="{{ Auth::user()->id }}" id="hdn-user-name-id" />
-    <div class="container">
-		<section id="typography">
-		  <div class="page-header">
-		    <h2>Customize Your Own Jersey</h2>
-		  </div>
-		
-		  <!-- Headings & Paragraph Copy -->
-		  <div class="row">	
-				<div class="custom-design-container">  		
-					<div class="span3">
-						<div class="tabbable"> <!-- Only required for left/right tabs -->
-						<ul class="nav nav-tabs">
-							<li class="active"><a href="#tab1" data-toggle="tab" style="color:gray">Options</a></li>				    
-							<li><a href="#tab2" data-toggle="tab" style="color:gray">Stickers and Logo</a></li>
-						</ul>
-						<div class="tab-content">
-							<div class="tab-pane active" id="tab1">
-								<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
-									<h3>Tee Styles</h3>
-									<p style="">
-										<select id="tshirttype">                        
-											<option value="{{asset('images/2d-img/jersey3.png')}}" selected="selected">Short Sleeve Shirts</option>
-											<!-- <option value="{{asset('images/2d-img/mens_longsleeve_front.png')}}">Long Sleeve Shirts</option>                                        
-											<option value="{{asset('images/2d-img/mens_hoodie_front.png')}}">Hoodies</option>                    
-											<option value="{{asset('images/2d-img/mens_tank_front.png')}}">Tank tops</option> -->
-										</select>	
-									</p>								
-								</div>
-								<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
-									<h3>Fabric Type</h3>
-									<p>
-										<select id="fabrictype">                        
-										<option selected="selected">Spandex</option>
-										<option >Sublimax</option>                                        
-										<option >Neoprene</option>                    
-										<option >Sportsmax</option>
-										<option >Polidex</option>                                        
-										<option >Ribstop</option>                    
-										<option >Squarenet</option>
-										<option >Latex</option>                                        
-										<option >Micro Shiny</option>                    
-										<option >1x1 Lining</option>
-									</select>	
-									</p>								
-								</div>
-								<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
-								<h3>Select Color</h3>
-									<ul class="nav">
-										<li class="color-preview" title="Red" style="background-color:#FF0000;"></li>
-										<li class="color-preview" title="Dark Heather" style="background-color:#616161;"></li>
-										<li class="color-preview" title="Gray" style="background-color:#f0f0f0;"></li>
-										<li class="color-preview" title="Charcoal" style="background-color:#5b5b5b;"></li>
-										<li class="color-preview" title="Black" style="background-color:#222222;"></li>
-										<li class="color-preview" title="Heather Orange" style="background-color:#fc8d74;"></li>
-										<li class="color-preview" title="Heather Dark Chocolate" style="background-color:#432d26;"></li>
-										<li class="color-preview" title="Salmon" style="background-color:#eead91;"></li>
-										<li class="color-preview" title="Chesnut" style="background-color:#806355;"></li>
-										<li class="color-preview" title="Dark Chocolate" style="background-color:#382d21;"></li>
-										
-									</ul>
-								</div>
-								<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
-									<h3>Pre-made Layout</h3>
-									<p style="">
-										<button class="submit-file-toggle w-full hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
-											Submit File
-										</button>
-									</p>								
-								</div>			      
-							</div>				   
-							<div class="tab-pane" id="tab2">
-								<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
-									<div class="input-append">
-									<h3>Add Text Here	</h3>
-									<input class="span2" id="text-string" type="text" placeholder="Type here..."><button id="add-text" class="btn" title="Add text"><i class="icon-share-alt"></i></button>
-									<hr>
+		<section style="padding-top: 0 !important;">
+		<meta name="csrf-token" content="{{ Session::token() }}"> 
+		<!-- Navbar
+			================================================== -->
+			<input type="hidden" value="{{ Auth::user()->name }}" id="hdn-user-name-id" />
+			<div class="container">
+				<section id="typography">
+				<div class="page-header">
+					<h2>Customize Your Own Jersey</h2>
+				</div>
+				
+				<!-- Headings & Paragraph Copy -->
+				<div class="row">	
+						<div class="custom-design-container">  		
+							<div class="span3">
+								<div class="tabbable"> <!-- Only required for left/right tabs -->
+								<ul class="nav nav-tabs">
+									<li class="active"><a href="#tab1" data-toggle="tab" style="color:gray">Options</a></li>				    
+									<li><a href="#tab2" data-toggle="tab" style="color:gray">Stickers and Logo</a></li>
+								</ul>
+								<div class="tab-content">
+									<div class="tab-pane active" id="tab1">
+										<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+											<h3>Tee Styles</h3>
+											<p style="">
+												<select id="tshirttype">                        
+													<option value="{{asset('images/2d-img/jersey3.png')}}" selected="selected">Jersey 1</option>
+													<option value="{{asset('images/2d-img/jersey2front.PNG')}}">Jersey 2</option>                                        
+													<option value="{{asset('images/2d-img/Design1front.png')}}">Jersey 3</option>                    
+													<option value="{{asset('images/2d-img/mens_tank_front.png')}}">Jersey 4</option>
+												</select>	
+											</p>								
+										</div>
+										<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+											<h3>Fabric Type</h3>
+											<p>
+												<select id="fabrictype">                        
+												<option selected="selected">Spandex</option>
+												<option >Sublimax</option>                                        
+												<option >Neoprene</option>                    
+												<option >Sportsmax</option>
+												<option >Polidex</option>                                        
+												<option >Ribstop</option>                    
+												<option >Squarenet</option>
+												<option >Latex</option>                                        
+												<option >Micro Shiny</option>                    
+												<option >1x1 Lining</option>
+											</select>	
+											</p>								
+										</div>
+										<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+										<h3>Select Color</h3>
+											<ul class="nav">
+												<li class="color-preview" title="Red" style="background-color:#FF0000;"></li>
+												<li class="color-preview" title="Dark Heather" style="background-color:#616161;"></li>
+												<li class="color-preview" title="Gray" style="background-color:#f0f0f0;"></li>
+												<li class="color-preview" title="Charcoal" style="background-color:#5b5b5b;"></li>
+												<li class="color-preview" title="Black" style="background-color:#222222;"></li>
+												<li class="color-preview" title="Heather Orange" style="background-color:#fc8d74;"></li>
+												<li class="color-preview" title="Heather Dark Chocolate" style="background-color:#432d26;"></li>
+												<li class="color-preview" title="Salmon" style="background-color:#eead91;"></li>
+												<li class="color-preview" title="Chesnut" style="background-color:#806355;"></li>
+												<li class="color-preview" title="Dark Chocolate" style="background-color:#382d21;"></li>
+												
+											</ul>
+										</div>
+										<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+											<h3>Pre-made Layout</h3>
+											<p style="">
+												<button class="submit-file-toggle w-full hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
+													Submit File
+												</button>
+											</p>								
+										</div>			      
+									</div>				   
+									<div class="tab-pane" id="tab2">
+										<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+											<div class="input-append">
+											<h3>Add Text Here	</h3>
+											<input class="span2" id="text-string" type="text" placeholder="Type here..."><button id="add-text" class="btn" title="Add text"><i class="icon-share-alt"></i></button>
+											<hr>
+											</div>
+											<div class="" id="avatarlist">
+												<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_1.png')}}">
+												<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_2.png')}}">
+												<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_3.png')}}">
+												<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_4.png')}}">
+												<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_5.png')}}">
+												<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_12.png')}}">
+												<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_6.png')}}">
+												<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_7.png')}}">
+												<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_8.png')}}">
+												<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_9.png')}}">
+												<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_10.png')}}">
+												<img style="cursor:pointer;" class="img-polaroid" src="{{asset('images/2d-img/stickers/sticker_11.png')}}">
+												
+											
+											</div>	
+											<div>
+												<hr>
+												<input type="file" name="fileToUpload" id="file-upload-container-id">
+												<input class="btn btn-primary" id="upload-custom-image-id" type="submit" value="Upload Custom Image" name="submit">
+											</div>
+											
+										</div>				      
+
+  
 									</div>
 									
 								</div>
@@ -237,8 +263,8 @@
 									<p style="">
 										<button class="submit-file-toggle w-full align-center relative items-center hover:bg-purple-900 hover:text-purple-100 text-xl font-semibold text-white px-4 py-2 bg-custom-violet my-3">
 										<svg xmlns="http://www.w3.org/2000/svg" class="absolute left-8 h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-		<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414 6.414a2 2 0 001.414.586H19a2 2 0 002-2V7a2 2 0 00-2-2h-8.172a2 2 0 00-1.414.586L3 12z" />
-		</svg>	
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414 6.414a2 2 0 001.414.586H19a2 2 0 002-2V7a2 2 0 00-2-2h-8.172a2 2 0 00-1.414.586L3 12z" />
+										</svg>	
 										Back 
 										</button>
 									</p>								
@@ -246,66 +272,68 @@
 							</div>
 							<canvas id="preview-uploaded-files" class="span6"></canvas>
 						</div>
-						<div class="span3">
-							<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
-						<h3>Measurement</h3>
-						<h4>Jersey</h4>
-							<p>
-							<table class="table" style="opacity: 1;color: rgba(107, 114, 128);font-weight:600;">
-								<tr>
-									<td>NECK</td>
-									<td align="right"><input min="0" id="neck-id" style="width: 50px;" value="1" type="number" require>/cm</td>
-								</tr>
-								<tr>
-									<td>CHEST</td>
-									<td align="right"><input min="0" id="chest-id" style="width: 50px;" placeholder="1" type="number">/cm</td>
-								</tr>
-								<tr>
-									<td>STOMACH</td>
-									<td align="right"><input min="0" id="stomach-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
-								</tr>
-								<tr>
-									<td>WAIST</td>
-									<td align="right"><input min="0" id="waist-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
-								</tr>
-								<tr>
-									<td>HIP</td>
-									<td align="right"><input min="0" id="hip-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
-								</tr>
-									<tr>
-									<td>SHIRT LENGTH</td>
-									<td align="right"><input min="0" id="shirt-lenght-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
-								</tr>
-								<tr>
-									<td>SHOULDER</td>
-									<td align="right"><input min="0" id="should-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
-								</tr>
-								<tr>
-									<td>BICEP</td>
-									<td align="right"><input min="0" id="bicep-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
-								</tr>
+						<form id="validate-form-id">
+							<div class="span3">
+								<div class="well" style="background-color:#242424;border: 2px solid #242424; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+							<h3>Measurement</h3>
+							<h4>Jersey</h4>
+								<p>
+									<table class="table" style="opacity: 1;color: rgba(107, 114, 128);font-weight:600;">
+										<tr>
+											<td>NECK</td>
+											<td align="right"><input min="0" id="neck-id" style="width: 50px;" value="1" type="number" required>/cm</td>
+										</tr>
+										<tr>
+											<td>CHEST</td>
+											<td align="right"><input min="0" id="chest-id" style="width: 50px;" placeholder="1" type="number" required>/cm</td>
+										</tr>
+										<tr>
+											<td>STOMACH</td>
+											<td align="right"><input min="0" id="stomach-id" style="width: 50px;"  placeholder="1" type="number" required>/cm</td>
+										</tr>
+										<tr>
+											<td>WAIST</td>
+											<td align="right"><input min="0" id="waist-id" style="width: 50px;"  placeholder="1" type="number" required>/cm</td>
+										</tr>
+										<tr>
+											<td>HIP</td>
+											<td align="right"><input min="0" id="hip-id" style="width: 50px;"  placeholder="1" type="number" required>/cm</td>
+										</tr>
+											<tr>
+											<td>SHIRT LENGTH</td>
+											<td align="right"><input min="0" id="shirt-lenght-id" style="width: 50px;"  placeholder="1" type="number" required>/cm</td>
+										</tr>
+										<tr>
+											<td>SHOULDER</td>
+											<td align="right"><input min="0" id="should-id" style="width: 50px;"  placeholder="1" type="number" required>/cm</td>
+										</tr>
+										<tr>
+											<td>BICEP</td>
+											<td align="right"><input min="0" id="bicep-id" style="width: 50px;"  placeholder="1" type="number" required>/cm</td>
+										</tr>
 
 
-							</table>			
-							</p>
-						<h4>Jersey Short</h4>
-							<p>
-							<table class="table" style="opacity: 1;color: rgba(107, 114, 128);font-weight: 600;">
-								<tr>
-									<td>WAIST</td>
-									<td align="right"><input min="0" id="short-waist-id" style="width: 50px;" value="1" type="number">/cm</td>
-								</tr>
-								<tr>
-									<td>OUTSEAM</td>
-									<td align="right"><input min="0" id="outseam-id" style="width: 50px;" placeholder="1" type="number">/cm</td>
-								</tr>
-								<tr>
-									<td>INSEAM</td>
-									<td align="right"><input min="0" id="inseam-id" style="width: 50px;"  placeholder="1" type="number">/cm</td>
-								</tr>
-							</table>
-							</p>
-							<button type="button" class="btn btn-large btn-block btn-success" name="save" id="btn-save">SAVE</button>
+									</table>			
+								</p>
+							<h4>Jersey Short</h4>
+								<p>
+									<table class="table" style="opacity: 1;color: rgba(107, 114, 128);font-weight: 600;">
+										<tr>
+											<td>WAIST</td>
+											<td align="right"><input min="0" id="short-waist-id" style="width: 50px;" value="1" type="number" required>/cm</td>
+										</tr>
+										<tr>
+											<td>OUTSEAM</td>
+											<td align="right"><input min="0" id="outseam-id" style="width: 50px;" placeholder="1" type="number" required>/cm</td>
+										</tr>
+										<tr>
+											<td>INSEAM</td>
+											<td align="right"><input min="0" id="inseam-id" style="width: 50px;"  placeholder="1" type="number" required>/cm</td>
+										</tr>
+									</table>
+								</p>
+						</form>
+						<button type="button" class="btn btn-large btn-block btn-success" name="save" id="btn-save">SAVE</button>
 					</div>		      		       		   
 					</div>
 				
@@ -331,11 +359,11 @@
 						</div>
 						<div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
 							<h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-							Setup successful
+							Customization Seccessful
 							</h3>
 							<div class="mt-2">
 							<p class="text-sm text-gray-500">
-								Jersey customization setup was exported to pdf and has been saved. Please wait until the administrator approval.
+								Jersey customization setup was exported to pdf and has been saved. Please wait for the administrator approval.
 							</p>
 							</div>
 						</div>
@@ -343,7 +371,7 @@
 					</div>
 					<div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
 						<button type="button" id="btn-go-back-to-shop-id" class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:text-sm">
-						GO BACK TO SHOP
+						GO TO RESERVATIONS
 						</button>
 					</div>
 					</div>

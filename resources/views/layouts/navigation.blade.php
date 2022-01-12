@@ -55,12 +55,15 @@
                     {{ __('Order Management') }}
                 </x-nav-link>
 
-                <x-nav-link class="block w-full px-4 py-2 mt-2 text-sm font-semibold text-gray-100 bg-transparent hover:text-gray-100 focus:text-gray-100 hover:bg-purple-900 focus:bg-custom-violet" :href="route('products.customerlist')" :active="request()->routeIs('products.customerlist')">
+                @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                 <x-nav-link class="block w-full px-4 py-2 mt-2 text-sm font-semibold text-gray-100 bg-transparent hover:text-gray-100 focus:text-gray-100 hover:bg-purple-900 focus:bg-custom-violet" :href="route('products.customerlist')" :active="request()->routeIs('products.customerlist')">
                     <div class="mx-4">
                         <svg class="w-6 h-6 text-gray-100" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
                     </div>
                     {{ __('Custom Management') }}
-                </x-nav-link>
+                 </x-nav-link>
+                @endif
+                
 
                 <x-nav-link class="block w-full px-4 py-2 mt-2 text-sm font-semibold text-gray-100 bg-transparent hover:text-gray-100 focus:text-gray-100 hover:bg-purple-900 focus:bg-custom-violet" :href="route('sales.index')" :active="request()->routeIs('sales.index')">
                     <div class="mx-4">
@@ -175,9 +178,12 @@
                 {{ __('Order Management') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('products.customerlist')" :active="request()->routeIs('products.customerlist')">
-                {{ __('Custom Management') }}
-            </x-responsive-nav-link>
+            @if((new \Jenssegers\Agent\Agent())->isDesktop())
+                <x-responsive-nav-link :href="route('products.customerlist')" :active="request()->routeIs('products.customerlist')">
+                    {{ __('Custom Management') }}
+                </x-responsive-nav-link>
+            @endif
+           
 
             <x-responsive-nav-link :href="route('sales.index')" :active="request()->routeIs('sales.index')">
                 {{ __('Sales Management') }}

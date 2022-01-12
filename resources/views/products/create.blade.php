@@ -80,13 +80,8 @@
                                     <x-label :value="__('Variant')"/>
                                     <x-input wire:model.defer="addVariants.{{ $index }}.prd_var_name" class="block mt-1 w-full text-black" type="text" autofocus />
                                 </div>
-<<<<<<< HEAD
-                                <div class="block">
-                                <div wire:key="{{ $loop->index }}-images" class="w-2/4">
-=======
 
                                 <div class="w-2/4">
->>>>>>> 3166c552eac743b6f12221f0b52e2b2eff7f46fb
                                     <div class="">
                                         <x-label :value="__('Front View')"/>
                                         <input wire:key="{{ $addVariants[$index]['id'] }}-front" type="file" wire:model="addVariants.{{ $index }}.front_view" />
@@ -99,8 +94,8 @@
                                         <div wire:loading wire:target="addVariants.{{ $index }}.back_view">Uploading...</div>
                                     </div>
                                 </div>
-</div>
-</div>
+                            </div>
+                        </div>
 
                                
                                

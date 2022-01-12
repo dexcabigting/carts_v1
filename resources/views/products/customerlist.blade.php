@@ -78,6 +78,11 @@
                                         @endphp
                                     </div>                                      
                                 </td>
+                                <td class="px-6 py-4 whitespace-nowrap">                                     
+                                    <div class="text-sm font-medium text-gray-100">
+                                        {{ str_replace('"', '', $tshirt_detail->created_at->format('Y-m-d')) }}
+                                    </div>                                      
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="grid grid-cols-1 gap-4">
                                     <div>

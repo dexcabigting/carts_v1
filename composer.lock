@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "8cfebaf703f91f2624601da550e4067b",
-=======
-    "content-hash": "3902d1cf3aab6624ad0df9c77ccf03ae",
->>>>>>> dev
+    "content-hash": "1c9ed346a92bb3e14a30aeb597297bbd",
     "packages": [
         {
             "name": "aloha/twilio",
@@ -192,16 +188,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.208.10",
+            "version": "3.209.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a7802ac9289e0c4de2c76cfe0ea0f11f72955754"
+                "reference": "77c14dd84704d2db6c5c4d6a8c1226337e4e6783"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a7802ac9289e0c4de2c76cfe0ea0f11f72955754",
-                "reference": "a7802ac9289e0c4de2c76cfe0ea0f11f72955754",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/77c14dd84704d2db6c5c4d6a8c1226337e4e6783",
+                "reference": "77c14dd84704d2db6c5c4d6a8c1226337e4e6783",
                 "shasum": ""
             },
             "require": {
@@ -277,9 +273,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.208.10"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.2"
             },
-            "time": "2022-01-05T19:19:54+00:00"
+            "time": "2022-01-10T19:14:32+00:00"
         },
         {
             "name": "box/spout",
@@ -6728,16 +6724,16 @@
         },
         {
             "name": "twilio/sdk",
-            "version": "v6.33.0",
+            "version": "6.32.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/dexcabigting/twilio-php.git",
-                "reference": "520c0b3c509572f0f0ffea4569778b63ebef5d8e"
+                "url": "https://github.com/twilio/twilio-php.git",
+                "reference": "d4a5ad22e761a14c5e355debb88a6f17640b247c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dexcabigting/twilio-php/zipball/520c0b3c509572f0f0ffea4569778b63ebef5d8e",
-                "reference": "520c0b3c509572f0f0ffea4569778b63ebef5d8e",
+                "url": "https://api.github.com/repos/twilio/twilio-php/zipball/d4a5ad22e761a14c5e355debb88a6f17640b247c",
+                "reference": "d4a5ad22e761a14c5e355debb88a6f17640b247c",
                 "shasum": ""
             },
             "require": {
@@ -6757,11 +6753,7 @@
                     "Twilio\\": "src/Twilio/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "Twilio\\Tests\\": "tests/Twilio/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -6779,9 +6771,10 @@
                 "twilio"
             ],
             "support": {
-                "source": "https://github.com/dexcabigting/twilio-php/tree/v6.33.0"
+                "issues": "https://github.com/twilio/twilio-php/issues",
+                "source": "https://github.com/twilio/twilio-php/tree/6.32.0"
             },
-            "time": "2021-12-16T20:17:06+00:00"
+            "time": "2021-12-15T20:48:09+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -7417,16 +7410,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.14.4",
+            "version": "2.14.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "f056f1fe935d9ed86e698905a957334029899895"
+                "reference": "a63e5e8f26ebbebf8ed3c5c691637325512eb0dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/f056f1fe935d9ed86e698905a957334029899895",
-                "reference": "f056f1fe935d9ed86e698905a957334029899895",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/a63e5e8f26ebbebf8ed3c5c691637325512eb0dc",
+                "reference": "a63e5e8f26ebbebf8ed3c5c691637325512eb0dc",
                 "shasum": ""
             },
             "require": {
@@ -7476,7 +7469,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.14.4"
+                "source": "https://github.com/filp/whoops/tree/2.14.5"
             },
             "funding": [
                 {
@@ -7484,7 +7477,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-10-03T12:00:00+00:00"
+            "time": "2022-01-07T12:00:00+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -7751,6 +7744,9 @@
             "require": {
                 "php": "^7.1 || ^8.0"
             },
+            "replace": {
+                "myclabs/deep-copy": "self.version"
+            },
             "require-dev": {
                 "doctrine/collections": "^1.0",
                 "doctrine/common": "^2.6",
@@ -7791,16 +7787,16 @@
         },
         {
             "name": "nunomaduro/collision",
-            "version": "v5.10.0",
+            "version": "v5.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "3004cfa49c022183395eabc6d0e5207dfe498d00"
+                "reference": "8b610eef8582ccdc05d8f2ab23305e2d37049461"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/3004cfa49c022183395eabc6d0e5207dfe498d00",
-                "reference": "3004cfa49c022183395eabc6d0e5207dfe498d00",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/8b610eef8582ccdc05d8f2ab23305e2d37049461",
+                "reference": "8b610eef8582ccdc05d8f2ab23305e2d37049461",
                 "shasum": ""
             },
             "require": {
@@ -7862,7 +7858,7 @@
             },
             "funding": [
                 {
-                    "url": "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66BYDWAT92N6L",
+                    "url": "https://www.paypal.com/paypalme/enunomaduro",
                     "type": "custom"
                 },
                 {
@@ -7874,7 +7870,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-09-20T15:06:32+00:00"
+            "time": "2022-01-10T16:22:52+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -9727,5 +9723,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.0.0"
 }

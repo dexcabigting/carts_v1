@@ -18,9 +18,13 @@
                         <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('orders.index')" :active="request()->routeIs('orders.index')">
                             {{ __('Orders') }}
                         </x-nav-link>
+
+                    @if((new \Jenssegers\Agent\Agent())->isDesktop())
                         <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('products.customize')" :active="request()->routeIs('products.customize')">
                             {{ __('Customize') }}
                         </x-nav-link>
+                    @endif
+                        
                         <x-nav-link class="text-white text-xl focus:text-custom-violet" :href="route('reservations.index')" :active="request()->routeIs('reservations.index')">
                             {{ __('Reservations') }}
                         </x-nav-link>
@@ -116,9 +120,13 @@
                     {{ __('Orders') }}
                 </x-responsive-nav-link>
 
-                <x-responsive-nav-link :href="route('products.customize')" :active="request()->routeIs('products.customize')">
-                    {{ __('Customize') }}
-                </x-responsive-nav-link>
+                @if((new \Jenssegers\Agent\Agent())->isDesktop())
+
+                    <x-responsive-nav-link :href="route('products.customize')" :active="request()->routeIs('products.customize')">
+                        {{ __('Customize') }}
+                    </x-responsive-nav-link>
+
+                @endif
 
                 <x-responsive-nav-link :href="route('reservations.index')" :active="request()->routeIs('reservations.index')">
                     {{ __('Reservations') }}
