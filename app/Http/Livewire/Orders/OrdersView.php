@@ -111,12 +111,12 @@ class OrdersView extends Component
                 } elseif($this->selectedStatus == "Shipping") {
                     $this->validate();
 
-                    // $this->assignDateOfArrival();
-                    // dd("Error");
+                    $this->assignDateOfArrival();
+                    
                     $this->textUser();
                 } elseif($this->selectedStatus == "Rejected") {
-                    // $this->deleteUserOrder();
-                    // dd("Error");
+                    $this->deleteUserOrder();
+                    
                     $this->textUser();
                 }
 
@@ -227,14 +227,20 @@ class OrdersView extends Component
 
     protected function deleteUserOrder()
     {
-        $this->order->delete();
-        
+        $order = $this->order->first();
+
+        $order->deleted_at = now();
+
+        $order->save();
     }
 
     public function assignDateOfArrival()
     {
-        $this->order->update(['date_of_arrival' => $this->dateOfArrival]);
-        
+        $order = $this->order->first();
+
+        $order->date_of_arrival = $this->dateOfArrival;
+
+        $order->save();
     }
 
     public function notifyUser()
