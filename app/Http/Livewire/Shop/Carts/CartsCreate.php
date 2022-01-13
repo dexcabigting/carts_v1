@@ -93,6 +93,29 @@ class CartsCreate extends Component
         }
     }
 
+    public function outOfStock($id): bool
+    {
+        $cartId = Cart::findOrFail($id);
+
+        $sizes = ProductStock::where('product_variant_id', $cartId->product_variant_id)->first();
+
+        $cartItems = $cartId->cart_items()->get()->toArray();
+
+        $originalStocks = $sizes->sizes->toArray();
+
+        $variantStocks = array_count_values(array_column($cartItems, 'size'));
+
+        foreach($variantStocks as $size => $count) {
+            $originalCountSize = $originalStocks[$size];
+
+            if($originalCountSize == 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function getQueryString()
     {
         return [];

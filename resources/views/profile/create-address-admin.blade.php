@@ -86,7 +86,7 @@
             </div>
         @endif
 
-        <div class="mt-4">
+        <div class="mt-4 text-white">
             <x-label :value="__('Set as Default')" />
             <div>
                 <input wire:model="form.is_main_address" type="radio" value="1"/>
