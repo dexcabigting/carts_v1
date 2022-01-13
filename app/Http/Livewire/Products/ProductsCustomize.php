@@ -4,10 +4,14 @@ namespace App\Http\Livewire\Products;
 
 use Livewire\Component;
 
+use App\Models\Fabric;
+
 class ProductsCustomize extends Component
 {
     public function render()
     {
-        return view('livewire.products.products-customize')->layout('layouts.app-user');
+        $fabrics = Fabric::select('id', 'fab_name')->get();
+
+        return view('livewire.products.products-customize', compact('fabrics'))->layout('layouts.app-user');
     }
 }

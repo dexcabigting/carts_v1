@@ -127,8 +127,8 @@
 													<option value="{{asset('images/2d-img/lineFront.PNG')}}">Template 5</option>                                        
 													<option value="{{asset('images/2d-img/Stripeblack.png')}}">Template 6</option>                    
 													<option value="{{asset('images/2d-img/newfd.png')}}">Template 7</option>
-													<option value="{{asset('images/2d-img/newtsf.png')}}">Template 9</option>
-													<option value="{{asset('images/2d-img/jacketfront.png')}}">Template 8</option>
+													<option value="{{asset('images/2d-img/newtsf.png')}}">Template 8</option>
+													<option value="{{asset('images/2d-img/jacketfront.png')}}">Template 9</option>
 												</select>	
 											</p>								
 										</div>
@@ -137,15 +137,9 @@
 											<p>
 												<select id="fabrictype">                        
 												<option selected="selected">Spandex</option>
-												<option >Sublimax</option>                                        
-												<option >Neoprene</option>                    
-												<option >Sportsmax</option>
-												<option >Polidex</option>                                        
-												<option >Ribstop</option>                    
-												<option >Squarenet</option>
-												<option >Latex</option>                                        
-												<option >Micro Shiny</option>                    
-												<option >1x1 Lining</option>
+												@foreach($fabrics as $fabric)
+													<option value="{{ $fabric->fab_name }}">{{ $fabric->fab_name }}</option>
+												@endforeach
 											</select>	
 											</p>								
 										</div>
@@ -379,7 +373,7 @@
 						</div>
 						<div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
 							<h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-							Customization Seccessful
+							Customization Successful
 							</h3>
 							<div class="mt-2">
 							<p class="text-sm text-gray-500">
