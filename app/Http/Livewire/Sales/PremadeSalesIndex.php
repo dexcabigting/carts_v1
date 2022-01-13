@@ -123,22 +123,26 @@ class PremadeSalesIndex extends Component
             $start = OrderVariant::oldest()->first('created_at')->toArray();
 
             $end = OrderVariant::latest()->first('created_at')->toArray();
-        } else {
-            $start = null;
 
-            $end = null;
-        }
-
-
-        if(empty($start) && empty($end)) {
-            $this->startDate = now()->toDateString();
-
-            $this->endDate = now()->toDateString();
-        } else {
             $this->startDate = Carbon::parse($start['created_at'])->toDateString();
 
             $this->endDate = Carbon::parse($end['created_at'])->toDateString();
+        } else {
+            $this->startDate = now()->toDateString();
+
+            $this->endDate = now()->toDateString();
         }
+
+
+        // if(empty($start) && empty($end)) {
+        //     $this->startDate = now()->toDateString();
+
+        //     $this->endDate = now()->toDateString();
+        // } else {
+        //     $this->startDate = Carbon::parse($start['created_at'])->toDateString();
+
+        //     $this->endDate = Carbon::parse($end['created_at'])->toDateString();
+        // }
         // dd($this->startDate,  $this->endDate);
     }
 }
