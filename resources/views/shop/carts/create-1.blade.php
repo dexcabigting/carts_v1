@@ -136,7 +136,7 @@
     <div class="">
         <div>
             <h2 class="font-semibold text-l leading-tight ">
-                Variant already in <a class="underline" href="{{ route('carts.index') }}">Cart</a>
+                Variant already in <a class="underline" href="{{ route('carts.index') }}">Cart</a> @if($this->outOfStock($this->user_cart)) (Out of Stock) @endif
             </h2>
         </div>
         
@@ -148,11 +148,13 @@
             </div>
 
             <div>
-                <a href="{{ route('checkout.index', [json_encode($this->user_cart)])  }}">
+                @if(!$this->outOfStock($this->user_cart))
+                <a href="{{ route('checkout.index', [json_encode($this->user_cart)]) }}">
                     <x-button class="bg-custom-violet text-xl xl:text-2xl py-3 font-bold xl:py-2 px-3 xl:px-6">
                         {{ __('Checkout') }}
                     </x-button>
                 </a>
+                @endif
             </div>
         </div>
     </div>
