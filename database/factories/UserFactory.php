@@ -26,7 +26,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'email' => $this->faker->unique()->freeEmail(),
             'email_verified_at' => now(),
             'phone' => 639 . mt_rand(111111111, 999999999),
             'otp' => null,
@@ -56,7 +56,7 @@ class UserFactory extends Factory
                 'name' => 'Admin',
                 'email' => 'admin@admin.com',
                 'email_verified_at' => now(),
-                'phone' => '639392698072',
+                'phone' => '639701671523',
                 'otp' => null,
                 'password' => Hash::make('Capstone2'), // password
                 'remember_token' => null, //Str::random(10),
