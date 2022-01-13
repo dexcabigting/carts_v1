@@ -1,9 +1,9 @@
-<div class="flex justify-center items-center w-full pt-24 lg:pt-32 xl:pt-24 2xl:pt-32">
-<div class ="h-full pl-6 lg:pl-0 xl:mx-4 xl:pl-64 2xl:pl-96">
-<div class="flex flex-col items-center justify-center">
+<div class="w-full pt-24 lg:pt-32 xl:pt-24 2xl:pt-32">
+<div class ="h-full pl-6 lg:pl-0 xl:mx-4 xl:pl-60 2xl:pl-72">
+<div class="flex flex-col items-center justify-center mx-2">
         <div class="w-full">
             <div class="inline-flex">
-                <div class="inline-flex mx-2 lg:ml-0 mb-4 p-9  bg-custom-blacki shadow-2xl overflow-x-auto">
+                <div class="inline-flex mx-2 lg:ml-0 mb-4 p-3 py-5  bg-custom-blacki overflow-x-auto">
                 <div class="flex flex-col md:flex-row items-center justify-between">
                     <div class="flex flex-row">
                     <div class="mx-1">
@@ -36,7 +36,7 @@
                     <!-- Products -->
                     <div class="xl:ml-0">
                         <div class="font-medium text-gray-100 py-4">
-                            <div class="flex flex-col items-center justify-items-center lg:flex-row mx-2">
+                            <div class="flex flex-col items-center lg:flex-row mx-2">
                                 <div class="mx-2">
                                 <x-label :value="__('Products')" class="text-gray-50 inline-block font-bold text-sm mx-1 xl:text-xl" />
                                 </div>
@@ -63,7 +63,7 @@
                             <x-label :value="__('Order by')" class="font-semibold text-gray-50 inline-block text-base -ml-2" />
                             </div>
                             <div>
-                                <div class="flex md:flex-row flex-col">
+                                <div class="flex flex-row">
                                 <div>
                             <select wire:model="sortBy" class="text-sm font-medium bg-custom-black text-white rounded-md shadow-sm border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                 <option value="prd_name">
@@ -138,7 +138,7 @@
         </div>
     </div>
 
-    <div class="max-w-sm lg:max-w-none lg:ml-0 ml-6 overflow-scroll ">
+    <div class="max-w-sm xl:max-w-6xl 2xl:max-w-none lg:ml-0 ml-6 overflow-x-scroll ">
         <div class="flex flex-col">
             <div class="my-2 ">
                 <div class="py-2">

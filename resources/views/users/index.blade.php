@@ -1,6 +1,6 @@
-<div class="flex justify-center items-center w-full pt-24 lg:pt-32 xl:pt-24 2xl:pt-32">
+<div class="w-full pt-24 lg:pt-32 xl:pt-24 2xl:pt-32">
 <div class ="h-full xl:pl-64 2xl:pl-72">
-    <div class="flex flex-col items-center justify-center xl:mx-7 2xl:mx-32">
+    <div class="flex flex-col items-center justify-center xl:mx-2 2xl:mx-32">
         <div class="w-full">
             <div class="flex items-center justify-center mx-4">
                 <div class="inline-flex lg:ml-0 p-7 px-8 md:px-2 bg-custom-blacki shadow-2xl">
@@ -291,13 +291,9 @@
     </div>
 </div>
 </div>
-<<<<<<< HEAD
-</div>
-=======
 
 <script type="text/javascript">
     window.addEventListener('exceptionAlert', event => {
         alert('An error occured! ' + event.detail.error);  
     });
 </script>
->>>>>>> dev

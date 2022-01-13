@@ -47,7 +47,7 @@
                         @livewire('notifications.notifications-counter')
                     </div>                    
                 </div>
-                <img src="{{ asset('img/GROI.png') }}" alt="" class="rounded-full w-10 h-10 mx-4 border-4 border-custom-violet">
+                <img src="{{ asset('img/user.png') }}" alt="" class="rounded-full w-10 h-10 mx-4 border-4 border-custom-violet">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-100 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">

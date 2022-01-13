@@ -1,4 +1,4 @@
-<div class="flex justify-center items-center w-full pt-24 lg:pt-32 xl:pt-12 2xl:pt-24 2xl:pl-56">
+<div class="flex justify-center items-center w-full mt-32 lg:pt-32 xl:pt-12 2xl:pt-24 2xl:pl-56">
 <div class ="h-full lg:pl-0 xl:pl-64 ">
 <div class="flex flex-col items-center justify-center">
         <div class="w-full">

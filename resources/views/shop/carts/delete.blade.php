@@ -24,9 +24,9 @@
         </div>
     </div>
     @elseif($promptDeleted)
-    <div class="flex mt-4">
-        <div class="">
-            <x-button class="bg-red-500 text-white hover:bg-red-400 text-xl" type="button" wire:click.prevent="closeDeleteCartModal()">
+    <div class="flex justify-center items-center mt-4">
+        <div class="flex">
+            <x-button class="bg-red-500 text-white hover:bg-red-400 text-xl px-4 py-2 font-bold" type="button" wire:click.prevent="closeDeleteCartModal()">
                 {{ __('Close') }}
             </x-button>
         </div>

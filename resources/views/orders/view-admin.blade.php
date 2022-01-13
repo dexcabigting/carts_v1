@@ -20,7 +20,7 @@
                 </div>
             @endif
         </div>
-        <div class="overflow-hidden py-20">
+        <div class="overflow-hidden xl:pt-20">
         <div class="flex flex-col md:flex-row gap-5 ">
             <div class="md:w-3/4 shadow overflow-hidden border-gray-200 sm:rounded-lg">
                 <table class="min-w-full table-auto divide-y divide-gray-200">
@@ -257,7 +257,7 @@
                 </div>
             </div>
             @else
-            <div class="w-1/4">
+            <div class="w-full">
                 <img src="{{ Storage::url('public/' . $userOrder->payment_proof) }}" />
             </div>
             @endif

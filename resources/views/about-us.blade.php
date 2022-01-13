@@ -12,7 +12,7 @@
 </style>
 
 <main class="relative container mx-auto bg-custom-black px-4">
-<h1 class="font-bold text-9xl text-center text-custom-text my-12">ABOUT</h1>
+<h1 class="font-bold text-5xl lg:text-9xl text-center text-custom-text my-12">ABOUT</h1>
 
   <div class="mt-[-20%] w-1/2 mx-auto">
     <div class="relative pt-[56.25%] overflow-hidden rounded-2xl">

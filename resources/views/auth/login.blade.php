@@ -16,7 +16,7 @@
         
 
         <form method="POST" action="{{ route('login') }}"  class="w-full max-w-sm">
-        <div class="ml-64">
+        <div class="ml-72">
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
         </div>
             @csrf

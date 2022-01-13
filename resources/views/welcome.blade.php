@@ -88,7 +88,11 @@
       <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5"><a href="{{ route('welcome') }}">HOME</a></h1>
       <h1 class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5"><a href="{{ route('about-us') }}">ABOUT US</a></h1>   
         
-      <img class="sm:block py-2 lg:px-12 sm:h-20 sm:w-10 h-10 w-40 -mt-24 md:h-auto md:w-auto sm:mt-2 md:mt-0 sm:mx-8" src="img/Group 12.svg" />
+      <img class="relative sm:block py-2 lg:px-12 sm:h-20 sm:w-10 h-10 w-40 -mt-24 md:h-auto md:w-auto sm:mt-2 md:mt-0 sm:mx-8" src="img/Group 12.svg" />
+      <button type="button"
+          class="hover:bg-purple-900 hover:text-purple-100 text-4xl font-semibold text-white px-12 py-6 absolute bottom-32 md:bottom-24 bg-custom-violet">
+            <a href="{{ route('shop.index') }}">SHOP NOW</a>
+          </button>
         @auth
           @if(auth()->user()->role_id == 1)
             <a  href="{{ route('dashboard') }}" class="hidden sm:block  py-4 lg:px-10 px-2 sm:px-5">DASHBOARD</a>
@@ -117,7 +121,7 @@
         
                     
     </header>
-    <div class="relative flex justify-center items-center">
+    <div class="flex justify-center items-center">
         @auth
           @if(auth()->user()->role_id == 2)
           <button type="button"
@@ -181,9 +185,9 @@
           </div>
 
         </div>
-        <a href="{{ route('shop.index') }}">
-          <button
-            class="hover:bg-purple-900 hover:text-purple-100 text-2xl md:text-4xl font-semibold text-white py-6 lg:px-2 lg:py-6 uppercase bg-custom-violet">Get
+        <a href="{{ route('shop.index') }}" class="hover:bg-purple-900 hover:text-purple-100 text-2xl md:text-4xl  text-white py-6 lg:px-2 lg:py-6 uppercase bg-custom-violet text-center">
+          <button class="font-bold uppercase"
+            >Get
             yours now
           </button>
         </a>
@@ -208,12 +212,12 @@
       </button>
     </a>
   </div>
-  <section class="relative flex justify-center items-center my-24">
+  <section class="flex-col flex justify-center items-center my-24">
     <h1 class="text-7xl md:text-9xl text-custom-text font-extrabold  top-2">SHOP NOW</h1>
-    <img class="w-1/2 absolute top-12" src="img/Group 19.png" alt="">
+    <img class="w-2/5" src="img/Group 19.png" alt="">
   </section>
-  <div class="relative md:h-screen">
-    <div class="absolute sm:left-12 left-8 md:left-16 right-3 top-32 md:top-64">
+  <div class="">
+    <div class="">
       <div class="flex flex-col justify-center items-center">
         <p class="text-2xl text-gray-100 text-left font-semibold">CHOOSE WHAT YOU WEAR</p>
         <h1 class="text-5xl md:text-6xl lg:text-9xl text-gray-100 text-center font-extrabold">VISIT OUR SHOP</h1>
@@ -229,50 +233,105 @@
 
   </div>
     </body>
-    <footer class="relatve w-full pt-96 md:pt-0 md:bg-no-repeat md:bg-contain flex justify-center items-center"
-  style="background-image: url('img/Rectangle 11.png');">
-  <div class="flex flex-row">
-    <div class="flex flex-col mr-32">
-      <ul class="text-gray-100">
-        <h1 class="font-semibold text-2xl">CONTENTS</h1>
-        <div class="font-md">
-          <li class="py-4 font-semibold"><a href="{{ route('welcome') }}">HOME</a></li>
-          <li class="py-4 font-semibold"><a href="{{ route('about-us') }}">ABOUT US</a></li>
-          <h1 class="py-4 font-semibold"><a href="{{ route('shop.index') }}">PRODUCTS</a></h1>
-          <li class="py-4 font-semibold"><a href="{{ route('products.customize') }}">CUSTOMIZE</a></li>
-
+    <footer class=" text-white bg-custom-text py-8 sm:py-12">
+      <div class="container mx-auto px-4">
+        <div class="sm:flex sm:flex-wrap sm:-mx-4 md:py-4">
+          <div class="px-4 sm:w-1/2 md:w-1/4 xl:w-1/6">
+            <h5 class="text-xl font-bold mt-8 pb-8">Features</h5>
+            <ul class="list-none footer-links">
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Cool stuff</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Random feature</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Team feature</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Stuff for developers</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Another one</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Last time</a>
+              </li>
+            </ul>
+          </div>
+          <div class="px-4 sm:w-1/2 md:w-1/4 xl:w-1/6 mt-8 sm:mt-0">
+            <h5 class="text-xl font-bold mb-6">Resources</h5>
+            <ul class="list-none footer-links">
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Resource</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Resource name</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Another resource</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Final resource</a>
+              </li>
+            </ul>
+          </div>
+          <div class="px-4 sm:w-1/2 md:w-1/4 xl:w-1/6 mt-8 md:mt-0">
+            <h5 class="text-xl font-bold mb-6">About</h5>
+            <ul class="list-none footer-links">
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Team</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Locations</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Privacy</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Terms</a>
+              </li>
+            </ul>
+          </div>
+          <div class="px-4 sm:w-1/2 md:w-1/4 xl:w-1/6 mt-8 md:mt-0">
+            <h5 class="text-xl font-bold mb-6">Help</h5>
+            <ul class="list-none footer-links">
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Support</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Help Center</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="border-b border-solid border-transparent hover:border-purple-800 hover:text-purple-800">Contact Us</a>
+              </li>
+            </ul>
+          </div>
+          <div class="px-4 mt-4 sm:w-1/3 xl:w-1/6 sm:mx-auto xl:mt-0 xl:ml-auto">
+            <h5 class="text-xl font-bold mb-6 sm:text-center xl:text-left">Stay connected</h5>
+            <div class="flex sm:justify-center xl:justify-start">
+              <a href="">
+                <svg class="w-8 h-8  text-center py-1 text-gray-600 hover:text-white hover:bg-blue-600" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50" style="null" class="icon icons8-Facebook-Filled" >    <path d="M40,0H10C4.486,0,0,4.486,0,10v30c0,5.514,4.486,10,10,10h30c5.514,0,10-4.486,10-10V10C50,4.486,45.514,0,40,0z M39,17h-3 c-2.145,0-3,0.504-3,2v3h6l-1,6h-5v20h-7V28h-3v-6h3v-3c0-4.677,1.581-8,7-8c2.902,0,6,1,6,1V17z"></path></svg>
+              </a>
+              
+            </div>
+          </div>
         </div>
-      </ul>
-
-    </div>
-    <div class="flex flex-col mx-24">
-      <ul class="text-gray-100">
-        <h1 class="font-semibold text-2xl">BE A MEMBER</h1>
-        <div class="font-md">
-          <li class="py-4 font-semibold"><a href="{{ route('login') }}">LOGIN</a></li>
-          <li class="py-4 font-semibold"><a href="{{ route('register') }}">REGISTER</a></li>
-
+    
+        <div class="sm:flex sm:flex-wrap sm:-mx-4 mt-6 pt-6 sm:mt-12 sm:pt-12 border-t">
+          <div class="sm:w-full px-4 md:w-1/6">
+            <img class="" src="img/Group 12.svg" />
+          </div>
+          <div class="px-4 sm:w-1/2 md:w-1/4 mt-4 md:mt-0">
+            <h6 class="font-bold mb-2">Address</h6>
+            <address class="not-italic mb-4 text-sm">
+              Mabiga, Mabalacat city, Pampanga, Region III (Central Luzon)
+            </address>
+          </div>
+          <div class="px-4 md:w-1/4 md:ml-auto mt-6 sm:mt-4 md:mt-0">
+            <button class="px-4 py-2 bg-custom-violet text-xl font-bold hover:bg-purple-900 rounded text-white">Shop Now</button>
+          </div>
         </div>
-      </ul>
-
-    </div>
-    <div class="flex flex-col mx-32">
-      <ul class="text-gray-100">
-        <h1 class="font-semibold text-2xl">CONTACT</h1>
-        <div class="font-md">
-          <li class="py-4">admin@admin.com</li>
-          <li></li>
-          <li></li>
-        </div>
-      </ul>
-
-    </div>
-
-    <img class="w-12 h-12 hover:bg-gray-200 fill-current ml-32" src="img/Icon awesome-facebook-square.svg" alt="">
-  </div>
-  <div class="py-24 flex flex-col justify-center items-center text-gray-100">
-    <h1>Copyright by EJ SPORTS JERSEY 2022</h1>
-    <h1 class="py-4">All Rights Reserved</h1>
-  </div>
-</footer>
+      </div>
+    </footer>
 </html>
