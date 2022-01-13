@@ -2,7 +2,7 @@
 
 @section('content') 
 		<section>
-			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>	
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>	
 			<script type="text/javascript" src="{{asset('js/2d-modules/fabric.js')}}"></script>
 			<link rel="preconnect" href="https://fonts.googleapis.com">
 				<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
