@@ -6,7 +6,7 @@
                 <div class="px-32 p-8 bg-custom-blacki shadow-2xl text-xl lg:text-6xl font-extrabold text-center text-gray-300 font-extraboldoverflow-x-auto">
                     My Notifications
                     @if(!$notifications->isEmpty())
-                        {{ count($notifications) }} 
+                        ({{ count($notifications) }}) 
                     @endif
                 </div>
             </div>
@@ -51,7 +51,7 @@
                     @endif
 
                     <div>
-                        <x-button type="button" wire:click="delete  ('{{ $notification['id'] }}')" class="hover:bg-red-400 hover:text-purple-100 text-md font-semibold text-white px-4 py-2 bg-red-500">
+                        <x-button type="button" wire:click="delete('{{ $notification['id'] }}')" class="hover:bg-red-400 hover:text-purple-100 text-md font-semibold text-white px-4 py-2 bg-red-500">
                             Delete
                         </x-button>
                     </div>
