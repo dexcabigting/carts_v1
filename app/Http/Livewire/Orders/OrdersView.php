@@ -111,12 +111,12 @@ class OrdersView extends Component
                 } elseif($this->selectedStatus == "Shipping") {
                     $this->validate();
 
-                    $this->assignDateOfArrival();
-                    dd("Error");
+                    // $this->assignDateOfArrival();
+                    // dd("Error");
                     $this->textUser();
                 } elseif($this->selectedStatus == "Rejected") {
-                    $this->deleteUserOrder();
-                    dd("Error");
+                    // $this->deleteUserOrder();
+                    // dd("Error");
                     $this->textUser();
                 }
 
