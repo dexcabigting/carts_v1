@@ -228,11 +228,13 @@ class OrdersView extends Component
     protected function deleteUserOrder()
     {
         $this->order->delete();
+        dd("Error");
     }
 
     public function assignDateOfArrival()
     {
         $this->order->update(['date_of_arrival' => $this->dateOfArrival]);
+        dd("Error");
     }
 
     public function notifyUser()
