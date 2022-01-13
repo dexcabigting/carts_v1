@@ -120,10 +120,13 @@
 											<h3>Tee Styles</h3>
 											<p style="">
 												<select id="tshirttype">                        
-													<option value="{{asset('images/2d-img/jersey3.png')}}" selected="selected">Jersey 1</option>
-													<option value="{{asset('images/2d-img/jersey2front.PNG')}}">Jersey 2</option>                                        
-													<option value="{{asset('images/2d-img/Design1front.png')}}">Jersey 3</option>                    
-													<option value="{{asset('images/2d-img/mens_tank_front.png')}}">Jersey 4</option>
+													<option value="{{asset('images/2d-img/jersey3.png')}}" selected="selected">Template 1</option>
+													<option value="{{asset('images/2d-img/ALLREDFront.PNG')}}">Template 2</option>                                        
+													<option value="{{asset('images/2d-img/Design1front.png')}}">Template 3</option>                    
+													<option value="{{asset('images/2d-img/RedFront.png')}}">Template 4</option>
+													<option value="{{asset('images/2d-img/lineFront.PNG')}}">Template 5</option>                                        
+													<option value="{{asset('images/2d-img/Stripeblack.png')}}">Template 6</option>                    
+													<option value="{{asset('images/2d-img/jacketfront.png')}}">Template 7</option>
 												</select>	
 											</p>								
 										</div>
