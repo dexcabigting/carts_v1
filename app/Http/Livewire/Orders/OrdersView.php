@@ -122,7 +122,7 @@ class OrdersView extends Component
 
                 $this->mount($updatedOrderStatus->id);
 
-                $this->emitUp('refreshParent'); 
+                // $this->emitUp('refreshParent'); 
 
                 session()->flash('success', 'User has been notified!');
             });
