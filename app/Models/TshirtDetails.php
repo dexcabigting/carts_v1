@@ -12,7 +12,6 @@ class TshirtDetails extends Model
     protected $table = 'tshirt_details';
 
     protected $fillable = [
-        'tshirt_id',
         'user_id',
         'tshirt_front',
         'tshirt_back',
@@ -35,7 +34,6 @@ class TshirtDetails extends Model
      */
 
     protected $casts = [
-        'customer_name' => 'string',
         'tshirt_front' => 'string',
         'tshirt_back' => 'string',
         'tshirt_jersey_measurements' => 'string',
@@ -52,9 +50,9 @@ class TshirtDetails extends Model
         'updated_date' => 'date',
     ];
 
-    public function role()
+    public function user()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(User::class);
     }
     
 }

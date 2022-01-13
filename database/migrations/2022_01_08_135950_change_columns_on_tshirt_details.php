@@ -15,8 +15,10 @@ class ChangeColumnsOnTshirtDetails extends Migration
     {
         Schema::table('tshirt_details', function (Blueprint $table) {
             //
-            $table->unsignedBigInteger('customer_name')->change();
-            $table->renameColumn('customer_name', 'user_id');
+            $table->dropColumn('customer_name');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
