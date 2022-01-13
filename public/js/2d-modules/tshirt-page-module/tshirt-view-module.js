@@ -115,12 +115,16 @@ function _onCLickFlipBack(){
         _renderShirtChanges($(this),baseUrl + "images/2d-img/Design1front.png",baseUrl + "images/2d-img/Design1back.png");  
     else if (imgUrl === "images/2d-img/RedFront.png")
     _renderShirtChanges($(this),baseUrl + "images/2d-img/RedFront.png",baseUrl + "images/2d-img/RedBack.png");
-    else if (imgUrl === "images/2d-img/lineFrontt.png")
+    else if (imgUrl === "images/2d-img/lineFront.png")
         _renderShirtChanges($(this),baseUrl + "images/2d-img/lineFront.png",baseUrl + "images/2d-img/lineback.png");
     else if (imgUrl === "images/2d-img/Stripeblack.png")
     _renderShirtChanges($(this),baseUrl + "images/2d-img/Stripeblack.png",baseUrl + "images/2d-img/Stripeblackback.png");
+    else if (imgUrl === "images/2d-img/newfd.png")
+        _renderShirtChanges($(this),baseUrl + "images/2d-img/newfd.png",baseUrl + "images/2d-img/newbd.png");    
+    else if (imgUrl === "images/2d-img/newtsf.png")
+    _renderShirtChanges($(this),baseUrl + "images/2d-img/newtsf.png",baseUrl + "images/2d-img/newtsb.png");
     else if (imgUrl === "images/2d-img/jacketfront.png")
-        _renderShirtChanges($(this),baseUrl + "images/2d-img/jacketfront.png",baseUrl + "images/2d-img/jacketback.png");
+    _renderShirtChanges($(this),baseUrl + "images/2d-img/jacketfront.png",baseUrl + "images/2d-img/jacketback.png");
     
 
     canvas.renderAll();

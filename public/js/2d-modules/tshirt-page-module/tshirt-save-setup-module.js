@@ -249,18 +249,22 @@ function _createtshirtPDF(){
 
     if (imgUrl === "images/2d-img/jersey3.png")
         _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/jersey3.png",baseUrl + "images/2d-img/jersey4back.png");
-    else if (imgUrl === "images/2d-img/ALLREDFront.PNG")
-        _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/ALLREDFront.PNG",baseUrl + "images/2d-img/ALLREDback.PNG");
+    else if (imgUrl === "images/2d-img/jersey2front.PNG")
+        _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/jersey2front.PNG",baseUrl + "images/2d-img/jersey2back.PNG");
     else if (imgUrl === "images/2d-img/Design1front.png")
         _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/Design1front.png",baseUrl + "images/2d-img/Design1back.png");
     else if (imgUrl === "images/2d-img/RedFront.png")
-        _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/RedFront.png",baseUrl + "images/2d-img/RedBack.png"); 
-    else if (imgUrl === "images/2d-img/lineFront.png")
-        _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/lineFront.png",baseUrl + "images/2d-img/lineback.png"); 
-    else if (imgUrl === "images/2d-img/Stripeblack.png")
-        _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/Stripeblack.png",baseUrl + "images/2d-img/Stripeblackback.png"); 
-    else if (imgUrl === "images/2d-img/jacketfront.png")
-        _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/jacketfront.png",baseUrl + "images/2d-img/jacketback.png"); 
+        _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/RedFront.png",baseUrl + "images/2d-imgRedBack.png"); 
+        else if (imgUrl === "images/2d-img/lineFront.png")
+        _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/lineFront.png",baseUrl + "images/2d-img/lineback.png");
+        else if (imgUrl === "images/2d-img/Stripeblackt.png")
+        _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/Stripeblack.png",baseUrl + "images/2d-img/Stripeblack.png");
+        else if (imgUrl === "images/2d-img/newfd.png")
+        _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/newfd.png",baseUrl + "images/2d-img/newbd.png");
+        else if (imgUrl === "images/2d-img/newtsf.png")
+        _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/newtsf.png",baseUrl + "images/2d-img/newtsb.png");
+        else if (imgUrl === "images/2d-img/jacketfront.png")
+        _flipTshirt($(_getIdSelector("flipback")),baseUrl + "images/2d-img/jacketfront.png",baseUrl + "images/2d-img/jacketback.png");
 }
 
 function _flipTshirt(sender, frontImgUrl, backImgUrl){
