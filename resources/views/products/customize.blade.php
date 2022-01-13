@@ -98,7 +98,7 @@
 		<meta name="csrf-token" content="{{ Session::token() }}"> 
 		<!-- Navbar
 			================================================== -->
-			<input type="hidden" value="{{ Auth::user()->name }}" id="hdn-user-name-id" />
+			<input type="hidden" value="{{ Auth::user()->id }}" id="hdn-user-name-id" />
 			<div class="container">
 				<section id="typography">
 				<div class="page-header">
@@ -120,10 +120,15 @@
 											<h3>Tee Styles</h3>
 											<p style="">
 												<select id="tshirttype">                        
-													<option value="{{asset('images/2d-img/jersey3.png')}}" selected="selected">Jersey 1</option>
-													<option value="{{asset('images/2d-img/jersey2front.PNG')}}">Jersey 2</option>                                        
-													<option value="{{asset('images/2d-img/Design1front.png')}}">Jersey 3</option>                    
-													<option value="{{asset('images/2d-img/mens_tank_front.png')}}">Jersey 4</option>
+													<option value="{{asset('images/2d-img/jersey3.png')}}" selected="selected">Template 1</option>
+													<option value="{{asset('images/2d-img/ALLREDFront.PNG')}}">Template 2</option>                                        
+													<option value="{{asset('images/2d-img/Design1front.png')}}">Template 3</option>                    
+													<option value="{{asset('images/2d-img/RedFront.png')}}">Template 4</option>
+													<option value="{{asset('images/2d-img/lineFront.PNG')}}">Template 5</option>                                        
+													<option value="{{asset('images/2d-img/Stripeblack.png')}}">Template 6</option>                    
+													<option value="{{asset('images/2d-img/newfd.png')}}">Template 7</option>
+													<option value="{{asset('images/2d-img/newtsf.png')}}">Template 9</option>
+													<option value="{{asset('images/2d-img/jacketfront.png')}}">Template 8</option>
 												</select>	
 											</p>								
 										</div>
@@ -150,13 +155,28 @@
 												<li class="color-preview" title="Red" style="background-color:#FF0000;"></li>
 												<li class="color-preview" title="Dark Heather" style="background-color:#616161;"></li>
 												<li class="color-preview" title="Gray" style="background-color:#f0f0f0;"></li>
-												<li class="color-preview" title="Charcoal" style="background-color:#5b5b5b;"></li>
+												<li class="color-preview" title="Green" style="background-color:#008000;"></li>
 												<li class="color-preview" title="Black" style="background-color:#222222;"></li>
 												<li class="color-preview" title="Heather Orange" style="background-color:#fc8d74;"></li>
 												<li class="color-preview" title="Heather Dark Chocolate" style="background-color:#432d26;"></li>
 												<li class="color-preview" title="Salmon" style="background-color:#eead91;"></li>
 												<li class="color-preview" title="Chesnut" style="background-color:#806355;"></li>
-												<li class="color-preview" title="Dark Chocolate" style="background-color:#382d21;"></li>
+												<li class="color-preview" title="Yellow" style="background-color:#ffff00;"></li>
+												<li class="color-preview" title="Blue" style="background-color:#0000ff;"></li>
+												<li class="color-preview" title="Pink" style="background-color:#ffc0cb;"></li>
+												<li class="color-preview" title="Purple" style="background-color:#800080;"></li>
+												<li class="color-preview" title="Orange" style="background-color:#ffa500;"></li>
+												<li class="color-preview" title="Maroon" style="background-color:#800000;"></li>
+												<li class="color-preview" title="Navy" style="background-color:#000080;"></li>
+												<li class="color-preview" title="Lime" style="background-color:#00FF00;"></li>
+												<li class="color-preview" title="Aqua" style="background-color:#00FFFF;"></li>
+												<li class="color-preview" title="Rosy pink" style="background-color:#B38481;"></li>
+												<li class="color-preview" title="Violet" style="background-color:#9400D3;"></li>
+												<li class="color-preview" title="Pastel Violet" style="background-color:#D291BC;"></li>
+												<li class="color-preview" title="Rose Gold" style="background-color:#ECC5C0;"></li>
+												<li class="color-preview" title="Silver Pink" style="background-color:#C4AEAD;"></li>
+												<li class="color-preview" title="Tomato" style="background-color:#FF6347;"></li>
+
 												
 											</ul>
 										</div>
