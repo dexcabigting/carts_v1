@@ -59,6 +59,6 @@ class NotificationsIndex extends Component
     {
         $this->notificationId = $id;
 
-        $this->notification($id)->delete();  
+        $this->notification->delete();  
     }
 }

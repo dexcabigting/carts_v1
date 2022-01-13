@@ -17,7 +17,7 @@
                         <div class="bg-white relative">
                             <div class="h-10">
                             </div>
-                            <div class="text-lg font-bold text-gray-600  absolute bottom-1/4 left-1/4">
+                            <div class="lg:-ml-6 -ml-2text-lg font-bold text-gray-600  absolute bottom-1/4 left-1/4">
                                 Step 1: <span class="text-lg font-bold">Contact Information</span>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
                     <div class="bg-white relative">
                         <div class="w-1/4 bg-green-500 h-10">
                         </div>
-                        <div class="text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
+                        <div class="lg:-ml-6 -ml-2text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
                             Step 2: <span class="text-lg font-bold">Confirm Address</span>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
                     <div class="bg-white relative">
                         <div class="w-2/4 bg-green-500 h-10">
                         </div>
-                        <div class="text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
+                        <div class="lg:-ml-6 -ml-2 text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
                             Step 3: <span class="text-lg font-bold">Payment Method</span>
                         </div>
                     </div>
@@ -106,10 +106,10 @@
                     </div>
                 @elseif($pages === 4)
                     <div class="bg-white relative">
-                        <div class="w-3/4 bg-green-500 h-10">
+                        <div class="w-2/4 bg-green-500 h-10">
                         </div>
-                        <div class="text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
-                            Step 4: <span class="text-lg font-bold">Confirm your order details!</span>
+                        <div class="-ml-10 text-sm font-bold text-gray-600 absolute bottom-1/4 left-1/4">
+                            Step 4: <span class="text-base font-bold">Confirm your order details!</span>
                         </div>
                     </div>
 
@@ -155,7 +155,7 @@
                     <div class="bg-white relative">
                         <div class="w-4/4 bg-green-500 h-10">
                         </div>
-                        <div class="text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
+                        <div class="lg:-ml-6 -ml-2text-lg font-bold text-gray-600 absolute bottom-1/4 left-1/4">
                             Step 5: <span class="text-lg font-bold">Proof of Payment</span>
                         </div>
                     </div>

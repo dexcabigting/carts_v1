@@ -19,7 +19,7 @@ class FabricsEdit extends Component
     ];
 
     protected $rules = [
-        'form.fab_name' => 'required|string|max:100|regex:/^([A-Z0-9]+ ?)+$/i',
+        'form.fab_name' => 'required|string|max:15',
         'form.fab_description' => 'required|string|max:100',
     ];
 

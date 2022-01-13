@@ -1,6 +1,7 @@
 <div>
     <x-auth-card>
         <div class="px-12">
+            \
             <section class="w-full flex justify-center items-center my-24 flex-col">
                 <h1 class="font-semibold  text-7xl md:text-9xl text-custom-blacki my-4">REGISTER</h1>
                 <!-- Validation Errors -->
@@ -113,6 +114,22 @@
                         <x-input wire:model.defer="form.password_confirmation" class="block mt-1 w-full" type="password" required />
                     </div>
 
+                    <div class="mt-10 w-full flex justify-center items-center">
+                        <a class="inline-flex" href="https://www.termsandconditionsgenerator.com/live.php?token=8ZlQaDXXCrWQvSsLSVQeIl23T6fczfI6">
+                            <div>
+                            <svg class="text-white h-6 w-6 mx-2" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                              </svg>
+                            </div>
+                            <div>
+                                <p class="text-sm text-white text-center hover:text-custom-violet hover:underline">
+                                    By clicking register you agreed to our terms and condition.
+                                </p>
+                            </div>
+                           
+                    </a>
+                    </div>
+
                     <div class="flex items-center flex-col justify-center mt-4">
                         <div>
                             <x-button class="md:mt-4 mt-12 uppercase hover:bg-purple-900 hover:text-purple-100 text-3xl font-semibold text-white px-32 md:px-44 py-6 my-6 w-full bg-custom-violet">
@@ -125,6 +142,7 @@
                             </a>
                         </div>
                     </div>
+                   
                 </form>
             </section>
         </div>

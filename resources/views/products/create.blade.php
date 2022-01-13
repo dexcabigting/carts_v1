@@ -73,95 +73,90 @@
                         </div>
 
                         @foreach($addVariants as $index => $addVariant)
-                        <div class="inline-flex xl:flex-row flex-col">
-                        <div class="block">
-                            <div wire:key="{{ $loop->index }}-variant-number" class="flex gap-5 pb-3">
-                                <div wire:key="{{ $loop->index }}-variant-name">    
-                                    <x-label :value="__('Variant')"/>
-                                    <x-input wire:model.defer="addVariants.{{ $index }}.prd_var_name" class="block mt-1 w-full text-black" type="text" autofocus />
-                                </div>
-
-                                <div class="w-2/4">
-                                    <div class="">
-                                        <x-label :value="__('Front View')"/>
-                                        <input wire:key="{{ $addVariants[$index]['id'] }}-front" type="file" wire:model="addVariants.{{ $index }}.front_view" />
-                                        <div wire:loading wire:target="addVariants.{{ $index }}.front_view">Uploading...</div>
+                        <div class="inline-flex xl:flex-row flex-col gap-2">
+                            <div class="block">
+                                <div wire:key="{{ $loop->index }}-variant-number" class="flex gap-5 pb-3">
+                                    <div wire:key="{{ $loop->index }}-variant-name">    
+                                        <x-label :value="__('Variant')"/>
+                                        <x-input wire:model.defer="addVariants.{{ $index }}.prd_var_name" class="block mt-1 w-full text-black" type="text" autofocus />
                                     </div>
 
-                                    <div class="">   
-                                        <x-label :value="__('Back View')"/> 
-                                        <input wire:key="{{ $addVariants[$index]['id'] }}-back" type="file" wire:model="addVariants.{{ $index }}.back_view" />
-                                        <div wire:loading wire:target="addVariants.{{ $index }}.back_view">Uploading...</div>
+                                    <div wire:key="{{ $loop->index }}-images" class="w-2/4">
+                                        <div class="">
+                                            <x-label :value="__('Front View')"/>
+                                            <input wire:key="{{ $addVariants[$index]['id'] }}-front" type="file" wire:model="addVariants.{{ $index }}.front_view" />
+                                            <div wire:loading wire:target="addVariants.{{ $index }}.front_view">Uploading...</div>
+                                        </div>
+
+                                        <div class="">   
+                                            <x-label :value="__('Back View')"/> 
+                                            <input wire:key="{{ $addVariants[$index]['id'] }}-back" type="file" wire:model="addVariants.{{ $index }}.back_view" />
+                                            <div wire:loading wire:target="addVariants.{{ $index }}.back_view">Uploading...</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                               
-                               
-
-                                <div class=" block justify-center items-center">
-
+                            <div class="block justify-center items-center">
                                 <div class="items-center align-center">
-                                <div wire:key="{{ $loop->index }}-sizes" class="flex flex-row gap-2">
-                                    <div wire:key="{{ $loop->index }}-2xs">
-                                        <x-label for="2XS" :value="__('2XS')"/>
-                                        <x-input wire:model.defer="addVariants.{{ $index }}.2XS" class="block mt-1 w-14 text-black" type="text" value="{{ old('2XS') }}" autofocus />
+                                    <div wire:key="{{ $loop->index }}-sizes-1" class="flex flex-row gap-2">
+                                        <div wire:key="{{ $loop->index }}-2xs">
+                                            <x-label for="2XS" :value="__('2XS')"/>
+                                            <x-input wire:model.defer="addVariants.{{ $index }}.2XS" class="block mt-1 w-14 text-black" type="text" value="{{ old('2XS') }}" autofocus />
+                                        </div>
+                                        
+                                        <div wire:key="{{ $loop->index }}-xs">
+                                            <x-label for="XS" :value="__('XS')"/>
+                                            <x-input wire:model.defer="addVariants.{{ $index }}.XS" class="block mt-1 w-14 text-black" type="text" value="{{ old('XS') }}" autofocus />
+                                        </div>
+
+                                        <div wire:key="{{ $loop->index }}-s">
+                                            <x-label for="S" :value="__('S')"/>
+                                            <x-input wire:model.defer="addVariants.{{ $index }}.S" class="block mt-1 w-14 text-black" type="text" value="{{ old('S') }}" autofocus />
+                                        </div>
                                     </div>
+
+                                    <div wire:key="{{ $loop->index }}-sizes-2" class="flex flex-row gap-2">
+                                        <div wire:key="{{ $loop->index }}-m">
+                                            <x-label for="M" :value="__('M')"/>
+                                            <x-input wire:model.defer="addVariants.{{ $index }}.M" class="block mt-1 w-14 text-black" type="text" value="{{ old('M') }}" autofocus />
+                                        </div>
                                     
-                                    <div wire:key="{{ $loop->index }}-xs">
-                                        <x-label for="XS" :value="__('XS')"/>
-                                        <x-input wire:model.defer="addVariants.{{ $index }}.XS" class="block mt-1 w-14 text-black" type="text" value="{{ old('XS') }}" autofocus />
-                                    </div>
+                                        <div wire:key="{{ $loop->index }}-l">
+                                            <x-label for="L" :value="__('L')"/>
+                                            <x-input wire:model.defer="addVariants.{{ $index }}.L" class="block mt-1 w-14 text-black" type="text" value="{{ old('L') }}" autofocus />
+                                        </div>
 
-                                    <div wire:key="{{ $loop->index }}-s">
-                                        <x-label for="S" :value="__('S')"/>
-                                        <x-input wire:model.defer="addVariants.{{ $index }}.S" class="block mt-1 w-14 text-black" type="text" value="{{ old('S') }}" autofocus />
-                                    </div>
-                                    </div>
-                                    <div class="flex flex-row gap-2">
-                                    <div wire:key="{{ $loop->index }}-m">
-                                        <x-label for="M" :value="__('M')"/>
-                                        <x-input wire:model.defer="addVariants.{{ $index }}.M" class="block mt-1 w-14 text-black" type="text" value="{{ old('M') }}" autofocus />
-                                    </div>
-                                
-                                    <div wire:key="{{ $loop->index }}-l">
-                                        <x-label for="L" :value="__('L')"/>
-                                        <x-input wire:model.defer="addVariants.{{ $index }}.L" class="block mt-1 w-14 text-black" type="text" value="{{ old('L') }}" autofocus />
-                                    </div>
+                                        <div wire:key="{{ $loop->index }}-xl">
+                                            <x-label for="XL" :value="__('XL')"/>
+                                            <x-input wire:model.defer="addVariants.{{ $index }}.XL" class="block mt-1 w-14 text-black" type="text" value="{{ old('XL') }}" autofocus />
+                                        </div>
 
-                                    <div wire:key="{{ $loop->index }}-xl">
-                                        <x-label for="XL" :value="__('XL')"/>
-                                        <x-input wire:model.defer="addVariants.{{ $index }}.XL" class="block mt-1 w-14 text-black" type="text" value="{{ old('XL') }}" autofocus />
-                                    </div>
-
-                                    <div wire:key="{{ $loop->index }}-2xl">
-                                        <x-label for="2XL" :value="__('2XL')"/>
-                                        <x-input wire:model.defer="addVariants.{{ $index }}.2XL" class="block mt-1 w-14 text-black" type="text" value="{{ old('2XL') }}" autofocus />
-                                    </div>        
+                                        <div wire:key="{{ $loop->index }}-2xl">
+                                            <x-label for="2XL" :value="__('2XL')"/>
+                                            <x-input wire:model.defer="addVariants.{{ $index }}.2XL" class="block mt-1 w-14 text-black" type="text" value="{{ old('2XL') }}" autofocus />
+                                        </div>        
                                     </div>
                                 </div>
-                                </div>
-                                @if(count($addVariants) == 1) 
-                                    <div>
-                                        <x-button type="button" wire:click.prevent="addMore">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                        </x-button>
-                                    </div>
-                                @else 
-                                    <div>
-                                        <x-button type="button" wire:click.prevent="removeVariant({{ $index }})">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                        </x-button>
-                                    </div>
-                                @endif
                             </div>
-</div>
-            
+                            @if(count($addVariants) == 1) 
+                                <div>
+                                    <x-button type="button" wire:click.prevent="addMore">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </x-button>
+                                </div>
+                            @else 
+                                <div>
+                                    <x-button type="button" wire:click.prevent="removeVariant({{ $index }})">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </x-button>
+                                </div>
+                            @endif
+                        </div>
                         @endforeach
 
                         @if(count($addVariants) != 1)

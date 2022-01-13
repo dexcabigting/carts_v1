@@ -115,7 +115,8 @@ class ShopIndex extends Component
             })
             ->withSum('product_variants', 'sold_count')
             ->where('prd_name', 'like', $search)
-            ->whereBetween('prd_price', [$min, $max])
+            ->where('prd_price', '>=', $min)
+            ->where('prd_price', '<=', $max)
             ->whereIn('products.category_id', $category)
             ->whereIn('fabric_id', $fabric)
             ->orderBy($sortBy, $orderBy);

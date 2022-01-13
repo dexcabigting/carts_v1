@@ -139,6 +139,7 @@ class ProductsEdit extends Component
     {
         $this->form['category_id'] = (string)$this->form['category_id'];
         $this->form['fabric_id'] = (string)$this->form['fabric_id'];
+        $this->form['prd_price'] = number_format($this->form['prd_price'], 2);
 
         $this->validate();
 

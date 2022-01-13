@@ -8,8 +8,9 @@
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form classs="w-full max-w-lg" method="POST" action="{{ route('password.update') }}">
+        <div class="md:flex justify-center items-center mx-8 md:mx-0">
+        <div class="md:w-1/2">
+        <form classs="w-full max-w-2xl" method="POST" action="{{ route('password.update') }}">
             @csrf
 
             <!-- Password Reset Token -->
@@ -39,10 +40,12 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <x-button>
+                <x-button class="text-white py-2 px-4 bg-custom-violet text-xl font-bold">
                     {{ __('Reset Password') }}
                 </x-button>
             </div>
         </form>
+    </div>
+</div>
     </x-auth-card>
 </x-guest-layout>

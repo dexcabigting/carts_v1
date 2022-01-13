@@ -5,8 +5,8 @@
                 <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
             </a>
         </x-slot>
-        <div class="w-full flex items-center justify-center">
-        <div class="mb-4 text-2xl text-center text-gray-600">
+        <div class="pt-12 w-full flex flex-col items-center justify-center">
+        <div class="mb-4 text-2xl text-center text-gray-600 mx-2">
             {{ __('Please enter the verification code.') }}
         </div>
 
@@ -26,7 +26,7 @@
             </div>
 
             <div class="flex items-center justify-end mt-4 ">
-                <x-button>
+                <x-button class="text-white bg-custom-violet px-4 py-2">
                     {{ __('Confirm Verification Code') }}
                 </x-button>
             </div>
