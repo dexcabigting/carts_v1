@@ -185,7 +185,7 @@ class ProductsCreate extends Component
                         } else {
                             event(new ProductCreated($product));
 
-                            break;
+                            break 2;
                         }
                     }
                 }
