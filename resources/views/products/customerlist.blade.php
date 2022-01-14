@@ -46,7 +46,7 @@
                             <tr> 
                                 <td class="px-6 py-4 whitespace-nowrap"> 
                                     <div class="text-sm font-medium text-gray-100">
-                                        fritz
+                                        {{ $tshirt_detail->user->name }}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap"> 

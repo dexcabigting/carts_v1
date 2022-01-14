@@ -89,7 +89,7 @@ class PremadeSalesIndex extends Component
                         });
                     })
                     ->where('product_variant_id', 'like', $this->productVariantId)
-                    ->where('created_at', '>=', $this->startDate)
+                    ->where('created_at', '>=', Carbon::parse($this->startDate)->toDateString())
                     ->where('created_at', '<=', Carbon::parse($this->endDate)->addDay(1)->toDateString());                    
     }
 
