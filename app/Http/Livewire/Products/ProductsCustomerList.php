@@ -11,7 +11,7 @@ class ProductsCustomerList extends Component
 {
     public function render()
     {
-        $tshirt_details = TshirtDetails::all();
+        $tshirt_details = TshirtDetails::with('user:id,name')->get();
 
         $userIds = $tshirt_details->pluck('user_id')->toArray();
 
