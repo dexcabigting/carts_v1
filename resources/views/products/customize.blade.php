@@ -121,10 +121,10 @@
 											<p style="">
 												<select id="tshirttype">                        
 													<option value="{{asset('images/2d-img/jersey3.png')}}" selected="selected">Template 1</option>
-													<option value="{{asset('images/2d-img/ALLREDFront.PNG')}}">Template 2</option>                                        
+													<option value="{{asset('images/2d-img/AllRedfront.png')}}">Template 2</option>                                        
 													<option value="{{asset('images/2d-img/Design1front.png')}}">Template 3</option>                    
 													<option value="{{asset('images/2d-img/RedFront.png')}}">Template 4</option>
-													<option value="{{asset('images/2d-img/lineFront.PNG')}}">Template 5</option>                                        
+													<option value="{{asset('images/2d-img/lineFront.png')}}">Template 5</option>                                        
 													<option value="{{asset('images/2d-img/Stripeblack.png')}}">Template 6</option>                    
 													<option value="{{asset('images/2d-img/newfd.png')}}">Template 7</option>
 													<option value="{{asset('images/2d-img/newtsf.png')}}">Template 8</option>
