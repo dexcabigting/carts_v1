@@ -106,6 +106,10 @@ class ShopIndex extends Component
         ];
 
         return Product::with('category:id,ctgr_name', 'fabric:id,fab_name')
+            ->with(['product_variants' => function ($query) use ($sizes) {
+                $query->select('id', 'product_id', 'front_view', 'back_view')
+                ->with(['product_stock']);
+            }])
             ->whereHas('product_variants', function ($query) use($sizes) {
                 $query->whereDoesntHave('product_stock', function ($query) use($sizes){
                     foreach($sizes as $size) {
