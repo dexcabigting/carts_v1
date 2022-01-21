@@ -260,6 +260,47 @@ slider.onmouseout = function() {
                     {{ $product->prd_name }}
                 </div>
 
+                <div>
+                    <div class="flex  flex-wrap text-white text-center">
+                    @php
+                        $sizes = [
+                            '2XS' => 0,
+                            'XS' => 0,
+                            'S' => 0,
+                            'M' => 0,
+                            'L' => 0,
+                            'XL' => 0,
+                            '2XL' => 0
+                        ];
+                    @endphp
+                    
+                    @foreach($product->product_variants as $productVariant)
+                        @foreach($productVariant->product_stock->sizes->toArray() as $column => $value)
+                            @if($value > 0) 
+                                @php
+                                    $sizes[$column] = $sizes[$column] + $value;
+                                @endphp
+                            @endif
+                            {{--<div class="p-1 border border-gray-300 rounded-lg w-10">
+                                {{ $column }}
+                                <div class="justify p-1 border border-gray-300 rounded-lg">
+                                    {{ $value }}
+                                </div>
+                            </div>--}}
+                        @endforeach
+                    @endforeach
+
+                    @foreach($sizes as $column => $value)
+                        <div class="p-1 border border-gray-300 rounded-lg w-10">
+                            {{ $column }}
+                            <div class="justify p-1 border border-gray-300 rounded-lg">
+                                {{ $value }}
+                            </div>
+                        </div>
+                    @endforeach
+                    </div>
+                </div>
+
                 <div class="text-white text-l">
                     {{ $product->fabric->fab_name }} {{ $product->category->ctgr_name }}
                 </div>
