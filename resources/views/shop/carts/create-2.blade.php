@@ -55,14 +55,14 @@
 
         <div class="flex flex-row flex-wrap text-center">
             @foreach($variantTest->product_stock->sizes->toArray() as $column => $value)
-            @if($value > 0)
-            <div class="p-2 border border-gray-300 rounded-lg w-20">
-                {{ $column }}
-                <div class="justify p-2 border border-gray-300 rounded-lg">
-                    {{ $value }}
+                @if($value > 0)
+                <div class="p-2 border border-gray-300 rounded-lg w-20">
+                    {{ $column }}
+                    <div class="justify p-2 border border-gray-300 rounded-lg">
+                        {{ $value }}
+                    </div>
                 </div>
-            </div>
-            @endif
+                @endif
             @endforeach
         </div>
     </div>
