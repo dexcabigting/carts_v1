@@ -47,6 +47,10 @@
                 @endif
                 
                 <div class="flex flex-row gap-5 ml-24 xl:ml-2 items-center">
+                    <div class="w-32">
+                        {{ $notification['created_at']->toDayDateTimeString() }}
+                    </div>
+                    
                     @if($notificationType != 'readNotifications')
                     <div>
                         <x-button type="button" wire:click="markAsRead('{{ $notification['id'] }}')" class="w-32 items-center align-center hover:bg-purple-400 hover:text-purple-100 text-XL font-semibold text-white px-1 py-2 bg-custom-violet">
