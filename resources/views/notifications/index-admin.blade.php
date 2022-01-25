@@ -41,7 +41,7 @@
                 </div>
                 @endif
                 
-                <div class="flex flex-col md:flex-row align-center float-leitems-center px-2 gap-5 ml-2 xl:ml-24">
+                <div class="flex flex-col md:flex-row align-center float-left items-center px-2 gap-5 ml-2 xl:ml-24">
                     <div class="w-32">
                         {{ $notification['created_at']->toDayDateTimeString() }}
                     </div>
