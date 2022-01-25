@@ -33,7 +33,7 @@
                     </div>
                 @elseif($notification['type'] == 'App\Notifications\RegisteredNotification')
                     <div class="w-full p-2 px-2 lg:px-12">
-                        {{ $notification['data']['name'] }} ({{ $notification['data']['email'] }}) has registered {{ $notification['created_at']->diffForHumans() }}   
+                        {{ $notification['data']['name'] }} ({{ $notification['data']['email'] }}) has registered {{ $notification['created_at']->diffForHumans() }}    
                     </div>
                 @elseif($notification['type'] == 'App\Notifications\ProductVariantCommentCreatedNotification')
                 <div class="w-full p-2 px-2 lg:px-12">
@@ -42,6 +42,9 @@
                 @endif
                 
                 <div class="flex flex-col md:flex-row align-center float-leitems-center px-2 gap-5 ml-2 xl:ml-24">
+                    <div class="w-32">
+                        {{ $notification['created_at']->toDayDateTimeString() }}
+                    </div>
                     @if($notificationType != 'readNotifications')
                     <div>
                         <x-button type="button" wire:click="markAsRead('{{ $notification['id'] }}')" class="w-32 hover:bg-purple-400 hover:text-purple-100 text-md font-semibold text-white px-2 py-2 bg-custom-violet">
